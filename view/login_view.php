@@ -2,11 +2,12 @@
 	use model\classes\PageClass;
 
 	$page = new PageClass();
+    $page->title = "My Restaurant | Login";
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->menus);
 ?>
-	<h4>Vista de Login</h4>
+	<h3 class="text-center">LOGIN</h3>
     <div class="col-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
         <form action="#" method="post">

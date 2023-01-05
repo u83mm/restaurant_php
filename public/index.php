@@ -7,6 +7,6 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
 	
-	$indexController = new IndexController();	
-	$indexController->index($dbcon);
+	$indexController = new IndexController($dbcon);	
+	$indexController->index();
 ?>

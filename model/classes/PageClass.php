@@ -43,38 +43,39 @@
 				<script type="text/javascript" src="/js/bootstrap.bundle.min.js.js"></script>
 				<script type="text/javascript" src="/js/eventos.js"></script>
 			</head>
-			<body class="container-fluid">
-			<main>
+			<body class="ps-3 pe-3">
 				<header class="d-flex justify-content-center align-items-center">
 					<h1><?php echo $this->h1; ?></h1>
 				</header>
+				<main class="container-fluid">
+					
 <?php			
 		}
 
 		public function do_html_nav($menus=NULL) {
 ?>
-			<nav>
-				<ul>
+					<nav>
+						<ul>
 <?php
-			foreach($this->menus as $name => $url) {
-				if((!isset($_SESSION['role']) && $name === "Administration |") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration |")) continue;
+					foreach($this->menus as $name => $url) {
+						if((!isset($_SESSION['role']) && $name === "Administration |") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration |")) continue;
 ?>
-					<li><a href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
+							<li><a href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
-			}
+					}
 ?>
-				</ul>
-			</nav>
-			<noscript><h4>Tienes javaScript desactivado</h4></noscript>
+						</ul>
+					</nav>
+					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
 <?php
 		}
 
 		public function do_html_footer() {
-?>
-			</main>
-				<footer>
+?>					
+				</main>	
+				<footer class="container-flu">
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
-				</footer>
+				</footer>			
 			</body>
 		</html>
 <?php		

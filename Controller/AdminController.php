@@ -5,12 +5,16 @@
     use model\classes\Validate;
 
     class AdminController
-    {
-        private object $dbcon;
-
-        public function __construct(object $dbcon)
+    {        
+        public function __construct(private object $dbcon)
         {
-            $this->dbcon = $dbcon;
+
+        }
+
+        /** Show main menus views */
+        public function adminMenus():void
+        {
+            include(SITE_ROOT . "/../view/admin/admin_menus_view.php");
         }
 
         /** Show user index */

@@ -9,13 +9,11 @@
      */
     class LoginController
     {       
-        private object $dbcon;
-
-        public function __construct(object $dbcon)
+		public function __construct(private object $dbcon)
         {
-            $this->dbcon = $dbcon;
+                        
         }
-
+		
         /* Checking if the user is logged in. If not, it checks if the email and password are not
         empty. If they are not empty, it checks if the email exists in the database. If it does, it
         checks if the password is correct. If it is, it sets the session variables and redirects to
