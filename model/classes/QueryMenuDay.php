@@ -26,13 +26,14 @@
             return $rows;
         } 
         
-        public function updateDishe(string $name, string $description, string $id): void
+        public function updateDishe(string $name, string $description, string $categoryId, string $id): void
         {
-            $query = "UPDATE dishes SET name = :name, description = :description WHERE dishe_id = :id";                 
+            $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id WHERE dishe_id = :id";                 
 
             $stm = $this->dbcon->pdo->prepare($query); 
             $stm->bindValue(":name", $name); 
-            $stm->bindValue(":description", $description);          
+            $stm->bindValue(":description", $description); 
+            $stm->bindValue(":category_id", $categoryId);          
             $stm->bindValue(":id", $id);              
             $stm->execute();       				
             $stm->closeCursor();

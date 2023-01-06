@@ -72,9 +72,15 @@
 
         public function show(): void
         {
-            /** Get the id and create query object */
-            $dishe_id = $_REQUEST['dishe_id'];                      
+            // We obtain all registries in "dishes_category" table
+            
             $query = new Query($this->dbcon);
+            $categories = $query->selectAll("dishes_category");
+
+
+            /** Get the id */
+
+            $dishe_id = $_REQUEST['dishe_id'];                                  
 
             try {              
                 $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_category", "category_id", "dishe_id", $dishe_id);
@@ -98,7 +104,7 @@
            
             try {
                 $query = new QueryMenuDay($this->dbcon);
-                $query->updateDishe($name, $description, $id);
+                $query->updateDishe($name, $description, $category, $id);
 
                 $success_msg = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";
 

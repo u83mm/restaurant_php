@@ -27,7 +27,12 @@
             <div class="row mb-3">
                 <label class="col-sm-2  col-form-label" for="category">Categoría:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" name="category" id="category" value="<?php echo $dishe['category_name']; ?>" required>
+                    <select name="category" id="category">
+                        <option value="<?php echo $dishe['category_id']; ?>"><?php echo $dishe['category_name']; ?></option>
+                    <?php foreach ($categories as $key => $category) { ?>
+                        <option value="<?php echo $category["category_id"]; ?>"><?php echo $category["category_name"]; ?></option>
+                    <?php } ?>
+                    </select>                   
                 </div>                
             </div>               
             <div class="row mb-3">
