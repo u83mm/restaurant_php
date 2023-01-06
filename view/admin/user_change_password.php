@@ -6,7 +6,7 @@
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
 	$home->do_html_nav($home->menus);
 ?>
-	<h4>CHANGE PASSWORD</h4>
+	<h3 class="text-center">CHANGE PASSWORD</h3>
     <div class="col-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
         <form action="#" method="post"> 
@@ -26,10 +26,11 @@
             <div class="row mb-3">
                 <label class="col-sm-4" for="nome">&nbsp;</label>
                 <div class="col-sm-6">
-                    <input type="submit" name="action" value="Change Password">
+                    <input type="submit" name="action" value="Change Password">                    
                 </div>                
             </div>                                                              
         </form>
+        <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Volver"></form>
     </div>    
 <?php
 	$home->do_html_footer();

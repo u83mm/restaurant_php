@@ -14,25 +14,25 @@
                 <thead>
                     <tr class="text-center">
                         <th>Id</th>
-                        <th>User Name</th>                        
-                        <th>Email</th>
-                        <th>Role</th>
+                        <th>Nombre</th>                        
+                        <th>Descripción</th>
+                        <th>Categoría</th>
                         <th>Options</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($rows as $value) { ?>
                     <tr>
-                        <td><?php echo $value['id_user']; ?></td>
-                        <td><?php echo $value['user_name']; ?></td>                        
-                        <td><?php echo $value['email']; ?></td>
-                        <td><?php echo $value['role']; ?></td>
+                        <td><?php echo $value['dishe_id']; ?></td>
+                        <td><?php echo $value['name']; ?></td>                        
+                        <td><?php echo $value['description']; ?></td>
+                        <td><?php echo $value['category_name']; ?></td>
                         <td class="text-center">
                             <form action="#" method="post" class="d-inline">
-                                <input type="hidden" name="id_user" value="<?php echo $value['id_user']; ?>">
+                                <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">
                                 <input class="btn btn-outline-success" type="submit" name="action" value="Show">
                             </form>
-                            <?php include(SITE_ROOT . "/../view/admin/user_delete_form.php"); ?>
+                            <?php include(SITE_ROOT . "/../view/admin/dishes/delete_form.php"); ?>
                         </td>
                     </tr>
                 <?php } ?>

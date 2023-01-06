@@ -11,7 +11,7 @@
 		public $menus = array (
 			"Home |"			=>	"/",
 			"Registration |"	=> 	"/register.php",
-			"Administration |"	=>	"/admin.php",
+			"Administration |"	=>	"/admin/admin.php",
 			"Login |"			=> 	"/login.php",			
 		);
 
@@ -39,7 +39,7 @@
 				<link rel="icon" type="image/gif" href="/images/favicon.ico">				
 				<link rel="stylesheet" type="text/css" href="/css/reset.css">
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-				<link rel="stylesheet" type="text/css" href="css/estilo.css">
+				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 				<script type="text/javascript" src="/js/bootstrap.bundle.min.js.js"></script>
 				<script type="text/javascript" src="/js/eventos.js"></script>
 			</head>

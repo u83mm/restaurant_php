@@ -24,10 +24,14 @@
 				$adminController->adminMenus();
 				break;
 
-			case "index":
+			case "listado":
 				$adminController->index();	
 				break;
-				
+			
+			case "volver":
+				$adminController->index();	
+				break;
+					
 			case "new":
 				$adminController->new();			
 				break;

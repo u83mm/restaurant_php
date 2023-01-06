@@ -40,9 +40,9 @@
 	
 				try {
 					if (!empty($user_name) && !empty($password) && !empty($email)) {
-						$query = new Query();
+						$query = new Query($this->dbcon);
 	
-						$rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
+						$rows = $query->selectAllBy("user", "email", $email);
 	
 						if ($rows) {
 							$error_msg = "<p class='error'>El email '{$email}' ya está registrado</p>";
@@ -77,7 +77,7 @@
         {
             $id_user = $_REQUEST['id_user'];
 	
-            $query = new Query();
+            $query = new Query($this->dbcon);
 
             try {
                 $user = $query->selectOneBy("user", "id_user", $id_user, $this->dbcon);
@@ -99,8 +99,8 @@
             $email = $_REQUEST['email'] ?? "";
 
             try {
-                $query = new Query();
-                $query->updateRegistry("user", $user_name, $email, $id_user, $this->dbcon);
+                $query = new Query($this->dbcon);
+                $query->updateRegistry("user", $user_name, $email, $id_user);
 
                 $success_msg = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";
 
@@ -127,8 +127,8 @@
                     if ($password !== $newPassword) {
                         $error_msg = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
                     } else {
-                        $query = new Query();
-                        $query->updatePassword("user", $newPassword, $id_user, $this->dbcon);
+                        $query = new Query($this->dbcon);
+                        $query->updatePassword("user", $newPassword, $id_user);
 
                         $success_msg = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
                     }
@@ -149,8 +149,8 @@
             $id_user = $_REQUEST['id_user'];
 	
             try {
-                $query = new Query();
-                $query->deleteRegistry("user", $id_user, $this->dbcon);
+                $query = new Query($this->dbcon);
+                $query->deleteRegistry("user", "id_user", $id_user);
 
                 $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
 

@@ -12,11 +12,11 @@ use model\classes\QueryMenuDay;
 
         public function index()
         {
-            $menuDayQuery = new QueryMenuDay();
+            $menuDayQuery = new QueryMenuDay($this->dbcon);
 
-            $primeros = $menuDayQuery->selectAllDishesByCategory("primero", $this->dbcon);
-            $segundos = $menuDayQuery->selectAllDishesByCategory("segundo", $this->dbcon);
-            $postres = $menuDayQuery->selectAllDishesByCategory("postre", $this->dbcon);
+            $primeros = $menuDayQuery->selectAllDishesByCategory("primero");
+            $segundos = $menuDayQuery->selectAllDishesByCategory("segundo");
+            $postres = $menuDayQuery->selectAllDishesByCategory("postre");
            
             include(SITE_ROOT . "/../view/main_view.php");
         }
