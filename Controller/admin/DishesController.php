@@ -42,9 +42,12 @@
             $query = new Query($this->dbcon);
             $categories = $query->selectAll("dishes_category");
 
-            $name = $_REQUEST['name'] ?? "";
-            $description = $_REQUEST['description'] ?? "";
-            $category = $_REQUEST['category'] ?? "";
+            // Validate entries
+            $validate = new Validate();
+
+            $name = $validate->test_input($_REQUEST['name'] ?? "");
+            $description = $validate->test_input($_REQUEST['description'] ?? "");
+            $category = $validate->test_input($_REQUEST['category'] ?? "");
             
             try {
                 if (!empty($name) && !empty($description) && !empty($category)) {
@@ -97,10 +100,13 @@
         /** Update dishe */
         public function update(): void
         {
+            // Validate entries
+            $validate = new Validate();
+
             $id = $_REQUEST['dishe_id'] ?? "";
-            $name = $_REQUEST['name'] ?? "";
-            $description = $_REQUEST['description'] ?? "";
-            $category = $_REQUEST['category'] ?? "";
+            $name = $validate->test_input($_REQUEST['name'] ?? "");
+            $description = $validate->test_input($_REQUEST['description'] ?? "");
+            $category = $validate->test_input($_REQUEST['category'] ?? "");
            
             try {
                 $query = new QueryMenuDay($this->dbcon);

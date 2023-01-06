@@ -41,7 +41,10 @@
             </table>
         </div>
         <div class="row">
-            <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="New"></form>
+            <form action="#" method="post">
+                <input type="submit" class="btn btn-primary mb-5" name="action" value="New">
+                <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
+            </form>
         </div>        
     </div>    
 <?php

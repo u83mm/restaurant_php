@@ -1,5 +1,5 @@
 <?php
-    namespace Controller;
+    namespace Controller\admin;
 
     use model\classes\Query;
     use model\classes\Validate;

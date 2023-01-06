@@ -19,8 +19,8 @@
             <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Listado"></form>
         </div> 
         <div class="mx-auto bg-success bg-opacity-10 adminMenus">
-            <h4 class="text-center">Listado de platos</h4>
-            <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Listado"></form>
+            <h4 class="text-center">CATEGORIAS</h4>
+            <a class="btn btn-primary mb-5" href="#">Listado</a>
         </div>                                                                                   
     </div>  
 <?php

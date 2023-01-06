@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 
-    use Controller\AdminController;    
+    use Controller\admin\AdminController;    
 
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
 

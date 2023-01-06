@@ -12,7 +12,7 @@ use model\classes\QueryMenuDay;
 
         public function index()
         {
-            $menuDayQuery = new QueryMenuDay($this->dbcon);
+            $menuDayQuery = new QueryMenuDay($this->dbcon);            
 
             $primeros = $menuDayQuery->selectAllDishesByCategory("primero");
             $segundos = $menuDayQuery->selectAllDishesByCategory("segundo");

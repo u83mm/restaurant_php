@@ -2,6 +2,7 @@
 	use model\classes\PageClass;
 
 	$page = new PageClass();
+    $page->title = "My Restaurant | Platos";
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->menus);
@@ -40,7 +41,10 @@
             </table>
         </div>
         <div class="row">
-            <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="New"></form>
+            <form action="#" method="post">
+                <input type="submit" class="btn btn-primary mb-5" name="action" value="New">                
+                <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
+            </form>
         </div>        
     </div>    
 <?php
