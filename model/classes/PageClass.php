@@ -9,8 +9,9 @@
 		public $meta_name_description = "Aquí va una descripción del sitio";
 		public $meta_name_keywords = "Restaurant Menu take away food";
 		public $menus = array (
-			"Home"			=>	"/",
-			"Registration"	=> 	"/register.php",
+			"Home"				=>	"/",
+			"Menu"				=> 	"/menu/menu.php",
+			"Registration"		=> 	"/register.php",
 			"Administration"	=>	"/admin/admin.php",
 			"Login "			=> 	"/login.php",			
 		);
@@ -80,7 +81,10 @@
 									<div class="offcanvas-body">
 										<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 											<li class="nav-item">
-												<a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home fa-lg fa-fw"></i> Inicio</a>
+												<a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home fa-lg fa-fw"></i> Home</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="/menu/menu.php"><i class="fas fa-video fa-lg fa-fw"></i> Menu</a>
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="/register.php"><i class="fas fa-video fa-lg fa-fw"></i> Registration</a>

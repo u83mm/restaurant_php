@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 04-01-2023 a las 22:43:20
+-- Tiempo de generación: 07-01-2023 a las 18:33:54
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `dishes` (
   `dishe_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `menu_id` int(11) NOT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -38,31 +39,65 @@ CREATE TABLE `dishes` (
 -- Volcado de datos para la tabla `dishes`
 --
 
-INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `description`) VALUES
-(1, 'Macarrones a la Boloñesa', 1, 'Macarrones con tomate y parmesano gratinados'),
-(2, 'Bistec con patatas y verduras', 2, 'Bistec de ternera a la brasa con verduras a la parrilla'),
-(3, 'Flan con Nata y chocolate', 3, 'Flan de huevo con nata montada a mano y chocolate casero'),
-(4, 'Arroz con setas de campo', 1, 'Arroz con pollo, conejo, setas silvestres y legumbres.');
+INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`) VALUES
+(1, 'Macarrones a la Boloñesa', 1, 2, 'Macarrones con tomate y parmesano gratinados'),
+(2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla'),
+(3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero'),
+(4, 'Arroz con setas de campo', 2, 6, 'Arroz con pollo, conejo, setas silvestres y legumbres.'),
+(5, 'Ensalada mixta con aguacate', 1, 1, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.'),
+(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `dishes_category`
+-- Estructura de tabla para la tabla `dishes_day`
 --
 
-CREATE TABLE `dishes_category` (
+CREATE TABLE `dishes_day` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(50) NOT NULL DEFAULT 'primero'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `dishes_category`
+-- Volcado de datos para la tabla `dishes_day`
 --
 
-INSERT INTO `dishes_category` (`category_id`, `category_name`) VALUES
+INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
 (1, 'primero'),
 (2, 'segundo'),
 (3, 'postre');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dishes_menu`
+--
+
+CREATE TABLE `dishes_menu` (
+  `menu_id` int(11) NOT NULL,
+  `menu_category` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `dishes_menu`
+--
+
+INSERT INTO `dishes_menu` (`menu_id`, `menu_category`) VALUES
+(1, 'aperitivos'),
+(2, 'entrantes'),
+(3, 'ensaladas'),
+(4, 'carnes'),
+(5, 'pescados'),
+(6, 'arroces'),
+(7, 'postres'),
+(8, 'cafés'),
+(9, 'tintos'),
+(10, 'blancos'),
+(11, 'rosados'),
+(12, 'cavas'),
+(13, 'champagne'),
+(14, 'bebidas'),
+(15, 'licores');
 
 -- --------------------------------------------------------
 
@@ -103,7 +138,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `password`, `email`, `id_role`) VALUES
 (1, 'admin', '$2y$10$UmlPg2q.E8FyQ/y8/zkcgu/OXaar1erO8gEldBqGI5BtB3vElwReq', 'admin@admin.com', 1),
-(2, 'pepe', '$2y$10$o6boSNPz0e2bd53A5fK8Ruff9C3n9hUkOIINtwuEh4t06eGSEcpEK', 'pepe@pepe.com', 2);
+(2, 'pepe', '$2y$10$06rwi52tnOtwSM.u3OSpIuth3eu4M1pEzysOEv9r9kJ//1PUh7YwO', 'pepe@pepe.com', 2);
 
 --
 -- Índices para tablas volcadas
@@ -114,13 +149,20 @@ INSERT INTO `user` (`id_user`, `user_name`, `password`, `email`, `id_role`) VALU
 --
 ALTER TABLE `dishes`
   ADD PRIMARY KEY (`dishe_id`),
-  ADD KEY `dishes_fk_category` (`category_id`);
+  ADD KEY `menu_id` (`menu_id`),
+  ADD KEY `dishes_fk_day` (`category_id`);
 
 --
--- Indices de la tabla `dishes_category`
+-- Indices de la tabla `dishes_day`
 --
-ALTER TABLE `dishes_category`
+ALTER TABLE `dishes_day`
   ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indices de la tabla `dishes_menu`
+--
+ALTER TABLE `dishes_menu`
+  ADD PRIMARY KEY (`menu_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -144,13 +186,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `dishes_category`
+-- AUTO_INCREMENT de la tabla `dishes_day`
 --
-ALTER TABLE `dishes_category`
+ALTER TABLE `dishes_day`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `dishes_menu`
+--
+ALTER TABLE `dishes_menu`
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -172,7 +220,8 @@ ALTER TABLE `user`
 -- Filtros para la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  ADD CONSTRAINT `dishes_fk_category` FOREIGN KEY (`category_id`) REFERENCES `dishes_category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dishes_fk_day` FOREIGN KEY (`category_id`) REFERENCES `dishes_day` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dishes_fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `dishes_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `user`

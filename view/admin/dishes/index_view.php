@@ -17,6 +17,7 @@
                         <th>Id</th>
                         <th>Nombre</th>                        
                         <th>Descripción</th>
+                        <th>Menú Día</th>
                         <th>Categoría</th>
                         <th>Options</th>
                     </tr>
@@ -28,6 +29,7 @@
                         <td><?php echo $value['name']; ?></td>                        
                         <td><?php echo $value['description']; ?></td>
                         <td><?php echo $value['category_name']; ?></td>
+                        <td><?php echo $value['menu_category']; ?></td>
                         <td class="text-center">
                             <form action="#" method="post" class="d-inline">
                                 <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">

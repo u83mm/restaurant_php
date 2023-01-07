@@ -3,19 +3,19 @@
 
     use PDO;
 
-    class QueryMenuDay extends Query
+    class QueryMenu extends Query
     {
         public function __construct(private object $dbcon)
         {
 
         } 
 
-        public function selectAllDishesByCategory(string $field):array
+        public function selectDishesOfDay(string $field):array
         {
             $query = "SELECT * FROM dishes 
-                    INNER JOIN dishes_category 
-                    ON dishes.category_id = dishes_category.category_id 
-                    WHERE dishes_category.category_name = :field";
+                    INNER JOIN dishes_day
+                    ON dishes.category_id = dishes_day.category_id 
+                    WHERE dishes_day.category_name = :field";
 
             $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            

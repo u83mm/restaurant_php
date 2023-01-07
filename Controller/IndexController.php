@@ -1,7 +1,7 @@
 <?php
     namespace Controller;
 
-use model\classes\QueryMenuDay;
+    use model\classes\QueryMenu;
 
     class IndexController
     {
@@ -12,13 +12,13 @@ use model\classes\QueryMenuDay;
 
         public function index()
         {
-            $menuDayQuery = new QueryMenuDay($this->dbcon);            
+            $menuDayQuery = new QueryMenu($this->dbcon);            
 
-            $primeros = $menuDayQuery->selectAllDishesByCategory("primero");
-            $segundos = $menuDayQuery->selectAllDishesByCategory("segundo");
-            $postres = $menuDayQuery->selectAllDishesByCategory("postre");
+            $primeros = $menuDayQuery->selectDishesOfDay("primero");
+            $segundos = $menuDayQuery->selectDishesOfDay("segundo");
+            $postres = $menuDayQuery->selectDishesOfDay("postre");
            
             include(SITE_ROOT . "/../view/main_view.php");
         }
     }    
-?>
+?>  

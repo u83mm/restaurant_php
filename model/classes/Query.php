@@ -21,7 +21,7 @@
             $stm->execute();       
             $rows = $stm->fetchAll();
             $stm->closeCursor();
-            $dbcon = null;
+            //$dbcon = null;
 
             return $rows;
         }
