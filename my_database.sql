@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 08-01-2023 a las 13:19:57
+-- Tiempo de generación: 08-01-2023 a las 21:55:12
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -46,7 +46,9 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (4, 'Arroz con setas de campo', 2, 6, 'Arroz con pollo, conejo, setas silvestres y legumbres.'),
 (5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.'),
 (6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas'),
-(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.');
+(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.'),
+(9, 'Bolsa de patatas fritas', 4, 1, 'Patatas de bolsa para aperitivos'),
+(10, 'Aceitunas rellenas', 4, 1, 'Lata de aceitunas rellenas.');
 
 -- --------------------------------------------------------
 
@@ -188,7 +190,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `dishes_day`

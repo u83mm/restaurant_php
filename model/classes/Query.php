@@ -107,10 +107,23 @@
             $stm = $dbcon->pdo->prepare($query);
             $stm->bindValue(":id", $id);                            
             $stm->execute();       
-            $rows = $stm->fetch(PDO::FETCH_ASSOC);
-            
+            $rows = $stm->fetch(PDO::FETCH_ASSOC);            
             $stm->closeCursor();
 
+            return $rows;
+        }
+
+        public function selectAllInnerjoin(string $table1, string $table2, string $foreignKeyField, object $dbcon): array
+        {
+            $query = "SELECT * FROM $table1 
+                        INNER JOIN $table2 
+                        ON $table1.$foreignKeyField = $table2.$foreignKeyField";
+                
+            $stm = $dbcon->pdo->prepare($query);                                        
+            $stm->execute();       
+            $rows = $stm->fetchAll();
+            $stm->closeCursor();
+            
             return $rows;
         }
     }    
