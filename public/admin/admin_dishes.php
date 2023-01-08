@@ -8,6 +8,7 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "listado");
+	$message = strtolower($_POST['message'] ?? $_GET['message'] ?? $message = "");
     $dishesController = new DishesController($dbcon);
 
 	/** Check for user`s sessions */
@@ -21,11 +22,15 @@
 	else {
 		switch($action) {			
 			case "listado":
-				$dishesController->index();	
+				$dishesController->index($message);	
 				break;
 			
 			case "volver":
 				$dishesController->index();	
+				break;
+			
+			case "show form":
+				$dishesController->showForm();
 				break;
 					
 			case "new":

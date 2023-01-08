@@ -42,7 +42,7 @@
 					if (!empty($user_name) && !empty($password) && !empty($email)) {
 						$query = new Query($this->dbcon);
 	
-						$rows = $query->selectAllBy("user", "email", $email);
+						$rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
 	
 						if ($rows) {
 							$error_msg = "<p class='error'>El email '{$email}' ya está registrado</p>";
@@ -100,7 +100,7 @@
 
             try {
                 $query = new Query($this->dbcon);
-                $query->updateRegistry("user", $user_name, $email, $id_user);
+                $query->updateRegistry("user", $user_name, $email, $id_user, $this->dbcon);
 
                 $success_msg = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";
 
@@ -128,7 +128,7 @@
                         $error_msg = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
                     } else {
                         $query = new Query($this->dbcon);
-                        $query->updatePassword("user", $newPassword, $id_user);
+                        $query->updatePassword("user", $newPassword, $id_user, $this->dbcon);
 
                         $success_msg = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
                     }
@@ -150,7 +150,7 @@
 	
             try {
                 $query = new Query($this->dbcon);
-                $query->deleteRegistry("user", "id_user", $id_user);
+                $query->deleteRegistry("user", "id_user", $id_user, $this->dbcon);
 
                 $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
 

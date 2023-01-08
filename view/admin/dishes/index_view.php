@@ -9,7 +9,7 @@
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
     <div class="col mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message = $message ?? ""; ?>
         <div class="row">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -43,8 +43,8 @@
             </table>
         </div>
         <div class="row">
-            <form action="#" method="post">
-                <input type="submit" class="btn btn-primary mb-5" name="action" value="New">                
+            <form action="#" method="post">                
+                <button type="submit" class="btn btn-primary mb-5" name="action" value="show form">Nuevo</button>               
                 <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
             </form>
         </div>        

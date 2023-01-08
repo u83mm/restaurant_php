@@ -5,19 +5,14 @@
 
     class QueryMenu extends Query
     {
-        public function __construct(private object $dbcon)
-        {
-
-        } 
-
-        public function selectDishesOfDay(string $field):array
+        public function selectDishesOfDay(string $field, object $dbcon):array
         {
             $query = "SELECT * FROM dishes 
                     INNER JOIN dishes_day
                     ON dishes.category_id = dishes_day.category_id 
                     WHERE dishes_day.category_name = :field";
 
-            $stm = $this->dbcon->pdo->prepare($query);
+            $stm = $dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -26,15 +21,17 @@
             return $rows;
         } 
         
-        public function updateDishe(string $name, string $description, string $categoryId, string $id): void
+        public function updateDishe(array $fields, object $dbcon): void
         {
-            $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id WHERE dishe_id = :id";                 
+            $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id, 
+                    menu_id = :menu_id
+                    WHERE dishe_id = :id";                 
 
-            $stm = $this->dbcon->pdo->prepare($query); 
-            $stm->bindValue(":name", $name); 
-            $stm->bindValue(":description", $description); 
-            $stm->bindValue(":category_id", $categoryId);          
-            $stm->bindValue(":id", $id);              
+            $stm = $dbcon->pdo->prepare($query);           
+            foreach ($fields as $key => $value) {
+                $stm->bindValue(":$key", $value); 
+            }
+
             $stm->execute();       				
             $stm->closeCursor();
             $dbcon = null;            

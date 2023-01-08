@@ -14,19 +14,19 @@ use model\classes\QueryMenu;
         public function index(): void
         {
             $menuDay = new QueryMenu($this->dbcon);
-            $menuCategory = new Query($this->dbcon); 
+            $menuCategory = new Query(); 
 
 
             /** Show diferent Menu's day dishes */
 
-            $primeros = $menuDay->selectDishesOfDay("primero");
-            $segundos = $menuDay->selectDishesOfDay("segundo");
-            $postres = $menuDay->selectDishesOfDay("postre");
+            $primeros = $menuDay->selectDishesOfDay("primero", $this->dbcon);
+            $segundos = $menuDay->selectDishesOfDay("segundo", $this->dbcon);
+            $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon);
 
 
             /** Show Menu's categories */
 
-            $menuCategories = $menuCategory->selectAll("dishes_menu");            
+            $menuCategories = $menuDay->selectAll("dishes_menu", $this->dbcon);            
             $showResult = "";
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {

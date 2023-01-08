@@ -16,7 +16,7 @@
         /**
          * Method to validate fields from form
          */
-        public function test_input(int|string|float $data): int|string|float
+        public function test_input(int|string|float|null $data): int|string|float|null
         {
             $data = htmlspecialchars($data);
             $data = trim($data);
@@ -46,7 +46,7 @@
             
             foreach ($fields as $key => $value) {
                 if (empty($value)) {
-                    $this->msg .= "<p>'$key' es un dato requerido</p>";
+                    $this->msg .= "<p class='alert alert-danger text-center'>'$key' es un dato requerido</p>";
                     $result = false;					
                 }
             }

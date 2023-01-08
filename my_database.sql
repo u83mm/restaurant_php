@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 07-01-2023 a las 18:33:54
+-- Tiempo de generación: 08-01-2023 a las 13:19:57
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -31,7 +31,7 @@ CREATE TABLE `dishes` (
   `dishe_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `menu_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL DEFAULT 1,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -44,8 +44,9 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla'),
 (3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero'),
 (4, 'Arroz con setas de campo', 2, 6, 'Arroz con pollo, conejo, setas silvestres y legumbres.'),
-(5, 'Ensalada mixta con aguacate', 1, 1, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.'),
-(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas');
+(5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.'),
+(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas'),
+(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `dishes_day` (
 INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
 (1, 'primero'),
 (2, 'segundo'),
-(3, 'postre');
+(3, 'postre'),
+(4, 'carta');
 
 -- --------------------------------------------------------
 
@@ -186,13 +188,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `dishes_day`
 --
 ALTER TABLE `dishes_day`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `dishes_menu`
