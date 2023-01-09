@@ -21,7 +21,8 @@
                         INNER JOIN dishes_day 
                         ON dishes.category_id = dishes_day.category_id
                         INNER JOIN dishes_menu
-                        ON dishes.menu_id = dishes_menu.menu_id";
+                        ON dishes.menu_id = dishes_menu.menu_id
+                        ORDER BY dishes.dishe_id";
                     
                 $stm = $this->dbcon->pdo->prepare($query);                                        
                 $stm->execute();       
@@ -63,23 +64,26 @@
             $name = $validate->test_input($_REQUEST['name'] ?? "");
             $description = $validate->test_input($_REQUEST['description'] ?? "");
             $category = $validate->test_input($_REQUEST['category'] ?? "");
+            $menu_id = $validate->test_input($_REQUEST['dishes_type'] ?? "");
 
             $fields = [
                 "Name"          =>  $name, 
                 "Description"   =>  $description, 
-                "Category"      =>  $category
+                "Category"      =>  $category,
+                "Dishe type"    =>  $menu_id,
             ];
 
             $validateOk = $validate->validate_form($fields);
             
             try {
                 if ($validateOk) {
-                    $query = "INSERT INTO dishes (name, description, category_id) VALUES (:name, :description, :category)";                 
+                    $query = "INSERT INTO dishes (name, description, category_id, menu_id) VALUES (:name, :description, :category, :menu_id)";                 
     
                     $stm = $this->dbcon->pdo->prepare($query); 
                     $stm->bindValue(":name", $name);
                     $stm->bindValue(":description", $description);
-                    $stm->bindValue(":category", $category);              
+                    $stm->bindValue(":category", $category); 
+                    $stm->bindValue(":menu_id", $menu_id);             
                     $stm->execute();       				
                     $stm->closeCursor();                    
     

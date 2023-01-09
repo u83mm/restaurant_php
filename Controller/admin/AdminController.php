@@ -25,8 +25,7 @@
             $stm = $this->dbcon->pdo->prepare($query);                                        
             $stm->execute();       
             $rows = $stm->fetchAll();
-            $stm->closeCursor();
-            //$this->dbcon = null;
+            $stm->closeCursor();            
 
             include(SITE_ROOT . "/../view/admin/index_view.php");
         }

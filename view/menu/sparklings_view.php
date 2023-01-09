@@ -11,7 +11,7 @@
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2">Nuestros Aperitivos</h2>
+				<h2 class="m-0 me-2">Nuestros Cavas</h2>
 				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
 			</div>
 		</div>		
