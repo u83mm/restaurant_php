@@ -1,5 +1,7 @@
-<?php	
-	use model\classes\PageClass;
+<?php
+
+use model\classes\CommonTasks;
+use model\classes\PageClass;
 
 	$page = new PageClass();
     $page->title = "My Restaurant | Platos";
@@ -8,7 +10,7 @@
 	$page->do_html_nav($page->menus);
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
-    <div class="col mx-auto">
+    <div class="col">
         <?php echo $message = $message ?? ""; ?>
         <div class="row">
             <table class="table table-striped table-bordered">
@@ -41,6 +43,73 @@
                 <?php } ?>
                 </tbody>
             </table>
+        </div>
+
+                                        <!-- SECCIÓN PARA LA PAGINACIÓN -->
+
+        <div class="row mb-4">
+            <nav aria-label="Pagination user-data">
+                <ul class="pagination justify-content-center">
+<?php
+		if($pagina > 1) {
+			if($current_page != 1) {
+?>
+				<li class="page-item">
+                    <form action="/admin/admin_dishes.php" method="POST">
+                        <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
+                        <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                        <input class="page-link" type="submit" value="Ant.">
+                    </form>
+                    <!---<a class="page-link" href="/admin/admin_dishes.php?s=<?php //echo $desde - $pagerows; ?>&p=<?php //echo $pagina; ?>">Ant.</a> -->
+                </li>
+				<li class="page-item">
+                     <form action="/admin/admin_dishes.php" method="POST">
+                        <input type="hidden" name="s" value="0">
+                        <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                        <input class="page-link" type="submit" value="<<">
+                    </form>
+                    <!---<a class="page-link" href="/admin/admin_dishes.php?s=0&p=<?php //echo $pagina; ?>"><<</a>-->
+                </li>
+				
+<?php
+			}
+			else {
+?>
+				<label for="none">&nbsp;</label>
+<?php
+			}
+
+			$pagination = new CommonTasks();
+			$pagination->pagination1($pagina, $pagerows, $current_page);
+
+			if($current_page != $pagina) {
+?>
+				<li class="page-item">
+                    <form action="/admin/admin_dishes.php" method="POST">
+                        <input type="hidden" name="s" value="<?php echo $last; ?>">
+                        <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                        <input class="page-link" type="submit" value=">>">
+                    </form>                   
+                </li>
+				<li class="page-item">
+                    <form action="/admin/admin_dishes.php" method="POST">
+                        <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
+                        <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                        <input class="page-link" type="submit" value="Sig.">
+                    </form>                    
+                </li>
+				
+<?php
+			}
+			else {
+?>
+				<label for="none">&nbsp;</label>
+<?php
+			}
+		}
+?>		
+                </ul>
+            </nav>
         </div>
         <div class="row">
             <form action="#" method="post">                

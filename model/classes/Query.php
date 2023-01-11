@@ -21,6 +21,22 @@
             return $rows;
         }
 
+        /**
+         * Select count from "table name"
+         */
+        public function selectCount(string $table, object $dbcon): mixed     
+        {
+            $query = "SELECT COUNT(*) FROM $table";                 
+
+            $stm = $dbcon->pdo->prepare($query);               
+            $stm->execute();       
+            $rows = $stm->fetchColumn();
+            $stm->closeCursor();
+            $dbcon = null;
+
+            return $rows;
+        }
+
       /**
        * > This function takes in a table name, a field name, a value, and a database connection
        * object, and returns an array of all the rows in the table that match the field and value

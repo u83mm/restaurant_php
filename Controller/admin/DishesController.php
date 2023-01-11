@@ -5,6 +5,7 @@
     use model\classes\QueryMenu;
     use model\classes\Validate;
     use PDO;
+    use PDOException;
 
     class DishesController
     {        
@@ -14,24 +15,57 @@
         }      
 
         /** Show dishes index */
-        public function index(string $message = null): void
+        public function index(string $message = null, string $p = null, string $s = null): void
         {
-            try {
+            try {                                
+                /** Calculate necesary pages for pagination */ 
+
+                $pagerows = 6; // Number of rows for page.
+                $desde = 0;
+                $query = new Query();
+
+                $total_rows = $query->selectCount('dishes', $this->dbcon);
+                $pagina = 1;
+
+                if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
+                if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
+                if($p && is_numeric($p)) $pagina = $p;                             
+                if($s && is_numeric($s)) $desde = $s;               
+
+                $last = ($pagina * $pagerows) - $pagerows;
+	            $current_page = ($desde/$pagerows) + 1;
+                
+                
+                /** Select all dishes from DB */
+
                 $query = "SELECT * FROM dishes 
                         INNER JOIN dishes_day 
                         ON dishes.category_id = dishes_day.category_id
                         INNER JOIN dishes_menu
                         ON dishes.menu_id = dishes_menu.menu_id
-                        ORDER BY dishes.dishe_id";
+                        ORDER BY dishes.dishe_id
+                        LIMIT :desde, :pagerows";
                     
-                $stm = $this->dbcon->pdo->prepare($query);                                        
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":desde", $desde); 
+                $stm->bindValue(":pagerows", $pagerows);                                        
                 $stm->execute();       
                 $rows = $stm->fetchAll();
-                $stm->closeCursor();                
+                $stm->closeCursor();
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
+            } 
+            catch (\PDOException $e) {
+                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
+                    $error_msg = "<p>Error en la ejecución.</p><p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
 
-            } catch (\Throwable $th) {
+                    include(SITE_ROOT . "/../view/database_error.php");
+                }
+                else {
+                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                }
+            }         
+            catch (\Throwable $th) {
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
 					include(SITE_ROOT . "/../view/database_error.php");	

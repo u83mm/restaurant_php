@@ -11,7 +11,14 @@
 	$message = strtolower($_POST['message'] ?? $_GET['message'] ?? $message = "");
     $dishesController = new DishesController($dbcon);
 
+
+	/** Get values for pagination */
+
+	$p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
+	$s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
+
 	/** Check for user`s sessions */
+
 	$_SESSION['user_name'] ?? $_SESSION['user_name'] = "";
 	$_SESSION['role'] ?? $_SESSION['role'] = "";
 
@@ -22,7 +29,7 @@
 	else {
 		switch($action) {			
 			case "listado":
-				$dishesController->index($message);	
+				$dishesController->index($message, $p, $s);	
 				break;
 			
 			case "volver":
