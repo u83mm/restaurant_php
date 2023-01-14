@@ -16,10 +16,10 @@ RUN "date"
 RUN chown www-data:www-data -R /var/www/public
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y git unzip
+RUN apt-get update && apt-get install -y git unzip zlib1g-dev libpng-dev libjpeg-dev
 
 # Install PHP extensions Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-configure gd --with-jpeg && docker-php-ext-install pdo_mysql gd
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

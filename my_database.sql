@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 08-01-2023 a las 21:55:12
+-- Tiempo de generación: 13-01-2023 a las 19:04:44
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -32,23 +32,30 @@ CREATE TABLE `dishes` (
   `name` varchar(100) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `menu_id` int(11) NOT NULL DEFAULT 1,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `picture` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `dishes`
 --
 
-INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`) VALUES
-(1, 'Macarrones a la Boloñesa', 1, 2, 'Macarrones con tomate y parmesano gratinados'),
-(2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla'),
-(3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero'),
-(4, 'Arroz con setas de campo', 2, 6, 'Arroz con pollo, conejo, setas silvestres y legumbres.'),
-(5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.'),
-(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas'),
-(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.'),
-(9, 'Bolsa de patatas fritas', 4, 1, 'Patatas de bolsa para aperitivos'),
-(10, 'Aceitunas rellenas', 4, 1, 'Lata de aceitunas rellenas.');
+INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`, `picture`) VALUES
+(1, 'Macarrones a la Boloñesa', 1, 2, 'Macarrones con tomate y parmesano gratinados', NULL),
+(2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla', NULL),
+(3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero', NULL),
+(5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.', NULL),
+(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas', NULL),
+(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.', NULL),
+(9, 'Bolsa de patatas fritas', 4, 1, 'Patatas de bolsa para aperitivos', NULL),
+(10, 'Aceitunas rellenas', 4, 1, 'Lata de aceitunas rellenas.', NULL),
+(11, 'Espaguetis a la carbonara', 4, 2, 'Espaguetis con nata y condimentos especiales para la elaboración artesanal', NULL),
+(12, 'Ensalada catalana', 4, 3, 'Ensalada típica de cataluña, con ingredientes de l´Alt Empurdá', NULL),
+(13, 'Entrecot a la pimienta', 4, 4, 'Entrecot de buey a la parrilla con salsa a la pimienta', NULL),
+(14, 'Arroz negro', 4, 6, 'Arroz negro con tinta de sepia, gambas y frutos del mar', NULL),
+(15, 'Arroz con setas', 2, 6, 'Arroz con setas de campo, liebre y verduras de la campiña.', NULL),
+(16, 'Arroz marinero', 4, 6, 'Arroz con frutos de mar, bogabante y gambas.', NULL),
+(17, 'Arroz con verduras', 4, 6, 'Arroz con verduras frescas de temporada.', NULL);
 
 -- --------------------------------------------------------
 
@@ -190,7 +197,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `dishes_day`

@@ -69,8 +69,7 @@ use model\classes\PageClass;
                         <input class="page-link" type="submit" value="<<">
                     </form>
                     <!---<a class="page-link" href="/admin/admin_dishes.php?s=0&p=<?php //echo $pagina; ?>"><<</a>-->
-                </li>
-				
+                </li>				
 <?php
 			}
 			else {
@@ -97,8 +96,7 @@ use model\classes\PageClass;
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input class="page-link" type="submit" value="Sig.">
                     </form>                    
-                </li>
-				
+                </li>				
 <?php
 			}
 			else {

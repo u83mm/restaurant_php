@@ -1,7 +1,7 @@
 <?php
     namespace Controller;
 
-use model\classes\Query;
+use model\classes\CommonTasks;
 use model\classes\QueryMenu;
 
     class MenuController
@@ -65,13 +65,13 @@ use model\classes\QueryMenu;
         {
             $menuDishes = new QueryMenu();            
 
-            /** Show diferent Menu's day dishes */
+            /** Show the diferent Menu's day dishes */
 
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
-            /** Show aperitifs */
+            /** Show starts */
 
             $starts = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "entrantes", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($starts, "entrantes");                     
@@ -311,6 +311,26 @@ use model\classes\QueryMenu;
             $showResult = $menuDishes->showMenuListByCategory($liquors, "licores");                        
 
             include(SITE_ROOT . "/../view/menu/liquors_view.php");
+        }
+
+        public function showDisheInfo(string $id): void
+        {
+            $menuDishes = new QueryMenu();
+            $commonTask = new CommonTasks();           
+
+            /** Show diferent Menu's day dishes */
+
+            $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
+            $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
+            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** We obtain info dishe to show */
+
+            $dishe = $menuDishes->selectOneBy("dishes", "dishe_id", $id, $this->dbcon);
+            $dishe_picture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");       
+
+            include(SITE_ROOT . "/../view/menu/show_dishe_view.php");
         }
     }
     

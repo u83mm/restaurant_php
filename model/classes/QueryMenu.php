@@ -24,7 +24,7 @@
         public function updateDishe(array $fields, object $dbcon): void
         {
             $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id, 
-                    menu_id = :menu_id
+                    menu_id = :menu_id, picture = :picture
                     WHERE dishe_id = :id";                 
 
             $stm = $dbcon->pdo->prepare($query);           
@@ -53,13 +53,13 @@
             return $rows;
         }
 
-        public function showMenuListByCategory(array $menuCategories, string $menuCategory)
+        public function showMenuListByCategory(array $menuCategories, string $category)
         { 
             $showResult = ""; 
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
                 $menuCategory = ucfirst($menuCategories[$i]['name']);
-                $showResult .= "<li><a href='/menu/$menuCategory/{$menuCategories[$i]['dishe_id']}.php'>{$menuCategory}</a></li>";
+                $showResult .= "<li><a href='/menu/info_dishe/show_info.php?id={$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 if($i == $y || $i == count($menuCategories)-1) {
                     $showResult .= "</ul></div>";
                     if($y < count($menuCategories)) {

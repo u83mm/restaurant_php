@@ -35,6 +35,7 @@
 
 
         // Muestra paginación 
+
         public function pagination1($pagina, $pagerows, $current_page) {
             $x = $this->return_x_value($pagina, $current_page);
                 
@@ -64,6 +65,48 @@
 <?php           }				
                 $x++;	
             }
+        }
+
+
+        // Función para usar en redimensionado de imágenes al subirlas 
+
+        public function createImageFromSource($source, $type) {            
+            // JPG
+            if(preg_match('/jpg|jpeg/', $type)) {                             
+                $data = @ImageCreateFromJPEG($source);               
+            }
+            // PNG
+            if(preg_match('/png/', $type)) {
+                $data = ImageCreateFromPNG($source);
+            }
+            // GIF
+            if(preg_match('/gif/', $type)) {
+                $data = ImageCreateFromGIF($source);
+            }
+            return $data;
+        }
+
+
+        // Función para redimiensionado de imágenes 
+        
+        public function resizeImage($original, $w, $h) {
+            $thumbnail = ImageCreateTrueColor($w, $h);
+            ImageColorTransparent($thumbnail, ImageColorAllocateAlpha($thumbnail, 0, 0, 0, 127));
+            ImageAlphaBlending($thumbnail, false);
+            ImageSaveAlpha($thumbnail, true);
+            $x = ImageSX($original);
+            $y = ImageSY($original);
+            $scale = min($x / $w, $y / $h);
+            ImageCopyResampled($thumbnail, $original, 0, 0, ($x - ($w * $scale)) / 2, ($y - ($h * $scale)) / 2, $w, $h, $w * $scale, $h * $scale);
+            return $thumbnail;
+        }
+
+
+        //Convierte una dirección absoluta a una para poder ver la ruta en navegador
+
+        function getWebPath(string $file_system_path): string
+        {            
+            return str_replace($_SERVER['DOCUMENT_ROOT'], '', $file_system_path);
         }
     }
 ?>

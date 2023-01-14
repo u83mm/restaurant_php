@@ -1,10 +1,11 @@
 <?php
     namespace Controller\admin;
 
+    use Exception;
+    use model\classes\CommonTasks;
     use model\classes\Query;
     use model\classes\QueryMenu;
-    use model\classes\Validate;
-    use PDO;
+    use model\classes\Validate;    
     use PDOException;
 
     class DishesController
@@ -83,41 +84,107 @@
             include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
         }
 
-        /** Create new user */
+        /** Create new dishe */
         public function new(): void
         {
-            // We obtain all registries in "dishes" tables           
-            $query = new Query($this->dbcon);
-            $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-            $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+            try {
+                $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
+                $image_fieldname = "dishe_img";
+
+                /** Picture's data */
+                $picture_name = trim($_FILES['dishe_img']['name']);
+                $type = trim($_FILES['dishe_img']['type']);
+                $size = trim($_FILES['dishe_img']['size']);
+                $error = trim($_FILES['dishe_img']['error']);
+                $temporal = trim($_FILES['dishe_img']['tmp_name']);
+
+                /** Diferent options that we can have when upload files */
+                $php_errors = array(	
+                    1 => 'Tamaño máximo de archivo in php.ini excedido',
+                    2 => 'Tamaño máximo de archivo en formulario HTML excedido',
+                    3 => 'Sólo una parte del archivo fué subido',
+                    4 => 'No se seleccionó ningún archivo para subir.')
+                ;
+
+                // We obtain all registries in "dishes" tables           
+                $query = new Query($this->dbcon);
+                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
+                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+                
+
+                // Validate entries
+                $validate = new Validate();                           
+
+                $fields = [
+                    "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
+                    "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
+                    "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
+                    "Dishe type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                ];
+
+                $validateOk = $validate->validate_form($fields);
+
+                if($_FILES[$image_fieldname]['error'] != 0) {
+                    throw new \Exception("Error Processing Request" . " " . $php_errors[$_FILES[$image_fieldname]['error']]);                                                                                
+                }
+
+                @is_uploaded_file($_FILES[$image_fieldname]['tmp_name'])
+                        or throw new \Exception("Está intentando hacer algo incorrecto!.",
+                        "Uploaded request: file named " . "'{$_FILES[$image_fieldname]['tmp_name']}'");
+                
+                @getimagesize($_FILES[$image_fieldname]['tmp_name']) or throw new \Exception("El archivo que " 
+                . "intenta subir no es un archivo válido", $_FILES[$image_fieldname]['name']
+                . " debe ser (*.gif, *.jpg, *.jpeg o *.png).");
+
+                /** New name for the file to upload */
+                $now = time();
+                while (file_exists($upload_filename = $upload_dir . $now . '-' . $_FILES[$image_fieldname]['name'])) {
+                    $now++;
+                }
+
+                if(strncmp($type, "image/", 6) == 0) {
+                    @move_uploaded_file($_FILES[$image_fieldname]['tmp_name'], $upload_filename)
+                                or throw new \Exception("Ha habido un problema al guardar el archivo en " .
+                                "su ubicación permanente." .
+                                "Posiblemente esté relacionado con los permisos en las carpetas " .
+                                "de destino {$upload_filename}", 1);
             
-
-            // Validate entries
-            $validate = new Validate();
-
-            $name = $validate->test_input($_REQUEST['name'] ?? "");
-            $description = $validate->test_input($_REQUEST['description'] ?? "");
-            $category = $validate->test_input($_REQUEST['category'] ?? "");
-            $menu_id = $validate->test_input($_REQUEST['dishes_type'] ?? "");
-
-            $fields = [
-                "Name"          =>  $name, 
-                "Description"   =>  $description, 
-                "Category"      =>  $category,
-                "Dishe type"    =>  $menu_id,
-            ];
-
-            $validateOk = $validate->validate_form($fields);
+                    /** Redimensionado de imágen */
+                    $file_name = $upload_filename; // ruta al archivo del servidor							
+                    $w = 600; // ancho para la nueva imagen
+                    $h = 400; // alto para la nueva imagen
+                            
+                    // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
+                    $commonTask = new CommonTasks();
+                    $original = $commonTask->createImageFromSource($file_name, $type);
+        
+                    // redimensiona la imagen
+                    $final_image = $commonTask->resizeImage($original, $w, $h);
+        
+                    // reemplaza la imagen del servidor
+                    ImagePNG($final_image, $file_name, 9);
+                    ImageDestroy($original);
+                    ImageDestroy($final_image);                	
+                }
+                else {
+                    throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
+                }
+            } catch (\Exception $e) {
+                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
+            	
             
             try {
                 if ($validateOk) {
-                    $query = "INSERT INTO dishes (name, description, category_id, menu_id) VALUES (:name, :description, :category, :menu_id)";                 
+                    $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture) VALUES (:name, :description, :category, :menu_id, :picture)";                 
     
                     $stm = $this->dbcon->pdo->prepare($query); 
                     $stm->bindValue(":name", $name);
                     $stm->bindValue(":description", $description);
                     $stm->bindValue(":category", $category); 
-                    $stm->bindValue(":menu_id", $menu_id);             
+                    $stm->bindValue(":menu_id", $menu_id);
+                    $stm->bindValue(":picture", $upload_filename);             
                     $stm->execute();       				
                     $stm->closeCursor();                    
     
@@ -157,6 +224,12 @@
                 $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id, $this->dbcon);
                 $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id, $this->dbcon);
 
+                
+                /** Showing dishe_picture in show info */
+                
+                $commonTask = new CommonTasks();                
+                $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                
+
                 include(SITE_ROOT . "/../view/admin/dishes/show_view.php");
                 
             } catch (\Throwable $th) {
@@ -169,28 +242,117 @@
         /** Update dishe */
         public function update(): void
         {
-            // Validate entries
-            $validate = new Validate();          
-
-            $fields = [
-                "id" => $_REQUEST['dishe_id'] ?? "",
-                "name" => $validate->test_input($_REQUEST['name'] ?? ""),
-                "description" => $validate->test_input($_REQUEST['description'] ?? ""),
-                "category_id" => $validate->test_input($_REQUEST['category'] ?? ""),
-                "menu_id" => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
-            ];
+            /** If there is a picture to update */
+            try {
+                if ($_FILES['dishe_img']['name']) {                   
+                    $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
+                    $image_fieldname = "dishe_img";
+    
+                    /** Picture's data */
+                    $picture_name = trim($_FILES['dishe_img']['name']);
+                    $type = trim($_FILES['dishe_img']['type']);
+                    $size = trim($_FILES['dishe_img']['size']);
+                    $error = trim($_FILES['dishe_img']['error']);
+                    $temporal = trim($_FILES['dishe_img']['tmp_name']);
+                 
+                    /** Diferent options that we can have when upload files */
+                    $php_errors = array(	
+                        1 => 'Tamaño máximo de archivo in php.ini excedido',
+                        2 => 'Tamaño máximo de archivo en formulario HTML excedido',
+                        3 => 'Sólo una parte del archivo fué subido',
+                        4 => 'No se seleccionó ningún archivo para subir.')
+                    ; 
+                    
+                    if($_FILES[$image_fieldname]['error'] != 0) {
+                        throw new \Exception("Error Processing Request" . " " . $php_errors[$_FILES[$image_fieldname]['error']]);                                                                                
+                    }
+    
+                    @is_uploaded_file($_FILES[$image_fieldname]['tmp_name'])
+                            or throw new \Exception("Está intentando hacer algo incorrecto!.",
+                            "Uploaded request: file named " . "'{$_FILES[$image_fieldname]['tmp_name']}'");
+                    
+                    @getimagesize($_FILES[$image_fieldname]['tmp_name']) or throw new \Exception("El archivo que " 
+                    . "intenta subir no es un archivo válido", $_FILES[$image_fieldname]['name']
+                    . " debe ser (*.gif, *.jpg, *.jpeg o *.png).");
+    
+                    /** New name for the file to upload */
+                    $now = time();
+                    while (file_exists($upload_filename = $upload_dir . $now . '-' . $_FILES[$image_fieldname]['name'])) {
+                        $now++;
+                    }
+    
+                    if(strncmp($type, "image/", 6) == 0) {
+                        @move_uploaded_file($_FILES[$image_fieldname]['tmp_name'], $upload_filename)
+                                    or throw new \Exception("Ha habido un problema al guardar el archivo en " .
+                                    "su ubicación permanente." .
+                                    "Posiblemente esté relacionado con los permisos en las carpetas " .
+                                    "de destino {$upload_filename}", 1);
+                
+                        /** Redimensionado de imágen */
+                        $file_name = $upload_filename; // ruta al archivo del servidor							
+                        $w = 600; // ancho para la nueva imagen
+                        $h = 400; // alto para la nueva imagen
+                                
+                        // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
+                        $commonTask = new CommonTasks();
+                        $original = $commonTask->createImageFromSource($file_name, $type);
+            
+                        // redimensiona la imagen
+                        $final_image = $commonTask->resizeImage($original, $w, $h);
+            
+                        // reemplaza la imagen del servidor
+                        ImagePNG($final_image, $file_name, 9);
+                        ImageDestroy($original);
+                        ImageDestroy($final_image);                	
+                    }
+                    else {
+                        throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
+                    }
+                }                                                        
+            } catch (\Exception $e) {
+                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                include(SITE_ROOT . "/../view/database_error.php");
+            }            
            
             try {
-                $query = new QueryMenu();
-                $query->updateDishe($fields, $this->dbcon);
+                // Validate entries
+                $validate = new Validate();          
 
-                $msg = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
-                
-                header("Location: /admin/admin_dishes.php?message={$msg}");
+                $fields = [
+                    "id"            => $_REQUEST['dishe_id'] ?? "",
+                    "name"          => $validate->test_input($_REQUEST['name'] ?? ""),
+                    "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
+                    "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
+                    "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                ];
 
+                $validateOk = $validate->validate_form($fields);
+
+                if ($validateOk) {
+                    $query = new QueryMenu();
+
+                    /** If there is a new image to upload, we add it to fields array */
+                    if(isset($final_image)) {
+                        $fields["picture"] = $file_name;
+                    }
+                    else {
+                        /** Get the actual path to the image in the DB and stay it without changes */
+                        $dishe = $query->selectOneBy("dishes", "dishe_id", $fields['id'], $this->dbcon);
+                        $fields["picture"] = $dishe['picture'];
+                    }
+
+                    $query->updateDishe($fields, $this->dbcon);
+
+                    $msg = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    
+                    header("Location: /admin/admin_dishes.php?message={$msg}");
+
+                } else {
+                    $error_msg = $validate->get_msg();
+                    include(SITE_ROOT . "/../view/admin/dishes/new_view.php");  
+                }                                
             } catch (\Throwable $th) {			
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $error_msg = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
                 include(SITE_ROOT . "/../view/database_error.php");				
             }
         }        

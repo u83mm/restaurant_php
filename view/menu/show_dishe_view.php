@@ -12,14 +12,16 @@
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2">Nuestros Entrantes</h2>
+				<h2 class="m-0 me-2"><?php echo $dishe['name']; ?></h2>
 				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
 			</div>
 		</div>		
 		<div class="row">
-			<div class="col-3">
-				<ul>
-			<?php echo $showResult; ?>					
+            <div class="clear-fix">
+                <img class="w-25 float-start me-3" src="<?php echo $dishe_picture ; ?>" alt="dishe-image">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsam ipsa molestias maxime! Iusto ipsa iste inventore ut rem adipisci, nihil mollitia voluptas pariatur eius ratione ducimus assumenda corporis. Porro voluptas debitis animi aliquam ea, iusto officia sed quas dolorem voluptatem fugiat sunt minus ipsa eligendi repudiandae tenetur, fuga a?</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ut, ea alias. Delectus id saepe hic sapiente sit reprehenderit iste unde vitae neque distinctio illum temporibus suscipit ipsum sequi harum corrupti ipsa, libero nesciunt accusamus nam aliquam explicabo! Quos tenetur non similique optio excepturi, dolore accusamus nisi ea. Omnis laborum corporis animi in accusamus a adipisci. Delectus perspiciatis iusto molestias odio similique atque laudantium totam officia dolorum, earum, rerum laborum dolore quod dolorem! Fuga recusandae incidunt ducimus, repudiandae quisquam aperiam, itaque reiciendis rem quidem fugiat debitis, eaque odit ipsa. Eaque itaque officiis nulla quibusdam. Ipsam praesentium aperiam nemo magnam debitis assumenda!</p>               
+            </div>		
 		</div>				
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
