@@ -119,7 +119,8 @@
                     "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
                     "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
                     "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
-                    "Dishe type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "Dishe_type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "Price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
                 ];
 
                 $validateOk = $validate->validate_form($fields);
@@ -177,14 +178,19 @@
             
             try {
                 if ($validateOk) {
-                    $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture) VALUES (:name, :description, :category, :menu_id, :picture)";                 
+                    $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
+                                VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
+                    
+                    /** Test price type */
+                    if(!is_numeric($fields['price'])) throw new Exception("El campo 'Precio' debe ser numérico.");
     
                     $stm = $this->dbcon->pdo->prepare($query); 
-                    $stm->bindValue(":name", $name);
-                    $stm->bindValue(":description", $description);
-                    $stm->bindValue(":category", $category); 
-                    $stm->bindValue(":menu_id", $menu_id);
-                    $stm->bindValue(":picture", $upload_filename);             
+                    $stm->bindValue(":name", $fields['Name']);
+                    $stm->bindValue(":description", $fields['Description']);
+                    $stm->bindValue(":category", $fields['Category']); 
+                    $stm->bindValue(":menu_id", $fields['Dishe_type']);
+                    $stm->bindValue(":picture", $upload_filename);
+                    $stm->bindValue(":price", $fields['Price']);             
                     $stm->execute();       				
                     $stm->closeCursor();                    
     
@@ -195,6 +201,10 @@
                     $error_msg = $validate->get_msg();
                     include(SITE_ROOT . "/../view/admin/dishes/new_view.php");                   
                 }
+
+            } catch (\Exception $e) {
+                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                include(SITE_ROOT . "/../view/admin/dishes/new_view.php"); 
             } catch (\Throwable $th) {			
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
                         de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
@@ -202,7 +212,7 @@
             }            		
         }
 
-        public function show(): void
+        public function edit(): void
         {
             // We obtain all registries in "dishes" tables
             
@@ -223,7 +233,6 @@
 
                 $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id, $this->dbcon);
                 $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id, $this->dbcon);
-
                 
                 /** Showing dishe_picture in show info */
                 
@@ -316,7 +325,8 @@
            
             try {
                 // Validate entries
-                $validate = new Validate();          
+                $validate = new Validate();
+                $commonTask = new CommonTasks();         
 
                 $fields = [
                     "id"            => $_REQUEST['dishe_id'] ?? "",
@@ -324,9 +334,10 @@
                     "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
                 ];
 
-                $validateOk = $validate->validate_form($fields);
+                $validateOk = $validate->validate_form($fields);                   
 
                 if ($validateOk) {
                     $query = new QueryMenu();
@@ -363,7 +374,14 @@
             $dishe = $_REQUEST['dishe_id'];
 	
             try {
+                /** Create objects */
                 $query = new Query($this->dbcon);
+                $commonTask = new CommonTasks();
+
+                /** Obtain dishe to delete */
+                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);                                                              
+
+                $commonTask->deletePicture($dishe_to_delete['picture']);
                 $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
 
                 $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";

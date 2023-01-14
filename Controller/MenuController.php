@@ -22,6 +22,11 @@ use model\classes\QueryMenu;
             $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon);
 
 
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDay->getMenuDayPrice($primeros, $segundos, $postres);
+
+
             /** Show Menu's categories */
 
             $menuCategories = $menuDay->selectAll("dishes_menu", $this->dbcon);            
@@ -53,15 +58,20 @@ use model\classes\QueryMenu;
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+
             /** Show aperitifs */
 
-            $aperitifs = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "aperitivos", $this->dbcon);                                
-            $showResult = $menuDishes->showMenuListByCategory($aperitifs, "aperitivos");
-
+            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "aperitivos", $this->dbcon);                                
+            $showResult = $menuDishes->showMenuListByCategory($rows, "aperitivos");
+          
             include(SITE_ROOT . "/../view/menu/aperitifs_view.php");
         }
 
-        public function starts()
+        public function starts(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -71,6 +81,11 @@ use model\classes\QueryMenu;
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+
             /** Show starts */
 
             $starts = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "entrantes", $this->dbcon);           
@@ -79,7 +94,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/starts_view.php");
         }
 
-        public function salads()
+        public function salads(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -88,6 +103,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -97,7 +117,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/salads_view.php");
         }
 
-        public function meats()
+        public function meats(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -106,6 +126,12 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+
 
             /** Show salads */
 
@@ -115,7 +141,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/meats_view.php");
         }
 
-        public function fishes()
+        public function fishes(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -124,6 +150,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -133,7 +164,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/fishes_view.php");
         }
 
-        public function rices()
+        public function rices(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -142,6 +173,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -151,7 +187,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/rices_view.php");
         }
 
-        public function desserts()
+        public function desserts(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -160,6 +196,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -169,7 +210,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/desserts_view.php");
         }
 
-        public function coffes()
+        public function coffes(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -178,6 +219,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -187,7 +233,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/coffes_view.php");
         }
 
-        public function redsWines()
+        public function redsWines(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -196,6 +242,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -205,7 +256,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/reds_view.php");
         }
 
-        public function whitesWines()
+        public function whitesWines(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -214,6 +265,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -223,7 +279,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/whites_view.php");
         }
 
-        public function pinkWines()
+        public function pinkWines(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -232,6 +288,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -241,7 +302,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/pinks_view.php");
         }
 
-        public function sparklingWines()
+        public function sparklingWines(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -250,6 +311,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -259,7 +325,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/sparklings_view.php");
         }
 
-        public function champagne()
+        public function champagne(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -268,6 +334,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -277,7 +348,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/champagne_view.php");
         }
 
-        public function drinks()
+        public function drinks(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -286,6 +357,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -295,7 +371,7 @@ use model\classes\QueryMenu;
             include(SITE_ROOT . "/../view/menu/drinks_view.php");
         }
 
-        public function liquors()
+        public function liquors(): void
         {
             $menuDishes = new QueryMenu();            
 
@@ -304,6 +380,11 @@ use model\classes\QueryMenu;
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+
+
+            /** Calculate menu's day price */
+
+            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
             /** Show salads */
 
@@ -325,10 +406,16 @@ use model\classes\QueryMenu;
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
 
-            /** We obtain info dishe to show */
+             /** Calculate menu's day price */
 
-            $dishe = $menuDishes->selectOneBy("dishes", "dishe_id", $id, $this->dbcon);
-            $dishe_picture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");       
+             $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+
+
+            /** We obtain the dishe info to show */
+           
+            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $id, $this->dbcon);
+            $description = $commonTask->divideTextInParagrahs($dishe['description']);
+            $dishe_picture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                        
 
             include(SITE_ROOT . "/../view/menu/show_dishe_view.php");
         }

@@ -10,15 +10,14 @@ use model\classes\PageClass;
 	$page->do_html_nav($page->menus);
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
-    <div class="col">
+    <div class="container">
         <?php echo $message = $message ?? ""; ?>
-        <div class="row">
+        <div class="row col-8 mx-auto">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr class="text-center">
                         <th>Id</th>
-                        <th>Nombre</th>                        
-                        <th>Descripción</th>
+                        <th>Nombre</th>                                                
                         <th>Menú Día</th>
                         <th>Categoría</th>
                         <th>Options</th>
@@ -28,14 +27,13 @@ use model\classes\PageClass;
                 <?php foreach ($rows as $value) { ?>
                     <tr>
                         <td><?php echo $value['dishe_id']; ?></td>
-                        <td><?php echo $value['name']; ?></td>                        
-                        <td><?php echo $value['description']; ?></td>
+                        <td><?php echo $value['name']; ?></td>                                                
                         <td><?php echo $value['category_name']; ?></td>
                         <td><?php echo $value['menu_category']; ?></td>
                         <td class="text-center">
                             <form action="#" method="post" class="d-inline">
                                 <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">
-                                <input class="btn btn-outline-success" type="submit" name="action" value="Show">
+                                <input class="btn btn-outline-success w-45" type="submit" name="action" value="Edit">
                             </form>
                             <?php include(SITE_ROOT . "/../view/admin/dishes/delete_form.php"); ?>
                         </td>

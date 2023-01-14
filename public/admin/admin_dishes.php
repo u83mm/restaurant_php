@@ -44,8 +44,8 @@
 				$dishesController->new();			
 				break;
 			
-			case "show":
-				$dishesController->show();							
+			case "edit":
+				$dishesController->edit();							
 				break;
 	
 			case "update":

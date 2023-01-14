@@ -25,6 +25,12 @@
                 </div>                
             </div>
             <div class="row mb-3">
+                <label class="col-sm-3 col-form-label" for="price">Precio:</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php echo $dishe['price']; ?>" required>
+                </div>                
+            </div>
+            <div class="row mb-3">
                 <label class="col-sm-3 col-form-label" for="category">Categoría:</label>
                 <div class="col-sm-8">
                     <select name="category" id="category">
@@ -62,8 +68,7 @@
                           
             <div class="row mb-3">
                 <label class="col-sm-3" for="nome">&nbsp;</label>
-                <div class="col-sm-8">
-                   
+                <div class="col-sm-8">                   
                     <button type="submit" name="action" value="update">Actualizar</button>                   
                     <input type="submit" name="action" value="Volver">
                 </div>                

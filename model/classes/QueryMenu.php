@@ -24,7 +24,7 @@
         public function updateDishe(array $fields, object $dbcon): void
         {
             $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id, 
-                    menu_id = :menu_id, picture = :picture
+                    menu_id = :menu_id, picture = :picture, price = :price
                     WHERE dishe_id = :id";                 
 
             $stm = $dbcon->pdo->prepare($query);           
@@ -71,6 +71,36 @@
             }
 
             return $showResult;
+        }
+
+
+        /**
+         * It returns the price of the menu of the day, which is the sum of the prices of the dishes of
+         * the first, second and dessert courses multiplied by 1.5
+         * 
+         * @param array primeros array of dishes of the first course
+         * @param array segundos array of dishes
+         * @param array postres array of dishes
+         * 
+         * @return float The price of the menu of the day.
+         */
+        public function getMenuDayPrice(array $primeros, array $segundos, array $postres): float
+        {
+            $menuDayPrice = 0;
+
+            foreach ($primeros as $key => $dishe) {
+               $menuDayPrice += $dishe['price'];
+            }
+
+            foreach ($segundos as $key => $dishe) {
+                $menuDayPrice += $dishe['price'];
+            }
+
+            foreach ($postres as $key => $dishe) {
+                $menuDayPrice += $dishe['price'];
+            }
+            
+            return $menuDayPrice -= $menuDayPrice * 0.50;
         }
     }
     

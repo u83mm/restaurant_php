@@ -108,5 +108,25 @@
         {            
             return str_replace($_SERVER['DOCUMENT_ROOT'], '', $file_system_path);
         }
+
+
+        // Delete picture from server
+        public function deletePicture(string $cadena = null): void
+        {
+            unlink($cadena);
+        }
+        
+        public function divideTextInParagrahs(string $text): string
+        {
+            $paragraphs = explode("\n", $text);
+            $string = "";           
+
+            foreach ($paragraphs as $key => $value) {
+                if ($value == "") continue;
+                $string .= "<p>$value</p>";                            
+            }                       
+
+            return $string;
+        }
     }
 ?>

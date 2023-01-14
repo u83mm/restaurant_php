@@ -199,6 +199,10 @@ aside {
 	height: 11em;
 }
 
+.w-45 {
+	width: 45%;
+}
+
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {
 

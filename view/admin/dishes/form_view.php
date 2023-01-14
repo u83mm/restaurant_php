@@ -12,9 +12,15 @@
         </div>                
     </div>
     <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="price">Precio:</label>
+        <div class="col-sm-2">
+            <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php if(isset($category)) echo $price; ?>" required>
+        </div>                
+    </div>
+    <div class="row mb-3">
         <label class="col-sm-3 col-form-label" for="category">Categoría:</label>
         <div class="col-sm-8">
-            <select name="category" id="category">
+            <select name="category" id="category" required>
                 <option value="">- Selecciona -</option>
             <?php foreach ($categoriesDishesDay as $key => $category) { ?>
                 <option value="<?php echo $category["category_id"]; ?>"><?php if(isset($category)) echo $category["category_name"]; ?></option>
@@ -25,7 +31,7 @@
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label" for="dishes_type">Tipo de Plato:</label>
         <div class="col-sm-8">
-            <select name="dishes_type" id="dishes_type">
+            <select name="dishes_type" id="dishes_type" required>
                 <option value="">- Selecciona -</option>
             <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
                 <option value="<?php echo $category["menu_id"]; ?>"><?php if(isset($category)) echo $category["menu_category"]; ?></option>
