@@ -36,7 +36,7 @@
 				$dishesController->index();	
 				break;
 			
-			case "show form":
+			case "show_form":
 				$dishesController->showForm();
 				break;
 					
@@ -51,13 +51,13 @@
 			case "update":
 				$dishesController->update();	
 				break;
-	
-			case "change password":
-				$dishesController->changePassword();
-				break;
-	
+			
 			case "delete":
 				$dishesController->delete();
+				break;
+
+			case "search":
+				$dishesController->search($message, $p, $s);
 				break;
 		}	
 	}	

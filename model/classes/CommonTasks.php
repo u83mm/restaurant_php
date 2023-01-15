@@ -36,7 +36,7 @@
 
         // Muestra paginación 
 
-        public function pagination1($pagina, $pagerows, $current_page) {
+        public function pagination1($pagina, $pagerows, $current_page, $action, $field = null) {
             $x = $this->return_x_value($pagina, $current_page);
                 
             for($i = 1; $i <= 5; $i++) {
@@ -49,6 +49,8 @@
                         <form class="active" action="/admin/admin_dishes.php" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                            <input type="hidden" name="action" value="<?php echo $action; ?>">
+                            <input type="hidden" name="name" value="<?php echo $field; ?>">
                             <button class="page-link" type="submit"><span><?php echo $x; ?></span></button>                           
                         </form>                       
                     </li>                    
@@ -59,6 +61,8 @@
                         <form action="/admin/admin_dishes.php" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">
+                            <input type="hidden" name="action" value="<?php echo $action; ?>">
+                            <input type="hidden" name="name" value="<?php echo $field; ?>">
                             <button class="page-link" type="submit"><?php echo $x; ?></button> 
                         </form>
                     </li>                   

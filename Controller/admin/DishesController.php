@@ -54,6 +54,10 @@
                 $rows = $stm->fetchAll();
                 $stm->closeCursor();
 
+                /** Variables to manage in view file */
+                $action = "listado";
+                $field = null;
+
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
             } 
             catch (\PDOException $e) {
@@ -397,6 +401,70 @@
                         de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
                 include(SITE_ROOT . "/../view/database_error.php");
             }
+        }
+
+        /** Show search form */
+        public function search(string $message = null, string $p = null, string $s = null): void
+        {
+            try {
+                /** Validate entries */ 
+                $validate = new Validate();                           
+
+                $fields = [
+                    "Nombre"  =>  $validate->test_input($_REQUEST['name'] ?? ""),                                   
+                ];
+
+                if($fields['Nombre'] !== "") {                    
+                    /** Test validation */
+                    $validateOk = $validate->validate_form($fields);
+
+                    if($validateOk) {
+                        /** Calculate necesary pages for pagination */ 
+                        $pagerows = 6; // Number of rows for page.
+                        $desde = 0;
+                        $dishes = new QueryMenu();
+
+                        $rows = $dishes->selectDishesByCritery($fields['Nombre'], $this->dbcon);
+
+                        $total_rows = count($rows);
+                        $pagina = 1;
+
+                        if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
+                        if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
+                        if($p && is_numeric($p)) $pagina = $p;                             
+                        if($s && is_numeric($s)) $desde = $s;               
+
+                        $last = ($pagina * $pagerows) - $pagerows;
+                        $current_page = ($desde/$pagerows) + 1;
+                          
+                        /** Variables to manage in view file */
+                        $action = "search";
+                        $field = $fields['Nombre'];
+
+                        $rows = $dishes->selectDishesByPagination($desde, $pagerows, $fields['Nombre'], $this->dbcon);                      
+
+                        include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
+                    }
+                    else {
+                        $msg = $validate->get_msg();
+                        throw new Exception($msg, 1);                    
+                    }
+                }
+                else {
+                    include(SITE_ROOT . "/../view/admin/dishes/search_view.php");
+                }
+                                
+            } catch (\Exception $e) {
+                $error_msg = $e->getMessage();
+
+                include(SITE_ROOT . "/../view/admin/dishes/search_view.php");
+
+            } catch (\Throwable $th) {			
+                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                        
+                include(SITE_ROOT . "/../view/database_error.php");				
+            }             
         }
     }    
 ?>

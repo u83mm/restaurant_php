@@ -56,17 +56,19 @@ use model\classes\PageClass;
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input class="page-link" type="submit" value="Ant.">
-                    </form>
-                    <!---<a class="page-link" href="/admin/admin_dishes.php?s=<?php //echo $desde - $pagerows; ?>&p=<?php //echo $pagina; ?>">Ant.</a> -->
+                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <!-- <input class="page-link" type="submit" value="Ant."> -->
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Ant.</button>
+                    </form>                    
                 </li>
 				<li class="page-item">
                      <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="0">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input class="page-link" type="submit" value="<<">
-                    </form>
-                    <!---<a class="page-link" href="/admin/admin_dishes.php?s=0&p=<?php //echo $pagina; ?>"><<</a>-->
+                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <!-- <input class="page-link" type="submit" value="<<"> -->
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><<</button>
+                    </form>                    
                 </li>				
 <?php
 			}
@@ -77,7 +79,7 @@ use model\classes\PageClass;
 			}
 
 			$pagination = new CommonTasks();
-			$pagination->pagination1($pagina, $pagerows, $current_page);
+			$pagination->pagination1($pagina, $pagerows, $current_page, $action, $field);
 
 			if($current_page != $pagina) {
 ?>
@@ -85,14 +87,18 @@ use model\classes\PageClass;
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $last; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input class="page-link" type="submit" value=">>">
+                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <!-- <input class="page-link" type="submit" value=">>"> -->
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">>></button>
                     </form>                   
                 </li>
 				<li class="page-item">
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input class="page-link" type="submit" value="Sig.">
+                        <input type="hidden" name="name" value="<?php echo $field; ?>">                        
+                        <!-- <input class="page-link" type="submit" value="Sig."> -->
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Sig.</button>
                     </form>                    
                 </li>				
 <?php
@@ -108,9 +114,10 @@ use model\classes\PageClass;
             </nav>
         </div>
         <div class="row">
-            <form action="#" method="post">                
-                <button type="submit" class="btn btn-primary mb-5" name="action" value="show form">Nuevo</button>               
-                <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
+            <form action="/admin/admin_dishes.php" method="post">                
+                <button type="submit" class="btn btn-primary mb-5" name="action" value="show_form">Nuevo</button>                               
+                <button type="submit" class="btn btn-primary mb-5" name="action" value="listado">Ir a listado</button> 
+                <button type="submit" class="btn btn-primary mb-5" name="action" value="search">Buscar</button>               
             </form>
         </div>        
     </div>    
