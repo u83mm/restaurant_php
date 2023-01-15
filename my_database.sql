@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 13-01-2023 a las 19:04:44
+-- Tiempo de generación: 15-01-2023 a las 08:37:07
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -33,29 +33,30 @@ CREATE TABLE `dishes` (
   `category_id` int(11) DEFAULT NULL,
   `menu_id` int(11) NOT NULL DEFAULT 1,
   `description` text NOT NULL,
-  `picture` varchar(200) DEFAULT NULL
+  `picture` varchar(200) DEFAULT NULL,
+  `price` decimal(5,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `dishes`
 --
 
-INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`, `picture`) VALUES
-(1, 'Macarrones a la Boloñesa', 1, 2, 'Macarrones con tomate y parmesano gratinados', NULL),
-(2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla', NULL),
-(3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero', NULL),
-(5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.', NULL),
-(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas', NULL),
-(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.', NULL),
-(9, 'Bolsa de patatas fritas', 4, 1, 'Patatas de bolsa para aperitivos', NULL),
-(10, 'Aceitunas rellenas', 4, 1, 'Lata de aceitunas rellenas.', NULL),
-(11, 'Espaguetis a la carbonara', 4, 2, 'Espaguetis con nata y condimentos especiales para la elaboración artesanal', NULL),
-(12, 'Ensalada catalana', 4, 3, 'Ensalada típica de cataluña, con ingredientes de l´Alt Empurdá', NULL),
-(13, 'Entrecot a la pimienta', 4, 4, 'Entrecot de buey a la parrilla con salsa a la pimienta', NULL),
-(14, 'Arroz negro', 4, 6, 'Arroz negro con tinta de sepia, gambas y frutos del mar', NULL),
-(15, 'Arroz con setas', 2, 6, 'Arroz con setas de campo, liebre y verduras de la campiña.', NULL),
-(16, 'Arroz marinero', 4, 6, 'Arroz con frutos de mar, bogabante y gambas.', NULL),
-(17, 'Arroz con verduras', 4, 6, 'Arroz con verduras frescas de temporada.', NULL);
+INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`, `picture`, `price`) VALUES
+(2, 'Bistec con patatas y verduras', 2, 4, 'Bistec de ternera a la brasa con verduras a la parrilla', NULL, '7.65'),
+(3, 'Flan con Nata y chocolate', 3, 7, 'Flan de huevo con nata montada a mano y chocolate casero', NULL, '0.00'),
+(5, 'Ensalada mixta con aguacate', 1, 3, 'Ensalada con ingredientes de la huerta, lechuga, tomate, pepino, maiz, muslitos de cangrejo, aguacate y atún.', NULL, '6.55'),
+(6, 'Pastel de queso', 3, 7, 'Pastel casero con queso de cabra y frambuesas', NULL, '0.00'),
+(8, 'Paella Valenciana', 4, 6, 'Paella de conejo y pollo con caracoles y verduras típicas de la huerta valenciana.', NULL, '0.00'),
+(9, 'Bolsa de patatas fritas', 4, 1, 'Patatas de bolsa para aperitivos', NULL, '0.00'),
+(10, 'Aceitunas rellenas', 4, 1, 'Lata de aceitunas rellenas.', NULL, '0.00'),
+(12, 'Ensalada catalana', 4, 3, 'Ensalada típica de cataluña, con ingredientes de l´Alt Empurdá', NULL, '0.00'),
+(13, 'Entrecot a la pimienta', 4, 4, 'Entrecot de buey a la parrilla con salsa a la pimienta', NULL, '0.00'),
+(14, 'Arroz negro', 4, 6, 'Arroz negro con tinta de sepia, gambas y frutos del mar', NULL, '0.00'),
+(15, 'Arroz con setas', 2, 6, 'Arroz con setas de campo, liebre y verduras de la campiña.', NULL, '8.30'),
+(16, 'Arroz marinero', 4, 6, 'Arroz con frutos de mar, bogabante y gambas.', NULL, '0.00'),
+(17, 'Arroz con verduras', 4, 6, 'Arroz con verduras frescas de temporada.', NULL, '0.00'),
+(27, 'Macarrones a la Boloñesa', 1, 2, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsam ipsa molestias maxime! Iusto ipsa iste inventore ut rem adipisci, nihil mollitia voluptas pariatur eius ratione ducimus assumenda corporis. Porro voluptas debitis animi aliquam ea, iusto officia sed quas dolorem voluptatem fugiat sunt minus ipsa eligendi repudiandae tenetur, fuga a?\r\n\r\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Ut, ea alias. Delectus id saepe hic sapiente sit reprehenderit iste unde vitae neque distinctio illum temporibus suscipit ipsum sequi harum corrupti ipsa, libero nesciunt accusamus nam aliquam explicabo! Quos tenetur non similique optio excepturi, dolore accusamus nisi ea. Omnis laborum corporis animi in accusamus a adipisci. Delectus perspiciatis iusto molestias odio similique atque laudantium totam officia dolorum, earum, rerum laborum dolore quod dolorem! \r\n\r\nFuga recusandae incidunt ducimus, repudiandae quisquam aperiam, itaque reiciendis rem quidem fugiat debitis, eaque odit ipsa. Eaque itaque officiis nulla quibusdam. Ipsam praesentium aperiam nemo magnam debitis assumenda!', '/var/www/public/uploads/dishes_pics/1673771751-macarrones_bolognesa.jpg', '9.35'),
+(30, 'Espaguetis a la carbonara', 4, 2, 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsam ipsa molestias maxime! Iusto ipsa iste inventore ut rem adipisci, nihil mollitia voluptas pariatur eius ratione ducimus assumenda corporis. Porro voluptas debitis animi aliquam ea, iusto officia sed quas dolorem voluptatem fugiat sunt minus ipsa eligendi repudiandae tenetur, fuga a?\r\n\r\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Ut, ea alias. Delectus id saepe hic sapiente sit reprehenderit iste unde vitae neque distinctio illum temporibus suscipit ipsum sequi harum corrupti ipsa, libero nesciunt accusamus nam aliquam explicabo! Quos tenetur non similique optio excepturi, dolore accusamus nisi ea. Omnis laborum corporis animi in accusamus a adipisci. Delectus perspiciatis iusto molestias odio similique atque laudantium totam officia dolorum, earum, rerum laborum dolore quod dolorem! \r\n\r\nFuga recusandae incidunt ducimus, repudiandae quisquam aperiam, itaque reiciendis rem quidem fugiat debitis, eaque odit ipsa. Eaque itaque officiis nulla quibusdam. Ipsam praesentium aperiam nemo magnam debitis assumenda!', '/var/www/public/uploads/dishes_pics/1673710220-espagueti_carbo.jpg', '8.35');
 
 -- --------------------------------------------------------
 
@@ -197,7 +198,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `dishe_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `dishes_day`

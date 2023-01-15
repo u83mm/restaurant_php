@@ -342,13 +342,17 @@
                 if ($validateOk) {
                     $query = new QueryMenu();
 
-                    /** If there is a new image to upload, we add it to fields array */
+
+                    /** Get the object to manage the picture in the DB  */
+                    $dishe = $query->selectOneBy("dishes", "dishe_id", $fields['id'], $this->dbcon);
+
+
+                    /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
+                        $commonTask->deletePicture($dishe['picture']);
                         $fields["picture"] = $file_name;
                     }
-                    else {
-                        /** Get the actual path to the image in the DB and stay it without changes */
-                        $dishe = $query->selectOneBy("dishes", "dishe_id", $fields['id'], $this->dbcon);
+                    else {                        
                         $fields["picture"] = $dishe['picture'];
                     }
 
