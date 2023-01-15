@@ -50,12 +50,12 @@
 								header("Location: /");							
 							}
 							else {
-								$error_msg = "<p class='error'>Tu usuario y contraseña no coinciden</p>";
+								$error_msg = "<p class='alert alert-danger text-center'>Tu usuario y contraseña no coinciden</p>";
 								include(SITE_ROOT . "/../view/login_view.php");
 							}			
 						}
 						else {		
-							$error_msg = "<p class='error'>El usuario \"{$email}\" no existe en la base de datos</p>";										
+							$error_msg = "<p class='alert alert-danger text-center'>El usuario \"{$email}\" no existe en la base de datos</p>";										
 							include(SITE_ROOT . "/../view/login_view.php");
 						}
 					} catch (\Throwable $th) {					

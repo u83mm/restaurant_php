@@ -38,7 +38,7 @@ use model\classes\QueryMenu;
                 if($i == $y || $i == count($menuCategories)-1) {
                     $showResult .= "</ul></div>";
                     if($y < count($menuCategories)) {
-                        $showResult .= '<div class="col-6 col-lg-3"><ul>';
+                        $showResult .= '<div class="col-6 col-md-4 col-lg-3"><ul>';
                     }
 
                     $y +=4; 

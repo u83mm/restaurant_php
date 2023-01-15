@@ -8,7 +8,7 @@
 	$home->do_html_nav($home->menus);
 ?>	
 								<!--- SECTION WITH INFO -->
-	<section class="col-9 pe-3 mb-3">
+	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3">
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
@@ -18,7 +18,7 @@
 		</div>		
 		<div class="row">
             <div class="clear-fix">
-                <img class="w-25 float-start me-3" src="<?php echo $dishe_picture ; ?>" alt="dishe-image">                
+                <img class="float-start me-3" src="<?php echo $dishe_picture ; ?>" alt="dishe-image">                
                 <?php echo $description; ?>
             </div>		
 		</div>
@@ -29,7 +29,7 @@
 			</div>			
 		</div>
 		<div class="row">
-			<form action="/menu/menu.php" method="post"><button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button></form>
+			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post"><button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button></form>
 		</div>			
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
