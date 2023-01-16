@@ -67,7 +67,6 @@ h6 {
 
 nav {
 	margin-bottom: 1em;
-	margin-left: 10px;	
 }
 
 nav li {
@@ -157,7 +156,7 @@ select {
 	padding: 0.5em;
 }
 
-.menus {
+.menuDia {
 	background: rgba(238, 145, 111, 0.3);
 	border-radius: 1em;
 	-webkit-border-radius: 1em;
@@ -168,11 +167,11 @@ select {
 	padding: 1em;
 }
 
-.menus img {
+.menuDia img {
 	width: 4em;
 }
 
-.menus h3 {
+.menuDia h3 {
 	margin: 0em 1em;
 }
 
@@ -207,6 +206,10 @@ section img {
 	width: 12.5em;
 }
 
+.inputFile {
+	width: inherit;		
+}
+
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {
 	.mainLogo {
@@ -217,8 +220,13 @@ section img {
 		width: 9em;
 	}
 
-	.menus img {
+	.menuDia img {
 		width: 3em;
+	}
+
+	.options {
+		width: 10em;
+		display: block;
 	}
 }
 
@@ -240,13 +248,15 @@ section img {
 *		Configuración para tablets landscape (horizontal)	   *
 ***************************************************************/
 @media (min-width: 769px) and (max-width: 1050px) {
-		
+	
 }
 
 /***************************************************************
 *			 Configuración para KINDLE FIRE					   *
 ***************************************************************/
 @media (min-width: 1051px) and (max-width: 1280px) {
-
+	.adminMenus {
+		width: 20em;		
+	}	
 }
 

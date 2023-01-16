@@ -10,15 +10,15 @@
     <div class="row">
         <h3 class="text-center pb-2">MENÚ PRINCIPAL</h3>
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
-        <div class="mx-auto bg-success bg-opacity-10 adminMenus">
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
             <h4 class="text-center">PLATOS</h4>
             <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php">Listado</a>
         </div>
-        <div class="mx-auto bg-success bg-opacity-10 adminMenus">
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
             <h4 class="text-center">USUARIOS</h4>
             <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Listado"></form>
         </div> 
-        <div class="mx-auto bg-success bg-opacity-10 adminMenus">
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
             <h4 class="text-center">CATEGORIAS</h4>
             <a class="btn btn-primary mb-5" href="#">Listado</a>
         </div>                                                                                   

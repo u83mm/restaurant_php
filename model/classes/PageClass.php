@@ -65,12 +65,12 @@
 								<span class="navbar-toggler-icon"></span>
 							</button>
 							<div class="collapse navbar-collapse" id="my_nav">
-								<ul class="nav nav-pills navbar-nav">
+								<ul class="nav navbar-nav d-lg-inline-block text-lg-center w-100">
 <?php
 							foreach($this->menus as $name => $url) {
 								if((!isset($_SESSION['role']) && $name === "Administration") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration")) continue;
 ?>
-									<li class="nav-item "><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
+									<li class="nav-item d-lg-inline-block"><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
 							}
 ?>

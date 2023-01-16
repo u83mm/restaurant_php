@@ -10,37 +10,39 @@ use model\classes\PageClass;
 	$page->do_html_nav($page->menus);
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
-    <div class="container">
+    <div class="container-fluid">
         <?php echo $message = $message ?? ""; ?>
-        <div class="row col-8 mx-auto">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr class="text-center">
-                        <th>Id</th>
-                        <th>Nombre</th>                                                
-                        <th>Menú Día</th>
-                        <th>Categoría</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($rows as $value) { ?>
-                    <tr>
-                        <td><?php echo $value['dishe_id']; ?></td>
-                        <td><?php echo $value['name']; ?></td>                                                
-                        <td><?php echo $value['category_name']; ?></td>
-                        <td><?php echo $value['menu_category']; ?></td>
-                        <td class="text-center">
-                            <form action="#" method="post" class="d-inline">
-                                <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">
-                                <input class="btn btn-outline-success w-45" type="submit" name="action" value="Edit">
-                            </form>
-                            <?php include(SITE_ROOT . "/../view/admin/dishes/delete_form.php"); ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-12 col-lg-8 mx-auto table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Id</th>
+                            <th>Nombre</th>                                                
+                            <th>Menú Día</th>
+                            <th>Categoría</th>
+                            <th class="options">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($rows as $value) { ?>
+                        <tr>
+                            <td><?php echo $value['dishe_id']; ?></td>
+                            <td><?php echo $value['name']; ?></td>                                                
+                            <td><?php echo $value['category_name']; ?></td>
+                            <td><?php echo $value['menu_category']; ?></td>
+                            <td class="text-center">
+                                <form action="#" method="post" class="d-inline">
+                                    <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">
+                                    <input class="btn btn-outline-success w-45" type="submit" name="action" value="Edit">
+                                </form>
+                                <?php include(SITE_ROOT . "/../view/admin/dishes/delete_form.php"); ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>            
         </div>
 
                                         <!-- SECCIÓN PARA LA PAGINACIÓN -->
@@ -114,7 +116,7 @@ use model\classes\PageClass;
             </nav>
         </div>
         <div class="row">
-            <form action="/admin/admin_dishes.php" method="post">                
+            <form class="text-center text-lg-start" action="/admin/admin_dishes.php" method="post">                
                 <button type="submit" class="btn btn-primary mb-5" name="action" value="show_form">Nuevo</button>                               
                 <button type="submit" class="btn btn-primary mb-5" name="action" value="listado">Ir a listado</button> 
                 <button type="submit" class="btn btn-primary mb-5" name="action" value="search">Buscar</button>               

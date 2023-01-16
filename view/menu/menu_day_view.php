@@ -1,4 +1,4 @@
-<aside class="col-12 col-lg-3 mb-3 menus">		
+<aside class="col-12 col-lg-3 mb-3 menuDia">		
     <div class="row text-center mb-3">
         <div class="col d-flex justify-content-center align-items-center">
             <h3>Menú del día</h3>
