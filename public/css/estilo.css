@@ -248,7 +248,11 @@ section img {
 *		Configuración para tablets landscape (horizontal)	   *
 ***************************************************************/
 @media (min-width: 769px) and (max-width: 1050px) {
-	
+	.menuDia {
+		width: 50%;
+		margin: 0 auto;
+		display: flow-root;
+	}
 }
 
 /***************************************************************

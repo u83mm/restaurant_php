@@ -57,6 +57,7 @@
                 /** Variables to manage in view file */
                 $action = "listado";
                 $field = null;
+                $commonTask = new CommonTasks();
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
             } 
@@ -257,7 +258,7 @@
         {
             /** If there is a picture to update */
             try {
-                if ($_FILES['dishe_img']['name']) {                   
+                if ($_FILES['dishe_img']['name']) {                                     
                     $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
                     $image_fieldname = "dishe_img";
     
@@ -440,9 +441,9 @@
                         /** Variables to manage in view file */
                         $action = "search";
                         $field = $fields['Nombre'];
+                        $commonTask = new CommonTasks();
 
                         $rows = $dishes->selectDishesByPagination($desde, $pagerows, $fields['Nombre'], $this->dbcon);                      
-
                         include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
                     }
                     else {
@@ -456,13 +457,11 @@
                                 
             } catch (\Exception $e) {
                 $error_msg = $e->getMessage();
-
                 include(SITE_ROOT . "/../view/admin/dishes/search_view.php");
 
             } catch (\Throwable $th) {			
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                        
+                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";                        
                 include(SITE_ROOT . "/../view/database_error.php");				
             }             
         }

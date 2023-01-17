@@ -43,7 +43,7 @@
         <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />  
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="dishe_img">Imagen:</label>
         <div class="col-12 col-md-8 input-group inputFile">
-            <input type="file" id="dishe_img" name="dishe_img"  />
+            <input type="file" id="dishe_img" name="dishe_img" />
         </div>                
     </div>                    
     <div class="row mb-3">

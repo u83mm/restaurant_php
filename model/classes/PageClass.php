@@ -58,8 +58,8 @@
 			?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 						<div class="container-fluid">
-							<div class="col-3 col-sm-1 col-lg-1">
-								<a class="navbar-brand" href="/"><img src="images/logo_pb.png" class="img-fluid float-start" alt="imagen_logo"></a>
+							<div class="col-5 col-sm-1 col-md-3 col-lg-2 col-xl-1">
+								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>
 							</div>
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>

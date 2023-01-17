@@ -179,7 +179,7 @@ use model\classes\QueryMenu;
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
 
-            /** Show salads */
+            /** Show rices */
 
             $rices = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "arroces", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($rices, "arroces");                       

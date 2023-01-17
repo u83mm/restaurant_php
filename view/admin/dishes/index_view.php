@@ -13,11 +13,12 @@ use model\classes\PageClass;
     <div class="container-fluid">
         <?php echo $message = $message ?? ""; ?>
         <div class="row">
-            <div class="col-12 col-lg-8 mx-auto table-responsive">
+            <div class="col-12 col-lg-9 mx-auto table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
+                            <th></th>
                             <th>Nombre</th>                                                
                             <th>Menú Día</th>
                             <th>Categoría</th>
@@ -27,7 +28,13 @@ use model\classes\PageClass;
                     <tbody>
                     <?php foreach ($rows as $value) { ?>
                         <tr>
-                            <td><?php echo $value['dishe_id']; ?></td>
+                            <td><?php echo $value['dishe_id']; ?></td>                            
+                            <td class="align-middle col-1">                               
+                                <form class="d-inline" action="/menu/info_dishe/show_info.php" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $value['dishe_id']; ?>">
+                                    <input class="img-fluid" type="image" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe">
+                                </form>
+                            </td>
                             <td><?php echo $value['name']; ?></td>                                                
                             <td><?php echo $value['category_name']; ?></td>
                             <td><?php echo $value['menu_category']; ?></td>
@@ -115,6 +122,7 @@ use model\classes\PageClass;
                 </ul>
             </nav>
         </div>
+                                         <!-- BOTONES DE CONTROL -->
         <div class="row">
             <form class="text-center text-lg-start" action="/admin/admin_dishes.php" method="post">                
                 <button type="submit" class="btn btn-primary mb-5" name="action" value="show_form">Nuevo</button>                               

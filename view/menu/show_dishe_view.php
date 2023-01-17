@@ -24,7 +24,7 @@
 		</div>
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-9">
+			<div class="col-9 p-4">
 				<h3>Precio: <?php echo number_format($dishe['price'], 2, ",", ".") ; ?>€</h3>
 			</div>			
 		</div>

@@ -100,15 +100,16 @@
             ImageSaveAlpha($thumbnail, true);
             $x = ImageSX($original);
             $y = ImageSY($original);
-            $scale = min($x / $w, $y / $h);
-            ImageCopyResampled($thumbnail, $original, 0, 0, ($x - ($w * $scale)) / 2, ($y - ($h * $scale)) / 2, $w, $h, $w * $scale, $h * $scale);
+            /*$scale = min(round($x / $w), round($y / $h));
+            ImageCopyResampled($thumbnail, $original, 0, 0, ($x - ($w * $scale)) / 2, ($y - ($h * $scale)) / 2, $w, $h, $w * $scale, $h * $scale);*/            
+            ImageCopyResampled($thumbnail, $original, 0, 0, 0, 0, $w, $h, $x, $y);
             return $thumbnail;
         }
 
 
         //Convierte una dirección absoluta a una para poder ver la ruta en navegador
 
-        function getWebPath(string $file_system_path): string
+        function getWebPath(string|null $file_system_path): string
         {            
             return str_replace($_SERVER['DOCUMENT_ROOT'], '', $file_system_path);
         }
@@ -117,7 +118,7 @@
         // Delete picture from server
         public function deletePicture(string $cadena = null): void
         {
-            unlink($cadena);
+            if($cadena) unlink($cadena);
         }
         
         public function divideTextInParagrahs(string $text): string
