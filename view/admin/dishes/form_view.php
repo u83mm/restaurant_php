@@ -2,19 +2,19 @@
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="name">Nombre:</label>
         <div class="col-sm-8">
-            <input class="form-control" type="text" name="name" id="name" value="<?php if(isset($category)) echo $name; ?>" required>
+            <input class="form-control" type="text" name="name" id="name" value="<?php if(isset($fields)) echo $fields['Name']; ?>" required>
         </div>                
     </div>
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="description">Descripción:</label>
         <div class="col-sm-8">
-            <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php if(isset($category)) echo $description; ?></textarea>                    
+            <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php if(isset($fields)) echo $fields['Description']; ?></textarea>                    
         </div>                
     </div>
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="price">Precio:</label>
         <div class="col-sm-2">
-            <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php if(isset($category)) echo $price; ?>" required>
+            <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php if(isset($fields)) echo $fields['Price']; ?>" required>
         </div>                
     </div>
     <div class="row mb-3">

@@ -7,6 +7,7 @@
     use model\classes\QueryMenu;
     use model\classes\Validate;    
     use PDOException;
+    use PDO;
 
     class DishesController
     {        
@@ -57,15 +58,14 @@
                 /** Variables to manage in view file */
                 $action = "listado";
                 $field = null;
-                $commonTask = new CommonTasks();
+                $commonTask = new CommonTasks();                          
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
             } 
             catch (\PDOException $e) {
                 if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $error_msg = "<p>Error en la ejecución.</p><p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
-
-                    include(SITE_ROOT . "/../view/database_error.php");
+                    $message = $e->getMessage();
+                    include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
                 }
                 else {
                     $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
@@ -130,6 +130,9 @@
 
                 $validateOk = $validate->validate_form($fields);
 
+                /** Begin transaction */
+                $this->dbcon->pdo->beginTransaction();
+
                 if($_FILES[$image_fieldname]['error'] != 0) {
                     throw new \Exception("Error Processing Request" . " " . $php_errors[$_FILES[$image_fieldname]['error']]);                                                                                
                 }
@@ -139,8 +142,8 @@
                         "Uploaded request: file named " . "'{$_FILES[$image_fieldname]['tmp_name']}'");
                 
                 @getimagesize($_FILES[$image_fieldname]['tmp_name']) or throw new \Exception("El archivo que " 
-                . "intenta subir no es un archivo válido", $_FILES[$image_fieldname]['name']
-                . " debe ser (*.gif, *.jpg, *.jpeg o *.png).");
+                    . "intenta subir no es un archivo válido", $_FILES[$image_fieldname]['name']
+                    . " debe ser (*.gif, *.jpg, *.jpeg o *.png).");
 
                 /** New name for the file to upload */
                 $now = time();
@@ -173,21 +176,24 @@
                     ImageDestroy($final_image);                	
                 }
                 else {
-                    throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
+                    throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
                 }
             } catch (\Exception $e) {
                 $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                $this->dbcon->pdo->rollBack();
                 include(SITE_ROOT . "/../view/database_error.php");
             }
-            	
-            
+            	            
             try {
                 if ($validateOk) {
                     $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
                                 VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
-                    
-                    /** Test price type */
-                    if(!is_numeric($fields['price'])) throw new Exception("El campo 'Precio' debe ser numérico.");
+                                        
+                    /** Test price type, if isn't numeric delete picture from server and throw an exception*/
+                    if(!is_numeric($fields['Price'])){
+                        $commonTask->deletePicture($upload_filename);                        
+                        throw new Exception("El campo 'Precio' debe ser numérico.");
+                    }
     
                     $stm = $this->dbcon->pdo->prepare($query); 
                     $stm->bindValue(":name", $fields['Name']);
@@ -198,28 +204,37 @@
                     $stm->bindValue(":price", $fields['Price']);             
                     $stm->execute();       				
                     $stm->closeCursor();                    
-    
+                    
+                    $this->dbcon->pdo->commit();
+
                     $success_msg = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";                   
                     header("Location: /admin/admin_dishes.php?message={$success_msg}");										
                 }
                 else {
                     $error_msg = $validate->get_msg();
+                    $this->dbcon->pdo->rollBack();
+
                     include(SITE_ROOT . "/../view/admin/dishes/new_view.php");                   
                 }
 
             } catch (\Exception $e) {
-                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                              
+                $this->dbcon->pdo->rollBack();
+                
                 include(SITE_ROOT . "/../view/admin/dishes/new_view.php"); 
+
             } catch (\Throwable $th) {			
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
                         de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $this->dbcon->pdo->rollBack();
+
                 include(SITE_ROOT . "/../view/database_error.php");				
             }            		
         }
 
         public function edit(): void
         {
-            // We obtain all registries in "dishes" tables
+            // We obtain all registries in "dishes_day" and "dishes_menu" tables
             
             $query = new Query($this->dbcon);
             $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);

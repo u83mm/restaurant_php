@@ -65,7 +65,7 @@
 								<span class="navbar-toggler-icon"></span>
 							</button>
 							<div class="collapse navbar-collapse" id="my_nav">
-								<ul class="nav navbar-nav d-lg-inline-block text-lg-center w-100">
+								<ul class="nav navbar-nav justify-content-center w-100">
 <?php
 							foreach($this->menus as $name => $url) {
 								if((!isset($_SESSION['role']) && $name === "Administration") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration")) continue;

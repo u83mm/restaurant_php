@@ -10,10 +10,10 @@ use model\classes\PageClass;
 	$page->do_html_nav($page->menus);
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
-    <div class="container-fluid">
-        <?php echo $message = $message ?? ""; ?>
+    <div class="container-fluid">        
         <div class="row">
             <div class="col-12 col-lg-9 mx-auto table-responsive">
+            <?php echo $message = $message ?? ""; ?>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">
@@ -26,7 +26,7 @@ use model\classes\PageClass;
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($rows as $value) { ?>
+                    <?php if(isset($rows)) foreach ($rows as $value) { ?>
                         <tr>
                             <td><?php echo $value['dishe_id']; ?></td>                            
                             <td class="align-middle col-1">                               
