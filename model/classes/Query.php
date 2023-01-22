@@ -153,5 +153,55 @@
             
             return $rows;
         }
+
+     /**
+      * > This function inserts a record into a table
+      * 
+      * @param array fields an array of fields to be inserted into the database.
+      * @param string table The table name
+      * @param object dbcon The database connection object.
+      */
+        public function insertInto(string $table, array $fields, object $dbcon): void
+        {
+            /** Initialice variables */
+            $query = $values = "";
+            $insert = "INSERT INTO $table (";            
+
+            foreach ($fields as $key => $value) {
+                $insert .= $key . ",";
+                $values .= ":$key,";
+            }
+
+            /** Prepare variables for make the query */
+            $insert_size = strlen($insert);
+            $insert = substr($insert, 0, $insert_size-1) . ") VALUES (";          
+            $value_size = strlen($values);
+            $values = substr($values, 0, $value_size-1) . ")";
+
+            /** Make the query */
+            $query = $insert . $values;            
+                                                    
+            $stm = $dbcon->pdo->prepare($query);
+            foreach ($fields as $key => $value) {
+                $stm->bindValue(":$key", $value);
+            }                   
+            $stm->execute();       				
+            $stm->closeCursor();
+        }
+
+       /**
+        * > This function truncates a table
+        * 
+        * @param string table The name of the table you want to truncate.
+        * @param dbcon This is the database connection object.
+        */
+        public function truncateTable(string $table, $dbcon): void
+        {
+            $query = "TRUNCATE TABLE $table";
+                
+            $stm = $dbcon->pdo->prepare($query);                                                   
+            $stm->execute();                   
+            $stm->closeCursor();
+        }
     }    
 ?>

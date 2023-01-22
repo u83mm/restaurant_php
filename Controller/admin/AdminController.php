@@ -12,8 +12,10 @@
         }
 
         /** Show main menus views */
-        public function adminMenus():void
+        public function adminMenus(string $message = null):void
         {
+            $error_msg = $message ?? "";
+            
             include(SITE_ROOT . "/../view/admin/admin_menus_view.php");
         }
 

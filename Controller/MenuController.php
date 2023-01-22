@@ -1,8 +1,8 @@
 <?php
     namespace Controller;
 
-use model\classes\CommonTasks;
-use model\classes\QueryMenu;
+    use model\classes\CommonTasks;
+    use model\classes\QueryMenu;
 
     class MenuController
     {
@@ -24,7 +24,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDay->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDay->getMenuDayPrice($this->dbcon);
 
 
             /** Show Menu's categories */
@@ -61,7 +61,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show aperitifs */
 
@@ -84,7 +84,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show starts */
 
@@ -107,7 +107,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -130,7 +130,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
 
             /** Show salads */
@@ -154,7 +154,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -177,7 +177,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show rices */
 
@@ -200,7 +200,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -223,7 +223,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -246,7 +246,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -269,7 +269,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -292,7 +292,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -315,7 +315,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -338,8 +338,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
-
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
             /** Show salads */
 
             $champagnes = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "champagne", $this->dbcon);           
@@ -361,8 +360,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
-
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
             /** Show salads */
 
             $drinks = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "bebidas", $this->dbcon);           
@@ -384,7 +382,7 @@ use model\classes\QueryMenu;
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
             /** Show salads */
 
@@ -406,9 +404,9 @@ use model\classes\QueryMenu;
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
 
-             /** Calculate menu's day price */
+            /** Calculate menu's day price */
 
-             $menuDayPrice = $menuDishes->getMenuDayPrice($primeros, $segundos, $postres);
+            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
 
             /** We obtain the dishe info to show */

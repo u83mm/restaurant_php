@@ -12,7 +12,7 @@
 
         public function index()
         {
-            $menuDayQuery = new QueryMenu($this->dbcon);            
+            $menuDayQuery = new QueryMenu();            
 
             $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
@@ -21,7 +21,7 @@
 
             /** Calculate menu's day price */
 
-            $menuDayPrice = $menuDayQuery->getMenuDayPrice($primeros, $segundos, $postres);                       
+            $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);                       
            
             include(SITE_ROOT . "/../view/main_view.php");
         }

@@ -55,7 +55,7 @@
 							}			
 						}
 						else {		
-							$error_msg = "<p class='alert alert-danger text-center'>El usuario \"{$email}\" no existe en la base de datos</p>";										
+							$error_msg = "<p class='alert alert-danger text-center'>Comprueba tus datos de acceso</p>";										
 							include(SITE_ROOT . "/../view/login_view.php");
 						}
 					} catch (\Throwable $th) {					

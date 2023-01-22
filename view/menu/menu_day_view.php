@@ -30,5 +30,6 @@
         </ul>
     </div>
                             
-    <h4><strong>PRECIO: <?php echo number_format($menuDayPrice, 2, ",", "."); ?></strong></h4>
+    <h4><strong>PRECIO: <?php echo number_format($menuDayPrice, 2, ",", "."); ?>&nbsp;€</strong></h4>
+    <p>*Bebida a elegir, agua, vino o refresco</p>
 </aside>

@@ -121,6 +121,15 @@
             if($cadena) unlink($cadena);
         }
         
+
+        
+       /**
+        * It takes a string, splits it into an array of strings, and then returns a string
+        * 
+        * @param string text The text to be divided into paragraphs.
+        * 
+        * @return string A string with paragraphs.
+        */
         public function divideTextInParagrahs(string $text): string
         {
             $paragraphs = explode("\n", $text);

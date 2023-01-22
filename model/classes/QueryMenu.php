@@ -84,23 +84,13 @@
          * 
          * @return float The price of the menu of the day.
          */
-        public function getMenuDayPrice(array $primeros, array $segundos, array $postres): float
-        {
-            $menuDayPrice = 0;
+        public function getMenuDayPrice(object $dbcon): float
+        {            
+            $rows = parent::selectAll("menu_day_price", $dbcon);
 
-            foreach ($primeros as $key => $dishe) {
-               $menuDayPrice += $dishe['price'];
-            }
-
-            foreach ($segundos as $key => $dishe) {
-                $menuDayPrice += $dishe['price'];
-            }
-
-            foreach ($postres as $key => $dishe) {
-                $menuDayPrice += $dishe['price'];
-            }
+            $menuDayPrice = $rows[0]['price'] ?? 0.00;
             
-            return $menuDayPrice -= $menuDayPrice * 0.50;
+            return $menuDayPrice;
         }
 
         public function selectDishesByPagination(string $desde, string $pagerows, string $value, object $dbcon)
