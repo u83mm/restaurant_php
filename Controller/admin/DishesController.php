@@ -259,7 +259,7 @@
                 $commonTask = new CommonTasks();                
                 $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                
 
-                include(SITE_ROOT . "/../view/admin/dishes/show_view.php");
+                include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");
                 
             } catch (\Throwable $th) {
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
