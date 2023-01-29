@@ -18,9 +18,11 @@
          */
         public function test_input(int|string|float|null $data): int|string|float|null
         {
-            $data = htmlspecialchars($data);
-            $data = trim($data);
-            $data = stripslashes($data);
+            if(!is_int($data)) {
+                $data = htmlspecialchars($data);
+                $data = trim($data);
+                $data = stripslashes($data);
+            }
     
             return $data;
         }
@@ -41,16 +43,16 @@
          * Método para validar entradas de formulario
          */
         public function validate_form(array $fields): bool
-        {
+        {                 
             $result = true;
             
             foreach ($fields as $key => $value) {
-                if (empty($value)) {
+                if (empty($value) || !isset($value)) {                                        
                     $this->msg .= "<p class='alert alert-danger text-center'>'$key' es un dato requerido</p>";
                     $result = false;					
                 }
             }
-
+                      
             return $result;
         }
         

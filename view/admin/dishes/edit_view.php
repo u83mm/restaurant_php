@@ -66,7 +66,17 @@
                 <div class="col-12 col-md-8 input-group inputFile">
                     <input type="file" id="dishe_img" name="dishe_img" />
                 </div>                
-            </div> 
+            </div>
+            <div class="row mb-3">
+                <label class="col-12 col-md-3 text-center text-md-end col-form-label">Disponible:</label>
+                <div class="col-12 col-md-8 text-center text-md-start">
+                    <?php if($dishe['available'] === "SI") {?>
+                        <input type="checkbox" name="available" id="available" value="SI" checked> 
+                    <?php }else { ?>                    
+                        <input type="checkbox" name="available" id="available" value="SI"> 
+                    <?php } ?>
+                </div>                
+            </div>
                           
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end" for="nome">&nbsp;</label>

@@ -22,6 +22,7 @@ use model\classes\PageClass;
                             <th>Nombre</th>                                                
                             <th>Menú Día</th>
                             <th>Categoría</th>
+                            <th>Disponible</th>
                             <th class="options">Options</th>
                         </tr>
                     </thead>
@@ -38,6 +39,7 @@ use model\classes\PageClass;
                             <td><?php echo $value['name']; ?></td>                                                
                             <td><?php echo $value['category_name']; ?></td>
                             <td><?php echo $value['menu_category']; ?></td>
+                            <td><?php echo $value['available']; ?></td>
                             <td class="text-center">
                                 <form action="#" method="post" class="d-inline">
                                     <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">

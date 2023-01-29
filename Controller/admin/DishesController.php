@@ -8,6 +8,7 @@
     use model\classes\Validate;    
     use PDOException;
     use PDO;
+use VARIANT;
 
     class DishesController
     {        
@@ -355,17 +356,16 @@
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
-                ];
+                    "available"     => $validate->test_input($_REQUEST['available'] ?? "NO"),
+                ];                                 
 
                 $validateOk = $validate->validate_form($fields);                   
 
                 if ($validateOk) {
                     $query = new QueryMenu();
 
-
                     /** Get the object to manage the picture in the DB  */
                     $dishe = $query->selectOneBy("dishes", "dishe_id", $fields['id'], $this->dbcon);
-
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -377,14 +377,13 @@
                     }
 
                     $query->updateDishe($fields, $this->dbcon);
-
                     $msg = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
                     
                     header("Location: /admin/admin_dishes.php?message={$msg}");
 
                 } else {
                     $error_msg = $validate->get_msg();
-                    include(SITE_ROOT . "/../view/admin/dishes/new_view.php");  
+                    include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");  
                 }                                
             } catch (\Throwable $th) {			
                 $error_msg = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
