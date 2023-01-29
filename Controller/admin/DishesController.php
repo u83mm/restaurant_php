@@ -426,12 +426,13 @@ use VARIANT;
                 $validate = new Validate();                           
 
                 $fields = [
-                    "Nombre"  =>  $validate->test_input($_REQUEST['name'] ?? ""),                                   
-                ];
+                    "Campo"  =>  $validate->test_input($_REQUEST['field'] ?? ""), 
+                    "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
+                ];                
 
-                if($fields['Nombre'] !== "") {                    
+                if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
                     /** Test validation */
-                    $validateOk = $validate->validate_form($fields);
+                    $validateOk = $validate->validate_form($fields);                    
 
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
@@ -439,9 +440,9 @@ use VARIANT;
                         $desde = 0;
                         $dishes = new QueryMenu();
 
-                        $rows = $dishes->selectDishesByCritery($fields['Nombre'], $this->dbcon);
+                        $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon);
 
-                        $total_rows = count($rows);
+                        $total_rows = count($rows);                        
                         $pagina = 1;
 
                         if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
@@ -454,10 +455,11 @@ use VARIANT;
                           
                         /** Variables to manage in view file */
                         $action = "search";
-                        $field = $fields['Nombre'];
+                        $field = $fields['Campo'];
+                        $critery = $fields['Criterio'];
                         $commonTask = new CommonTasks();
 
-                        $rows = $dishes->selectDishesByPagination($desde, $pagerows, $fields['Nombre'], $this->dbcon);                      
+                        $rows = $dishes->selectDishesByPagination($desde, $pagerows, $field, $critery, $this->dbcon);                      
                         include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
                     }
                     else {

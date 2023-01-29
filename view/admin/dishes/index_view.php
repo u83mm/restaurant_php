@@ -67,7 +67,8 @@ use model\classes\PageClass;
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <input type="hidden" name="field" value="<?php echo $field; ?>">
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
                         <!-- <input class="page-link" type="submit" value="Ant."> -->
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Ant.</button>
                     </form>                    
@@ -76,7 +77,8 @@ use model\classes\PageClass;
                      <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="0">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <input type="hidden" name="field" value="<?php echo $field; ?>">
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
                         <!-- <input class="page-link" type="submit" value="<<"> -->
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><<</button>
                     </form>                    
@@ -98,7 +100,8 @@ use model\classes\PageClass;
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $last; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input type="hidden" name="name" value="<?php echo $field; ?>">
+                        <input type="hidden" name="field" value="<?php echo $field; ?>">
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
                         <!-- <input class="page-link" type="submit" value=">>"> -->
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">>></button>
                     </form>                   
@@ -107,7 +110,8 @@ use model\classes\PageClass;
                     <form action="/admin/admin_dishes.php" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                        <input type="hidden" name="name" value="<?php echo $field; ?>">                        
+                        <input type="hidden" name="field" value="<?php echo $field; ?>">
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                           
                         <!-- <input class="page-link" type="submit" value="Sig."> -->
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Sig.</button>
                     </form>                    

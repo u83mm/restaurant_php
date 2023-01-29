@@ -98,14 +98,14 @@
             return $menuDayPrice;
         }
 
-        public function selectDishesByPagination(string $desde, string $pagerows, string $value, object $dbcon)
+        public function selectDishesByPagination(string $desde, string $pagerows, string $field, string $value, object $dbcon)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
                     ON dishes.category_id = dishes_day.category_id
                     INNER JOIN dishes_menu
                     ON dishes.menu_id = dishes_menu.menu_id
-                    WHERE dishes.name LIKE :value
+                    WHERE dishes.$field LIKE :value
                     ORDER BY dishes.dishe_id
                     LIMIT :desde, :pagerows";
 
@@ -121,21 +121,21 @@
             return $rows;
         }
 
-        public function selectDishesByCritery(string $value, object $dbcon)
+        public function selectDishesByCritery(string $field, string $value, object $dbcon)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
                     ON dishes.category_id = dishes_day.category_id
                     INNER JOIN dishes_menu
                     ON dishes.menu_id = dishes_menu.menu_id
-                    WHERE dishes.name LIKE :value
+                    WHERE dishes.$field LIKE :value
                     ORDER BY dishes.dishe_id";
 
             $stm = $dbcon->pdo->prepare($query);            
             $value = "%{$value}%";
-            $stm->bindValue(":value", $value);                                         
+            $stm->bindValue(":value", $value);                                                  
             $stm->execute();       
-            $rows = $stm->fetchAll();
+            $rows = $stm->fetchAll();         
             $stm->closeCursor();                                                                           
 
             return $rows;
