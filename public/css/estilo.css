@@ -244,9 +244,7 @@ section img {
 	.options {
 		width: 10em;
 		display: block;
-	}
-
-	
+	}	
 }
 
 /************************************************************************
@@ -271,6 +269,10 @@ section img {
 		width: 50%;
 		margin: 0 auto;
 		display: flow-root;
+	}
+
+	.options {
+		width: 10em;		
 	}
 }
 

@@ -34,9 +34,9 @@
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="category">Categoría:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
                     <select name="category" id="category">
-                        <option value="<?php echo $dishe['category_id']; ?>"><?php echo $dishe['category_name']; ?></option>
+                        <option value="<?php echo $dishe['category_id']; ?>"><?php echo ucfirst($dishe['category_name']); ?></option>
                     <?php foreach ($categoriesDishesDay as $key => $category) { ?>
-                        <option value="<?php echo $category["category_id"]; ?>"><?php echo $category["category_name"]; ?></option>
+                        <option value="<?php echo $category["category_id"]; ?>"><?php echo ucfirst($category["category_name"]); ?></option>
                     <?php } ?>
                     </select>                   
                 </div>                
@@ -45,9 +45,9 @@
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="dishes_type">Tipo de Plato:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
                     <select name="dishes_type" id="dishes_type">
-                        <option value="<?php echo $disheType['menu_id']; ?>"><?php echo $disheType['menu_category']; ?></option>
+                        <option value="<?php echo $disheType['menu_id']; ?>"><?php echo ucfirst($disheType['menu_category']); ?></option>
                     <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo $category["menu_category"]; ?></option>
+                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($category["menu_category"]); ?></option>
                     <?php } ?>
                     </select>                   
                 </div>                

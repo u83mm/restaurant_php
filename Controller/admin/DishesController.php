@@ -6,9 +6,7 @@
     use model\classes\Query;
     use model\classes\QueryMenu;
     use model\classes\Validate;    
-    use PDOException;
-    use PDO;
-use VARIANT;
+    use PDOException;     
 
     class DishesController
     {        
@@ -237,7 +235,7 @@ use VARIANT;
         {
             // We obtain all registries in "dishes_day" and "dishes_menu" tables
             
-            $query = new Query($this->dbcon);
+            $query = new Query();
             $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
             $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
 
@@ -423,7 +421,10 @@ use VARIANT;
         {
             try {
                 /** Validate entries */ 
-                $validate = new Validate();                           
+                $validate = new Validate();
+                
+                $dishes = new QueryMenu();
+                $categoriesDishesMenu = $dishes->selectAll("dishes_menu", $this->dbcon);
 
                 $fields = [
                     "Campo"  =>  $validate->test_input($_REQUEST['field'] ?? ""), 
@@ -437,8 +438,7 @@ use VARIANT;
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
                         $pagerows = 6; // Number of rows for page.
-                        $desde = 0;
-                        $dishes = new QueryMenu();
+                        $desde = 0;                        
 
                         $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon);
 
