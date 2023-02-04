@@ -18,7 +18,7 @@ use model\classes\PageClass;
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
-                            <th></th>
+                            <th>Imagen</th>
                             <th>Nombre</th>                                                
                             <th>Menú Día</th>
                             <th>Categoría</th>

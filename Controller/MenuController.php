@@ -2,7 +2,8 @@
     namespace Controller;
 
     use model\classes\CommonTasks;
-    use model\classes\QueryMenu;
+    use model\classes\QueryMenu;    
+    use model\fpdf\MyPdf;
 
     class MenuController
     {
@@ -19,9 +20,9 @@
 
             $primeros = $menuDay->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDay->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon);
-
-
+            $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon); 
+            
+            
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDay->getMenuDayPrice($this->dbcon);
@@ -62,6 +63,7 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+           
 
             /** Show aperitifs */
 
@@ -86,6 +88,7 @@
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
+
             /** Show starts */
 
             $starts = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "entrantes", $this->dbcon);           
@@ -108,6 +111,7 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
             /** Show salads */
 
@@ -125,15 +129,15 @@
 
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
-
-
+            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon); 
+            
+            
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
 
-            /** Show salads */
+            /** Show meats */
 
             $meats = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "carnes", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($meats, "carnes");                        
@@ -156,7 +160,8 @@
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
-            /** Show salads */
+
+            /** Show fishes */
 
             $fishes = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "pescados", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($fishes, "pescados");                        
@@ -178,6 +183,7 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
             /** Show rices */
 
@@ -201,8 +207,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
-            /** Show salads */
+            /** Show deserts */
 
             $desserts = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "postres", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($desserts, "postres");                        
@@ -224,8 +231,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
-            /** Show salads */
+            /** Show coffes */
 
             $coffes = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "cafés", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($coffes, "cafés");            
@@ -247,6 +255,7 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
             /** Show salads */
 
@@ -271,6 +280,7 @@
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
+            
             /** Show salads */
 
             $whitesWines = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "blancos", $this->dbcon);           
@@ -293,6 +303,7 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
             /** Show salads */
 
@@ -316,8 +327,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
-            /** Show salads */
+            /** Show wines */
 
             $sparklingWines = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "cavas", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($sparklingWines, "cavas");                        
@@ -339,7 +351,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
-            /** Show salads */
+
+            
+            /** Show champagnes */
 
             $champagnes = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "champagne", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($champagnes, "champagne");                        
@@ -361,7 +375,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
-            /** Show salads */
+
+            
+            /** Show drinks */
 
             $drinks = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "bebidas", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($drinks, "bebidas");                        
@@ -383,8 +399,9 @@
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            
 
-            /** Show salads */
+            /** Show liquors */
 
             $liquors = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", "licores", $this->dbcon);           
             $showResult = $menuDishes->showMenuListByCategory($liquors, "licores");                        
@@ -401,9 +418,9 @@
 
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
-
-
+            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon); 
+            
+            
             /** Calculate menu's day price */
 
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
@@ -416,6 +433,59 @@
             $dishe_picture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                        
 
             include(SITE_ROOT . "/../view/menu/show_dishe_view.php");
+        }
+
+        /**
+         * It creates a PDF file with the title "Nuestra Carta" and shows it in the browser.
+         */
+        public function menu(): void
+        {   
+            define('FPDF_FONTPATH', SITE_ROOT .'/../model/fpdf/font');        
+            $pdf = new MyPdf();
+            
+            /** We obtain Menu's categories */
+
+            $menu = new QueryMenu();  
+            $menuCategories = $menu->selectAll("dishes_menu", $this->dbcon);    
+            
+
+            /** Start to build the menu */
+
+            $pdf->title = "Nuestra Carta";
+            //$pdf->SetLineWidth(2); 
+            $pdf->SetFillColor(0, 54.5, 54.5);           
+            $pdf->AddPage();
+            $pdf->AliasNbPages();
+            $pdf->SetFont('Arial','B',12); 
+
+
+            /** Show all the categories and their dishes*/
+
+            foreach ($menuCategories as $key => $category) {                
+                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($category['menu_category'])), 0, 0, '');
+                $pdf->Cell(0, 10, "Precio", 0, 0, "");                
+                //$pdf->Line(10, $pdf->getY()+10, $pdf->getX() -3, $pdf->GetY() + 10);
+                $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
+                $pdf->Ln(10);
+
+
+                /** Show dishes */
+
+                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category'], $this->dbcon);                                                              
+
+                foreach ($rows as $key => $value) {
+                    $pdf->SetFont('Arial','I',10);
+                    if($value['available'] === "SI") {
+                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
+                        $pdf->Cell(20, 10, $value['price'], 0, 0, 'R');                                                                  
+                    }
+                    $pdf->Ln(5);
+                    $pdf->SetFont('Arial','B',12);
+                }
+                $pdf->Ln(20);
+            }            
+            
+            $pdf->Output();            
         }
     }
     

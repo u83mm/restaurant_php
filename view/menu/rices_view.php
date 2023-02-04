@@ -13,7 +13,7 @@
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
 				<h2 class="m-0 me-2">Nuestros Arroces</h2>
-				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
+				<a href="/menu/menu.php?action=menu_pdf" target="_blank"><img class="img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
 			</div>
 		</div>		
 		<div class="row">

@@ -78,7 +78,6 @@
             return $showResult;
         }
 
-
         /**
          * It returns the price of the menu of the day, which is the sum of the prices of the dishes of
          * the first, second and dessert courses multiplied by 1.5

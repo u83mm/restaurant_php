@@ -75,6 +75,10 @@
 		case 'licores':
 			$menuController->liquors();
 			break;
+
+		case 'menu_pdf':
+			$menuController->menu();
+			break;
 				
 		default:
 			# code...

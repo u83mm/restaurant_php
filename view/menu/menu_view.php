@@ -12,8 +12,12 @@
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2">Nuestra Carta</h2>
-				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
+				<h2 class="m-0 me-3">Nuestra Carta</h2>				
+				<!--<form action="#" method="post">
+					<input type="hidden" name="action" value="menu_pdf">
+					<input type="image" class="img-fluid mainLogo" src="/images/menu.png" alt="menu_image">
+				</form> -->
+				<a href="/menu/menu.php?action=menu_pdf" target="_blank"><img class="img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
 			</div>
 		</div>		
 		<div class="row">
