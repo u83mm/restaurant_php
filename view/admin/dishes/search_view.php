@@ -16,7 +16,7 @@
                 <h5 class="text-center">Por nombre</h5> 
                 <form action="#" method="post" class="mb-3">
                     <input type="hidden" name="field" value="name">
-                    <button class="btn btn-primary" name="action" value="search">Enviar</button>
+                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <input class="form-control" type="text" name="critery" id="name" placeholder="Nombre del plato" required>
                     </div>                  
@@ -25,7 +25,7 @@
                 <h5 class="text-center">Por disponibilidad</h5> 
                 <form action="#" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
-                    <button class="btn btn-primary" name="action" value="search">Enviar</button>
+                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="available" required>
                             <option value="">- Selecciona -</option>
@@ -38,7 +38,7 @@
                 <h5 class="text-center">Por categoría</h5>
                 <form action="#" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
-                    <button class="btn btn-primary" name="action" value="search">Enviar</button>
+                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="category" required>
                             <option value="">- Selecciona -</option>

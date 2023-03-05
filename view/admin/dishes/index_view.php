@@ -129,11 +129,11 @@ use model\classes\PageClass;
             </nav>
         </div>
                                          <!-- BOTONES DE CONTROL -->
-        <div class="row">
+        <div class="row mb-5">
             <form class="text-center text-lg-start" action="/admin/admin_dishes.php" method="post">                
-                <button type="submit" class="btn btn-primary mb-5" name="action" value="show_form">Nuevo</button>                               
-                <button type="submit" class="btn btn-primary mb-5" name="action" value="listado">Ir a listado</button> 
-                <button type="submit" class="btn btn-primary mb-5" name="action" value="search">Buscar</button>               
+                <button type="submit" class="btn btn-primary" name="action" value="show_form">Nuevo</button>                               
+                <button type="submit" class="btn btn-primary" name="action" value="listado">Ir a listado</button> 
+                <button type="submit" class="btn btn-primary" name="action" value="search">Buscar</button>               
             </form>
         </div>        
     </div>    

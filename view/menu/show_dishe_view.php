@@ -12,7 +12,7 @@
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2"><?php echo $dishe['name']; ?></h2>
+				<h2 class="m-0 me-2"><?php echo ucfirst($dishe['name']); ?></h2>
 				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
 			</div>
 		</div>		
@@ -29,7 +29,12 @@
 			</div>			
 		</div>
 		<div class="row">
-			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post"><button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button></form>
+			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post">
+				<button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>
+			<?php if(isset($_SESSION['user_name'])) { ?>
+				<button class="btn btn-outline-success">Pedir</button>
+			<?php } ?>
+			</form>			
 		</div>			
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
