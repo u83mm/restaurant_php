@@ -57,9 +57,11 @@
             <h4 class="text-center">TEXTO</h4>            
         </div>                                                                                   
     </div>  
-    <div class="col-12 col-lg-6 mx-auto">        
-        
-		<form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Volver"></form>
+    <div class="col-12 col-lg-6 mx-auto">                
+		<form action="/admin/admin.php" method="post">
+            <input type="hidden" name="action" value="admin_menus">
+            <input type="submit" class="btn btn-primary mb-5" value="Volver">
+        </form>
     </div>
 <?php
 	$home->do_html_footer();

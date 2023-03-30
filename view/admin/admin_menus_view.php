@@ -12,7 +12,16 @@
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
         <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
             <h4 class="text-center">PLATOS</h4>
-            <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php">Listado</a>
+            <div class="row mb-5">
+                <div class="col-3">
+                    <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php">Listado</a> 
+                </div>
+                <div class="col-9">
+                    <form class="text-center text-lg-start d-inline" action="/admin/admin_dishes.php" method="post">                                
+                        <button type="submit" class="btn btn-primary" name="action" value="search">Buscar</button>               
+                    </form>
+                </div>                
+            </div>            
             <hr />
             <h4 class="text-center">PRECIO MENÚ DÍA</h4>
             <div class="row mb-3">

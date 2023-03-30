@@ -88,7 +88,7 @@
             include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
         }
 
-        /** Create new dishe */
+        /** Create new dish */
         public function new(): void
         {
             try {
