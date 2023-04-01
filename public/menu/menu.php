@@ -17,63 +17,63 @@
 			break;
 		
 		case 'aperitivos':
-			$menuController->aperitifs();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
-		case 'entrantes':
-			$menuController->starts();
+		case 'entrantes':			
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
-		case 'ensaladas':
-			$menuController->salads();
+		case 'ensaladas':			
+			$menuController->showDishesByTheirCategory($action);
 			break;
 
 		case 'carnes':
-			$menuController->meats();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'pescados':
-			$menuController->fishes();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'arroces':
-			$menuController->rices();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
 		case 'postres':
-			$menuController->desserts();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
 		case 'cafés':
-			$menuController->coffes();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
 		case 'tintos':
-			$menuController->redsWines();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'blancos':
-			$menuController->whitesWines();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'rosados':
-			$menuController->pinkWines();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'cavas':
-			$menuController->sparklingWines();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
 		case 'champagne':
-			$menuController->champagne();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 		
 		case 'bebidas':
-			$menuController->drinks();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 			
 		case 'licores':
-			$menuController->liquors();
+			$menuController->showDishesByTheirCategory($action);
 			break;
 
 		case 'menu_pdf':

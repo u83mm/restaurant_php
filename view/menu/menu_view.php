@@ -11,14 +11,15 @@
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3">
 		<div class="col mb-3 mainImg"></div>
 		<div class="row mb-3">
-			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-3">Nuestra Carta</h2>				
-				<!--<form action="#" method="post">
-					<input type="hidden" name="action" value="menu_pdf">
-					<input type="image" class="img-fluid mainLogo" src="/images/menu.png" alt="menu_image">
-				</form> -->
-				<a href="/menu/menu.php?action=menu_pdf" target="_blank"><img class="img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
+			<div class="col-12 col-md-3 col-lg-2 col-xl-1 d-flex justify-content-center align-items-center">
+				<figure class="figure">							
+						<a href="/menu/menu.php?action=menu_pdf" target="_blank"><img class="figure-img img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
+						<figcaption class="figure-caption text-center">Carta</figcaption>
+				</figure>
 			</div>
+			<div class="col-12 col-md-6 col-lg-10 col-xl-11 d-flex justify-content-center align-items-center">
+				<h2 class="m-0 me-3">Nuestra Carta</h2>	
+			</div>			
 		</div>		
 		<div class="row">
 			<div class="col-6 col-md-4 col-lg-3">
