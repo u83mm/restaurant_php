@@ -440,7 +440,9 @@
          */
         public function menu(): void
         {   
-            define('FPDF_FONTPATH', SITE_ROOT .'/../model/fpdf/font');        
+            define('FPDF_FONTPATH', SITE_ROOT .'/../model/fpdf/font');
+            define('EURO_SIMBOL', chr(128)); 
+
             $pdf = new MyPdf();
             
             /** We obtain Menu's categories */
@@ -477,7 +479,7 @@
                     $pdf->SetFont('Arial','I',10);
                     if($value['available'] === "SI") {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
-                        $pdf->Cell(20, 10, $value['price'], 0, 0, 'R');                                                                  
+                        $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');                                                                  
                     }
                     $pdf->Ln(5);
                     $pdf->SetFont('Arial','B',12);
@@ -485,7 +487,7 @@
                 $pdf->Ln(20);
             }            
             
-            $pdf->Output();            
+            $pdf->Output('', 'Menu.pdf');            
         }
     }
     
