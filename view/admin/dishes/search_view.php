@@ -14,7 +14,7 @@
             <h4 class="text-center">Criterios de búsqueda</h4>                                    
             <div class="row mb-3">
                 <h5 class="text-center">Por nombre</h5> 
-                <form action="#" method="post" class="mb-3">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="name">
                     <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -23,7 +23,7 @@
                 </form>
                 <hr>
                 <h5 class="text-center">Por disponibilidad</h5> 
-                <form action="#" method="post" class="mb-3">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
                     <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -36,7 +36,7 @@
                 </form>
                 <hr>
                 <h5 class="text-center">Por categoría</h5>
-                <form action="#" method="post" class="mb-3">
+                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
                     <button class="btn btn-primary" name="action" value="search">Buscar</button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">

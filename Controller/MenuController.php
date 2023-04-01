@@ -35,10 +35,9 @@
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
                 $category = ucfirst($menuCategories[$i]['menu_category']);
-                $showResult .= "<li>
-                                    <form class='d-inline' action='#' method='POST'>
-                                        <input type='hidden' name='action' value='{$menuCategories[$i]['menu_category']}'>
-                                        <input class='btn btn-link' type='submit' value='$category'>
+                $showResult .= "<li class='showMenuCategories'>
+                                    <form class='d-inline' action='{$_SERVER['PHP_SELF']}' method='POST'>                                       
+                                        <input class='btn btn-link' type='submit' name='action' value='$category'>
                                     </form>
                                 </li>";
 

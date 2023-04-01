@@ -227,6 +227,10 @@ section img {
 	-o-border-radius: 0.3em;
 }
 
+.showMenuCategories {
+	margin-bottom: -1em;
+}
+
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {
 	.mainLogo {
