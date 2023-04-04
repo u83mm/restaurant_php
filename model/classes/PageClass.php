@@ -41,6 +41,7 @@
 				<link rel="stylesheet" type="text/css" href="/css/reset.css">
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
+				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
 				<script type="text/javascript" src="/js/bootstrap.bundle.min.js.js"></script>
 				<script type="text/javascript" src="/js/eventos.js"></script>
 				<script type="text/javascript" src="/js/ajax.js"></script>
