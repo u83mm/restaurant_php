@@ -33,8 +33,10 @@ body {
 	margin: 0 auto;
 }
 
-hr {
-	margin-top: 10px;
+.menuDia hr {
+	margin: 1em auto;
+	width: 80%;
+
 }
 
 h1 {
@@ -43,8 +45,7 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;
-	margin-bottom: 2em;
+	font-size: 1.5em;	
 }
 
 h3 {
