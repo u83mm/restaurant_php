@@ -10,6 +10,10 @@
                         
         }
 
+      /**
+       * This function selects dishes of the day and calculates the menu's day price before including
+       * the main view.
+       */
         public function index()
         {
             $menuDayQuery = new QueryMenu();            

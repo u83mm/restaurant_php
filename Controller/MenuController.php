@@ -12,6 +12,10 @@
             
         }
 
+        /**
+         * The function displays different menu categories and their dishes, and calculates the menu's
+         * day price.
+         */
         public function index(): void
         {
             $menuDay = new QueryMenu();           
@@ -56,6 +60,11 @@
             include(SITE_ROOT . "/../view/menu/menu_view.php");
         }
 
+        /**
+         * This PHP function shows dishes by their category and calculates the menu day price.
+         * 
+         * @param string category The category of dishes to be shown.
+         */
         public function showDishesByTheirCategory(string $category): void
         {
             $menuDishes = new QueryMenu();            
@@ -80,6 +89,12 @@
             include(SITE_ROOT . "/../view/menu/category_view.php");
         }        
 
+       /**
+        * This PHP function shows information about a specific dish from a menu, including its
+        * description, picture, and price.
+        * 
+        * @param string id The ID of the dish that needs to be displayed.
+        */
         public function showDisheInfo(string $id): void
         {
             $menuDishes = new QueryMenu();
