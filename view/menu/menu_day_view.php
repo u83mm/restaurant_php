@@ -26,7 +26,7 @@
         <h4 class="text-center"><strong>POSTRE</strong></h4>
         <ul class="ps-4">
             <?php foreach ($postres as $key => $postre) { ?>
-                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($postre['name']); ?></a></em></li>
+                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $postre['dishe_id']; ?>"><?php echo ucfirst($postre['name']); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
