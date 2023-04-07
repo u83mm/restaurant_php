@@ -131,6 +131,7 @@
 
             $pdf = new MyPdf();
             
+            
             /** We obtain Menu's categories */
 
             $menu = new QueryMenu();  
@@ -163,13 +164,16 @@
 
                 foreach ($rows as $key => $value) {
                     $pdf->SetFont('Arial','I',10);
+
                     if($value['available'] === "SI") {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
-                        $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');                                                                  
+                        $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
+                        $pdf->Ln(5);                                                                                        
                     }
-                    $pdf->Ln(5);
-                    $pdf->SetFont('Arial','B',12);
+                    
+                    $pdf->SetFont('Arial','B',12); 
                 }
+
                 $pdf->Ln(20);
             }            
             
