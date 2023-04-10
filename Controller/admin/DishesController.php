@@ -63,29 +63,46 @@
             } 
             catch (\PDOException $e) {
                 if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $message = $e->getMessage();
-                    include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
+                    $message = $e->getMessage();                    
                 }
                 else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                    $message = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
                 }
+
+                include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
             }         
             catch (\Throwable $th) {
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-					include(SITE_ROOT . "/../view/database_error.php");	
-            }
-            
+                include(SITE_ROOT . "/../view/database_error.php");	
+            }            
         }
 
         public function showForm(): void
-        {                
-            // We obtain all registries in "dishes" tables          
-            $query = new Query($this->dbcon);
-            $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-            $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+        {                            
+            try {
+                // We obtain all registries in "dishes" tables          
+                $query = new Query($this->dbcon);
+                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
+                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
 
-            include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
+                include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
+                
+            } catch (\PDOException $e) {
+                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
+                    $error_msg = $e->getMessage();                    
+                }
+                else {
+                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                }
+
+                include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
+
+            } catch (\Throwable $th) {
+                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                include(SITE_ROOT . "/../view/database_error.php");	
+            }
         }
 
         /** Create new dish */
@@ -232,19 +249,19 @@
         }
 
         public function edit(): void
-        {
-            // We obtain all registries in "dishes_day" and "dishes_menu" tables
-            
-            $query = new Query();
-            $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-            $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
-
-
-            /** Get the id */
-
-            $dishe_id = $_REQUEST['dishe_id'];                                  
-
+        {                                             
             try {
+                // We obtain all registries in "dishes_day" and "dishes_menu" tables
+            
+                $query = new Query();
+                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
+                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+
+
+                /** Get the id */
+
+                $dishe_id = $_REQUEST['dishe_id']; 
+
                 /** 
                  * We make inner joins to diferent tables to obtain the elements to show in "selects"
                  * elements in forms views 
@@ -260,6 +277,16 @@
 
                 include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");
                 
+            } catch (\PDOException $e) {
+                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
+                    $error_msg = $e->getMessage();                    
+                }
+                else {
+                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                }
+
+                include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");
+
             } catch (\Throwable $th) {
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
                     de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
@@ -409,6 +436,15 @@
 
                 include(SITE_ROOT . "/../view/database_error.php");
 
+            } catch (\PDOException $e) {
+                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
+                    $error_msg = $e->getMessage();                    
+                }
+                else {
+                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
             } catch (\Throwable $th) {
                 $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
                         de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
