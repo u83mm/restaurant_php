@@ -74,19 +74,24 @@
 
         // Función para usar en redimensionado de imágenes al subirlas 
 
-        public function createImageFromSource($source, $type) {            
+        public function createImageFromSource($source, $type) {                       
             // JPG
-            if(preg_match('/jpg|jpeg/', $type)) {                             
-                $data = @ImageCreateFromJPEG($source);               
+            if(preg_match('/jpg|jpeg/', $type)) {                  
+                $data = imagecreatefromjpeg($source);               
             }
             // PNG
             if(preg_match('/png/', $type)) {
-                $data = ImageCreateFromPNG($source);
+                $data = imagecreatefrompng($source);
             }
             // GIF
             if(preg_match('/gif/', $type)) {
-                $data = ImageCreateFromGIF($source);
+                $data = imagecreatefromgif($source);
             }
+            // WEBP
+            if(preg_match('/webp/', $type)) {
+                $data = imagecreatefromwebp($source);
+            }
+                        
             return $data;
         }
 

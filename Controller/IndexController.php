@@ -27,8 +27,7 @@
                 /** Calculate menu's day price */
 
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon); 
-                            
-                            
+                                                        
                 include(SITE_ROOT . "/../view/main_view.php");
 
             } catch (\Throwable $th) {

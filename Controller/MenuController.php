@@ -116,7 +116,7 @@
            
             $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $id, $this->dbcon);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
-            $dishe_picture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                        
+            $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                        
 
             include(SITE_ROOT . "/../view/menu/show_dishe_view.php");
         }

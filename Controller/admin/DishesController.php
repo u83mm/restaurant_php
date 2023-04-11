@@ -301,7 +301,7 @@
             try {
                 if ($_FILES['dishe_img']['name']) {                                     
                     $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
-                    $image_fieldname = "dishe_img";
+                    $image_fieldname = "dishe_img";                
     
                     /** Picture's data */
                     $picture_name = trim($_FILES['dishe_img']['name']);
@@ -334,7 +334,7 @@
                     $now = time();
                     while (file_exists($upload_filename = $upload_dir . $now . '-' . $_FILES[$image_fieldname]['name'])) {
                         $now++;
-                    }
+                    }                    
     
                     if(strncmp($type, "image/", 6) == 0) {
                         @move_uploaded_file($_FILES[$image_fieldname]['tmp_name'], $upload_filename)
@@ -349,12 +349,12 @@
                         $h = 400; // alto para la nueva imagen
                                 
                         // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
-                        $commonTask = new CommonTasks();
+                        $commonTask = new CommonTasks();                        
                         $original = $commonTask->createImageFromSource($file_name, $type);
-            
+                      
                         // redimensiona la imagen
                         $final_image = $commonTask->resizeImage($original, $w, $h);
-            
+                    
                         // reemplaza la imagen del servidor
                         ImagePNG($final_image, $file_name, 9);
                         ImageDestroy($original);
