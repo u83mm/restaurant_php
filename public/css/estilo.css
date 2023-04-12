@@ -96,13 +96,15 @@ label{
 }
 
 footer p{
-	text-align: center;	
+	text-align: center;
+	margin: 0em;	
 }
 
 footer {
 	background-color: darkslategray;
 	padding: 1em;
 	clear: both;
+	min-height: 10em;
 }
 
 .error {

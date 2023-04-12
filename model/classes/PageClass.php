@@ -86,7 +86,7 @@
 		public function do_html_footer() {
 ?>					
 				</main>	
-				<footer class="container-fluid">
+				<footer class="container-fluid d-flex justify-content-center align-items-center">
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
 				</footer>			
 			</body>
