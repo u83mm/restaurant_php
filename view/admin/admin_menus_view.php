@@ -9,9 +9,21 @@
 ?>
     <div class="row">
         <h3 class="text-center pb-2">MENÚ PRINCIPAL</h3>
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        
+                                            <!-- CABEZERAS -->
+        <div class="mx-auto col-3">
             <h4 class="text-center">PLATOS</h4>
+        </div>
+        <div class="mx-auto col-3">
+            <h4 class="text-center">USUARIOS</h4>
+        </div>
+        <div class="mx-auto col-3">
+            <h4 class="text-center">CATEGORIAS</h4>
+        </div>
+
+                                            <!-- PLATOS -->
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">            
             <div class="row mb-5">
                 <div class="col-3">
                     <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php">Listado</a> 
@@ -33,15 +45,41 @@
                 </form>                                             
             </div>            
         </div>
+
+                                            <!-- USUARIOS -->
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">            
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><input type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="Listado"></form>
+        </div>
+
+                                            <!-- CATEGORIAS -->
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">            
+            <a class="btn btn-primary mb-5" href="<?php echo $_SERVER['PHP_SELF']; ?>">Listado</a>
+        </div>                                                                                  
+    </div>
+        
+    <div class="row">
+                                            <!-- CABEZERAS -->
+        <div class="mx-auto col-3">
+            <h4 class="text-center">COMANDAS</h4>
+        </div>
+        <div class="mx-auto col-3">
+            <h4 class="text-center">&nbsp;</h4>
+        </div>
+        <div class="mx-auto col-3">
+            <h4 class="text-center">&nbsp;</h4>
+        </div>
+
+                                            <!-- COMANDAS -->
         <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
-            <h4 class="text-center">USUARIOS</h4>
-            <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Listado"></form>
-        </div> 
+            <form action="/admin/admin_comandas.php" method="post"><input type="submit" class="btn btn-primary mb-5 d-inline-block" value="Listado"></form>
+        </div>
         <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
-            <h4 class="text-center">CATEGORIAS</h4>
-            <a class="btn btn-primary mb-5" href="#">Listado</a>
-        </div>                                                                                   
-    </div>  
+
+        </div>
+        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+
+        </div>
+    </div>
 <?php
 	$page->do_html_footer();
 ?>

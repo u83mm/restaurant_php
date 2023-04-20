@@ -30,7 +30,11 @@
                 </div>                
             </div>                                                              
         </form>
-        <form action="#" method="post"><input type="submit" class="btn btn-primary mb-5" name="action" value="Volver"></form>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">  
+            <input type="hidden" name="action" value="show">
+            <input type="submit" class="btn btn-primary mb-5" value="Volver">
+        </form>
     </div>    
 <?php
 	$home->do_html_footer();

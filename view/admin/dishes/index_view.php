@@ -1,7 +1,7 @@
 <?php
 
-use model\classes\CommonTasks;
-use model\classes\PageClass;
+    use model\classes\CommonTasks;
+    use model\classes\PageClass;
 
 	$page = new PageClass();
     $page->title = "My Restaurant | Platos";

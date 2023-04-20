@@ -30,7 +30,7 @@
                             <td><?php echo $value['email']; ?></td>
                             <td><?php echo $value['role']; ?></td>
                             <td class="text-center">
-                                <form action="#" method="post" class="d-inline">
+                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="d-inline">
                                     <input type="hidden" name="id_user" value="<?php echo $value['id_user']; ?>">
                                     <input class="btn btn-outline-success" type="submit" name="action" value="Show">
                                 </form>

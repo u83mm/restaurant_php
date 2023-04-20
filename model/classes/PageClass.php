@@ -3,20 +3,20 @@
 	
 	namespace model\classes;
 
-	class PageClass {
-		public $title = "My Restaurant";
-		public $h1 = "Restaurant";
-		public $meta_name_description = "Aquí va una descripción del sitio";
-		public $meta_name_keywords = "Restaurant Menu take away food";
-		public $menus = array (
-			"Home"				=>	"/",
-			"Menu"				=> 	"/menu/menu.php",
-			"Registration"		=> 	"/register.php",
-			"Administration"	=>	"/admin/admin.php",
-			"Login "			=> 	"/login.php",			
-		);
-
-		public function __construct()
+	class PageClass {		
+		public function __construct(
+			public string $title = "My Restaurant",
+			public string $h1 = "Restaurant",
+			public string $meta_name_description = "Aquí va una descripción del sitio",
+			public string $meta_name_keywords = "Restaurant Menu take away food",
+			public array $menus = array (
+				"Home"				=>	"/",
+				"Menu"				=> 	"/menu/menu.php",
+				"Registration"		=> 	"/register.php",
+				"Administration"	=>	"/admin/admin.php",
+				"Login "			=> 	"/login.php",			
+			),
+		)
 		{
 			if (isset($_SESSION['id_user'])) {
 				array_pop($this->menus);
@@ -24,7 +24,8 @@
 			}
 		}
 
-		public function do_html_header(string $title, string $h1, string $meta_name_description, string $meta_name_keywords) {
+		public function do_html_header(string $title, string $h1, string $meta_name_description, string $meta_name_keywords): void
+		{
 ?>
 		<!DOCTYPE html>
 		<html lang="es">
@@ -55,7 +56,8 @@
 <?php			
 		}
 
-		public function do_html_nav($menus=NULL) {
+		public function do_html_nav($menus=NULL): void
+		{
 			?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 						<div class="container-fluid">
@@ -83,7 +85,8 @@
 			<?php
 					}
 
-		public function do_html_footer() {
+		public function do_html_footer(): void
+		{
 ?>					
 				</main>	
 				<footer class="container-fluid d-flex justify-content-center align-items-center">
