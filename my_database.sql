@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 11-04-2023 a las 21:07:52
+-- Tiempo de generación: 20-04-2023 a las 21:43:42
 -- Versión del servidor: 10.10.3-MariaDB-1:10.10.3+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -141,7 +141,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id_roles`, `role`) VALUES
 (1, 'ROLE_ADMIN'),
-(2, 'ROLE_USER');
+(2, 'ROLE_USER'),
+(3, 'ROLE_WAITER');
 
 -- --------------------------------------------------------
 
@@ -163,7 +164,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `user_name`, `password`, `email`, `id_role`) VALUES
 (1, 'admin', '$2y$10$UmlPg2q.E8FyQ/y8/zkcgu/OXaar1erO8gEldBqGI5BtB3vElwReq', 'admin@admin.com', 1),
-(2, 'pepe', '$2y$10$06rwi52tnOtwSM.u3OSpIuth3eu4M1pEzysOEv9r9kJ//1PUh7YwO', 'pepe@pepe.com', 2);
+(2, 'pepe', '$2y$10$06rwi52tnOtwSM.u3OSpIuth3eu4M1pEzysOEv9r9kJ//1PUh7YwO', 'pepe@pepe.com', 3);
 
 --
 -- Índices para tablas volcadas
@@ -241,7 +242,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_roles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_roles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
