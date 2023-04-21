@@ -22,7 +22,7 @@
         /** Show user index */
         public function index(): void
         {
-            $query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_roles";
+            $query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role";
 				
             $stm = $this->dbcon->pdo->prepare($query);                                        
             $stm->execute();       
@@ -80,8 +80,9 @@
 	
             $query = new Query($this->dbcon);
 
-            try {
-                $user = $query->selectOneBy("user", "id_user", $id_user, $this->dbcon);
+            try {                
+                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id_user', $id_user, $this->dbcon);
+                $roles = $query->selectAll('roles', $this->dbcon);
 
                 include(SITE_ROOT . "/../view/admin/user_show_view.php");
                 

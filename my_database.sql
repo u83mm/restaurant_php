@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 20-04-2023 a las 21:43:42
+-- Tiempo de generación: 21-04-2023 a las 13:25:21
 -- Versión del servidor: 10.10.3-MariaDB-1:10.10.3+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -131,7 +131,7 @@ INSERT INTO `menu_day_price` (`id`, `price`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id_roles` int(11) NOT NULL,
+  `id_role` int(11) NOT NULL,
   `role` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -139,7 +139,7 @@ CREATE TABLE `roles` (
 -- Volcado de datos para la tabla `roles`
 --
 
-INSERT INTO `roles` (`id_roles`, `role`) VALUES
+INSERT INTO `roles` (`id_role`, `role`) VALUES
 (1, 'ROLE_ADMIN'),
 (2, 'ROLE_USER'),
 (3, 'ROLE_WAITER');
@@ -200,7 +200,7 @@ ALTER TABLE `menu_day_price`
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id_roles`);
+  ADD PRIMARY KEY (`id_role`);
 
 --
 -- Indices de la tabla `user`
@@ -242,7 +242,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_roles` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
@@ -265,7 +265,7 @@ ALTER TABLE `dishes`
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `fk_user_role` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_roles`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_role` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

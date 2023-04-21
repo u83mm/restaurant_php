@@ -25,11 +25,22 @@
                 </div>                
             </div>
             <div class="row mb-3">
-                <label class="col-sm-2  col-form-label" for="email">Email:</label>
+                <label class="col-sm-2 col-form-label" for="email">Email:</label>
                 <div class="col-sm-8">
                     <input class="form-control" type="email" name="email" id="email" value="<?php echo $user['email']; ?>" required>
                 </div>                
-            </div>               
+            </div> 
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="role">Role:</label>
+                <div class="col-12 col-md-8 text-center text-md-start">
+                    <select name="role" id="role">
+                        <option value="<?php echo $user['id_role']; ?>"><?php echo $user['role']; ?></option>
+                        <?php foreach($roles as $role): ?>
+                        <option value="<?php echo $role['id_role']; ?>"><?php echo $role['role']; ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>                
+            </div>              
             <div class="row mb-3">
                 <label class="col-sm-2" for="nome">&nbsp;</label>
                 <div class="col-sm-8">
