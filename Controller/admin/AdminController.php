@@ -5,7 +5,9 @@
     use model\classes\Validate;
 
     class AdminController
-    {        
+    { 
+        private string $message = "";
+
         public function __construct(private object $dbcon)
         {
 
@@ -27,7 +29,9 @@
             $stm = $this->dbcon->pdo->prepare($query);                                        
             $stm->execute();       
             $rows = $stm->fetchAll();
-            $stm->closeCursor();            
+            $stm->closeCursor(); 
+            
+            $message = $this->message;
 
             include(SITE_ROOT . "/../view/admin/index_view.php");
         }
@@ -126,8 +130,9 @@
                     $query->updateRegistry("user", $fields, 'id_user', $this->dbcon);
                     $success_msg = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";
                 }
-                                
-                include(SITE_ROOT . "/../view/database_error.php");
+                    
+                $this->message = $success_msg;
+                $this->index();
 
             } catch (\Throwable $th) {			                                
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

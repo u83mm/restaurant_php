@@ -9,7 +9,9 @@
 ?>
 	<h3 class="text-center">LISTADO DE USUARIOS</h3>
     <div class="col mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <div class="col-12 col-md-6 mx-auto">
+            <?php echo $message = $message ?? ""; ?>
+        </div>
         <div class="row">
             <div class="col-12 col-lg-8 mx-auto table-responsive">
                 <table class="table table-striped table-bordered">
