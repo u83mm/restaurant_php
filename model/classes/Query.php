@@ -74,18 +74,38 @@
             return $rows;
         }
 
-        public function updateRegistry(string $table, string $user_name, string $email, string $id_user, object $dbcon): void
+        /**
+         * The function updates a record in a database table using the provided fields and primary key
+         * name.
+         * 
+         * @param string table The name of the database table to update.
+         * @param array fields An associative array containing the fields to be updated in the table,
+         * where the keys are the column names and the values are the new values to be set.
+         * @param string primary_key_name The name of the primary key column in the table being
+         * updated.
+         * @param object dbcon  is an object representing the database connection. It is used to
+         * prepare and execute the SQL query.
+         */
+        public function updateRegistry(string $table, array $fields, string $primary_key_name, object $dbcon): void
         {
-            $query = "UPDATE $table SET user_name = :user_name, email = :email WHERE id_user = :id_user";                 
-
-            $stm = $dbcon->pdo->prepare($query); 
-            $stm->bindValue(":user_name", $user_name);				
-            $stm->bindValue(":email", $email);
-            $stm->bindValue(":id_user", $id_user);              
-            $stm->execute();       				
+            $query = "UPDATE $table SET";
+            $params = [];
+            
+            foreach ($fields as $key => $value) {
+               if($key !== $primary_key_name)  $query .= " $key = :$key,";
+               $params[":$key"] = $value;
+            }
+            
+            $query = rtrim($query, ",");
+            $query .= " WHERE $primary_key_name = :$primary_key_name";
+            $params[":$primary_key_name"] = $fields[$primary_key_name];                        
+                                                  
+            $stm = $dbcon->pdo->prepare($query);                        
+            $stm->execute($params);       				
             $stm->closeCursor();
             $dbcon = null;            
         }
+
 
         public function updatePassword(string $table, string $password, string $id_user, object $dbcon): void
         {
@@ -99,6 +119,7 @@
             $dbcon = null;            
         }
 
+
         public function deleteRegistry(string $table, string $fieldId, string $id, object $dbcon)
         {
             $query = "DELETE FROM $table WHERE $fieldId = :id";                 
@@ -109,6 +130,7 @@
             $stm->closeCursor();
             $dbcon = null;            
         }
+
 
         /**
          * Select one registry by their "id" doing JOIN with another table by their foreign key
@@ -127,7 +149,8 @@
             $stm->closeCursor();
 
             return $rows;
-        }        
+        } 
+
 
         /**
          * > This function selects all the records from two tables and returns the result as an array
@@ -154,13 +177,14 @@
             return $rows;
         }
 
-     /**
-      * > This function inserts a record into a table
-      * 
-      * @param array fields an array of fields to be inserted into the database.
-      * @param string table The table name
-      * @param object dbcon The database connection object.
-      */
+
+        /**
+         * > This function inserts a record into a table
+         * 
+         * @param array fields an array of fields to be inserted into the database.
+         * @param string table The table name
+         * @param object dbcon The database connection object.
+         */
         public function insertInto(string $table, array $fields, object $dbcon): void
         {
             /** Initialice variables */
@@ -188,6 +212,7 @@
             $stm->execute();       				
             $stm->closeCursor();
         }
+
 
        /**
         * > This function truncates a table

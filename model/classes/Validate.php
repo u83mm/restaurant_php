@@ -30,7 +30,7 @@
         /**
          * Method to validate e-mail fields from form
          */
-        function validate_email(string $email): bool {
+        public function validate_email(string $email): bool {
 			if(preg_match('/^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/', $email)) {
 				return true;
 			}
@@ -48,7 +48,7 @@
             
             foreach ($fields as $key => $value) {
                 if (empty($value) || !isset($value)) {                                        
-                    $this->msg .= "<p class='alert alert-danger text-center'>'$key' es un dato requerido</p>";
+                    $this->msg .= "<br/>'$key' es un dato requerido";
                     $result = false;					
                 }
             }

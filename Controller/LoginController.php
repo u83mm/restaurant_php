@@ -29,7 +29,7 @@
 			if(!isset($_SESSION['id_user'])) {	
 				if(!empty($email) && !empty($password)) {
 					// hacemos la consulta a la DB				
-					$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_roles WHERE email = :val";
+					$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
 
 					try {
 						$stm = $this->dbcon->pdo->prepare($query);
