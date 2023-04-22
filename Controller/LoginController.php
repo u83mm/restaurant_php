@@ -42,7 +42,7 @@
 							
 							// comprueba que la contraseña introducida coincide con la de la DB
 							if(password_verify($password, $result['password'])) {												
-								$_SESSION['id_user'] = $result['id_user'];						
+								$_SESSION['id_user'] = $result['id'];						
 								$_SESSION['user_name'] = $result['user_name'];
 								$_SESSION['role'] = $result['role'];												
 								$stm->closeCursor();

@@ -133,7 +133,7 @@
 
         public function updatePassword(string $table, string $password, string $id_user, object $dbcon): void
         {
-            $query = "UPDATE $table SET password = :password WHERE id_user = :id_user";                 
+            $query = "UPDATE $table SET password = :password WHERE id = :id_user";                 
                         
             try {
                 $stm = $dbcon->pdo->prepare($query); 

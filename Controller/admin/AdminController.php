@@ -91,15 +91,23 @@
             $query = new Query($this->dbcon);
 
             try {                
-                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id_user', $id_user, $this->dbcon);
+                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id_user, $this->dbcon);
                 $roles = $query->selectAll('roles', $this->dbcon);
 
                 include(SITE_ROOT . "/../view/admin/user_show_view.php");
                 
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                    de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../view/database_error.php");					
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");				
             }	
         }
 
@@ -118,13 +126,13 @@
                 $email = ($validate->validate_email($_REQUEST['email'])) ? $validate->test_input($_REQUEST['email']) : "";           
                 $role = $validate->test_input($_REQUEST['role']) ?? "";
 
-
+                
                 /** Setting properties */
                 $fields = [
-                    'id_user'   => $id_user,
+                    'id'        => $id_user,
                     'user_name' => $user_name,                    
                     'email'     => $email,
-                    'id_role'      => $role,
+                    'id_role'   => $role,
                 ];
 
                 $validate_ok = $validate->validate_form($fields);
@@ -133,7 +141,7 @@
 
                 
                 /** Save data */
-                $query->updateRegistry("user", $fields, 'id_user', $this->dbcon);
+                $query->updateRegistry("user", $fields, 'id', $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";                                    
                 $this->index();
 
@@ -197,7 +205,7 @@
 	
             try {
                 $query = new Query($this->dbcon);
-                $query->deleteRegistry("user", "id_user", $id_user, $this->dbcon);
+                $query->deleteRegistry("user", "id", $id_user, $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
                 $this->index();
 

@@ -11,7 +11,7 @@
     <div class="col-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <input type="hidden" name="id_user" value="<?php echo $user['id_user']?>">
+            <input type="hidden" name="id_user" value="<?php echo $user['id']?>">
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label" for="user_name">User:</label>
                 <div class="col-sm-8">
