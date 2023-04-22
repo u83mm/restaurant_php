@@ -46,7 +46,7 @@
         </div>
         <div class="row">
             <form class="text-center text-lg-start" action="#" method="post">
-                <input type="submit" class="btn btn-primary mb-5" name="action" value="New">
+                <button class="btn btn-primary mb-5" type="submit" name="action" value="new">Nuevo</button>                                
                 <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
             </form>
         </div>        

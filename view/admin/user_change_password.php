@@ -8,7 +8,7 @@
 ?>
 	<h3 class="text-center">CHANGE PASSWORD</h3>
     <div class="col-6 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message = $this->message ?? ""; ?>
         <form action="#" method="post"> 
             <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">           
             <div class="row mb-3">

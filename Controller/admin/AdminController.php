@@ -5,10 +5,8 @@
     use model\classes\Validate;
 
     class AdminController
-    { 
-        private string $message = "";
-
-        public function __construct(private object $dbcon)
+    {         
+        public function __construct(private object $dbcon, private string $message = "")
         {
 
         }
@@ -23,14 +21,9 @@
 
         /** Show user index */
         public function index(): void
-        {
-            $query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role";
-				
-            $stm = $this->dbcon->pdo->prepare($query);                                        
-            $stm->execute();       
-            $rows = $stm->fetchAll();
-            $stm->closeCursor(); 
-            
+        {           
+            $query = new Query();
+            $rows = $query->selectAllInnerjoinByField('user', 'roles', 'id_role', $this->dbcon);				                        
             $message = $this->message;
 
             include(SITE_ROOT . "/../view/admin/index_view.php");
@@ -46,7 +39,6 @@
             try {
                 if (!empty($user_name) && !empty($password) && !empty($email)) {
                     $query = new Query($this->dbcon);
-
                     $rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
 
                     if ($rows) {
@@ -61,20 +53,28 @@
                         $stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));
                         $stm->bindValue(":email", $email);              
                         $stm->execute();       				
-                        $stm->closeCursor();
-                        $this->dbcon = null;
-        
-                        $success_msg = "<p>El usuario se ha registrado correctamente</p>";
-                        include(SITE_ROOT . "/../view/database_error.php");
+                        $stm->closeCursor();                                                                         
+
+                        $this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>"; 
+                        $this->index();
                     }										
                 }
                 else {
                     include(SITE_ROOT . "/../view/admin/user_new_view.php");
                 }
+
             } catch (\Throwable $th) {			
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../view/database_error.php");				
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");			
             }			
         }
 
@@ -103,7 +103,7 @@
             try {
                 /** We create the instances to objects */
                 $validate = new Validate();
-                $query = new Query($this->dbcon);
+                $query = new Query();
 
 
                 /** We get values from form */
@@ -122,16 +122,13 @@
                 ];
 
                 $validate_ok = $validate->validate_form($fields);
+
                 if(!$validate_ok) throw new \Exception($validate->get_msg(), 1);
-                
+
                 
                 /** Save data */
-                if($validate_ok) {
-                    $query->updateRegistry("user", $fields, 'id_user', $this->dbcon);
-                    $success_msg = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";
-                }
-                    
-                $this->message = $success_msg;
+                $query->updateRegistry("user", $fields, 'id_user', $this->dbcon);
+                $this->message = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";                                    
                 $this->index();
 
             } catch (\Throwable $th) {			                                
@@ -161,18 +158,26 @@
             try {
                 if (!empty($password) && !empty($id_user) && !empty($newPassword)) {
                     if ($password !== $newPassword) {
-                        $error_msg = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
+                        $this->message = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
                     } else {
                         $query = new Query($this->dbcon);
                         $query->updatePassword("user", $newPassword, $id_user, $this->dbcon);
 
-                        $success_msg = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
+                        $this->message = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
                     }
                     
                 }
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
                 include(SITE_ROOT . "/../view/database_error.php");
             }
 
@@ -187,14 +192,20 @@
             try {
                 $query = new Query($this->dbcon);
                 $query->deleteRegistry("user", "id_user", $id_user, $this->dbcon);
-
-                $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
-
-                include(SITE_ROOT . "/../view/database_error.php");
+                $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
+                $this->index();
 
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
                 include(SITE_ROOT . "/../view/database_error.php");
             }
         }

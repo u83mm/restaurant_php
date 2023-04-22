@@ -1,4 +1,4 @@
-<form action="#" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <div class="row mb-3">
         <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="user_name">User:</label>
         <div class="col-sm-8">
@@ -20,7 +20,7 @@
     <div class="row mb-3">
         <label class="col-12 col-sm-3 text-center text-md-end" for="nome">&nbsp;</label>
         <div class="col-sm-8 text-center text-md-start">
-            <input type="submit" name="action" value="New">        
+            <button class="btn btn-primary mb-5" type="submit" name="action" value="new">Enviar</button>        
         </div>                
     </div>                                                              
 </form>
