@@ -32,28 +32,35 @@
         /** Create new user */
         public function new(): void
         {
-            $user_name = $_REQUEST['user_name'] ?? "";
+            $validate = new Validate();
+            
+            $user_name = $_REQUEST['user_name'] ?? "";                     
             $password = $_REQUEST['password'] ?? "";
             $email = $_REQUEST['email'] ?? "";
 
             try {
-                if (!empty($user_name) && !empty($password) && !empty($email)) {
-                    $query = new Query($this->dbcon);
+                if(!empty($user_name) && !empty($password) && !empty($email)) {
+
+                    /** Validate fields */
+                    $user_name = $validate->test_input($user_name); 
+                    $password = $validate->test_input($password);
+                    $email = $validate->validate_email($email) ? $validate->test_input($email) : throw new \Exception("Email isn't in valid format", 1);                  
+
+                    $query = new Query();
                     $rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
 
-                    if ($rows) {
-                        $error_msg = "<p class='error'>El email '{$email}' ya está registrado</p>";
+                    if($rows) {
+                        $this->message = "<p class='alert alert-danger text-center'>El email '{$email}' ya está registrado</p>";
                         include(SITE_ROOT . "/../view/admin/user_new_view.php");											
                     }
                     else {
-                        $query = "INSERT INTO user (user_name, password, email) VALUES (:name, :password, :email)";                 
-    
-                        $stm = $this->dbcon->pdo->prepare($query); 
-                        $stm->bindValue(":name", $user_name);
-                        $stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));
-                        $stm->bindValue(":email", $email);              
-                        $stm->execute();       				
-                        $stm->closeCursor();                                                                         
+                        $fields = [
+                            'user_name' => $user_name,
+                            'password'  => $password,
+                            'email'     => $email,
+                        ];
+
+                        $query->insertInto('user', $fields, $this->dbcon);                                                                         
 
                         $this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>"; 
                         $this->index();

@@ -18,6 +18,8 @@
          */
         public function test_input(int|string|float|null $data): int|string|float|null
         {
+            if(is_null($data)) return null;
+
             if(!is_int($data)) {
                 $data = htmlspecialchars($data);
                 $data = trim($data);

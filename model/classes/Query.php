@@ -12,13 +12,17 @@
         {
             $query = "SELECT * FROM $table";                 
 
-            $stm = $dbcon->pdo->prepare($query);               
-            $stm->execute();       
-            $rows = $stm->fetchAll();
-            $stm->closeCursor();
-            //$dbcon = null;
+            try {
+                $stm = $dbcon->pdo->prepare($query);               
+                $stm->execute();       
+                $rows = $stm->fetchAll();
+                $stm->closeCursor();                
 
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
         }
 
         /**
@@ -28,13 +32,18 @@
         {
             $query = "SELECT COUNT(*) FROM $table";                 
 
-            $stm = $dbcon->pdo->prepare($query);               
-            $stm->execute();       
-            $rows = $stm->fetchColumn();
-            $stm->closeCursor();
-            $dbcon = null;
+            try {
+                $stm = $dbcon->pdo->prepare($query);               
+                $stm->execute();       
+                $rows = $stm->fetchColumn();
+                $stm->closeCursor();
+                $dbcon = null;
 
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
         }
 
       /**
@@ -52,26 +61,36 @@
         {
             $query = "SELECT * FROM $table WHERE $field = :val";                         
 
-            $stm = $dbcon->pdo->prepare($query);
-            $stm->bindValue(":val", $value);                            
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                $stm->bindValue(":val", $value);                            
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
 
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
         }
 
-        public function selectOneBy(string $table, string $field, string $value, object $dbcon): array  
+        public function selectOneBy(string $table, string $field, string $value, object $dbcon): array|bool 
         {
             $query = "SELECT * FROM $table WHERE $field = :val";                         
 
-            $stm = $dbcon->pdo->prepare($query);
-            $stm->bindValue(":val", $value);                            
-            $stm->execute();       
-            $rows = $stm->fetch(PDO::FETCH_ASSOC);
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                $stm->bindValue(":val", $value);                            
+                $stm->execute();       
+                $rows = $stm->fetch(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
 
-            return $rows;
+                return $rows ?? false;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
         }
 
         /**
@@ -100,23 +119,33 @@
             $query .= " WHERE $primary_key_name = :$primary_key_name";
             $params[":$primary_key_name"] = $fields[$primary_key_name];                        
                                                   
-            $stm = $dbcon->pdo->prepare($query);                        
-            $stm->execute($params);       				
-            $stm->closeCursor();
-            $dbcon = null;            
+            try {
+                $stm = $dbcon->pdo->prepare($query);                        
+                $stm->execute($params);       				
+                $stm->closeCursor();
+                $dbcon = null;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
 
         public function updatePassword(string $table, string $password, string $id_user, object $dbcon): void
         {
             $query = "UPDATE $table SET password = :password WHERE id_user = :id_user";                 
+                        
+            try {
+                $stm = $dbcon->pdo->prepare($query); 
+                $stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));				            
+                $stm->bindValue(":id_user", $id_user);              
+                $stm->execute();       				
+                $stm->closeCursor();
+                $dbcon = null;
 
-            $stm = $dbcon->pdo->prepare($query); 
-            $stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));				            
-            $stm->bindValue(":id_user", $id_user);              
-            $stm->execute();       				
-            $stm->closeCursor();
-            $dbcon = null;            
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
         }
 
 
@@ -124,11 +153,16 @@
         {
             $query = "DELETE FROM $table WHERE $fieldId = :id";                 
 
-            $stm = $dbcon->pdo->prepare($query);             			            
-            $stm->bindValue(":id", $id);              
-            $stm->execute();       				
-            $stm->closeCursor();
-            $dbcon = null;            
+            try {
+                $stm = $dbcon->pdo->prepare($query);             			            
+                $stm->bindValue(":id", $id);              
+                $stm->execute();       				
+                $stm->closeCursor();
+                $dbcon = null;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1); 
+            }            
         }
 
 
@@ -142,13 +176,18 @@
                         ON $table1.$foreignKeyField = $table2.$foreignKeyField
                         WHERE $table1.$fieldId = :id";
                     
-            $stm = $dbcon->pdo->prepare($query);
-            $stm->bindValue(":id", $id);                            
-            $stm->execute();       
-            $rows = $stm->fetch(PDO::FETCH_ASSOC);            
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                $stm->bindValue(":id", $id);                            
+                $stm->execute();       
+                $rows = $stm->fetch(PDO::FETCH_ASSOC);            
+                $stm->closeCursor();
 
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);                
+            }
         } 
 
 
@@ -169,12 +208,17 @@
                         INNER JOIN $table2 
                         ON $table1.$foreignKeyField = $table2.$foreignKeyField";
                 
-            $stm = $dbcon->pdo->prepare($query);                                                   
-            $stm->execute();       
-            $rows = $stm->fetchAll();
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm->execute();       
+                $rows = $stm->fetchAll();
+                $stm->closeCursor();
             
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}");
+            }
         }
 
 
@@ -205,12 +249,22 @@
             /** Make the query */
             $query = $insert . $values;            
                                                     
-            $stm = $dbcon->pdo->prepare($query);
-            foreach ($fields as $key => $value) {
-                $stm->bindValue(":$key", $value);
-            }                   
-            $stm->execute();       				
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                foreach ($fields as $key => $value) {
+                    if($key === 'password') {
+                        $stm->bindValue(":password", password_hash($value, PASSWORD_DEFAULT));
+                        continue;
+                    }
+                    
+                    $stm->bindValue(":$key", $value);
+                }                   
+                $stm->execute();       				
+                $stm->closeCursor();
+                
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);             
+            }
         }
 
 
@@ -224,9 +278,14 @@
         {
             $query = "TRUNCATE TABLE $table";
                 
-            $stm = $dbcon->pdo->prepare($query);                                                   
-            $stm->execute();                   
-            $stm->closeCursor();
+            try {
+                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm->execute();                   
+                $stm->closeCursor();
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}");
+            }
         }
     }    
 ?>
