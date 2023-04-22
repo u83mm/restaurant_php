@@ -27,13 +27,13 @@
                     <tbody>
                     <?php foreach ($rows as $value) { ?>
                         <tr>
-                            <td><?php echo $value['id_user']; ?></td>
+                            <td><?php echo $value['id']; ?></td>
                             <td><?php echo $value['user_name']; ?></td>                        
                             <td><?php echo $value['email']; ?></td>
                             <td><?php echo $value['role']; ?></td>
                             <td class="text-center">
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="d-inline">
-                                    <input type="hidden" name="id_user" value="<?php echo $value['id_user']; ?>">
+                                    <input type="hidden" name="id_user" value="<?php echo $value['id']; ?>">
                                     <input class="btn btn-outline-success" type="submit" name="action" value="Show">
                                 </form>
                                 <?php include(SITE_ROOT . "/../view/admin/user_delete_form.php"); ?>

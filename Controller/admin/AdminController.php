@@ -61,7 +61,6 @@
                         ];
 
                         $query->insertInto('user', $fields, $this->dbcon);                                                                         
-
                         $this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>"; 
                         $this->index();
                     }										
@@ -116,7 +115,7 @@
                 /** We get values from form */
                 $user_name = $validate->test_input($_REQUEST['user_name']) ?? "";
                 $id_user = $validate->test_input($_REQUEST['id_user']) ?? "";
-                ($validate->validate_email($_REQUEST['email'])) ? $email = $validate->test_input($_REQUEST['email']) : "";           
+                $email = ($validate->validate_email($_REQUEST['email'])) ? $validate->test_input($_REQUEST['email']) : "";           
                 $role = $validate->test_input($_REQUEST['role']) ?? "";
 
 
