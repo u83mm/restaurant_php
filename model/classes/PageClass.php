@@ -14,6 +14,7 @@
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",
 				"Administration"	=>	"/admin/admin.php",
+				"Comandas"			=>	"/",
 				"Login "			=> 	"/login.php",			
 			),
 		)
@@ -58,7 +59,7 @@
 
 		public function do_html_nav($menus=NULL): void
 		{
-			?>
+?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 						<div class="container-fluid">
 							<div class="col-5 col-sm-1 col-md-3 col-lg-2 col-xl-1">
@@ -72,6 +73,7 @@
 <?php
 							foreach($this->menus as $name => $url) {
 								if((!isset($_SESSION['role']) && $name === "Administration") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration")) continue;
+								if((!isset($_SESSION['role']) && $name === "Comandas") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_WAITER" && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Comandas")) continue;
 ?>
 									<li class="nav-item d-lg-inline-block"><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
@@ -82,8 +84,8 @@
 						</div>
 					</nav>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
-			<?php
-					}
+<?php
+		}
 
 		public function do_html_footer(): void
 		{

@@ -9,7 +9,7 @@
 	<h3 class="text-center">CHANGE PASSWORD</h3>
     <div class="col-6 mx-auto">
         <?php echo $message = $this->message ?? ""; ?>
-        <form action="#" method="post"> 
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
             <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">           
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label" for="password">Password:</label>
