@@ -30,6 +30,19 @@
 			}
 		}
 
+		/**
+		 * This function generates the HTML header section with specified title, meta tags, and CSS/JS files.
+		 * 
+		 * @param string title The title of the HTML page.
+		 * @param string h1 The main heading of the HTML page. It is typically the largest and most prominent
+		 * text on the page and should provide a clear and concise description of the content.
+		 * @param string meta_name_description The meta tag "description" that provides a brief summary of
+		 * the web page's content for search engines and users. The value of this parameter is passed as the
+		 * content attribute of the meta tag.
+		 * @param string meta_name_keywords The meta_name_keywords parameter is a string that contains the
+		 * keywords that describe the content of the webpage. These keywords are used by search engines to
+		 * index the webpage and make it easier to find for users searching for related content.
+		 */
 		public function do_html_header(string $title, string $h1, string $meta_name_description, string $meta_name_keywords): void
 		{
 ?>
@@ -42,8 +55,7 @@
 				<meta name="keywords" content="<?php echo $this->meta_name_keywords; ?>" />
 				<meta name="robots" content="All" />  
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-				<title><?php echo $this->title; ?></title>
-				<!-- <link rel="shorcut icon" href="imagen para el favicon"> -->
+				<title><?php echo $this->title; ?></title>				
 				<link rel="icon" type="image/gif" href="/images/favicon.ico">				
 				<link rel="stylesheet" type="text/css" href="/css/reset.css">
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -55,21 +67,28 @@
 			</head>
 			<body class="ps-3 pe-3">
 				<header class="d-flex justify-content-center align-items-center">
-					<h1><?php echo $this->h1; ?></h1>
+					<h1><?php echo $this->h1; ?></h1>					
 				</header>
-				<main class="container-fluid">
-					
+				<main class="container-fluid">									
 <?php			
 		}
 
+		/**
+		 * This function generates a navigation bar with links and displays the name of the logged-in user if
+		 * there is one.
+		 * 
+		 * @param links An array containing the links to be displayed in the navigation bar. The keys of the
+		 * array represent the name of the link, and the values represent the URL of the link. If no links
+		 * are provided, the navigation bar will still be displayed, but with no links.
+		 */
 		public function do_html_nav($links=NULL): void
 		{
 ?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 						<div class="container-fluid">
 							<div class="col-5 col-sm-1 col-md-3 col-lg-2 col-xl-1">
-								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>
-							</div>
+								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>								
+							</div>							
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>
 							</button>
@@ -81,15 +100,24 @@
 									<li class="nav-item d-lg-inline-block"><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
 							}
-?>
+?>										
 								</ul>
-							</div>														
+							</div>																					
 						</div>
 					</nav>
+
+												<!-- Show user loged -->
+
+					<?php if(isset($_SESSION['user_name'])):?>
+					<p class="text-end pe-2">Loged as <?php echo ucfirst($_SESSION['user_name']); ?></p>
+					<?php endif ?>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
 <?php
 		}
 
+		/**
+		 * This PHP function generates the HTML code for a website footer with a copyright notice.
+		 */
 		public function do_html_footer(): void
 		{
 ?>					
