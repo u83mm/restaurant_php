@@ -1,16 +1,21 @@
 <?php
     namespace model\classes;
 
-    class MenusClass
+    class NavLinks
     {
-        public function __construct(private array $menus = [])
+        public function __construct(private array $nav_links = [])
         {
             
         }
 
+        /**
+         * The function returns an array of menu items for an admin page in PHP.
+         * 
+         * @return array An array of menu items with their corresponding URLs.
+         */
         public function admin(): array
         {
-            $this->menus = [
+            $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",
@@ -19,12 +24,13 @@
 				"Login "			=> 	"/login.php",
             ];
 
-            return $this->menus;
+            return $this->nav_links;
         }
+
 
         public function waiter(): array
         {
-            $this->menus = [
+            $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",				
@@ -32,30 +38,20 @@
 				"Login "			=> 	"/login.php",
             ];
 
-            return $this->menus;
+            return $this->nav_links;
         }
+
+
         public function user(): array
         {
-            $this->menus = [
+            $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",				
 				"Login "			=> 	"/login.php",
             ];
 
-            return $this->menus;
-        }
-
-        public function nonLogged(): array
-        {
-            $this->menus = [
-                "Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",				
-				"Login "			=> 	"/login.php",
-            ];
-
-            return $this->menus;
-        }
+            return $this->nav_links;
+        }    
     }    
 ?>

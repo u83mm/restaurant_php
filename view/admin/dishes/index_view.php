@@ -7,7 +7,7 @@
     $page->title = "My Restaurant | Platos";
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
-	$page->do_html_nav($page->menus);
+	$page->do_html_nav($page->nav_links);
 ?>
 	<h4 class="text-center">LISTADO DE PLATOS</h4>
     <div class="container-fluid">        

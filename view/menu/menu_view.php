@@ -5,7 +5,7 @@
 	$home->title = "My Restaurant | Menu";			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->menus);
+	$home->do_html_nav($home->nav_links);
 ?>	
 								<!--- SECTION WITH INFO -->
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3 mb-3 mb-xl-0">
