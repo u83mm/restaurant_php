@@ -3,22 +3,25 @@
 	
 	namespace model\classes;
 
-	class PageClass {		
+	use model\classes\MenusClass;
+
+	class PageClass {			
 		public function __construct(
 			public string $title = "My Restaurant",
 			public string $h1 = "Restaurant",
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
-			public array $menus = array (
-				"Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",
-				"Administration"	=>	"/admin/admin.php",
-				"Comandas"			=>	"/",
-				"Login "			=> 	"/login.php",			
-			),
+			public array $menus = [],
 		)
-		{
+		{			
+			$menu = new MenusClass();
+
+			/** Configure menus by ROLE */
+			if (!isset($_SESSION['role']))	$this->menus = $menu->nonLogged();
+			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN')	$this->menus = $menu->admin();
+			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_WAITER') $this->menus = $menu->waiter();
+			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_USER') $this->menus = $menu->user();
+
 			if (isset($_SESSION['id_user'])) {
 				array_pop($this->menus);
 				$this->menus["Logout"] = "/login.php?action=logout"; 
@@ -71,9 +74,7 @@
 							<div class="collapse navbar-collapse" id="my_nav">
 								<ul class="nav navbar-nav justify-content-center w-100">
 <?php
-							foreach($this->menus as $name => $url) {
-								if((!isset($_SESSION['role']) && $name === "Administration") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Administration")) continue;
-								if((!isset($_SESSION['role']) && $name === "Comandas") || (isset($_SESSION['role']) && $_SESSION['role'] !== "ROLE_WAITER" && $_SESSION['role'] !== "ROLE_ADMIN" && $name === "Comandas")) continue;
+							foreach($this->menus as $name => $url) {								
 ?>
 									<li class="nav-item d-lg-inline-block"><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
