@@ -160,6 +160,11 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
+input[type=number].numberQty {
+	appearance: initial;
+	vertical-align: middle;
+}
+
 select {
 	padding: 0.5em;
 }

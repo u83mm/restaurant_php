@@ -109,7 +109,7 @@
 												<!-- Show user loged -->
 
 					<?php if(isset($_SESSION['user_name'])):?>
-					<p class="text-end pe-2">Loged as <?php echo ucfirst($_SESSION['user_name']); ?></p>
+					<p class="text-end pe-2">Logged as <?php echo ucfirst($_SESSION['user_name']); ?></p>
 					<?php endif ?>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
 <?php

@@ -24,16 +24,25 @@
 		</div>
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-9 p-4">
+			<div class="col-3 p-4">
 				<h3>Precio: <?php echo number_format($dishe['price'], 2, ",", ".") ; ?>€</h3>
-			</div>			
+			</div>
+			<div class="col-12 col-md-5 text-md-end p-4">
+			<?php if(isset($_SESSION['role']) && $_SESSION['role'] === "ROLE_WAITER"): ?>
+				<form action="" method="post">
+					<label class="col-3 col-md-2 col-form-label" for="qty">Cant.</label>
+					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0" size="3">
+					<select class="align-middle" name="place" id="place">
+						<option value="">- Select -</option>
+					</select>
+					<button class="btn btn-outline-success">Pedir</button>
+				</form>				
+			<?php endif ?>
+			</div>		
 		</div>
 		<div class="row">
 			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post">
-				<button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>
-			<?php if(isset($_SESSION['user_name'])) { ?>
-				<button class="btn btn-outline-success">Pedir</button>
-			<?php } ?>
+				<button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>			
 			</form>			
 		</div>			
 	</section>

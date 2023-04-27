@@ -20,7 +20,7 @@
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",
 				"Administration"	=>	"/admin/admin.php",
-				"Comandas"			=>	"/",
+				"Orders"			=>	"/orders/index.php",
 				"Login "			=> 	"/login.php",
             ];
 
@@ -34,7 +34,7 @@
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
 				"Registration"		=> 	"/register.php",				
-				"Comandas"			=>	"/",
+				"Orders"			=>	"/orders/index.php",
 				"Login "			=> 	"/login.php",
             ];
 
