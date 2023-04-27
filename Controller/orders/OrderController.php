@@ -14,7 +14,53 @@
         {
             try { 
                 $table_number = $_POST['table_number'] ?? 0;
-                $people_qty = $_POST['people_qty'] ?? 0;               
+                $people_qty = $_POST['people_qty'] ?? 0;
+                
+                /** Get name, qty and position and save them into $_SESSION['order'] array */
+                $name = $_POST['name'] ?? "";
+                $qty = $_POST['qty'] ?? 0;
+                $position = $_POST['place'] ?? "";
+
+                $_SESSION['order'][] = [
+                    'name'      =>  $name,
+                    'qty'       =>  $qty,
+                    'position'  => $position, 
+                ];
+
+                /** Create arrays */
+                $aperitifs = $firsts = $seconds = $desserts = $drinks = $coffees = [];
+
+                foreach ($_SESSION['order'] as $item) {
+                    switch ($item['position']) {
+                        case 'aperitif':
+                            $aperitifs[] = $item;
+                            break;
+
+                        case 'first':
+                            $firsts[] = $item;
+                            break;
+                        
+                        case "second":
+                            $seconds[] = $item;
+                            break;
+                        
+                        case "dessert":
+                            $desserts[] = $item;
+                            break;
+
+                        case "drink":
+                            $drinks[] = $item;
+                            break;
+
+                        case "coffee":
+                            $coffees[] = $item;
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
+                }                               
 
                 /** Create arrays for tables numbers and people quantity */               
                 $tables = $persones = []; 

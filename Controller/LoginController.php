@@ -77,7 +77,7 @@
         {
             unset($_SESSION['id_user']);
 			unset($_SESSION['user_name']);
-			unset($_SESSION['role']);
+			unset($_SESSION['role']);			
 		  
 			$_SESSION = array();
 		  

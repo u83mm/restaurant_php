@@ -42,35 +42,101 @@
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Aperitivos</h3>
             <div class="w-100 adminMenus menuDia">
-
+                <?php foreach ($aperitifs as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>
+                    </li>
+                <?php endforeach ?>
             </div>
         </div>
+
         <!-- Primeros -->
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Primeros</h3>
             <div class="w-100 adminMenus menuDia">
-
+                <?php foreach ($firsts as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>                                                
+                    </li>
+                <?php endforeach ?>
             </div>
         </div>
+
         <!-- Segundos -->
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Segundos</h3>
             <div class="w-100 adminMenus menuDia">
-
+                <?php foreach ($seconds as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>
+                    </li>
+                <?php endforeach ?>
             </div>
         </div>
+
+        <!-- Bebids -->
+        <div class="col-12 col-md-6 col-lg-4 mb-5">
+            <h3 class="text-center">Bebidas</h3>
+            <div class="w-100 adminMenus menuDia">
+                <?php foreach ($drinks as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>
+                    </li>
+                <?php endforeach ?>
+            </div>
+        </div>
+
         <!-- Postres -->
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Postres</h3>
             <div class="w-100 adminMenus menuDia">
-
+                <?php foreach ($desserts as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>
+                    </li>
+                <?php endforeach ?>
             </div>
         </div>
+
         <!-- Cafés -->
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Cafés y Licores</h3>
             <div class="w-100 adminMenus menuDia">
-
+                <?php foreach ($coffees as $item): ?>
+                    <li>
+                        <div class="col-8 d-inline-block">
+                            <?php echo $item['name']; ?>
+                        </div>
+                        <div class="col-2 d-inline-block">
+                            <input class="numberQty" type="number" name="qty" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                        </div>
+                    </li>
+                <?php endforeach ?>
             </div>
         </div>
     </div>                                                               

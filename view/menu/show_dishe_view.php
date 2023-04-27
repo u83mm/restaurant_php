@@ -27,13 +27,22 @@
 			<div class="col-3 p-4">
 				<h3>Precio: <?php echo number_format($dishe['price'], 2, ",", ".") ; ?>€</h3>
 			</div>
+
+			<!-- Select dish and Qty as First, Second, Dessert, or Coffe and liquors -->
 			<div class="col-12 col-md-5 text-md-end p-4">
-			<?php if(isset($_SESSION['role']) && $_SESSION['role'] === "ROLE_WAITER"): ?>
-				<form action="" method="post">
+			<?php if(isset($_SESSION['role']) && $_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN"): ?>
+				<form action="/orders/index.php" method="post">
+					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
 					<label class="col-3 col-md-2 col-form-label" for="qty">Cant.</label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0" size="3">
 					<select class="align-middle" name="place" id="place">
 						<option value="">- Select -</option>
+						<option value="aperitif">Aperitivo</option>
+						<option value="first">Primero</option>
+						<option value="second">Segundo</option>
+						<option value="dessert">Postre</option>
+						<option value="drink">Bebida</option>
+						<option value="coffee">Café</option>
 					</select>
 					<button class="btn btn-outline-success">Pedir</button>
 				</form>				
