@@ -230,7 +230,7 @@
          * @param string table The table name
          * @param object dbcon The database connection object.
          */
-        public function insertInto(string $table, array $fields, object $dbcon): void
+        public function insertInto(string $table, array|object $fields, object $dbcon): void
         {
             /** Initialice variables */
             $query = $values = "";

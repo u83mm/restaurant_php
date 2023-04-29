@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "index");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "new");
     $orderController = new OrderController($dbcon);
 
 	/** Check for user`s sessions */
@@ -20,9 +20,15 @@
 	}
 	else {
 		switch($action) {
-			case "index":
-				$orderController->index();
-				break;			
+			case "new":
+				$orderController->new();
+				break;
+			
+			case "reset_order":
+				$orderController->resetOrder();
+
+			case "save":
+				$orderController->save();
 		}	
 	}	
 ?>

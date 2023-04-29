@@ -10,7 +10,7 @@
 								<!--- SECTION WITH INFO -->
 	<h3 class="text-center">NUEVO PEDIDO</h3>
     <div class="col-12 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message = $this->message ?? ""; ?>
         <?php include(SITE_ROOT . "/../view/orders/form_view.php") ?>    
     </div>  		
 <?php
