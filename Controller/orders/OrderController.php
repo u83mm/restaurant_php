@@ -170,8 +170,7 @@
         * This PHP function resets the order by unsetting the session variable and calling the "new"
         * function.
         */
-        public function resetOrder(): void {
-        
+        public function resetOrder(): void {        
             unset($_SESSION['order']);							  			                       
         }
     }    

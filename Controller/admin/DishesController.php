@@ -112,12 +112,14 @@
                 $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
                 $image_fieldname = "dishe_img";
 
+
                 /** Picture's data */
                 $picture_name = trim($_FILES['dishe_img']['name']);
                 $type = trim($_FILES['dishe_img']['type']);
                 $size = trim($_FILES['dishe_img']['size']);
                 $error = trim($_FILES['dishe_img']['error']);
                 $temporal = trim($_FILES['dishe_img']['tmp_name']);
+
 
                 /** Diferent options that we can have when upload files */
                 $php_errors = array(	
@@ -126,6 +128,7 @@
                     3 => 'Sólo una parte del archivo fué subido',
                     4 => 'No se seleccionó ningún archivo para subir.')
                 ;
+
 
                 // We obtain all registries in "dishes" tables           
                 $query = new Query($this->dbcon);
@@ -145,6 +148,7 @@
                 ];
 
                 $validateOk = $validate->validate_form($fields);
+
 
                 /** Begin transaction */
                 $this->dbcon->pdo->beginTransaction();
@@ -173,18 +177,22 @@
                                 "su ubicación permanente." .
                                 "Posiblemente esté relacionado con los permisos en las carpetas " .
                                 "de destino {$upload_filename}", 1);
+
             
                     /** Redimensionado de imágen */
                     $file_name = $upload_filename; // ruta al archivo del servidor							
                     $w = 600; // ancho para la nueva imagen
                     $h = 400; // alto para la nueva imagen
+
                             
                     // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
                     $commonTask = new CommonTasks();
                     $original = $commonTask->createImageFromSource($file_name, $type);
+
         
                     // redimensiona la imagen
                     $final_image = $commonTask->resizeImage($original, $w, $h);
+
         
                     // reemplaza la imagen del servidor
                     ImagePNG($final_image, $file_name, 9);
@@ -204,6 +212,7 @@
                 if ($validateOk) {
                     $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
                                 VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
+                                
                                         
                     /** Test price type, if isn't numeric delete picture from server and throw an exception*/
                     if(!is_numeric($fields['Price'])){
