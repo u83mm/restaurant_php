@@ -30,10 +30,11 @@
         </div>                                  
     </div>    
 
-                                        <!-- COMANDA -->
+                                            <!-- COMANDA -->
     
     <div class="row mb-3">
-        <!-- Aperitivos -->
+                                            <!-- Aperitivos -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Aperitivos</h3>
             <div class="w-100 adminMenus menuDia">
@@ -41,7 +42,7 @@
                 <?php foreach ($this->aperitifs as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>
@@ -55,7 +56,8 @@
             </div>
         </div>
 
-        <!-- Primeros -->
+                                            <!-- Primeros -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Primeros</h3>
             <div class="w-100 adminMenus menuDia">
@@ -63,7 +65,7 @@
                 <?php foreach ($this->firsts as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>
@@ -77,7 +79,8 @@
             </div>
         </div>
 
-        <!-- Segundos -->
+                                            <!-- Segundos -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Segundos</h3>
             <div class="w-100 adminMenus menuDia">
@@ -85,7 +88,7 @@
                 <?php foreach ($this->seconds as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>
@@ -99,7 +102,8 @@
             </div>
         </div>
 
-        <!-- Bebids -->
+                                            <!-- Bebidas -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Bebidas</h3>
             <div class="w-100 adminMenus menuDia">
@@ -107,7 +111,7 @@
                 <?php foreach ($this->drinks as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>
@@ -121,7 +125,8 @@
             </div>
         </div>
 
-        <!-- Postres -->
+                                            <!-- Postres -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Postres</h3>
             <div class="w-100 adminMenus menuDia">
@@ -129,7 +134,7 @@
                 <?php foreach ($this->desserts as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>
@@ -143,7 +148,8 @@
             </div>
         </div>
 
-        <!-- Cafés -->
+                                            <!-- Cafés -->
+
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Cafés y Licores</h3>
             <div class="w-100 adminMenus menuDia">
@@ -151,7 +157,7 @@
                 <?php foreach ($this->coffees as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
-                        <div class="col-8 d-inline-block">
+                        <div class="col-9 d-inline-block">
                             <input type="hidden" name="coffees_name[]" id="desserts_name" value="<?php echo $item['name']; ?>">
                             <?php echo $item['name']; ?>
                         </div>

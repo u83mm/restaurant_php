@@ -14,15 +14,19 @@
                                             <!-- PLATOS -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <h4 class="text-center">PLATOS</h4>
+            <h4 class="text-center">PRODUCTOS</h4>
             <div class="w-100 bg-success bg-opacity-10 adminMenus">            
                 <div class="row">
                     <div class="col-3">
                         <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php">Listado</a> 
                     </div>
-                    <div class="col-9">
+                    <div class="col-3">
                         <form class="text-center text-lg-start d-inline" action="/admin/admin_dishes.php" method="post">                                
                             <button type="submit" class="btn btn-primary" name="action" value="search">Buscar</button>               
+                        </form>
+                    </div><div class="col-3">
+                        <form class="text-center text-lg-start d-inline" action="/admin/admin_dishes.php" method="post">                                
+                            <button type="submit" class="btn btn-primary" name="action" value="show_form">Nuevo</button>               
                         </form>
                     </div>                
                 </div>            

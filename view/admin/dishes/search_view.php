@@ -8,7 +8,7 @@
 	$home->do_html_nav($home->nav_links);
 ?>	
     <div class="row">
-        <h3 class="text-center pb-2">BÚSCAR PLATO</h3>
+        <h3 class="text-center pb-2">BÚSCAR PRODUCTO</h3>
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
         <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
             <h4 class="text-center">Criterios de búsqueda</h4>                                    

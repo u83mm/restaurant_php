@@ -7,7 +7,7 @@
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links);
 ?>
-	<h3 class="text-center">CARACTERÍSTICAS DEL PLATO</h3>
+	<h3 class="text-center">CARACTERÍSTICAS DEL PRODUCTO</h3>
     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
         <form action="#" method="post" enctype="multipart/form-data">

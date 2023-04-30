@@ -24,12 +24,12 @@
 		</div>
 		<div class="row">
 			<div class="col-3"></div>
-			<div class="col-3 p-4">
+			<div class="col-12 col-md-3 p-3 text-center">
 				<h3>Precio: <?php echo number_format($dishe['price'], 2, ",", ".") ; ?>€</h3>
 			</div>
 
 			<!-- Select dish and Qty as First, Second, Dessert, or Coffe and liquors -->
-			<div class="col-12 col-md-5 text-md-end p-4">
+			<div class="col-12 col-md-5 text-md-end ps-4 pe-4 pb-4">
 			<?php if(isset($_SESSION['role']) && $_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN"): ?>
 				<form action="/orders/index.php" method="post">
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
