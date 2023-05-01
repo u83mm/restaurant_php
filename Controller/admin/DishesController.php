@@ -287,19 +287,30 @@
                 include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");
                 
             } catch (\PDOException $e) {
-                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $error_msg = $e->getMessage();                    
-                }
-                else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
                 }
 
-                include(SITE_ROOT . "/../view/admin/dishes/edit_view.php");
+                include(SITE_ROOT . "/../view/database_error.php");
 
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                    de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../view/database_error.php");					
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");				
             }	
         }
 
@@ -374,7 +385,16 @@
                     }
                 }                                                        
             } catch (\Exception $e) {
-                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$e->getMessage()}<br>
+                                    Path: {$e->getFile()}<br>
+                                    Line: {$e->getLine()}
+                                </p>";
+                }
+
                 include(SITE_ROOT . "/../view/database_error.php");
             }            
            
@@ -446,17 +466,29 @@
                 include(SITE_ROOT . "/../view/database_error.php");
 
             } catch (\PDOException $e) {
-                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $error_msg = $e->getMessage();                    
-                }
-                else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$e->getMessage()}<br>
+                                    Path: {$e->getFile()}<br>
+                                    Line: {$e->getLine()}
+                                </p>";
                 }
 
                 include(SITE_ROOT . "/../view/database_error.php");
+
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
                 include(SITE_ROOT . "/../view/database_error.php");
             }
         }
@@ -517,13 +549,29 @@
                 }
                                 
             } catch (\Exception $e) {
-                $error_msg = $e->getMessage();
-                include(SITE_ROOT . "/../view/admin/dishes/search_view.php");
+                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
 
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$e->getMessage()}<br>
+                                    Path: {$e->getFile()}<br>
+                                    Line: {$e->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
             } catch (\Throwable $th) {			
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";                        
-                include(SITE_ROOT . "/../view/database_error.php");				
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");			
             }             
         }
     }    

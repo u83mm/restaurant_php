@@ -110,7 +110,7 @@
             $this->seconds = $_POST['seconds_name'] ?? []; 
             $this->seconds_qty = $_POST['seconds_qty'] ?? [];
             $this->desserts = $_POST['desserts_name'] ?? []; 
-            $this->desserts_qty = $_POST['deserts_qty'] ?? [];  
+            $this->desserts_qty = $_POST['desserts_qty'] ?? [];  
             $this->drinks = $_POST['drinks_name'] ?? []; 
             $this->drinks_qty = $_POST['drinks_qty'] ?? []; 
             $this->coffees = $_POST['coffees_name'] ?? []; 

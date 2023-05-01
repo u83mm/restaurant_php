@@ -42,7 +42,7 @@
 						<option value="second">Segundo</option>
 						<option value="dessert">Postre</option>
 						<option value="drink">Bebida</option>
-						<option value="coffee">Café</option>
+						<option value="coffee">Café y Licores</option>
 					</select>
 					<button class="btn btn-outline-success">Pedir</button>
 				</form>				

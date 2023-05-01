@@ -139,7 +139,7 @@
                             <?php echo $item['name']; ?>
                         </div>
                         <div class="col-2 d-inline-block">
-                            <input class="numberQty" type="number" name="deserts_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
+                            <input class="numberQty" type="number" name="desserts_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
                         </div>
                     </li>
                     <?php endif ?>

@@ -75,40 +75,52 @@
         // Función para usar en redimensionado de imágenes al subirlas 
 
         public function createImageFromSource($source, $type) {                       
-            // JPG
-            if(preg_match('/jpg|jpeg/', $type)) {                  
-                $data = imagecreatefromjpeg($source);               
+            try {
+                // JPG
+                if(preg_match('/jpg|jpeg/', $type)) {                  
+                    $data = imagecreatefromjpeg($source);               
+                }
+                // PNG
+                if(preg_match('/png/', $type)) {
+                    $data = imagecreatefrompng($source);
+                }
+                // GIF
+                if(preg_match('/gif/', $type)) {
+                    $data = imagecreatefromgif($source);
+                }
+                // WEBP
+                if(preg_match('/webp/', $type)) {
+                    $data = ImageCreateFromWebp($source);
+                }
+                            
+                return $data;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("Error converting file. {$th->getMessage()}", 1);                            
             }
-            // PNG
-            if(preg_match('/png/', $type)) {
-                $data = imagecreatefrompng($source);
-            }
-            // GIF
-            if(preg_match('/gif/', $type)) {
-                $data = imagecreatefromgif($source);
-            }
-            // WEBP
-            if(preg_match('/webp/', $type)) {
-                $data = imagecreatefromwebp($source);
-            }
-                        
-            return $data;
         }
 
 
         // Función para redimiensionado de imágenes 
         
-        public function resizeImage($original, $w, $h) {
-            $thumbnail = ImageCreateTrueColor($w, $h);
-            ImageColorTransparent($thumbnail, ImageColorAllocateAlpha($thumbnail, 0, 0, 0, 127));
-            ImageAlphaBlending($thumbnail, false);
-            ImageSaveAlpha($thumbnail, true);
-            $x = ImageSX($original);
-            $y = ImageSY($original);
-            /*$scale = min(round($x / $w), round($y / $h));
-            ImageCopyResampled($thumbnail, $original, 0, 0, ($x - ($w * $scale)) / 2, ($y - ($h * $scale)) / 2, $w, $h, $w * $scale, $h * $scale);*/            
-            ImageCopyResampled($thumbnail, $original, 0, 0, 0, 0, $w, $h, $x, $y);
-            return $thumbnail;
+        public function resizeImage($original, $w, $h) {            
+            try {
+                $thumbnail = ImageCreateTrueColor($w, $h);
+                ImageColorTransparent($thumbnail, ImageColorAllocateAlpha($thumbnail, 0, 0, 0, 127));
+                ImageAlphaBlending($thumbnail, false);
+                ImageSaveAlpha($thumbnail, true);
+                $x = ImageSX($original);
+                $y = ImageSY($original);
+                /*$scale = min(round($x / $w), round($y / $h));
+                ImageCopyResampled($thumbnail, $original, 0, 0, ($x - ($w * $scale)) / 2, ($y - ($h * $scale)) / 2, $w, $h, $w * $scale, $h * $scale);*/            
+                ImageCopyResampled($thumbnail, $original, 0, 0, 0, 0, $w, $h, $x, $y);
+
+                return $thumbnail;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("Error Resizing Image. {$th->getMessage()}", 1);
+                
+            }
         }
 
 
