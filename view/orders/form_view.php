@@ -43,8 +43,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="aperitif_qty[]" id="qty" value="<?php echo $item['qty']; ?>" size="3">
@@ -66,8 +66,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="firsts_qty[]" id="qty" value="<?php echo $item['qty']; ?>" size="3">
@@ -89,8 +89,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="seconds_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
@@ -112,8 +112,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="drinks_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
@@ -135,8 +135,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="desserts_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
@@ -148,7 +148,7 @@
             </div>
         </div>
 
-                                            <!-- Cafés -->
+                                            <!-- Cafés y licores -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
             <h3 class="text-center">Cafés y Licores</h3>
@@ -158,8 +158,8 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="coffees_name[]" id="desserts_name" value="<?php echo $item['name']; ?>">
-                            <?php echo $item['name']; ?>
+                            <input type="hidden" name="coffees_name[]" id="desserts_name" value="<?php ucfirst($item['name']); ?>">
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="coffees_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">
