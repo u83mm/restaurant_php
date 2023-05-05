@@ -8,27 +8,20 @@ git clone https://github.com/u83mm/restaurant_php.git "directoryName"
 ```
 cd directoryName
 ```
-3.- Create "db_vol" and "log" directories and inside "log" directory create "apache", "db" and "php" directories.
-```
-mkdir db_vol log
-cd log
-mkdir apache db php
-cd .. (to go back)
-```
-4.- Build the project and stands up the containers
+3.- Build the project and stands up the containers
 ```
 docker compose build
 docker compose up -d
 ```
-5.- Access to phpMyAdmin.
+4.- Access to phpMyAdmin.
 ```
 http://localhost:8080/
 user: admin
 passwd: admin
 ```
-6.- Select "my_database" and go to "import" menu and search my_database.sql file in your "directoryName".
+5.- Select "my_database" and go to "import" menu and search my_database.sql file in your "directoryName".
 
-7.- Go to your localhost in the browser and you can do login.
+6.- Go to your localhost in the browser and you can do login.
 ```
 http://localhost/
 user: admin@admin.com

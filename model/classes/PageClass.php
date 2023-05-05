@@ -63,7 +63,7 @@
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
 				<script type="text/javascript" src="/js/bootstrap.bundle.min.js.js"></script>
 				<script type="text/javascript" src="/js/eventos.js"></script>
-				<script type="text/javascript" src="/js/ajax.js"></script>				
+				<script type="text/javascript" src="/js/ajax.js"></script>							
 			</head>
 			<body class="ps-3 pe-3">
 				<header class="d-flex justify-content-center align-items-center">
