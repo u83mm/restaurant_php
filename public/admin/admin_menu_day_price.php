@@ -21,11 +21,8 @@
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
 	else {
-		switch($action) {			
-			case "index":				
-                $menuDayController->index();
-
-				break;						
-		}	
+		match ($action) {
+			default => $menuDayController->index(),
+		};
 	}	
 ?>

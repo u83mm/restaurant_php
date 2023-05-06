@@ -19,10 +19,8 @@
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
 	else {
-		switch($action) {
-			case "index":
-				$comandasController->index();
-				break;			
-		}	
+		match ($action) {
+			default => $comandasController->index(),
+		};		
 	}	
 ?>

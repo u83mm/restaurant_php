@@ -139,10 +139,6 @@ input[type="button"], [type="text"], [type="number"], [type="submit"] {
 	padding: 0.4em;
 }
 
-.ejercicio ol {
-	list-style-type: upper-alpha;
-}
-
 pre {
 	margin-top: 2em;	
 }

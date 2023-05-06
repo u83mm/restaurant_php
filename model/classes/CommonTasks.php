@@ -90,7 +90,7 @@
                 }
                 // WEBP
                 if(preg_match('/webp/', $type)) {
-                    $data = ImageCreateFromWebp($source);
+                    $data = imagecreatefromWebp($source);
                 }
                             
                 return $data;

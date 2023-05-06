@@ -26,39 +26,16 @@
 		$error_msg = "<p class='alert alert-danger text-center container'>Hola <strong>{$_SESSION['user_name']}</strong>, debes tener privilegios de administrador para realizar esta acción</p>";
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
-	else {
-		switch($action) {			
-			case "listado":
-				$dishesController->index($message, $p, $s);	
-				break;
-			
-			case "volver":
-				$dishesController->index();	
-				break;
-			
-			case "show_form":
-				$dishesController->showForm();
-				break;
-					
-			case "new":
-				$dishesController->new();			
-				break;
-			
-			case "edit":
-				$dishesController->edit();							
-				break;
-	
-			case "update":
-				$dishesController->update();	
-				break;
-			
-			case "delete":
-				$dishesController->delete();
-				break;
-
-			case "search":
-				$dishesController->search($message, $p, $s);
-				break;
-		}	
+	else {		
+		match ($action) {
+			default		=> $dishesController->index($message, $p, $s),
+			"volver"	=> $dishesController->index(),
+			"show_form"	=> $dishesController->showForm(),
+			"new"		=> $dishesController->new(),
+			"edit"		=> $dishesController->edit(),
+			"update"	=> $dishesController->update(),
+			"delete"	=> $dishesController->delete(),
+			"search"	=> $dishesController->search(),
+		};
 	}	
 ?>

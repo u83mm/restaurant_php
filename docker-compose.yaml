@@ -2,7 +2,7 @@ version: '3'
 services:
   db:    
     build: ./MariaDB/
-    user: root
+    user: "1000"
     container_name: db   
     environment:
       MYSQL_ROOT_PASSWORD: admin
@@ -25,7 +25,7 @@ services:
 
   web:      
       build: .
-      user: root
+      user: "1000"
       container_name: php
       ports:
       - "80:80"
