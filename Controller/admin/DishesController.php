@@ -173,12 +173,11 @@
 
                 if(strncmp($type, "image/", 6) == 0) {
                     @move_uploaded_file($_FILES[$image_fieldname]['tmp_name'], $upload_filename)
-                                or throw new \Exception("Ha habido un problema al guardar el archivo en " .
-                                "su ubicación permanente." .
-                                "Posiblemente esté relacionado con los permisos en las carpetas " .
-                                "de destino {$upload_filename}", 1);
+                            or throw new \Exception("Ha habido un problema al guardar el archivo en " .
+                            "su ubicación permanente." .
+                            "Posiblemente esté relacionado con los permisos en las carpetas " .
+                            "de destino {$upload_filename}", 1);
 
-            
                     /** Redimensionado de imágen */
                     $file_name = $upload_filename; // ruta al archivo del servidor							
                     $w = 600; // ancho para la nueva imagen
@@ -356,13 +355,13 @@
                         $now++;
                     }                    
     
-                    if(strncmp($type, "image/", 6) == 0) {
+                    if(strncmp($type, "image/", 6) == 0) { 
                         @move_uploaded_file($_FILES[$image_fieldname]['tmp_name'], $upload_filename)
-                                    or throw new \Exception("Ha habido un problema al guardar el archivo en " .
-                                    "su ubicación permanente." .
-                                    "Posiblemente esté relacionado con los permisos en las carpetas " .
-                                    "de destino {$upload_filename}", 1);
-                
+                                or throw new \Exception("Ha habido un problema al guardar el archivo en " .
+                                "su ubicación permanente." .
+                                "Posiblemente esté relacionado con los permisos en las carpetas " .
+                                "de destino {$upload_filename}", 1);
+
                         /** Redimensionado de imágen */
                         $file_name = $upload_filename; // ruta al archivo del servidor							
                         $w = 600; // ancho para la nueva imagen
@@ -370,8 +369,8 @@
                                 
                         // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
                         $commonTask = new CommonTasks();                        
-                        $original = $commonTask->createImageFromSource($file_name, $type);
-                      
+                        $original = $commonTask->createImageFromSource($file_name, $type);                        
+                
                         // redimensiona la imagen
                         $final_image = $commonTask->resizeImage($original, $w, $h);
                     
@@ -445,7 +444,7 @@
             }
         }        
 
-        /** Deleting a user from the database. */
+        /** Deleting a dish from the database. */
         public function delete(): void
         {
             $dishe = $_REQUEST['dishe_id'];

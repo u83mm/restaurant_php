@@ -89,9 +89,9 @@
                     $data = imagecreatefromgif($source);
                 }
                 // WEBP
-                if(preg_match('/webp/', $type)) {
-                    $data = imagecreatefromWebp($source);
-                }
+                if(preg_match('/webp/', $type)) {                                      
+                    $data = imagecreatefromWebp($source);                   
+                }                
                             
                 return $data;
 
