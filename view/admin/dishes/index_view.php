@@ -85,11 +85,6 @@
                 </li>				
 <?php
 			}
-			else {
-?>
-				<label for="none">&nbsp;</label>
-<?php
-			}
 
 			$pagination = new CommonTasks();
 			$pagination->pagination1($pagina, $pagerows, $current_page, $action, $field);
@@ -117,12 +112,7 @@
                     </form>                    
                 </li>				
 <?php
-			}
-			else {
-?>
-				<label for="none">&nbsp;</label>
-<?php
-			}
+			}			
 		}
 ?>		
                 </ul>

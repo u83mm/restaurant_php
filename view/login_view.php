@@ -18,13 +18,13 @@
                 </div>                
             </div> 
             <div class="row mb-3">
-                <label class="col-12 col-md-3 text-center text-md-end col-form-label"" for="password">Password:</label>
+                <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="password">Password:</label>
                 <div class="col-12 col-md-8">
                     <input class="form-control" type="password" name="password" id="password" value="<?php echo $password; ?>" required>
                 </div>                
             </div>                          
             <div class="row mb-3">
-                <label class="col-12 col-md-3 text-center text-md-end" for="nome">&nbsp;</label>
+                <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
                     <input type="submit" value="Login">
                 </div>                

@@ -159,6 +159,7 @@ input[type=number] {
 input[type=number].numberQty {
 	appearance: initial;
 	vertical-align: middle;
+	width: 4em;
 }
 
 select {

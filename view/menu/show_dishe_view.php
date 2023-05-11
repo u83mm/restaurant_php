@@ -1,4 +1,6 @@
-<?php	
+<?php
+	declare(strict_types=1);
+		
 	use model\classes\PageClass;
 
 	$home = new PageClass();
@@ -25,7 +27,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-12 col-md-3 p-3 text-center">
-				<h3>Precio: <?php echo number_format($dishe['price'], 2, ",", ".") ; ?>€</h3>
+				<h3>Precio: <?php echo number_format(floatval($dishe['price']), 2, ",", ".") ; ?>€</h3>
 			</div>
 
 			<!-- Select dish and Qty as First, Second, Dessert, or Coffe and liquors -->
@@ -34,7 +36,7 @@
 				<form action="/orders/index.php" method="post">
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
 					<label class="col-3 col-md-2 col-form-label" for="qty">Cant.</label>
-					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0" size="3">
+					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
 					<select class="align-middle" name="place" id="place">
 						<option value="">- Select -</option>
 						<option value="aperitif">Aperitivo</option>

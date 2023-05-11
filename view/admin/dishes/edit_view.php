@@ -79,7 +79,7 @@
             </div>
                           
             <div class="row mb-3">
-                <label class="col-12 col-md-3 text-center text-md-end" for="nome">&nbsp;</label>
+                <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
                 <div class="col-12 col-md-8 text-center text-sm-start">                   
                     <button type="submit" name="action" value="update">Actualizar</button>                   
                     <input type="submit" name="action" value="Volver">

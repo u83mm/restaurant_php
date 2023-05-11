@@ -1,4 +1,6 @@
-<?php	
+<?php
+	declare(strict_types=1);
+		
 	use model\classes\PageClass;
 
 	$home = new PageClass();
