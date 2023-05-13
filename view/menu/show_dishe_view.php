@@ -11,11 +11,10 @@
 ?>	
 								<!-- SECTION WITH INFO -->
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3">
-		<div class="col mb-3 <?php echo $dishe['menu_category']; ?>"></div>
+		<div class="col mb-5 <?php echo $dishe['menu_category']; ?>"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2"><?php echo ucfirst($dishe['name']); ?></h2>
-				<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
+				<h2 class="m-0 me-2"><?php echo ucfirst($dishe['name']); ?></h2>				
 			</div>
 		</div>		
 		<div class="row">

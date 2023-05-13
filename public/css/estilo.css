@@ -65,7 +65,8 @@ h1 {
 }
 
 h2 {
-	font-size: 1.5em;	
+	font-size: 2em;
+	font-family: Great Vibes, ubuntuRegular;
 }
 
 h3 {
@@ -239,6 +240,10 @@ section img {
 
 .showMenuCategories {
 	margin-bottom: -1em;
+}
+
+.captcha h2 {
+	font-family: ubuntuRegular;
 }
 
 /*.alert-success {	

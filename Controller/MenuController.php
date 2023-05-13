@@ -128,11 +128,11 @@
         public function menu(): void
         {   
             define('FPDF_FONTPATH', SITE_ROOT .'/../model/fpdf/font');
-            define('EURO_SIMBOL', chr(128)); 
+            define('EURO_SIMBOL', chr(128));                     
 
             $pdf = new MyPdf();
-            
-            
+
+                  
             /** We obtain Menu's categories */
 
             $menu = new QueryMenu();  
@@ -140,13 +140,13 @@
             
 
             /** Start to build the menu */
-
-            $pdf->title = "Nuestra Carta";
-            //$pdf->SetLineWidth(2); 
+           
+            $pdf->title = "Nuestra Carta";           
             $pdf->SetFillColor(0, 54.5, 54.5);           
             $pdf->AddPage();
             $pdf->AliasNbPages();
-            $pdf->SetFont('Arial','B',12); 
+            //$pdf->SetFont('Arial','B',12);           
+            $pdf->SetFont('GreatVibes','',18);  
 
 
             /** Show all the categories and their dishes*/
@@ -164,15 +164,18 @@
                 $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category'], $this->dbcon);                                                              
 
                 foreach ($rows as $key => $value) {
-                    $pdf->SetFont('Arial','I',10);
+                    //$pdf->SetFont('Arial','I',10);
+                    $pdf->SetFont('GreatVibes','',14);
 
                     if($value['available'] === "SI") {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
+                        $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
                         $pdf->Ln(5);                                                                                        
                     }
                     
-                    $pdf->SetFont('Arial','B',12); 
+                    //$pdf->SetFont('Arial','B',12);
+                    $pdf->SetFont('GreatVibes','',18); 
                 }
 
                 $pdf->Ln(20);

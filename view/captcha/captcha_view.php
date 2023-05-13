@@ -9,10 +9,9 @@
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);	
 ?>	
 								<!--- SECTION WITH INFO -->
-	<section class="col-12 p-sm-0 pe-lg-3">
-		<div class="col mb-3 mainImg"></div>
-		<div class="col d-flex justify-content-center align-items-center mb-3">
-			<h2 class="m-0 me-2">WWW.RESTAURANT.COM</h2>			
+	<section class="col-12 p-sm-0 pe-lg-3 captcha">		
+		<div class="col-12 d-flex justify-content-center align-items-center mb-3">
+			<h2 class="p-3">WWW.RESTAURANT.COM</h2>			
 		</div>
 
 		<!-- Captcha -->
