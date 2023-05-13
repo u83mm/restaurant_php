@@ -158,7 +158,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="coffees_name[]" id="desserts_name" value="<?php ucfirst($item['name']); ?>">
+                            <input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo ucfirst($item['name']); ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">

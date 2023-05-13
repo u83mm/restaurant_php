@@ -10,9 +10,8 @@
 												<!-- SECTION WITH INFO -->
 									
 	<section class="col-12 p-sm-0 pe-lg-3">		
-		<div class="col d-flex justify-content-center align-items-center mb-3">
-			<h2 class="m-0 me-2">Comandas</h2>
-			<img class="img-fluid mainLogo" src="/images/restaurant_logo.png" alt="logo">
+		<div class="col d-flex justify-content-center align-items-center mb-5">
+			<h2 class="m-0 me-2">Comandas</h2>			
 		</div>
 
 		<div class="row justify-content-evenly">

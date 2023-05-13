@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "new");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
     $orderController = new OrderController($dbcon);
 
 	/** Check for user`s sessions */
@@ -18,17 +18,11 @@
 		$error_msg = "<p class='alert alert-danger text-center container'>Hola <strong>{$_SESSION['user_name']}</strong>, debes tener privilegios de administrador para realizar esta acción</p>";
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
-	else {
-		switch($action) {
-			case "new":
-				$orderController->new();
-				break;
-			
-			case "reset_order":
-				$orderController->resetOrder();
-
-			case "save":
-				$orderController->save();
-		}	
+	else {				
+		match($action) {
+			default			=>	$orderController->new(),
+			"reset_order"	=>	$orderController->resetOrder(),
+			"save"			=>	$orderController->save(),
+		};
 	}	
 ?>

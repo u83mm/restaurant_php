@@ -29,52 +29,32 @@
         {
             try {
                 $table_number = $variables['table'] ?? "- Selecciona -";
-                $people_qty = $variables['people'] ?? "- Selecciona -";                
+                $people_qty = $variables['people'] ?? "- Selecciona -"; 
 
-                /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */
-                $name = $_POST['name'] ?? "";
-                $qty = $_POST['qty'] ?? 0;
-                $position = $_POST['place'] ?? "";
+
+                /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
 
                 $_SESSION['order'][] = [
-                    'name'      =>  $name,
-                    'qty'       =>  $qty,
-                    'position'  => $position, 
+                    'name'      =>  $_POST['name'] ?? "",
+                    'qty'       =>  $_POST['qty'] ?? 0,
+                    'position'  =>  $_POST['place'] ?? "", 
                 ];                
 
-                foreach ($_SESSION['order'] as $item) {
-                    switch ($item['position']) {
-                        case 'aperitif':
-                            $this->aperitifs[] = $item;                            
-                            break;
-
-                        case 'first':
-                            $this->firsts[] = $item;
-                            break;
-                        
-                        case "second":
-                            $this->seconds[] = $item;
-                            break;
-                        
-                        case "dessert":
-                            $this->desserts[] = $item;
-                            break;
-
-                        case "drink":
-                            $this->drinks[] = $item;
-                            break;
-
-                        case "coffee":
-                            $this->coffees[] = $item;
-                            break;
-                        
-                        default:
-                            # code...
-                            break;
-                    }
-                } 
+                foreach ($_SESSION['order'] as $item) { 
+                    if($item['position']) {
+                        match($item['position']) {
+                            'aperitif'  =>  $this->aperitifs[] = $item,
+                            'first'     =>  $this->firsts[] = $item,
+                            'second'    =>  $this->seconds[] = $item,
+                            'dessert'   =>  $this->desserts[] = $item,
+                            'drink'     =>  $this->drinks[] = $item,
+                            'coffee'    =>  $this->coffees[] = $item,
+                        };
+                    }                                      
+                }                 
                                 
-                /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/               
+                /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
+
                 $tables = $persones = [];
 
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
@@ -99,7 +79,8 @@
 
         public function save(): void
         {      
-            /** Get table number and people qty */      
+            /** Get table number and people qty */ 
+
             $table_number = $_POST['table_number'];
             $people_qty = $_POST['people_qty'];
             
@@ -118,10 +99,13 @@
 
             try {
                 if($table_number === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
-                if($people_qty === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1);                
+                if($people_qty === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1); 
+
 
                 /** we set an order */
-                $order = new Order();                
+
+                $order = new Order();
+                $orderRepository = new OrderRepository();                
 
                 $order->setTable($table_number);
                 $order->setPeople($people_qty); 
@@ -138,8 +122,9 @@
                 $order->setCoffee($this->coffees);
                 $order->setCoffeeQty($this->coffees_qty);                                            
 
-                $orderRepository = new OrderRepository();                
-
+                
+                /** we save the order */
+                
                 $orderRepository->saveOrder($order, $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Order saved successfully</p>";
                 $this->resetOrder();
@@ -171,7 +156,8 @@
         * function.
         */
         public function resetOrder(): void {        
-            unset($_SESSION['order']);							  			                       
+            unset($_SESSION['order']);
+            $this->new();							  			                       
         }
     }    
 ?>  
