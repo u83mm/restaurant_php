@@ -6,7 +6,7 @@
 	class PageClass {			
 		public function __construct(
 			public string $title = "My Restaurant",
-			public string $h1 = "Restaurant",
+			public string $h1 = "Restaurant Your House",
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
 			public array $nav_links = [
@@ -56,7 +56,8 @@
 				<meta name="robots" content="All" />  
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 				<title><?php echo $this->title; ?></title>				
-				<link rel="icon" type="image/gif" href="/images/favicon.ico">				
+				<link rel="icon" type="image/gif" href="/images/favicon.ico">
+				<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">				
 				<link rel="stylesheet" type="text/css" href="/css/reset.css">
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
@@ -66,8 +67,11 @@
 				<script type="text/javascript" src="/js/ajax.js"></script>							
 			</head>
 			<body class="ps-3 pe-3">
-				<header class="d-flex justify-content-center align-items-center">
-					<h1><?php echo $this->h1; ?></h1>					
+				<header class="d-flex justify-content-end align-items-end align-items-xl-center header">
+					<div class="col-12 col-md-7 d-none d-md-inline-block"></div>
+					<div class="col-12 col-md-5">
+						<h1><?php echo $this->h1; ?></h1>
+					</div>										
 				</header>
 				<main class="container-fluid">									
 <?php			
@@ -86,7 +90,7 @@
 ?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
 						<div class="container-fluid">
-							<div class="col-5 col-sm-1 col-md-3 col-lg-2 col-xl-1">
+							<div class="col-5 col-sm-1 col-md-2 col-lg-2 col-xl-1">
 								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>								
 							</div>							
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">

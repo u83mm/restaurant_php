@@ -115,3 +115,10 @@
 	height: 11em;
 	background-position: center;
 }
+
+.header {
+	background-image: url("/images/header.jpg");
+	background-size: cover;
+	height: 11em;
+	background-position: center;	
+}

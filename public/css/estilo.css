@@ -49,8 +49,13 @@ body {
 }
 
 h1 {
-	font-size: 2em;	
-	text-align: center;	
+	font-size: 2.5em;	
+	text-align: center;
+	font-family: Great Vibes, ubuntuRegular;	
+}
+
+.header h1 {
+	color: white;
 }
 
 h2 {
@@ -167,13 +172,13 @@ select {
 }
 
 .menuDia {
-	background: rgba(190, 135, 172, 0.3);
+	background: #e9ebf3;
 	border-radius: 1em;
 	-webkit-border-radius: 1em;
 	-moz-border-radius: 1em;
 	-ms-border-radius: 1em;
 	-o-border-radius: 1em;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	padding: 1em;
 	box-shadow: 0px 1.5em 1.5em gray;
 }
