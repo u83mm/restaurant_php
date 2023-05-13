@@ -18,6 +18,12 @@ font-family: ubuntuItalic;
 src: url('../ttf/Ubuntu-I.ttf') format('truetype');
 }
 
+@font-face{
+font-family: Great Vibes;
+src: url('../ttf/GreatVibes-Regular.ttf') format('truetype');
+}
+
+
 /*Animación barra errores*/ 
 @keyframes fadeOut {
 	from {
@@ -51,7 +57,7 @@ body {
 h1 {
 	font-size: 2.5em;	
 	text-align: center;
-	font-family: Great Vibes, ubuntuRegular;	
+	font-family: Great Vibes, ubuntuRegular;		
 }
 
 .header h1 {
@@ -130,7 +136,6 @@ main {
 }
 
 header {
-	background-color: darkcyan;
 	height: 7em;
 }
 
