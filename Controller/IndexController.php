@@ -115,8 +115,8 @@
             }
         }
 
-        public function testCaptcha(string $phrase = null, string $captcha = null): void
-        {
+        public function testCaptcha(): void
+        {           
             $validate = new Validate();
 
             $phrase = strtolower($_POST['phrase']) ?? "";

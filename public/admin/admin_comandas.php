@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "index");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
     $comandasController = new ComandasController($dbcon);
 
 	/** Check for user`s sessions */
@@ -19,8 +19,10 @@
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
 	else {
-		match ($action) {
-			default => $comandasController->index(),
+		match($action) {
+			default 		=> 	$comandasController->index(),
+			'update_order'	=>	$comandasController->update(),
+			'delete'		=>	$comandasController->delete(),
 		};		
 	}	
 ?>

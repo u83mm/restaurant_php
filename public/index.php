@@ -7,14 +7,11 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? "");
-	$phrase = strtolower($_POST['phrase'] ?? $_GET['phrase'] ?? "");
-	$captcha = strtolower($_POST['captcha'] ?? $_GET['captcha'] ?? "");
-	
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? "");		
 	$indexController = new IndexController($dbcon);	
 
 	match($action) {
 		default			=>	$indexController->showCaptcha(),
-		'test_captcha'	=>	$indexController->testCaptcha($phrase, $captcha),
+		'test_captcha'	=>	$indexController->testCaptcha(),
 	};
 ?>

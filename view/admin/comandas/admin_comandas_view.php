@@ -1,4 +1,6 @@
-<?php	
+<?php
+	declare(strict_types=1);
+		
 	use model\classes\PageClass;
 
 	$home = new PageClass();
@@ -14,147 +16,159 @@
 			<h2 class="m-0 me-2">Comandas</h2>			
 		</div>
 
-		<div class="row justify-content-evenly">
-			<?php foreach ($rows as $key_order => $order): ?>												
+		<div class="row">
+			<div class="col-12 col-md-8 mx-auto">
+				<?php echo $this->message; ?>
+			</div>
+		</div>
+		<div class="row justify-content-evenly">			
+			<?php foreach ($rows as $key_order => $order): ?>														
 			<div class="col-12 col-md-6 col-xl-4 mb-5">
 				<div class="w-100 menuDia">
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+						<input type="hidden" name="id" value="<?php echo $order['id'] ?>">	
 
-												<!-- Mesa y personas -->
+													<!-- Mesa y personas -->
 
-					<div class="col text-center">
-						<h4 class="col-5 d-inline-block"><strong>MESA:</strong> <?php echo $order['table_number'] ?></h4>
-						<h4 class="col-5 d-inline-block"><strong>PERSONAS:</strong> <?php echo $order['people_qty'] ?></h4>
-					</div>				
-					<hr>
+						<div class="col text-center">
+							<h4 class="col-5 d-inline-block"><strong>MESA:</strong> <?php echo $order['table_number'] ?></h4>
+							<h4 class="col-5 d-inline-block"><strong>PERSONAS:</strong> <?php echo $order['people_qty'] ?></h4>
+						</div>				
+						<hr>
 
-													<!-- Aperitivos -->
+														<!-- Aperitivos -->
 
-					<div class="col">
-						<?php if (!empty($order['aperitifs'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>APERITIVOS</strong></h4>
-						<ul>					
-						<?php foreach ($order['aperitifs'][$key_order] as $key => $value): ?>						
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="aperitif_qty[]" id="qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>
-						<?php endforeach ?>
-						</ul>
-						<?php endif ?>				
-					</div>
-					
-													<!-- Primeros -->
+						<div class="col">
+							<?php if (!empty($order['aperitifs'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>APERITIVOS</strong></h4>
+							<ul>					
+							<?php foreach ($order['aperitifs'][$key_order] as $key => $value): ?>						
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="aperitif_qty[]" id="qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>
+							<?php endforeach ?>
+							</ul>
+							<?php endif ?>				
+						</div>
+						
+														<!-- Primeros -->
 
-					<div class="col">
-						<?php if (!empty($order['firsts'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>PRIMEROS</strong></h4>
-						<ul>
-						<?php foreach ($order['firsts'][$key_order] as $key => $value): ?>						
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="firsts_qty[]" id="qty" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>
-						<?php endforeach ?>
-						</ul>
-						<?php endif ?>				
-					</div>
-					
-													<!-- Segundos -->
+						<div class="col">
+							<?php if (!empty($order['firsts'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>PRIMEROS</strong></h4>
+							<ul>
+							<?php foreach ($order['firsts'][$key_order] as $key => $value): ?>						
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="firsts_qty[]" id="qty" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>
+							<?php endforeach ?>
+							</ul>
+							<?php endif ?>				
+						</div>
+						
+														<!-- Segundos -->
 
-					<div class="col">
-						<?php if (!empty($order['seconds'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>SEGUNDOS</strong></h4>
-						<ul>
-						<?php foreach ($order['seconds'][$key_order] as $key => $value): ?>
-												
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="seconds_qty[]" id="qty" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>						
-						<?php endforeach ?>
-						</ul>
-						<?php endif ?>				
-					</div>
-					
-													<!-- Postres -->
+						<div class="col">
+							<?php if (!empty($order['seconds'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>SEGUNDOS</strong></h4>
+							<ul>
+							<?php foreach ($order['seconds'][$key_order] as $key => $value): ?>
+													
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="seconds_qty[]" id="qty" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>						
+							<?php endforeach ?>
+							</ul>
+							<?php endif ?>				
+						</div>
+						
+														<!-- Postres -->
 
-					<div class="col">
-						<?php if (!empty($order['desserts'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>POSTRES</strong></h4>
-						<ul>
-						<?php foreach ($order['desserts'][$key_order] as $key => $value): ?>						
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="desserts_qty[]" id="qty" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>
-						<?php endforeach ?>
-						</ul>	
-						<?php endif ?>			
-					</div>
+						<div class="col">
+							<?php if (!empty($order['desserts'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>POSTRES</strong></h4>
+							<ul>
+							<?php foreach ($order['desserts'][$key_order] as $key => $value): ?>						
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="desserts_qty[]" id="qty" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>
+							<?php endforeach ?>
+							</ul>	
+							<?php endif ?>			
+						</div>
 
-													<!-- Bebidas -->
+														<!-- Bebidas -->
 
-					<div class="col">
-						<?php if (!empty($order['drinks'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>BEBIDAS</strong></h4>
-						<ul>
-						<?php foreach ($order['drinks'][$key_order] as $key => $value): ?>						
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="drinks_name[]" id="drinks_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="drinks_qty[]" id="qty" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>
-						<?php endforeach ?>
-						</ul>	
-						<?php endif ?>			
-					</div>
+						<div class="col">
+							<?php if (!empty($order['drinks'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>BEBIDAS</strong></h4>
+							<ul>
+							<?php foreach ($order['drinks'][$key_order] as $key => $value): ?>						
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="drinks_name[]" id="drinks_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="drinks_qty[]" id="qty" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>
+							<?php endforeach ?>
+							</ul>	
+							<?php endif ?>			
+						</div>
 
-													<!-- Cafés y licores -->
+														<!-- Cafés y licores -->
 
-					<div class="col">
-						<?php if (!empty($order['coffees'][$key_order][0])): ?>	
-						<h4 class="text-center"><strong>CAFÉS Y LICORES</strong></h4>
-						<ul>
-						<?php foreach ($order['coffees'][$key_order] as $key => $value): ?>						
-							<li>
-								<div class="col-9 d-inline-block">
-									<input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo $value; ?>">
-									<?php echo $value; ?>
-								</div>
-								<div class="col-2 d-inline-block">
-									<input class="numberQty" type="number" name="coffees_qty[]" id="qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" size="3">
-								</div>							
-							</li>
-						<?php endforeach ?>
-						</ul>
-						<?php endif ?>				
-					</div>
+						<div class="col">
+							<?php if (!empty($order['coffees'][$key_order][0])): ?>	
+							<h4 class="text-center"><strong>CAFÉS Y LICORES</strong></h4>
+							<ul>
+							<?php foreach ($order['coffees'][$key_order] as $key => $value): ?>						
+								<li>
+									<div class="col-9 d-inline-block">
+										<input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo $value; ?>">
+										<?php echo $value; ?>
+									</div>
+									<div class="col-2 d-inline-block">
+										<input class="numberQty" type="number" name="coffees_qty[]" id="qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" size="3">
+									</div>							
+								</li>
+							<?php endforeach ?>
+							</ul>
+							<?php endif ?>				
+						</div>
+						<div class="col-12 text-center">            						
+							<button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>
+							<button class="btn btn-outline-danger" type="submit" name="action" value="delete">Eliminar</button>                       
+						</div>
+					</form>
 				</div>
-			</div>
+			</div>							
 			<?php endforeach ?>
 		</div>				
 	</section>			

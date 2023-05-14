@@ -1,4 +1,6 @@
 <?php
+    declare(strict_types=1);
+    
     namespace Controller\orders;
     
     use model\orders\Order;
@@ -95,10 +97,10 @@
         */
         public function save(): void
         {      
-            /** Get table number and people qty */ 
+            /** Get table number, people qty and different products */
 
-            $this->table_number = $_POST['table_number'];
-            $this->people_qty = $_POST['people_qty'];
+            $this->table_number = intval($_POST['table_number']);
+            $this->people_qty = intval($_POST['people_qty']);
             
             $this->aperitifs = $_POST['aperitifs_name'] ?? [];
             $this->aperitifs_qty = $_POST['aperitifs_qty'] ?? [];
