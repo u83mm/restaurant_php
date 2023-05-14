@@ -8,7 +8,7 @@
             <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="table_number">Mesa:</label>
             <div class="col-12 col-md-7 d-inline-block text-center text-md-start">
                 <select name="table_number" id="table_number" >
-                    <option value="<?php if(isset($table_number)) echo $table_number; ?>"><?php if(isset($table_number)) echo $table_number; ?></option>
+                    <option value="<?php if(isset($_SESSION['table_number'])) echo $_SESSION['table_number']; ?>"><?php if(isset($_SESSION['table_number'])) echo $_SESSION['table_number']; ?></option>
                     <?php foreach ($tables as $table): ?>
                     <option value="<?php echo $table ?>"><?php echo $table ?></option>
                     <?php endforeach ?>          
@@ -21,7 +21,7 @@
             <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="people_qty">Personas:</label>
             <div class="col-12 col-md-7 d-inline-block text-center text-md-start">
                 <select name="people_qty" id="people_qty" >
-                    <option value="<?php if(isset($people_qty)) echo $people_qty; ?>"><?php if(isset($people_qty)) echo $people_qty; ?></option>
+                    <option value="<?php if(isset($_SESSION['people_qty'])) echo $_SESSION['people_qty']; ?>"><?php if(isset($_SESSION['people_qty'])) echo $_SESSION['people_qty']; ?></option>
                     <?php foreach ($persones as $persone): ?>
                     <option value="<?php echo $persone ?>"><?php echo $persone ?></option>
                     <?php endforeach ?>           
@@ -47,7 +47,7 @@
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
-                            <input class="numberQty" type="number" name="aperitif_qty[]" id="qty" value="<?php echo $item['qty']; ?>" size="3">
+                            <input class="numberQty" type="number" name="aperitifs_qty[]" id="qty" value="<?php echo $item['qty']; ?>" size="3">
                         </div>
                     </li>
                     <?php endif ?>
@@ -174,7 +174,8 @@
     <div class="row mb-5">
         <div class="col-12 text-center">            
             <button class="btn btn-outline-success" type="submit" name="action" value="save">Enviar</button>
-            <button class="btn btn-outline-primary" type="submit" name="action" value="reset_order">Nuevo Pedido</button>                       
+            <button class="btn btn-outline-primary" type="submit" name="action" value="reset_order">Nuevo Pedido</button>
+            <button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>                       
         </div>  
     </div>                                                              
 </form>

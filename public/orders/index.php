@@ -23,6 +23,7 @@
 			default			=>	$orderController->new(),
 			"reset_order"	=>	$orderController->resetOrder(),
 			"save"			=>	$orderController->save(),
+			"update_order"	=>	$orderController->update(),
 		};
 	}	
 ?>
