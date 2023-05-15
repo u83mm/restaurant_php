@@ -100,20 +100,7 @@
 
             $_SESSION['table_number'] = $_POST['table_number'];
             $_SESSION['people_qty'] = $_POST['people_qty'];
-            
-            $this->aperitifs     =  $_POST['aperitifs_name'] ?? [];
-            $this->aperitifs_qty =  $_POST['aperitifs_qty'] ?? [];
-            $this->firsts        =  $_POST['firsts_name'] ?? [];
-            $this->firsts_qty    =  $_POST['firsts_qty'] ?? [];
-            $this->seconds       =  $_POST['seconds_name'] ?? []; 
-            $this->seconds_qty   =  $_POST['seconds_qty'] ?? [];
-            $this->desserts      =  $_POST['desserts_name'] ?? []; 
-            $this->desserts_qty  =  $_POST['desserts_qty'] ?? [];  
-            $this->drinks        =  $_POST['drinks_name'] ?? []; 
-            $this->drinks_qty    =  $_POST['drinks_qty'] ?? []; 
-            $this->coffees       =  $_POST['coffees_name'] ?? []; 
-            $this->coffees_qty   =  $_POST['coffees_qty'] ?? [];            
-
+                     
             try {
                 if($_SESSION['table_number'] === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
                 if($_SESSION['people_qty'] === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1); 
@@ -126,18 +113,18 @@
 
                 $order->setTable(intval($_SESSION['table_number']));
                 $order->setPeople(intval($_SESSION['people_qty'])); 
-                $order->setAperitif($this->aperitifs); 
-                $order->setAperitifQty($this->aperitifs_qty);              
-                $order->setFirst($this->firsts);
-                $order->setFirstQty($this->firsts_qty);                   
-                $order->setSecond($this->seconds);
-                $order->setSecondQty($this->seconds_qty);
-                $order->setDessert($this->desserts); 
-                $order->setDessertQty($this->desserts_qty);
-                $order->setDrink($this->drinks);
-                $order->setDrinkQty($this->drinks_qty); 
-                $order->setCoffee($this->coffees);
-                $order->setCoffeeQty($this->coffees_qty);                                            
+                $order->setAperitif($_POST['aperitifs_name'] ?? []); 
+                $order->setAperitifQty($_POST['aperitifs_qty'] ?? []);              
+                $order->setFirst($_POST['firsts_name'] ?? []);
+                $order->setFirstQty($_POST['firsts_qty'] ?? []);                   
+                $order->setSecond($_POST['seconds_name'] ?? []);
+                $order->setSecondQty($_POST['seconds_qty'] ?? []);
+                $order->setDessert($_POST['desserts_name'] ?? []); 
+                $order->setDessertQty($_POST['desserts_qty'] ?? []);
+                $order->setDrink($_POST['drinks_name'] ?? []);
+                $order->setDrinkQty($_POST['drinks_qty'] ?? []); 
+                $order->setCoffee($_POST['coffees_name'] ?? []);
+                $order->setCoffeeQty($_POST['coffees_qty'] ?? []);                                            
 
                 
                 /** we save the order */
