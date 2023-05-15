@@ -48,7 +48,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="aperitifs_qty[]" id="qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="aperitifs_qty[]" id="aperitifs_qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -69,7 +69,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="firsts_qty[]" id="qty" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="firsts_qty[]" id="firsts_qty" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -91,7 +91,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="seconds_qty[]" id="qty" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="seconds_qty[]" id="seconds_qty" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>						
 							<?php endforeach ?>
@@ -112,7 +112,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="desserts_qty[]" id="qty" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="desserts_qty[]" id="desserts_qty" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -133,7 +133,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="drinks_qty[]" id="qty" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="drinks_qty[]" id="drinks_qty" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -154,7 +154,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="coffees_qty[]" id="qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="coffees_qty[]" id="coffees_qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -164,7 +164,7 @@
 						<div class="col-12 text-center">
 							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">           						
 							<button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>
-							<!--- <button class="btn btn-outline-danger" type="submit" name="action" value="delete">Eliminar</button> -->							
+							<button class="btn btn-outline-success" type="submit" name="action" value="add">Añadir</button>						
 						</div>
 					</form>
 					<?php include("delete_form.php") ?>

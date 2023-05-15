@@ -6,6 +6,14 @@
 
     class OrderRepository extends Query
     {
+        /**
+         * The function saves an order to a database using prepared statements in PHP.
+         * 
+         * @param Order order An instance of the Order class, containing information about the order to
+         * be saved in the database.
+         * @param object dbcon  is an object representing the database connection. It is used to
+         * prepare and execute the SQL query to insert the order data into the database.
+         */
         public function saveOrder( Order $order, object $dbcon): void
         {
             $query = "INSERT INTO orders (
@@ -66,6 +74,15 @@
             }
         }
 
+
+        /**
+         * This function updates an order in a database with the provided order object and database
+         * connection.
+         * 
+         * @param Order order An instance of the Order class representing the order to be updated.
+         * @param object dbcon The  parameter is an object that represents a database connection.
+         * It is used to prepare and execute the SQL query to update an order in the database.
+         */
         public function updateOrder(Order $order, object $dbcon): void
         {
             $query = "UPDATE orders SET 
