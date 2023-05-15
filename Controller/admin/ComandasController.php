@@ -4,15 +4,41 @@
     namespace Controller\admin;
 
     use model\classes\Query;
+    use model\orders\Order;
     use model\repositories\OrderRepository;
 
     class ComandasController
     {
-        public function __construct(private object $dbcon, private string $message = "")
+        /** Create arrays for diferent sections to show */
+
+        private array $aperitifs     = [];
+        private array $aperitifs_qty = [];
+        private array $firsts        = [];
+        private array $firsts_qty    = [];
+        private array $seconds       = [];
+        private array $seconds_qty   = [];
+        private array $desserts      = [];
+        private array $desserts_qty  = [];
+        private array $drinks        = [];
+        private array $drinks_qty    = [];
+        private array $coffees       = [];
+        private array $coffees_qty   = [];
+
+        public function __construct(
+            private object $dbcon, 
+            private string $message = "")
         {
             
         }
 
+       
+        /**
+         * This PHP function retrieves data from a database and converts string fields into arrays,
+         * then creates an array of elements to be displayed in an admin view.
+         * 
+         * @param string message A string parameter that can be passed to the function as an argument.
+         * If no argument is passed, it defaults to an empty string.
+         */
         public function index(string $message = null): void           
         {
             $this->message = $message ?? "";
@@ -66,10 +92,55 @@
         }
 
 
+        /**
+         * This function updates an order in the database based on the values submitted through a form.
+         */
         public function update(): void
-        {            
+        {  
+            $order = new Order  ();
+            $orderRepository = new OrderRepository();
+            
+            $id = intval($_POST['id']);            
+
             try {
-                var_dump("funciona");die;
+                /** We get the values to update */
+
+                $this->aperitifs     = $_POST['aperitifs_name'] ?? [];
+                $this->aperitifs_qty = $_POST['aperitifs_qty'] ?? [];
+                $this->firsts        = $_POST['firsts_name'] ?? [];
+                $this->firsts_qty    = $_POST['firsts_qty'] ?? [];
+                $this->seconds       = $_POST['seconds_name'] ?? [];
+                $this->seconds_qty   = $_POST['seconds_qty'] ?? [];
+                $this->desserts      = $_POST['desserts_name'] ?? [];
+                $this->desserts_qty  = $_POST['desserts_qty'] ?? [];
+                $this->drinks        = $_POST['drinks_name'] ?? [];
+                $this->drinks_qty    = $_POST['drinks_qty'] ?? [];
+                $this->coffees       = $_POST['coffees_name'] ?? [];
+                $this->coffees_qty   = $_POST['coffees_qty'] ?? [];                
+
+
+                /** We set the order to update */
+
+                $order->setId($id);
+                $order->setAperitif($this->aperitifs); 
+                $order->setAperitifQty($this->aperitifs_qty);              
+                $order->setFirst($this->firsts);
+                $order->setFirstQty($this->firsts_qty);                   
+                $order->setSecond($this->seconds);
+                $order->setSecondQty($this->seconds_qty);
+                $order->setDessert($this->desserts); 
+                $order->setDessertQty($this->desserts_qty);
+                $order->setDrink($this->drinks);
+                $order->setDrinkQty($this->drinks_qty); 
+                $order->setCoffee($this->coffees);
+                $order->setCoffeeQty($this->coffees_qty);
+
+                
+                /** Update the order */
+
+                $orderRepository->updateOrder($order, $this->dbcon);
+                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";
+                $this->index($this->message);               
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -89,6 +160,10 @@
         }
 
         
+        /**
+         * This PHP function deletes an order from the "orders" table in a database and displays a
+         * success or error message.
+         */
         public function delete(): void
         {
             $id = $_POST['id'];

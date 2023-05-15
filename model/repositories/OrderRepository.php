@@ -43,26 +43,67 @@
 
             try {
                 $stm = $dbcon->pdo->prepare($query);
-                $stm->bindValue(":table_number", $order->getTable());
-                $stm->bindValue(":people_qty", $order->getPeople());
-                $stm->bindValue(":aperitifs", implode(',', $order->getAperitif()));
+                $stm->bindValue(":table_number",  $order->getTable());
+                $stm->bindValue(":people_qty",    $order->getPeople());
+                $stm->bindValue(":aperitifs",     implode(',', $order->getAperitif()));
                 $stm->bindValue(":aperitifs_qty", implode(',', $order->getAperitifQty()));
-                $stm->bindValue(":firsts", implode(',', $order->getFirst()));
-                $stm->bindValue(":firsts_qty", implode(',', $order->getFirstQty()));
-                $stm->bindValue(":seconds", implode(',', $order->getSecond()));
-                $stm->bindValue(":seconds_qty", implode(',', $order->getSecondQty()));
-                $stm->bindValue(":desserts", implode(',', $order->getDessert()));
-                $stm->bindValue(":desserts_qty", implode(',', $order->getDessertQty()));
-                $stm->bindValue(":drinks", implode(',', $order->getDrink()));
-                $stm->bindValue(":drinks_qty", implode(',', $order->getDrinkQty()));
-                $stm->bindValue(":coffees", implode(',', $order->getCoffee()));
-                $stm->bindValue(":coffees_qty", implode(',', $order->getCoffeeQty())); 
+                $stm->bindValue(":firsts",        implode(',', $order->getFirst()));
+                $stm->bindValue(":firsts_qty",    implode(',', $order->getFirstQty()));
+                $stm->bindValue(":seconds",       implode(',', $order->getSecond()));
+                $stm->bindValue(":seconds_qty",   implode(',', $order->getSecondQty()));
+                $stm->bindValue(":desserts",      implode(',', $order->getDessert()));
+                $stm->bindValue(":desserts_qty",  implode(',', $order->getDessertQty()));
+                $stm->bindValue(":drinks",        implode(',', $order->getDrink()));
+                $stm->bindValue(":drinks_qty",    implode(',', $order->getDrinkQty()));
+                $stm->bindValue(":coffees",       implode(',', $order->getCoffee()));
+                $stm->bindValue(":coffees_qty",   implode(',', $order->getCoffeeQty())); 
 
                 $stm->execute();       				
                 $stm->closeCursor();                
                 
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);             
+            }
+        }
+
+        public function updateOrder(Order $order, object $dbcon): void
+        {
+            $query = "UPDATE orders SET 
+                        aperitifs     = :aperitifs, 
+                        aperitifs_qty = :aperitifs_qty,
+                        firsts        = :firsts,
+                        firsts_qty    = :firsts_qty,
+                        seconds       = :seconds,
+                        seconds_qty   = :seconds_qty,
+                        desserts      = :desserts,
+                        desserts_qty  = :desserts_qty,
+                        drinks        = :drinks,
+                        drinks_qty    = :drinks_qty,
+                        coffees       = :coffees,
+                        coffees_qty   = :coffees_qty
+                    WHERE id = :id
+                    ";
+
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                $stm->bindValue(":id",             $order->getId());
+                $stm->bindValue(":aperitifs",     implode(',', $order->getAperitif()));
+                $stm->bindValue(":aperitifs_qty", implode(',', $order->getAperitifQty()));
+                $stm->bindValue(":firsts",        implode(',', $order->getFirst()));
+                $stm->bindValue(":firsts_qty",    implode(',', $order->getFirstQty()));
+                $stm->bindValue(":seconds",       implode(',', $order->getSecond()));
+                $stm->bindValue(":seconds_qty",   implode(',', $order->getSecondQty()));
+                $stm->bindValue(":desserts",      implode(',', $order->getDessert()));
+                $stm->bindValue(":desserts_qty",  implode(',', $order->getDessertQty()));
+                $stm->bindValue(":drinks",        implode(',', $order->getDrink()));
+                $stm->bindValue(":drinks_qty",    implode(',', $order->getDrinkQty()));
+                $stm->bindValue(":coffees",       implode(',', $order->getCoffee()));
+                $stm->bindValue(":coffees_qty",   implode(',', $order->getCoffeeQty())); 
+
+                $stm->execute();       				
+                $stm->closeCursor();                
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1); 
             }
         }
     }

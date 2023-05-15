@@ -9,6 +9,7 @@
     class OrderController
     {
         /** Create arrays for diferent sections to show */
+
         private array $aperitifs = [];
         private array $aperitifs_qty = [];
         private array $firsts = [];
@@ -24,9 +25,7 @@
 
         public function __construct(
             private object $dbcon, 
-            private string $message = "",
-            private int|null|string $table_number = null,
-            private int|null|string $people_qty = null)
+            private string $message = "")
         {
                         
         }
@@ -99,25 +98,25 @@
         {      
             /** Get table number, people qty and different products */
 
-            $this->table_number = intval($_POST['table_number']);
-            $this->people_qty = intval($_POST['people_qty']);
+            $_SESSION['table_number'] = $_POST['table_number'];
+            $_SESSION['people_qty'] = $_POST['people_qty'];
             
-            $this->aperitifs = $_POST['aperitifs_name'] ?? [];
-            $this->aperitifs_qty = $_POST['aperitifs_qty'] ?? [];
-            $this->firsts = $_POST['firsts_name'] ?? [];
-            $this->firsts_qty = $_POST['firsts_qty'] ?? [];
-            $this->seconds = $_POST['seconds_name'] ?? []; 
-            $this->seconds_qty = $_POST['seconds_qty'] ?? [];
-            $this->desserts = $_POST['desserts_name'] ?? []; 
-            $this->desserts_qty = $_POST['desserts_qty'] ?? [];  
-            $this->drinks = $_POST['drinks_name'] ?? []; 
-            $this->drinks_qty = $_POST['drinks_qty'] ?? []; 
-            $this->coffees = $_POST['coffees_name'] ?? []; 
-            $this->coffees_qty = $_POST['coffees_qty'] ?? [];            
+            $this->aperitifs     =  $_POST['aperitifs_name'] ?? [];
+            $this->aperitifs_qty =  $_POST['aperitifs_qty'] ?? [];
+            $this->firsts        =  $_POST['firsts_name'] ?? [];
+            $this->firsts_qty    =  $_POST['firsts_qty'] ?? [];
+            $this->seconds       =  $_POST['seconds_name'] ?? []; 
+            $this->seconds_qty   =  $_POST['seconds_qty'] ?? [];
+            $this->desserts      =  $_POST['desserts_name'] ?? []; 
+            $this->desserts_qty  =  $_POST['desserts_qty'] ?? [];  
+            $this->drinks        =  $_POST['drinks_name'] ?? []; 
+            $this->drinks_qty    =  $_POST['drinks_qty'] ?? []; 
+            $this->coffees       =  $_POST['coffees_name'] ?? []; 
+            $this->coffees_qty   =  $_POST['coffees_qty'] ?? [];            
 
             try {
-                if($this->table_number === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
-                if($this->people_qty === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1); 
+                if($_SESSION['table_number'] === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
+                if($_SESSION['people_qty'] === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1); 
 
 
                 /** we set an order */
@@ -125,8 +124,8 @@
                 $order = new Order();
                 $orderRepository = new OrderRepository();                
 
-                $order->setTable($this->table_number);
-                $order->setPeople($this->people_qty); 
+                $order->setTable(intval($_SESSION['table_number']));
+                $order->setPeople(intval($_SESSION['people_qty'])); 
                 $order->setAperitif($this->aperitifs); 
                 $order->setAperitifQty($this->aperitifs_qty);              
                 $order->setFirst($this->firsts);
@@ -162,8 +161,8 @@
                 $this->message = $error_msg;
 
                 $this->new([
-                    'table_number'  => $this->table_number,
-                    'people_qty'    => $this->people_qty,
+                    'table_number'  => $_SESSION['table_number'],
+                    'people_qty'    => $_SESSION['people_qty'],
                 ]);
             }
         }
@@ -195,7 +194,6 @@
             $this->drinks_qty = $_POST['drinks_qty'] ?? []; 
             $this->coffees = $_POST['coffees_name'] ?? []; 
             $this->coffees_qty = $_POST['coffees_qty'] ?? [];
-
             
             $items = [
                 "aperitifs"   =>  $this->aperitifs, 

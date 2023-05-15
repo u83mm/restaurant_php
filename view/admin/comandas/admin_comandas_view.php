@@ -25,8 +25,7 @@
 			<?php foreach ($rows as $key_order => $order): ?>														
 			<div class="col-12 col-md-6 col-xl-4 mb-5">
 				<div class="w-100 menuDia">
-					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-						<input type="hidden" name="id" value="<?php echo $order['id'] ?>">	
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">							
 
 													<!-- Mesa y personas -->
 
@@ -49,7 +48,7 @@
 										<?php echo $value; ?>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="aperitif_qty[]" id="qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" size="3">
+										<input class="numberQty" type="number" name="aperitifs_qty[]" id="qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" size="3">
 									</div>							
 								</li>
 							<?php endforeach ?>
@@ -162,11 +161,13 @@
 							</ul>
 							<?php endif ?>				
 						</div>
-						<div class="col-12 text-center">            						
+						<div class="col-12 text-center">
+							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">           						
 							<button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>
-							<button class="btn btn-outline-danger" type="submit" name="action" value="delete">Eliminar</button>                       
+							<!--- <button class="btn btn-outline-danger" type="submit" name="action" value="delete">Eliminar</button> -->							
 						</div>
 					</form>
+					<?php include("delete_form.php") ?>
 				</div>
 			</div>							
 			<?php endforeach ?>
