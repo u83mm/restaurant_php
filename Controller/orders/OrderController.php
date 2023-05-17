@@ -39,6 +39,8 @@
          */
         public function new(array $variables = null): void
         {
+            $id = $variables['id'] ?? "";
+                        
             try {
                 $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- Selecciona -";
                 $_SESSION['people_qty'] = $variables['people_qty'] ?? $_SESSION['people_qty'] ?? "- Selecciona -"; 

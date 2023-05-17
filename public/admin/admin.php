@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "admin_menus");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
     $adminController = new AdminController($dbcon);
 
 	/** Check for user`s sessions */

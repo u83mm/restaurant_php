@@ -2,6 +2,7 @@
 	declare(strict_types=1);
     
     use Controller\admin\ComandasController;
+	use Controller\orders\OrderController;
 
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
 
@@ -9,6 +10,7 @@
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
     $comandasController = new ComandasController($dbcon);
+	$orderController = new OrderController($dbcon);
 
 	/** Check for user`s sessions */
 	$_SESSION['user_name'] ?? $_SESSION['user_name'] = "";
@@ -20,9 +22,19 @@
 	}
 	else {
 		match($action) {
-			default 		=> 	$comandasController->index(),
-			'update_order'	=>	$comandasController->update(),
-			'delete'		=>	$comandasController->delete(),
+			default 			=> 	$comandasController->index(),
+			'update_comanda'	=>	$comandasController->update(),
+			'delete'			=>	$comandasController->delete(),
+			'add'				=>	$orderController->new([
+				'table_number'	=>	$_POST['table_number'],
+				'people_qty'	=>	$_POST['people_qty'],
+				'id'			=>	$_POST['id'],
+			]),
+			'save'				=>	$comandasController->addToOrder([
+				//'id'	=>	$_POST['id'],
+			]),
+			'reset_order'		=>	$orderController->resetOrder(),
+			'update_order'		=>	$orderController->update(),
 		};		
 	}	
 ?>

@@ -30,8 +30,8 @@
 													<!-- Mesa y personas -->
 
 						<div class="col text-center">
-							<h4 class="col-5 d-inline-block"><strong>MESA:</strong> <?php echo $order['table_number'] ?></h4>
-							<h4 class="col-5 d-inline-block"><strong>PERSONAS:</strong> <?php echo $order['people_qty'] ?></h4>
+							<h4 class="col-5 d-inline-block"><strong>MESA:</strong> <?php echo $order['table_number']; ?></h4>
+							<h4 class="col-5 d-inline-block"><strong>PERSONAS:</strong> <?php echo $order['people_qty']; ?></h4>
 						</div>				
 						<hr>
 
@@ -162,8 +162,10 @@
 							<?php endif ?>				
 						</div>
 						<div class="col-12 text-center">
-							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">           						
-							<button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>
+							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">
+							<input type="hidden" name="table_number" value="<?php echo $order['table_number']; ?>"> 
+							<input type="hidden" name="people_qty" value="<?php echo $order['people_qty'] ?>">         						
+							<button class="btn btn-outline-primary" type="submit" name="action" value="update_comanda">Actualizar</button>
 							<button class="btn btn-outline-success" type="submit" name="action" value="add">Añadir</button>						
 						</div>
 					</form>

@@ -172,7 +172,8 @@
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col-12 text-center">            
+        <div class="col-12 text-center">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">            
             <button class="btn btn-outline-success" type="submit" name="action" value="save">Enviar</button>
             <button class="btn btn-outline-primary" type="submit" name="action" value="reset_order">Nuevo Pedido</button>
             <button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>                       
