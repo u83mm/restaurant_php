@@ -87,9 +87,7 @@
                     'coffees'       =>  $this->coffees,
                     'coffees_qty'   =>  $this->coffees_qty,
                 ];                                               
-            }
-
-            //var_dump($rows);die;
+            }            
                         
             include(SITE_ROOT . "/../view/admin/comandas/admin_comandas_view.php");
         }
@@ -190,8 +188,8 @@
 
             /* We convert strings fields in arrays fields with their values */
 
-            $table_number          = $result['table_number'];
-            $people_qty            = $result['people_qty'];
+            $table_number = $result['table_number'];
+            $people_qty   = $result['people_qty'];
                                   
 
             $this->aperitifs     = (explode(",", $result['aperitifs']));
