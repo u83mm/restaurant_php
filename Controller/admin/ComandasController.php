@@ -3,6 +3,7 @@
     
     namespace Controller\admin;
 
+    use Controller\orders\OrderController;
     use model\classes\Query;
     use model\orders\Order;
     use model\repositories\OrderRepository;
@@ -43,10 +44,9 @@
         {
             $this->message = $message ?? "";
 
-            $query = new Query();            
-
+            $query  = new Query();            
             $result = $query->selectAll('orders', $this->dbcon);
-            $rows = [];                         
+            $rows   = [];                  
             
 
             /* We convert strings fields in arrays fields with their values and we make an array "rows" 
@@ -57,18 +57,18 @@
                 $table_number = $result[$i]['table_number'];
                 $people_qty   = $result[$i]['people_qty'];
 
-                $this->aperitifs[]     = (explode(",", $result[$i]['aperitifs']));
-                $this->aperitifs_qty[] = (explode(",", $result[$i]['aperitifs_qty']));
-                $this->firsts[]        = (explode(",", $result[$i]['firsts']));
-                $this->firsts_qty[]    = (explode(",", $result[$i]['firsts_qty']));
-                $this->seconds[]       = (explode(",", $result[$i]['seconds']));
-                $this->seconds_qty[]   = (explode(",", $result[$i]['seconds_qty']));
-                $this->desserts[]      = (explode(",", $result[$i]['desserts']));
-                $this->desserts_qty[]  = (explode(",", $result[$i]['desserts_qty']));
-                $this->drinks[]        = (explode(",", $result[$i]['drinks']));
-                $this->drinks_qty[]    = (explode(",", $result[$i]['drinks_qty']));
-                $this->coffees[]       = (explode(",", $result[$i]['coffees']));
-                $this->coffees_qty[]   = (explode(",", $result[$i]['coffees_qty']));                
+                $this->aperitifs[$i]     = (explode(",", $result[$i]['aperitifs']));
+                $this->aperitifs_qty[$i] = (explode(",", $result[$i]['aperitifs_qty']));
+                $this->firsts[$i]        = (explode(",", $result[$i]['firsts']));
+                $this->firsts_qty[$i]    = (explode(",", $result[$i]['firsts_qty']));
+                $this->seconds[$i]       = (explode(",", $result[$i]['seconds']));
+                $this->seconds_qty[$i]   = (explode(",", $result[$i]['seconds_qty']));
+                $this->desserts[$i]      = (explode(",", $result[$i]['desserts']));
+                $this->desserts_qty[$i]  = (explode(",", $result[$i]['desserts_qty']));
+                $this->drinks[$i]        = (explode(",", $result[$i]['drinks']));
+                $this->drinks_qty[$i]    = (explode(",", $result[$i]['drinks_qty']));
+                $this->coffees[$i]       = (explode(",", $result[$i]['coffees']));
+                $this->coffees_qty[$i]   = (explode(",", $result[$i]['coffees_qty']));                
 
                 $rows[$i] = [
                     'id'            =>  $id,
@@ -205,8 +205,7 @@
             $this->drinks        = (explode(",", $result['drinks']));
             $this->drinks_qty    = (explode(",", $result['drinks_qty']));
             $this->coffees       = (explode(",", $result['coffees']));
-            $this->coffees_qty   = (explode(",", $result['coffees_qty'])); 
-            //var_dump($this->coffees);die;
+            $this->coffees_qty   = (explode(",", $result['coffees_qty']));             
 
             $my_array = [
                 'aperitifs'     =>  $_POST['aperitifs_name'] ?? [],
@@ -224,9 +223,8 @@
             ];
 
             foreach ($my_array as $key => $value) {
-                //if(!isset($value)) continue;                
-                $field = $key;               
-                $this->$field = array_merge($this->$field, $value);               
+                if(empty($value)) continue;                                              
+                $this->$key = array_merge($this->$key, $value);               
             }       
                      
             $order->setId(intval($id));
@@ -242,15 +240,12 @@
             $order->setDrinkQty($this->drinks_qty); 
             $order->setCoffee($this->coffees);
             $order->setCoffeeQty($this->coffees_qty);
-
-            //var_dump($order);die; 
-
+            
             try {
                 /** Update the order */
 
                 $orderRepository->updateOrder($order, $this->dbcon);
-                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";
-                //$this->index($this->message);
+                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
                 $this->resetOrder();
 
             } catch (\Throwable $th) {
@@ -278,8 +273,9 @@
         public function resetOrder(): void {        
             unset($_SESSION['order']);
             unset($_SESSION['table_number']);
-            unset($_SESSION['people_qty']);
-            $this->index($this->message);						  			                       
+            unset($_SESSION['people_qty']);                        
+
+            $this->index($this->message);
         }
     }
 ?>

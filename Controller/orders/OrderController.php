@@ -40,6 +40,7 @@
         public function new(array $variables = null): void
         {
             $id = $variables['id'] ?? "";
+            $this->message = $variables['message'] ?? "";
                         
             try {
                 $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- Selecciona -";
@@ -133,8 +134,7 @@
                 
                 $orderRepository->saveOrder($order, $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Order saved successfully</p>";
-                $this->resetOrder();
-                $this->new();                                             
+                $this->resetOrder();                                                            
                 
             } catch (\Throwable $th) {                 
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -260,7 +260,7 @@
             unset($_SESSION['order']);
             unset($_SESSION['table_number']);
             unset($_SESSION['people_qty']);
-            $this->new();							  			                       
+            $this->new(['message' => $this->message]);							  			                       
         }
     }    
 ?>  

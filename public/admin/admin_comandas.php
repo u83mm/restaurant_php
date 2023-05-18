@@ -30,9 +30,7 @@
 				'people_qty'	=>	$_POST['people_qty'],
 				'id'			=>	$_POST['id'],
 			]),
-			'save'				=>	$comandasController->addToOrder([
-				//'id'	=>	$_POST['id'],
-			]),
+			'save'				=>	$comandasController->addToOrder(),
 			'reset_order'		=>	$orderController->resetOrder(),
 			'update_order'		=>	$orderController->update(),
 		};		
