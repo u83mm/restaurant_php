@@ -54,7 +54,7 @@
 		</div>
 		<div class="row">
 			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post">
-				<button type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>			
+				<button class="btn btn-primary" type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>			
 			</form>			
 		</div>			
 	</section>
