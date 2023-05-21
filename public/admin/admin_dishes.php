@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "listado");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
 	$message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
     $dishesController = new DishesController($dbcon);
 

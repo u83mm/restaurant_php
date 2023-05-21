@@ -1,4 +1,4 @@
-<?php
+<?php   
     namespace Controller\admin;
 
     use Exception;
@@ -503,9 +503,9 @@
                 $categoriesDishesMenu = $dishes->selectAll("dishes_menu", $this->dbcon);
 
                 $fields = [
-                    "Campo"  =>  $validate->test_input($_REQUEST['field'] ?? ""), 
+                    "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
-                ];                
+                ];                             
 
                 if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
                     /** Test validation */
@@ -513,13 +513,17 @@
 
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
-                        $pagerows = 6; // Number of rows for page.
+                        $pagerows = "6"; // Number of rows for page.
                         $desde = 0;                        
 
-                        $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon);
-
+                        /** Select method to do the search */
+                        match($fields['Campo']) {
+                            default   => $rows = $dishes->selectDishesLikeCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),
+                            'menu_id'   =>  $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),  
+                        };                                             
+                                              
                         $total_rows = count($rows);                        
-                        $pagina = 1;
+                        $pagina = 1;                        
 
                         if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
                         if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
@@ -535,7 +539,12 @@
                         $critery = $fields['Criterio'];
                         $commonTask = new CommonTasks();
 
-                        $rows = $dishes->selectDishesByPagination($desde, $pagerows, $field, $critery, $this->dbcon);                      
+                        /** Select method to do the search */
+                        match($fields['Campo']) {
+                            default =>  $rows = $dishes->selectDishesLikePagination($desde, $pagerows, $field, $critery, $this->dbcon),
+                            'menu_id'   => $rows = $dishes->selectDishesByPagination($desde, $pagerows, $field, $critery, $this->dbcon),
+                        };
+                                             
                         include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
                     }
                     else {
