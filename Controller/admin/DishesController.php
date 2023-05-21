@@ -16,8 +16,12 @@
         }      
 
         /** Show dishes index */
-        public function index(string $message = null, string $p = null, string $s = null): void
+        public function index(): void
         {
+            $message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
+            $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
+	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
+
             try {                                
                 /** Calculate necesary pages for pagination */ 
 
@@ -496,6 +500,9 @@
         public function search(string $message = null, string $p = null, string $s = null): void
         {
             try {
+                $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
+	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
+
                 /** Validate entries */ 
                 $validate = new Validate();
                 
@@ -505,7 +512,7 @@
                 $fields = [
                     "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
-                ];                             
+                ];                                 
 
                 if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
                     /** Test validation */
@@ -513,14 +520,14 @@
 
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
-                        $pagerows = "6"; // Number of rows for page.
+                        $pagerows = 6; // Number of rows for page.
                         $desde = 0;                        
 
                         /** Select method to do the search */
                         match($fields['Campo']) {
                             default   => $rows = $dishes->selectDishesLikeCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),
                             'menu_id'   =>  $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),  
-                        };                                             
+                        };                                                 
                                               
                         $total_rows = count($rows);                        
                         $pagina = 1;                        
@@ -528,23 +535,23 @@
                         if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
                         if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                         if($p && is_numeric($p)) $pagina = $p;                             
-                        if($s && is_numeric($s)) $desde = $s;               
+                        if($s && is_numeric($s)) $desde = $s;                                                
 
                         $last = ($pagina * $pagerows) - $pagerows;
-                        $current_page = ($desde/$pagerows) + 1;
+                        $current_page = ($desde/$pagerows) + 1;                                             
                           
                         /** Variables to manage in view file */
                         $action = "search";
                         $field = $fields['Campo'];
                         $critery = $fields['Criterio'];
-                        $commonTask = new CommonTasks();
+                        $commonTask = new CommonTasks();                        
 
                         /** Select method to do the search */
                         match($fields['Campo']) {
                             default =>  $rows = $dishes->selectDishesLikePagination($desde, $pagerows, $field, $critery, $this->dbcon),
                             'menu_id'   => $rows = $dishes->selectDishesByPagination($desde, $pagerows, $field, $critery, $this->dbcon),
                         };
-                                             
+                                                                     
                         include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
                     }
                     else {

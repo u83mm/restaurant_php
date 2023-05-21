@@ -7,15 +7,9 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
-	$message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
-    $dishesController = new DishesController($dbcon);
-
-
-	/** Get values for pagination */
-
-	$p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
-	$s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "listado");	
+    $dishesController = new DishesController($dbcon);		
+	
 
 	/** Check for user`s sessions */
 
@@ -28,7 +22,7 @@
 	}
 	else {		
 		match ($action) {
-			default		=> $dishesController->index($message, $p, $s),
+			default		=> $dishesController->index(),
 			"volver"	=> $dishesController->index(),
 			"show_form"	=> $dishesController->showForm(),
 			"new"		=> $dishesController->new(),

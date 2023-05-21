@@ -48,7 +48,7 @@
             $stm = $dbcon->pdo->prepare($query);
             $stm->bindValue(":menu_category", $menuCategory);                                         
             $stm->execute();       
-            $rows = $stm->fetchAll();
+            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
             $stm->closeCursor();
             
             return $rows;
@@ -71,7 +71,7 @@
                         $showResult .= '<div class="col-12 col-md-4 col-lg-3"><ul>';
                     }
 
-                    $y +=4; 
+                    $y += 4; 
                 }               
             }
 
@@ -114,7 +114,7 @@
             $value = "%{$value}%";
             $stm->bindValue(":value", $value);                                         
             $stm->execute();       
-            $rows = $stm->fetchAll();
+            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
             $stm->closeCursor();                                                                           
 
             return $rows;
@@ -137,7 +137,7 @@
             $stm->bindValue(":pagerows", $pagerows);            
             $stm->bindValue(":value", $value);                                         
             $stm->execute();       
-            $rows = $stm->fetchAll();
+            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
             $stm->closeCursor();                                                                           
 
             return $rows;
