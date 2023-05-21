@@ -49,7 +49,7 @@
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
         <div class="col-12 col-md-8 text-center text-sm-start">
-            <button class="btn btn-outline-primary" type="submit" name="action" value="new">Enviar</button>                 
+            <button class="btn btn-outline-success" type="submit" name="action" value="new">Enviar</button>                 
         </div>                
     </div>                                                              
 </form>

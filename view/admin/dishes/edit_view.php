@@ -81,8 +81,8 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
                 <div class="col-12 col-md-8 text-center text-sm-start">                   
-                    <button type="submit" name="action" value="update">Actualizar</button>                   
-                    <input type="submit" name="action" value="Volver">
+                    <button class="btn btn-outline-success" type="submit" name="action" value="update">Actualizar</button>                   
+                    <input class="btn btn-outline-success" type="submit" name="action" value="Volver">
                 </div>                
             </div>                                                              
         </form>        

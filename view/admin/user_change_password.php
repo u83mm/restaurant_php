@@ -26,7 +26,7 @@
             <div class="row mb-3">
                 <label class="col-sm-4" for="nome">&nbsp;</label>
                 <div class="col-sm-6">
-                    <input type="submit" name="action" value="Change Password">                    
+                    <input class="btn btn-outline-success" type="submit" name="action" value="Change Password">                    
                 </div>                
             </div>                                                              
         </form>

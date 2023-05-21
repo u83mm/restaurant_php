@@ -38,9 +38,9 @@
             <div class="row mb-3 mt-5">
                 <label class="col-12 col-sm-3 text-center text-md-end" for="nome">&nbsp;</label>
                 <div class="col-sm-8 text-center text-md-start">
-                    <input type="submit" name="action" value="Update">
-                    <input type="submit" name="action" value="Change Password">
-                    <input type="submit" name="action" value="Volver">
+                    <input class="btn btn-outline-success" type="submit" name="action" value="Update">
+                    <input class="btn btn-outline-primary" type="submit" name="action" value="Change Password">
+                    <input class="btn btn-outline-primary" type="submit" name="action" value="Volver">
                 </div>                
             </div>                                                              
         </form>        
