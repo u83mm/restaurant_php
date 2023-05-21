@@ -28,7 +28,7 @@
                 $total_rows = $query->selectCount('dishes', $this->dbcon);
                 $pagina = 1;
 
-                if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
+                if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
                 if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                 if($p && is_numeric($p)) $pagina = $p;                             
                 if($s && is_numeric($s)) $desde = $s;               
@@ -525,7 +525,7 @@
                         $total_rows = count($rows);                        
                         $pagina = 1;                        
 
-                        if(!$total_rows) throw new PDOException("<p class='alert alert-danger text-center'>No se han encontrado registros</p>", 1);                
+                        if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
                         if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                         if($p && is_numeric($p)) $pagina = $p;                             
                         if($s && is_numeric($s)) $desde = $s;               
