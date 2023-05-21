@@ -33,6 +33,7 @@
 			'save'				=>	$comandasController->addToOrder(),
 			'reset_order'		=>	$orderController->resetOrder(),
 			'update_order'		=>	$orderController->update(),
+			'show'				=>	$comandasController->show(),
 		};		
 	}	
 ?>

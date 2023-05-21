@@ -40,37 +40,68 @@
          * @param string message A string parameter that can be passed to the function as an argument.
          * If no argument is passed, it defaults to an empty string.
          */
-        public function index(string $message = null): void           
+        
+        public function index(string $message = null): void    
         {
             $this->message = $message ?? "";
 
-            $query  = new Query();            
-            $result = $query->selectAll('orders', $this->dbcon);
-            $rows   = [];                  
+            $query  = new Query();
             
+            $fields = [
+                'id',
+                "table_number",
+                "people_qty"
+            ];
 
-            /* We convert strings fields in arrays fields with their values and we make an array "rows" 
-               with the different elements */
+            try {
+                $result = $query->selectFieldsFromTableOrderByField('orders', $fields, 'table_number', $this->dbcon);
 
-            for($i = 0; $i < count($result); $i++) { 
-                $id           = $result[$i]['id'];
-                $table_number = $result[$i]['table_number'];
-                $people_qty   = $result[$i]['people_qty'];
+                include(SITE_ROOT . "/../view/admin/comandas/index_view.php"); 
 
-                $this->aperitifs[$i]     = (explode(",", $result[$i]['aperitifs']));
-                $this->aperitifs_qty[$i] = (explode(",", $result[$i]['aperitifs_qty']));
-                $this->firsts[$i]        = (explode(",", $result[$i]['firsts']));
-                $this->firsts_qty[$i]    = (explode(",", $result[$i]['firsts_qty']));
-                $this->seconds[$i]       = (explode(",", $result[$i]['seconds']));
-                $this->seconds_qty[$i]   = (explode(",", $result[$i]['seconds_qty']));
-                $this->desserts[$i]      = (explode(",", $result[$i]['desserts']));
-                $this->desserts_qty[$i]  = (explode(",", $result[$i]['desserts_qty']));
-                $this->drinks[$i]        = (explode(",", $result[$i]['drinks']));
-                $this->drinks_qty[$i]    = (explode(",", $result[$i]['drinks_qty']));
-                $this->coffees[$i]       = (explode(",", $result[$i]['coffees']));
-                $this->coffees_qty[$i]   = (explode(",", $result[$i]['coffees_qty']));                
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
-                $rows[$i] = [
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                $this->message = $error_msg;
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }                              
+        }
+
+
+        public function show(): void
+        {            
+            try {
+                $query = new Query();
+
+                $result = $query->selectAllBy('orders', 'id', $_POST['id'], $this->dbcon);
+                $row   = []; 
+
+                $id           = $result[0]['id'];
+                $table_number = $result[0]['table_number'];
+                $people_qty   = $result[0]['people_qty'];
+
+                $this->aperitifs    [0] = (explode(",", $result[0]['aperitifs']));
+                $this->aperitifs_qty[0] = (explode(",", $result[0]['aperitifs_qty']));
+                $this->firsts       [0] = (explode(",", $result[0]['firsts']));
+                $this->firsts_qty   [0] = (explode(",", $result[0]['firsts_qty']));
+                $this->seconds      [0] = (explode(",", $result[0]['seconds']));
+                $this->seconds_qty  [0] = (explode(",", $result[0]['seconds_qty']));
+                $this->desserts     [0] = (explode(",", $result[0]['desserts']));
+                $this->desserts_qty [0] = (explode(",", $result[0]['desserts_qty']));
+                $this->drinks       [0] = (explode(",", $result[0]['drinks']));
+                $this->drinks_qty   [0] = (explode(",", $result[0]['drinks_qty']));
+                $this->coffees      [0] = (explode(",", $result[0]['coffees']));
+                $this->coffees_qty  [0] = (explode(",", $result[0]['coffees_qty']));                
+
+                $row[0] = [
                     'id'            =>  $id,
                     'table_number'  =>  $table_number,
                     'people_qty'    =>  $people_qty,
@@ -86,10 +117,26 @@
                     'drinks_qty'    =>  $this->drinks_qty,
                     'coffees'       =>  $this->coffees,
                     'coffees_qty'   =>  $this->coffees_qty,
-                ];                                               
-            }            
-                        
-            include(SITE_ROOT . "/../view/admin/comandas/admin_comandas_view.php");
+                ];   
+                //var_dump($result);die;
+
+                include(SITE_ROOT . "/../view/admin/comandas/show_view.php");
+                //throw new \Exception("Error Processing Request", 1);
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                $this->message = $error_msg;
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
         }
 
 
@@ -124,8 +171,8 @@
                 /** Update the order */
 
                 $orderRepository->updateOrder($order, $this->dbcon);
-                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";
-                $this->index($this->message);               
+                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
+                $this->show();               
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

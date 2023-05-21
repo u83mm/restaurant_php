@@ -2,7 +2,8 @@
     declare(strict_types=1);
     
     namespace Controller\orders;
-    
+
+    use Controller\admin\ComandasController;
     use model\orders\Order;
     use model\repositories\OrderRepository;
 
@@ -112,6 +113,7 @@
                 /** we set an order */
 
                 $order = new Order();
+                $comandasController = new ComandasController($this->dbcon);
                 $orderRepository = new OrderRepository();                
 
                 $order->setTable(intval($_SESSION['table_number']));
@@ -134,7 +136,8 @@
                 
                 $orderRepository->saveOrder($order, $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Order saved successfully</p>";
-                $this->resetOrder();                                                            
+                $this->resetOrder();
+                $comandasController->index($this->message);                                                            
                 
             } catch (\Throwable $th) {                 
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -260,7 +263,7 @@
             unset($_SESSION['order']);
             unset($_SESSION['table_number']);
             unset($_SESSION['people_qty']);
-            $this->new();							  			                       
+            //$this->new();							  			                       
         }
     }    
 ?>  

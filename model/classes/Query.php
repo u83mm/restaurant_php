@@ -288,5 +288,38 @@
                 throw new \Exception("{$th->getMessage()}");
             }
         }
+
+
+        /**
+         * This function selects specific fields from a given table using PDO and returns the resulting
+         * rows as an array.
+         * 
+         * @param string table The name of the database table from which to select fields.
+         * @param array fields An array of strings representing the names of the fields to be selected
+         * from the table.
+         * @param object dbcon  is an object representing the database connection. It is likely
+         * an instance of a class that manages database connections and provides a PDO object for
+         * executing queries.
+         * 
+         * @return array an array of rows fetched from the specified table, containing only the
+         * specified fields.
+         */
+        public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField, object $dbcon): array
+        {
+            $fields = implode(", ", $fields);
+            $query = "SELECT $fields FROM $table ORDER BY $orderByField";
+
+            try {
+                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+            
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}");
+            }
+        }
     }    
 ?>
