@@ -117,11 +117,10 @@
                     'drinks_qty'    =>  $this->drinks_qty,
                     'coffees'       =>  $this->coffees,
                     'coffees_qty'   =>  $this->coffees_qty,
-                ];   
-                //var_dump($result);die;
+                ];                   
 
                 include(SITE_ROOT . "/../view/admin/comandas/show_view.php");
-                //throw new \Exception("Error Processing Request", 1);
+                                
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 

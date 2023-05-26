@@ -13,7 +13,7 @@
 									
 	<section class="col-12 p-sm-0 pe-lg-3">		
 		<div class="col d-flex justify-content-center align-items-center mb-5">
-			<h2 class="m-0 me-2">Comandas</h2>			
+			<h2 class="m-0 me-2">Comandas en curso</h2>			
 		</div>
 
 		<div class="row">

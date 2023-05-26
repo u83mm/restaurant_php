@@ -151,11 +151,14 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo $value; ?>">
-										<?php echo $value; ?>
+										<input type="hidden" name="coffees_finished[]" id="coffees_finished" value="1">										
+										<div id="coffees_check<?php echo $key; ?>" class="finished">
+											<?php echo $value; ?>
+										</div>										
 									</div>
 									<div class="col-2 d-inline-block">
 										<input class="numberQty" type="number" name="coffees_qty[]" id="coffees_qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" min="0">
-									</div>							
+									</div>															
 								</li>
 							<?php endforeach ?>
 							</ul>

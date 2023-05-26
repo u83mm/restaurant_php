@@ -246,6 +246,10 @@ section img {
 	font-family: ubuntuRegular;
 }
 
+del {
+	text-decoration: line-through;
+}
+
 /*.alert-success {	
 	animation-name: fadeOut;
 	animation-duration: 3s;
