@@ -12,18 +12,24 @@
     {
         /** Create arrays for diferent sections to show */
 
-        private array $aperitifs     = [];
-        private array $aperitifs_qty = [];
-        private array $firsts        = [];
-        private array $firsts_qty    = [];
-        private array $seconds       = [];
-        private array $seconds_qty   = [];
-        private array $desserts      = [];
-        private array $desserts_qty  = [];
-        private array $drinks        = [];
-        private array $drinks_qty    = [];
-        private array $coffees       = [];
-        private array $coffees_qty   = [];
+        private array $aperitifs          = [];
+        private array $aperitifs_qty      = [];
+        private array $aperitifs_finished = [];
+        private array $firsts             = [];
+        private array $firsts_qty         = [];
+        private array $firsts_finished    = [];
+        private array $seconds            = [];
+        private array $seconds_qty        = [];
+        private array $seconds_finished   = [];
+        private array $desserts           = [];
+        private array $desserts_qty       = [];
+        private array $desserts_finished  = [];
+        private array $drinks             = [];
+        private array $drinks_qty         = [];
+        private array $drinks_finished    = [];
+        private array $coffees            = [];
+        private array $coffees_qty        = [];
+        private array $coffees_finished   = [];
 
         public function __construct(
             private object $dbcon, 
@@ -88,35 +94,47 @@
                 $table_number = $result[0]['table_number'];
                 $people_qty   = $result[0]['people_qty'];
 
-                $this->aperitifs    [0] = (explode(",", $result[0]['aperitifs']));
-                $this->aperitifs_qty[0] = (explode(",", $result[0]['aperitifs_qty']));
-                $this->firsts       [0] = (explode(",", $result[0]['firsts']));
-                $this->firsts_qty   [0] = (explode(",", $result[0]['firsts_qty']));
-                $this->seconds      [0] = (explode(",", $result[0]['seconds']));
-                $this->seconds_qty  [0] = (explode(",", $result[0]['seconds_qty']));
-                $this->desserts     [0] = (explode(",", $result[0]['desserts']));
-                $this->desserts_qty [0] = (explode(",", $result[0]['desserts_qty']));
-                $this->drinks       [0] = (explode(",", $result[0]['drinks']));
-                $this->drinks_qty   [0] = (explode(",", $result[0]['drinks_qty']));
-                $this->coffees      [0] = (explode(",", $result[0]['coffees']));
-                $this->coffees_qty  [0] = (explode(",", $result[0]['coffees_qty']));                
+                $this->aperitifs         [0] = (explode(",", $result[0]['aperitifs']));
+                $this->aperitifs_qty     [0] = (explode(",", $result[0]['aperitifs_qty']));
+                $this->aperitifs_finished[0] = (explode(",", $result[0]['aperitifs_finished']));
+                $this->firsts            [0] = (explode(",", $result[0]['firsts']));
+                $this->firsts_qty        [0] = (explode(",", $result[0]['firsts_qty']));
+                $this->firsts_finished   [0] = (explode(",", $result[0]['firsts_finished'])); 
+                $this->seconds           [0] = (explode(",", $result[0]['seconds']));
+                $this->seconds_qty       [0] = (explode(",", $result[0]['seconds_qty']));
+                $this->seconds_finished  [0] = (explode(",", $result[0]['seconds_finished'])); 
+                $this->desserts          [0] = (explode(",", $result[0]['desserts']));
+                $this->desserts_qty      [0] = (explode(",", $result[0]['desserts_qty']));
+                $this->desserts_finished [0] = (explode(",", $result[0]['desserts_finished'])); 
+                $this->drinks            [0] = (explode(",", $result[0]['drinks']));
+                $this->drinks_qty        [0] = (explode(",", $result[0]['drinks_qty']));
+                $this->drinks_finished   [0] = (explode(",", $result[0]['drinks_finished'])); 
+                $this->coffees           [0] = (explode(",", $result[0]['coffees']));
+                $this->coffees_qty       [0] = (explode(",", $result[0]['coffees_qty']));
+                $this->coffees_finished  [0] = (explode(",", $result[0]['coffees_finished']));                
 
                 $row[0] = [
-                    'id'            =>  $id,
-                    'table_number'  =>  $table_number,
-                    'people_qty'    =>  $people_qty,
-                    'aperitifs'     =>  $this->aperitifs,
-                    'aperitifs_qty' =>  $this->aperitifs_qty,
-                    'firsts'        =>  $this->firsts,
-                    'firsts_qty'    =>  $this->firsts_qty,
-                    'seconds'       =>  $this->seconds,
-                    'seconds_qty'   =>  $this->seconds_qty,
-                    'desserts'      =>  $this->desserts,
-                    'desserts_qty'  =>  $this->desserts_qty,
-                    'drinks'        =>  $this->drinks,
-                    'drinks_qty'    =>  $this->drinks_qty,
-                    'coffees'       =>  $this->coffees,
-                    'coffees_qty'   =>  $this->coffees_qty,
+                    'id'                 =>  $id,
+                    'table_number'       =>  $table_number,
+                    'people_qty'         =>  $people_qty,
+                    'aperitifs'          =>  $this->aperitifs,
+                    'aperitifs_finished' =>  $this->aperitifs_finished,
+                    'aperitifs_qty'      =>  $this->aperitifs_qty,
+                    'firsts_finished'    =>  $this->firsts_finished,
+                    'firsts'             =>  $this->firsts,
+                    'firsts_qty'         =>  $this->firsts_qty,
+                    'seconds'            =>  $this->seconds,
+                    'seconds_qty'        =>  $this->seconds_qty,
+                    'seconds_finished'   =>  $this->seconds_finished,
+                    'desserts'           =>  $this->desserts,
+                    'desserts_qty'       =>  $this->desserts_qty,
+                    'desserts_finished'  =>  $this->desserts_finished,
+                    'drinks'             =>  $this->drinks,
+                    'drinks_qty'         =>  $this->drinks_qty,
+                    'drinks_finished'    =>  $this->drinks_finished,
+                    'coffees'            =>  $this->coffees,
+                    'coffees_qty'        =>  $this->coffees_qty,
+                    'coffees_finished'   =>  $this->coffees_finished,
                 ];                   
 
                 include(SITE_ROOT . "/../view/admin/comandas/show_view.php");
@@ -153,18 +171,24 @@
                 /** We set the order to update */
 
                 $order->setId($id);
-                $order->setAperitif($_POST['aperitifs_name']   ?? []); 
-                $order->setAperitifQty($_POST['aperitifs_qty'] ?? []);              
-                $order->setFirst($_POST['firsts_name']         ?? []);
-                $order->setFirstQty($_POST['firsts_qty']       ?? []);                   
-                $order->setSecond($_POST['seconds_name']       ?? []);
-                $order->setSecondQty($_POST['seconds_qty']     ?? []);
-                $order->setDessert($_POST['desserts_name']     ?? []); 
-                $order->setDessertQty($_POST['desserts_qty']   ?? []);
-                $order->setDrink($_POST['drinks_name']         ?? []);
-                $order->setDrinkQty($_POST['drinks_qty']       ?? []); 
-                $order->setCoffee($_POST['coffees_name']       ?? []);
-                $order->setCoffeeQty($_POST['coffees_qty']     ?? []);
+                $order->setAperitif($_POST['aperitifs_name']             ?? []); 
+                $order->setAperitifQty($_POST['aperitifs_qty']           ?? []);
+                $order->setAperitifFinished($_POST['aperitifs_finished'] ?? []);               
+                $order->setFirst($_POST['firsts_name']                   ?? []);
+                $order->setFirstQty($_POST['firsts_qty']                 ?? []);
+                $order->setFirstFinished($_POST['firsts_finished']       ?? []);                   
+                $order->setSecond($_POST['seconds_name']                 ?? []);
+                $order->setSecondQty($_POST['seconds_qty']               ?? []);
+                $order->setSecondFinished($_POST['seconds_finished']     ?? []);   
+                $order->setDessert($_POST['desserts_name']               ?? []); 
+                $order->setDessertQty($_POST['desserts_qty']             ?? []);
+                $order->setDessertFinished($_POST['desserts_finished']   ?? []);
+                $order->setDrink($_POST['drinks_name']                   ?? []);
+                $order->setDrinkQty($_POST['drinks_qty']                 ?? []); 
+                $order->setDrinkFinished($_POST['drinks_finished']       ?? []); 
+                $order->setCoffee($_POST['coffees_name']                 ?? []);
+                $order->setCoffeeQty($_POST['coffees_qty']               ?? []);
+                $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
 
                 
                 /** Update the order */
@@ -238,32 +262,44 @@
             $people_qty   = $result['people_qty'];
                                   
 
-            $this->aperitifs     = (explode(",", $result['aperitifs']));
-            $this->aperitifs_qty = (explode(",", $result['aperitifs_qty']));
-            $this->firsts        = (explode(",", $result['firsts']));
-            $this->firsts_qty    = (explode(",", $result['firsts_qty']));
-            $this->seconds       = (explode(",", $result['seconds']));
-            $this->seconds_qty   = (explode(",", $result['seconds_qty']));
-            $this->desserts      = (explode(",", $result['desserts']));
-            $this->desserts_qty  = (explode(",", $result['desserts_qty']));
-            $this->drinks        = (explode(",", $result['drinks']));
-            $this->drinks_qty    = (explode(",", $result['drinks_qty']));
-            $this->coffees       = (explode(",", $result['coffees']));
-            $this->coffees_qty   = (explode(",", $result['coffees_qty']));             
+            $this->aperitifs          = (explode(",", $result['aperitifs']));
+            $this->aperitifs_qty      = (explode(",", $result['aperitifs_qty']));
+            $this->aperitifs_finished = (explode(",", $result['aperitifs_finished']));
+            $this->firsts             = (explode(",", $result['firsts']));
+            $this->firsts_qty         = (explode(",", $result['firsts_qty']));
+            $this->firsts_finished    = (explode(",", $result['firsts_finished']));
+            $this->seconds            = (explode(",", $result['seconds']));
+            $this->seconds_qty        = (explode(",", $result['seconds_qty']));
+            $this->seconds_finished   = (explode(",", $result['seconds_finished']));
+            $this->desserts           = (explode(",", $result['desserts']));
+            $this->desserts_qty       = (explode(",", $result['desserts_qty']));
+            $this->desserts_finished  = (explode(",", $result['desserts_finished']));
+            $this->drinks             = (explode(",", $result['drinks']));
+            $this->drinks_qty         = (explode(",", $result['drinks_qty']));
+            $this->drinks_finished    = (explode(",", $result['drinks_finished']));
+            $this->coffees            = (explode(",", $result['coffees']));
+            $this->coffees_qty        = (explode(",", $result['coffees_qty']));
+            $this->drinks_finished    = (explode(",", $result['drinks_finished']));             
 
             $my_array = [
-                'aperitifs'     =>  $_POST['aperitifs_name'] ?? [],
-                'aperitifs_qty' =>  $_POST['aperitifs_qty'] ?? [],
-                'firsts'        =>  $_POST['firsts_name'] ?? [],
-                'firsts_qty'    =>  $_POST['firsts_qty'] ?? [],
-                'seconds'       =>  $_POST['seconds_name'] ?? [],
-                'seconds_qty'   =>  $_POST['seconds_qty'] ?? [],
-                'desserts'      =>  $_POST['desserts_name'] ?? [],
-                'desserts_qty'  =>  $_POST['desserts_qty'] ?? [],
-                'drinks'        =>  $_POST['drinks_name'] ?? [],
-                'drinks_qty'    =>  $_POST['drinks_qty'] ?? [],
-                'coffees'       =>  $_POST['coffees_name'] ?? [],
-                'coffees_qty'   =>  $_POST['coffees_qty'] ?? [],
+                'aperitifs'          =>  $_POST['aperitifs_name'] ?? [],
+                'aperitifs_qty'      =>  $_POST['aperitifs_qty'] ?? [],
+                'aperitifs_finished' =>  $_POST['aperitifs_finished'] ?? [],
+                'firsts'             =>  $_POST['firsts_name'] ?? [],
+                'firsts_qty'         =>  $_POST['firsts_qty'] ?? [],
+                'firsts_finished'    =>  $_POST['firsts_finished'] ?? [],
+                'seconds'            =>  $_POST['seconds_name'] ?? [],
+                'seconds_qty'        =>  $_POST['seconds_qty'] ?? [],
+                'seconds_finished'   =>  $_POST['seconds_finished'] ?? [],
+                'desserts'           =>  $_POST['desserts_name'] ?? [],
+                'desserts_qty'       =>  $_POST['desserts_qty'] ?? [],
+                'desserts_finished'  =>  $_POST['desserts_finished'] ?? [],
+                'drinks'             =>  $_POST['drinks_name'] ?? [],
+                'drinks_qty'         =>  $_POST['drinks_qty'] ?? [],
+                'drinks_finished'    =>  $_POST['drinks_finished'] ?? [],
+                'coffees'            =>  $_POST['coffees_name'] ?? [],
+                'coffees_qty'        =>  $_POST['coffees_qty'] ?? [],
+                'coffees_finished'   =>  $_POST['coffees_finished'] ?? [],
             ];
 
             foreach ($my_array as $key => $value) {
@@ -273,17 +309,23 @@
                      
             $order->setId(intval($id));
             $order->setAperitif($this->aperitifs); 
-            $order->setAperitifQty($this->aperitifs_qty);              
+            $order->setAperitifQty($this->aperitifs_qty);
+            $order->setAperitifFinished($this->aperitifs_finished);              
             $order->setFirst($this->firsts);
-            $order->setFirstQty($this->firsts_qty);                   
+            $order->setFirstQty($this->firsts_qty); 
+            $order->setFirstFinished($this->firsts_finished);                   
             $order->setSecond($this->seconds);
             $order->setSecondQty($this->seconds_qty);
+            $order->setSecondFinished($this->seconds_finished);
             $order->setDessert($this->desserts); 
             $order->setDessertQty($this->desserts_qty);
+            $order->setDessertFinished($this->desserts_finished);
             $order->setDrink($this->drinks);
-            $order->setDrinkQty($this->drinks_qty); 
+            $order->setDrinkQty($this->drinks_qty);
+            $order->setDrinkFinished($this->drinks_finished); 
             $order->setCoffee($this->coffees);
             $order->setCoffeeQty($this->coffees_qty);
+            $order->setCoffeeFinished($this->coffees_finished);
             
             try {
                 /** Update the order */

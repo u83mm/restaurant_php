@@ -5,14 +5,11 @@
  */
 function finishDish() {   
     let originalText = document.getElementById(this.id).parentElement.firstElementChild.value;
+    let strikedText = "<del>" + originalText + "</del>";
     let finishedValue = document.getElementById(this.id).previousElementSibling.value;
+    let dish = document.getElementById(this.id);
 
-    if(finishedValue == 1) {
-        document.getElementById(this.id).innerHTML = originalText;
-    }
-    else {
-        document.getElementById(this.id).innerHTML = "<del>" + originalText + "</del>";
-    }    
+    finishedValue == 1 ?  dish.innerHTML = originalText : dish.innerHTML = strikedText;   
 }
 
 /**
@@ -24,26 +21,25 @@ function setFinishDishValue() {
 }
 
 /**
- * The function marks completed coffee orders as finished by striking through their original text.
+ * The function marks completed items orders as finished by striking through their original text.
  */
 function testDishesStriked() {    
-    let itemsFinished = document.getElementsByName("coffees_finished[]");
-    let originalText = "";   
+    let itemsFinished = document.getElementsByClassName("item_finished");    
 
     for (let index = 0; index < itemsFinished.length; index++) {
-        originalText =  itemsFinished[index].previousElementSibling.value;
-        if(itemsFinished[index].value == 1) itemsFinished[index].nextElementSibling.innerHTML = "<del>" + originalText + "</del>"; 
+        let originalText =  itemsFinished[index].previousElementSibling.value;
+        let strikedText = "<del>" + originalText + "</del>";
+
+        if(itemsFinished[index].value == 1) itemsFinished[index].nextElementSibling.innerHTML = strikedText; 
     }
 }
 
 window.onload = function() {
     /** Test for striked dishes */
-
     testDishesStriked();
 
 
     /** Add event "click" to dishes in 'Comandas' view */
-
 	let finishCheck = document.querySelectorAll("div.finished");
         
     if(finishCheck) {

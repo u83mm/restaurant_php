@@ -7,18 +7,24 @@
             private int $id = 0,
             private int $table = 0,
             private int $people = 0,
-            private array $aperitif = [],
-            private array $aperitif_qty = [],
-            private array $first = [],
-            private array $first_qty = [],
-            private array $second = [],
-            private array $second_qty = [],
-            private array $dessert = [],
-            private array $dessert_qty = [],
-            private array $drink = [],
-            private array $drink_qty = [],
-            private array $coffee = [],
-            private array $coffee_qty = [],
+            private array $aperitif          = [],
+            private array $aperitif_qty      = [],
+            private array $aperitif_finished = [],
+            private array $first             = [],
+            private array $first_qty         = [],
+            private array $first_finished    = [],
+            private array $second            = [],
+            private array $second_qty        = [],
+            private array $second_finished   = [],
+            private array $dessert           = [],
+            private array $dessert_qty       = [],
+            private array $dessert_finished  = [],
+            private array $drink             = [],
+            private array $drink_qty         = [],
+            private array $drink_finished    = [],
+            private array $coffee            = [],
+            private array $coffee_qty        = [],
+            private array $coffee_finished   = [],
         )
         {
             
@@ -84,6 +90,17 @@
             return $this->aperitif_qty;
         }
 
+        public function setAperitifFinished(array $aperitif_finished): self
+        {
+            $this->aperitif_finished = $aperitif_finished;
+            return $this;
+        }
+
+        public function getAperitifFinished(): array
+        {
+            return $this->aperitif_finished;
+        }
+
         public function setFirst(array $first): self
         {
             $this->first = $first;
@@ -106,6 +123,17 @@
             return $this->first_qty;
         }
 
+        public function setFirstFinished(array $first_finished): self
+        {
+            $this->first_finished = $first_finished;
+            return $this;
+        }
+
+        public function getFirstFinished(): array
+        {
+            return $this->first_finished;
+        }
+
         public function setSecond(array $second): self
         {
             $this->second = $second;
@@ -121,6 +149,17 @@
         {
             $this->second_qty = $second_qty;
             return $this;
+        }
+
+        public function setSecondFinished(array $second_finished): self
+        {
+            $this->second_finished = $second_finished;
+            return $this;
+        }
+
+        public function getSecondFinished(): array
+        {
+            return $this->second_finished;
         }
 
         public function getSecondQty(): array
@@ -150,6 +189,17 @@
             return $this->dessert_qty;
         }
 
+        public function setDessertFinished(array $dessert_finished): self
+        {
+            $this->dessert_finished = $dessert_finished;
+            return $this;
+        }
+
+        public function getDessertFinished(): array
+        {
+            return $this->dessert_finished;
+        }
+
         public function setDrink(array $drink): self
         {
             $this->drink = $drink;
@@ -172,6 +222,17 @@
             return $this->drink_qty;
         }
 
+        public function setDrinkFinished(array $drink_finished): self
+        {
+            $this->drink_finished = $drink_finished;
+            return $this;
+        }
+
+        public function getDrinkFinished(): array
+        {
+            return $this->drink_finished;
+        }
+
         public function setCoffee(array $coffee): self
         {
             $this->coffee = $coffee;
@@ -192,6 +253,17 @@
         public function getCoffeeQty(): array
         {
             return $this->coffee_qty;
+        }
+
+        public function setCoffeeFinished(array $coffee_finished): self
+        {
+            $this->coffee_finished = $coffee_finished;
+            return $this;
+        }
+
+        public function getCoffeeFinished(): array
+        {
+            return $this->coffee_finished;
         }
     }
     
