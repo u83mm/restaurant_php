@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 13-05-2023 a las 10:39:40
+-- Tiempo de generación: 27-05-2023 a las 17:17:08
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -47,11 +47,11 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (2, 'Ensalada catalana', 4, 3, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. \r\n\r\nOrci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. \r\n\r\nDuis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058472-ensalada_catalana.jpeg', '7.50', 'SI'),
 (3, 'Ensalada mixta', 1, 3, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. \r\n\r\nPhasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1683464202-ensalada_mixta.png', '7.50', 'SI'),
 (4, 'Paella Valenciana', 2, 6, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. \r\nProin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058720-paella-valenciana-jpg.jpeg', '11.25', 'SI'),
-(5, 'Bistec con patatas y verduras', 2, 4, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \r\n\r\nDuis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058802-bistec_patatas.jpg', '8.25', 'SI'),
+(5, 'Bistec con patatas y verduras', 4, 4, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \r\n\r\nDuis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058802-bistec_patatas.jpg', '8.25', 'SI'),
 (6, 'Arroz con setas', 4, 6, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. \r\n\r\nMorbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058844-arroz_setas.jpg', '12.35', 'SI'),
 (7, 'Espaguetis a la carbonara', 1, 2, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. Proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. \r\n\r\nDonec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058899-espagueti_carbo.jpg', '8.75', 'SI'),
-(8, 'Crema Catalana', 3, 7, 'La crema catalana (conocida también como crema quemada o, en Cataluña, simplemente crema) es un postre muy típico de la cocina catalana similar a la francesa crème brûlée. Muy difundido por el resto de España y por toda Europa, que consiste en una crema pastelera con base en yema de huevo que se suele cubrir con una capa de azúcar caramelizado en su superficie para aportar un contraste crujiente.', '/var/www/public/uploads/dishes_pics/1674408728-crema_catalana.jpg', '8.00', 'SI'),
-(9, 'Entrecot al gusto', 4, 4, 'Mauris ut blandit nunc. Cras eu turpis elit. Nulla facilisi. Praesent sed enim leo. In elementum in velit elementum fringilla. Duis condimentum erat quis elit vulputate vestibulum. \r\n\r\nSed dictum imperdiet felis a aliquam. Nullam fringilla ac justo at volutpat. Aenean feugiat nulla vel arcu tempor euismod. Aenean eros ligula, suscipit a elit at, sodales semper velit. Cras sit amet aliquet nulla. Nullam metus lorem, ultrices eu turpis ut, tristique mattis lacus.', '/var/www/public/uploads/dishes_pics/1676036967-entrecote.jpg', '17.00', 'SI'),
+(8, 'Crema Catalana', 4, 7, 'La crema catalana (conocida también como crema quemada o, en Cataluña, simplemente crema) es un postre muy típico de la cocina catalana similar a la francesa crème brûlée. Muy difundido por el resto de España y por toda Europa, que consiste en una crema pastelera con base en yema de huevo que se suele cubrir con una capa de azúcar caramelizado en su superficie para aportar un contraste crujiente.', '/var/www/public/uploads/dishes_pics/1674408728-crema_catalana.jpg', '8.00', 'SI'),
+(9, 'Entrecot al gusto', 2, 4, 'Mauris ut blandit nunc. Cras eu turpis elit. Nulla facilisi. Praesent sed enim leo. In elementum in velit elementum fringilla. Duis condimentum erat quis elit vulputate vestibulum. \r\n\r\nSed dictum imperdiet felis a aliquam. Nullam fringilla ac justo at volutpat. Aenean feugiat nulla vel arcu tempor euismod. Aenean eros ligula, suscipit a elit at, sodales semper velit. Cras sit amet aliquet nulla. Nullam metus lorem, ultrices eu turpis ut, tristique mattis lacus.', '/var/www/public/uploads/dishes_pics/1676036967-entrecote.jpg', '17.00', 'SI'),
 (10, 'Olivas rellenas', 4, 1, 'Duis lobortis mattis leo, et mattis mi suscipit eu. Morbi auctor leo a eros tempor accumsan. Quisque egestas sem a condimentum tristique. Mauris ut sapien a quam placerat tincidunt quis sed purus. Curabitur vestibulum vitae lacus a imperdiet. Vivamus venenatis lorem magna, et dignissim ligula ullamcorper ut. Curabitur lacinia nunc sit amet quam maximus lobortis. Ut diam dolor, lobortis vel purus vitae, varius posuere augue. Phasellus dictum tempus tincidunt.', '/var/www/public/uploads/dishes_pics/1682844428-olivas_rellenas.jpg', '2.50', 'SI'),
 (11, 'Patatas chips', 4, 1, 'Duis lobortis mattis leo, et mattis mi suscipit eu. Morbi auctor leo a eros tempor accumsan. Quisque egestas sem a condimentum tristique. Mauris ut sapien a quam placerat tincidunt quis sed purus. Curabitur vestibulum vitae lacus a imperdiet. Vivamus venenatis lorem magna, et dignissim ligula ullamcorper ut. Curabitur lacinia nunc sit amet quam maximus lobortis. Ut diam dolor, lobortis vel purus vitae, varius posuere augue. Phasellus dictum tempus tincidunt.', '/var/www/public/uploads/dishes_pics/1682845338-chips.jpg', '1.50', 'SI'),
 (12, 'Salmón a la plancha', 4, 5, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682846637-salmon.jpg', '13.75', 'SI'),
@@ -61,7 +61,7 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (16, 'Agua mineral', 4, 14, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854251-water.jpg', '1.10', 'SI'),
 (17, 'Café solo', 4, 8, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854429-coffee.jpg', '1.20', 'SI'),
 (18, 'Café cortado', 4, 8, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854551-coffee.jpg', '1.30', 'SI'),
-(19, 'Creps de la casa', 4, 7, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682856434-creps.jpg', '4.75', 'SI'),
+(19, 'Creps de la casa', 3, 7, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682856434-creps.jpg', '4.75', 'SI'),
 (21, 'Anchoas de la casa', 4, 1, 'Vestibulum vitae auctor odio. Vivamus sagittis eleifend fermentum. Aliquam dictum lacinia lacinia. Nulla commodo quam a convallis sollicitudin. Sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. Nullam vel eleifend enim, a varius lorem. Mauris at mi sed velit faucibus rhoncus.', '/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp', '11.75', 'SI');
 
 -- --------------------------------------------------------
@@ -133,7 +133,7 @@ CREATE TABLE `menu_day_price` (
 --
 
 INSERT INTO `menu_day_price` (`id`, `price`) VALUES
-(1, '17.50');
+(1, '16.50');
 
 -- --------------------------------------------------------
 
@@ -145,29 +145,36 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `table_number` tinyint(3) UNSIGNED NOT NULL,
   `people_qty` tinyint(3) UNSIGNED NOT NULL,
-  `aperitifs` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `aperitifs_qty` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `firsts` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `aperitifs` text DEFAULT NULL,
+  `aperitifs_qty` text DEFAULT NULL,
+  `aperitifs_finished` text DEFAULT '0',
+  `firsts` text DEFAULT NULL,
   `firsts_qty` text DEFAULT NULL,
-  `seconds` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `firsts_finished` text DEFAULT '0',
+  `seconds` text DEFAULT NULL,
   `seconds_qty` text DEFAULT NULL,
-  `desserts` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `seconds_finished` text DEFAULT '0',
+  `desserts` text DEFAULT NULL,
   `desserts_qty` text DEFAULT NULL,
-  `drinks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `desserts_finished` text DEFAULT '0',
+  `drinks` text DEFAULT NULL,
   `drinks_qty` text DEFAULT NULL,
-  `coffees` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `coffees_qty` text DEFAULT NULL
+  `drinks_finished` text DEFAULT '0',
+  `coffees` text DEFAULT NULL,
+  `coffees_qty` text DEFAULT NULL,
+  `coffees_finished` text DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `orders`
 --
 
-INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `firsts`, `firsts_qty`, `seconds`, `seconds_qty`, `desserts`, `desserts_qty`, `drinks`, `drinks_qty`, `coffees`, `coffees_qty`) VALUES
-(1, 1, 2, 'Olivas rellenas,Patatas chips', '1,1', 'Espaguetis a la carbonara,Ensalada mixta', '1,1', 'Salmón a la plancha,Bistec con patatas y verduras', '1,1', 'Crema Catalana,Creps de la casa', '1,1', 'Tinto de la casa,Refresco de cola,Agua mineral', '1,1,1', 'Café solo,Café cortado', '1,1'),
-(2, 2, 2, 'Anchoas de la casa,Patatas chips', '1,1', 'Paella Valenciana', '2', '', '', 'Creps de la casa', '2', 'Refresco de cola', '2', 'Café cortado', '2'),
-(3, 3, 2, 'Patatas chips', '2', 'Ensalada catalana,Entrecot al gusto,Bistec con patatas y verduras', '1,1,1', '', '', 'Creps de la casa,Crema Catalana', '1,1', 'Tinto de la casa,Agua mineral', '1,2', '', ''),
-(4, 4, 1, '', '', 'Ensalada mixta', '1', 'Bistec con patatas y verduras', '1', 'Crema Catalana', '1', 'Refresco de cola', '1', '', '1');
+INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
+(1, 1, 2, 'Patatas chips', '1', '1', 'Ensalada mixta,Espaguetis a la carbonara', '1,1', '1,1', 'Bistec con patatas y verduras,Entrecot al gusto', '1,1', '1,1', 'Creps de la casa,Crema Catalana', '1,1', '1,1', 'Agua mineral,Tinto de la casa', '2,1', '1,1', '', '', ''),
+(2, 2, 2, 'Patatas chips', '2', '', '', '', '', '', '', '', '', '', '', 'Refresco de cola', '2', '', 'Café cortado', '1', '1'),
+(5, 4, 2, 'Patatas chips,Olivas rellenas', '1,2', '1,1', '', '', '', '', '', '', '', '', '', 'Refresco de cola', '2', '1', 'Café cortado', '1', ''),
+(8, 11, 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Café cortado,Café solo', '2,1', '<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>169</b><br />\r\n'),
+(9, 13, 2, 'Patatas chips', '1', '1', 'Ensalada mixta,Espaguetis a la carbonara', '1,1', '1,1', 'Paella Valenciana', '2', '1', 'Creps de la casa', '2', '1', 'Refresco de cola,Tinto de la casa,Agua mineral', '2,1,1', '1,1,1', 'Café solo,Café cortado', '1,1', '1,1');
 
 -- --------------------------------------------------------
 
@@ -294,7 +301,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

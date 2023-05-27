@@ -5,7 +5,7 @@
     $home->title = "My Restaurant | Search";			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->nav_links);
+	$home->do_html_nav($home->nav_links, "administration");
 ?>	
     <div class="row">
         <h3 class="text-center pb-2">BÚSCAR PRODUCTO</h3>

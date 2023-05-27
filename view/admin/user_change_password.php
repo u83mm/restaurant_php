@@ -4,7 +4,7 @@
 	$home = new PageClass();			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->nav_links);
+	$home->do_html_nav($home->nav_links, "administration");
 ?>
 	<h3 class="text-center">CHANGE PASSWORD</h3>
     <div class="col-6 mx-auto">

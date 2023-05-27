@@ -40,8 +40,7 @@
          */
         public function new(array $variables = null): void
         {
-            $id = $variables['id'] ?? "";
-            //$this->message = $variables['message'] ?? "";
+            $id = $variables['id'] ?? "";            
                         
             try {
                 $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- Selecciona -";
@@ -263,7 +262,7 @@
             unset($_SESSION['order']);
             unset($_SESSION['table_number']);
             unset($_SESSION['people_qty']);
-            //$this->new();							  			                       
+            $this->new();							  			                       
         }
     }    
 ?>  

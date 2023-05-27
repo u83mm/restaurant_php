@@ -47,5 +47,5 @@ window.onload = function() {
             finishCheck[index].addEventListener("click", finishDish);
             finishCheck[index].addEventListener("click", setFinishDishValue);
         }
-    }
+    }   
 }

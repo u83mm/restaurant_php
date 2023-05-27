@@ -238,6 +238,17 @@ section img {
 	-o-border-radius: 0.3em;
 }
 
+.navbar-nav .nav-link.active {
+	background-color: gray;
+	color: white;
+	border: 0.1em solid darkgray;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	-ms-border-radius: 0.3em;
+	-o-border-radius: 0.3em;
+}
+
 .showMenuCategories {
 	margin-bottom: -1em;
 }
@@ -289,13 +300,19 @@ del {
 	.options {
 		width: 10em;
 		display: block;
-	}	
+	}
+	
+	.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+		background-color: inherit;
+		border: inherit;
+		color: var(--bs-navbar-active-color);
+	}
 }
 
 /************************************************************************
 *			iphone 6/7/8 horizontal														*
 ************************************************************************/
-@media (min-width:481px) and (max-width: 668px) {
+@media (min-width:481px) and (max-width: 668px) {	
 
 }
 
@@ -303,7 +320,11 @@ del {
 *			Configuración para tablets portrait (retrato)						*
 ************************************************************************/
 @media (min-width:481px) and (max-width: 768px) {
-					
+	.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+		background-color: inherit;
+		border: inherit;
+		color: var(--bs-navbar-active-color);
+	}	
 }
 
 /***************************************************************
@@ -318,6 +339,12 @@ del {
 
 	.options {
 		width: 10em;		
+	}
+
+	.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+		background-color: inherit;
+		border: inherit;
+		color: var(--bs-navbar-active-color);
 	}
 }
 

@@ -10,10 +10,10 @@
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
 			public array $nav_links = [
-				"Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",				
-				"Login "			=> 	"/login.php",
+				"Home"			=>	"/",
+				"Menu"			=> 	"/menu/menu.php",
+				"Registration"	=> 	"/register.php",				
+				"Login"			=> 	"/login.php",
 			],
 		)
 		{			
@@ -84,7 +84,7 @@
 		 * array represent the name of the link, and the values represent the URL of the link. If no links
 		 * are provided, the navigation bar will still be displayed, but with no links.
 		 */
-		public function do_html_nav($links=NULL): void
+		public function do_html_nav(array $links=NULL, string $active_name=NULL): void
 		{
 ?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -100,7 +100,7 @@
 <?php
 							foreach($links as $name => $url) {								
 ?>
-									<li class="nav-item d-lg-inline-block"><a class="nav-link" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
+									<li class="nav-item d-lg-inline-block"><a class="nav-link <?php if(isset($active_name) && strtolower($name) === strtolower($active_name)) echo "active"; ?>" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
 <?php
 							}
 ?>										
@@ -127,8 +127,8 @@
 				</main>	
 				<footer class="container-fluid d-flex justify-content-center align-items-center">
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
-				</footer>			
-			</body>
+				</footer>							
+			</body>			
 		</html>
 <?php		
 		}

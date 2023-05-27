@@ -5,7 +5,7 @@
 	$home->title = "My Restaurant | Comandas";			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->nav_links);
+	$home->do_html_nav($home->nav_links, "orders");
 ?>	
 								<!--- SECTION WITH INFO -->
 	<h3 class="text-center">NUEVO PEDIDO</h3>

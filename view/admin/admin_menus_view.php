@@ -5,7 +5,7 @@
     $page->title = "My Restaurant | Admin";
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
-	$page->do_html_nav($page->nav_links);
+	$page->do_html_nav($page->nav_links, "administration");
 ?>
     <div class="row mb-4">
         <h3 class="text-center pb-3">MENÚ PRINCIPAL</h3>
