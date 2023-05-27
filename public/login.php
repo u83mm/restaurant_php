@@ -7,18 +7,11 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "login");
-	$loginController = new LoginController($dbcon);
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
+	$loginController = new LoginController($dbcon);	
 
-	switch($action) {
-		case "login":			
-			$loginController->login();
-
-			break;
-			
-		case "logout":
-			$loginController->logout();
-
-			break;
-	}
+	match($action) {
+		default  => $loginController->login(),
+		'logout' => $loginController->logout(),
+	};
 ?>

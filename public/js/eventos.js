@@ -9,7 +9,7 @@ function finishDish() {
     let finishedValue = document.getElementById(this.id).previousElementSibling.value;
     let dish = document.getElementById(this.id);
 
-    finishedValue == 1 ?  dish.innerHTML = originalText : dish.innerHTML = strikedText;   
+    dish.innerHTML = finishedValue == 1 ?  originalText : strikedText;   
 }
 
 /**
@@ -17,7 +17,7 @@ function finishDish() {
  */
 function setFinishDishValue() {
     let finishedValue = document.getElementById(this.id).previousElementSibling;
-    finishedValue.value == 1 ? finishedValue.value = 0 : finishedValue.value = 1;
+    finishedValue.value = finishedValue.value == 1 ?  0 : 1;
 }
 
 /**
