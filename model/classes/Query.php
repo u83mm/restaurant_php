@@ -15,7 +15,7 @@
             try {
                 $stm = $dbcon->pdo->prepare($query);               
                 $stm->execute();       
-                $rows = $stm->fetchAll();
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();                
 
                 return $rows;

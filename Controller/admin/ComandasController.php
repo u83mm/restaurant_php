@@ -59,7 +59,8 @@
             ];
 
             try {
-                $result = $query->selectFieldsFromTableOrderByField('orders', $fields, 'table_number', $this->dbcon);
+                //$result = $query->selectFieldsFromTableOrderByField('orders', $fields, 'table_number', $this->dbcon);
+                $result = $query->selectAll('orders', $this->dbcon);
 
                 include(SITE_ROOT . "/../view/admin/comandas/index_view.php"); 
 

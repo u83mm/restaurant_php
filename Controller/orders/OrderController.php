@@ -4,7 +4,8 @@
     namespace Controller\orders;
 
     use Controller\admin\ComandasController;
-    use model\orders\Order;
+use model\classes\Query;
+use model\orders\Order;
     use model\repositories\OrderRepository;
 
     class OrderController
@@ -106,8 +107,15 @@
                      
             try {
                 if($_SESSION['table_number'] === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
-                if($_SESSION['people_qty'] === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1); 
+                if($_SESSION['people_qty'] === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1);
+                
+                
+                /** Test if the table is bussy */
 
+                $query = new Query();
+                $bussy_table = $query->selectOneBy('orders', 'table_number', $_SESSION['table_number'], $this->dbcon);
+                if($bussy_table) throw new \Exception("Mesa ocupada", 1);
+                
 
                 /** we set an order */
 
