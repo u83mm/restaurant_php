@@ -11,7 +11,7 @@
 	catch(PDOException $e) {		
 		$error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 						de acceso.</p><p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
-		include(SITE_ROOT . "/view/database_error.php");
+		include(SITE_ROOT . "/../view/database_error.php");
 		exit();
 	}
 	catch(Exception $e) {		
