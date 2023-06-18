@@ -23,7 +23,7 @@
         {                      
             try {
                 /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                 
                                              
                 $menuDayQuery = new QueryMenu();            
 
@@ -99,7 +99,9 @@
                     $fn = $x . '_' . substr(basename(__FILE__), 0, -4) . '.png';        
                     $char->save(IMG_DIR . '/' . $fn);              
                     $images[] = $fn;                
-                }            
+                }
+                
+                $_SESSION['language'] = "spanish";
                 
                 include(SITE_ROOT . "/../view/captcha/captcha_view.php");
 
@@ -128,8 +130,8 @@
             try {
                 if($phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
 
-                $_SESSION['user_name'] = "visiting";
-                $_SESSION['language'] = "spanish";
+                $_SESSION['user_name'] = "visiter";
+                $_SESSION['role'] = "ROLE_USER";                
                 $this->index();
 
             } catch (\Throwable $th) {

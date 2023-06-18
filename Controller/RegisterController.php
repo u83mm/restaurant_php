@@ -24,6 +24,9 @@
 			$email = $_REQUEST['email'] ?? "";
 
 			try {
+				/** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+				
 				if (!empty($user_name) && !empty($password) && !empty($email)) {
 					$query = new Query();
 

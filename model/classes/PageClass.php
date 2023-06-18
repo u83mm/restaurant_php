@@ -9,30 +9,27 @@
 			public string $h1 = "Restaurant Your House",
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
-			public array $nav_links = [
-				"Home"			=>	"/",
-				"Menu"			=> 	"/menu/menu.php",
-				"Registration"	=> 	"/register.php",				
-				"Login"			=> 	"/login.php",
-			],
+			public array $nav_links = [],
 			public array $language = [],
 		)
-		{			
+		{				
 			$links = new NavLinks();
 			$language = new Language();
+
+			/** Configure page language */
+			$this->language = $_SESSION['language'] == "spanish" ? $language->spanish() : $language->english();
 
 			/** Configure menus by ROLE */			
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN')	$this->nav_links = $links->admin();
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_WAITER') $this->nav_links = $links->waiter();
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_USER') $this->nav_links = $links->user();
 
-
-			/** Configure page language */
-			$this->language = $_SESSION['language'] == "spanish" ? $language->spanish() : $language->english();
-
+			
+			/** Add logout option to nav menu */
 			if (isset($_SESSION['id_user'])) {
 				array_pop($this->nav_links);
-				$this->nav_links["Logout"] = "/login.php?action=logout"; 
+				$logout = ucfirst($this->language['nav_link_logout']);
+				$this->nav_links[$logout] = "/login.php?action=logout"; 
 			}
 		}
 
@@ -79,9 +76,7 @@
 					<div class="col-12 col-md-1 d-md-flex justify-content-center align-items-end pb-2 pe-2 text-end">
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">														
 							<button id="language" class=" btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
-						</form>				
-						<!-- <button id="language" class="btn btn-link" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button> -->
-						<!-- <a href="#"><img class="languageFlag" src="images/english-flag.svg" alt="Language flag" /><?php //echo $this->language['flag_text']; ?></a>	-->
+						</form>										
 					</div>																				
 				</header>
 				<main class="container-fluid">									
@@ -124,7 +119,7 @@
 												<!-- Show user loged -->
 
 					<?php if(isset($_SESSION['role'])):?>
-					<p class="text-end pe-2">Logged as <?php echo ucfirst($_SESSION['user_name']); ?></p>
+					<p class="text-end pe-2">You are: <strong><?php echo ucfirst($_SESSION['user_name']); ?></strong></p>
 					<?php endif ?>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
 <?php

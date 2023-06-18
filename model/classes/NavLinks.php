@@ -15,10 +15,23 @@
          */
         public function admin(): array
         {
+            if($_SESSION['language'] == "spanish") {
+                $this->nav_links = [
+                    "Inicio"			=>	"/",
+                    "Carta"				=> 	"/menu/menu.php",
+                    "Registrate"		=> 	"/register.php",
+                    "Administración"	=>	"/admin/admin.php",
+                    "Pedidos"			=>	"/orders/index.php",
+                    "Logeate"			=> 	"/login.php",
+                ];
+
+                return $this->nav_links;
+            }
+
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",
+				"Sign up"		    => 	"/register.php",
 				"Administration"	=>	"/admin/admin.php",
 				"Orders"			=>	"/orders/index.php",
 				"Login "			=> 	"/login.php",
@@ -30,6 +43,18 @@
 
         public function waiter(): array
         {
+            if($_SESSION['language'] == "spanish") {
+                $this->nav_links = [
+                    "Inicio"			=>	"/",
+                    "Carta"				=> 	"/menu/menu.php",
+                    "Registrate"		=> 	"/register.php",                   
+                    "Pedidos"			=>	"/orders/index.php",
+                    "Logeate"			=> 	"/login.php",
+                ];
+
+                return $this->nav_links;
+            }
+
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
@@ -44,6 +69,17 @@
 
         public function user(): array
         {
+            if($_SESSION['language'] == "spanish") {
+                $this->nav_links = [
+                    "Inicio"			=>	"/",
+                    "Carta"				=> 	"/menu/menu.php",
+                    "Registrate"		=> 	"/register.php",                                       
+                    "Logeate"			=> 	"/login.php",
+                ];
+
+                return $this->nav_links;
+            }
+            
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",

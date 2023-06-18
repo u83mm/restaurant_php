@@ -14,6 +14,9 @@
         /** Show main menus views */
         public function adminMenus(string $message = null):void
         {
+            /** Test page language */
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+            
             $error_msg = $message ?? "";
             
             include(SITE_ROOT . "/../view/admin/admin_menus_view.php");

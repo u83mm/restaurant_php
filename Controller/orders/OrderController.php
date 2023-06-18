@@ -44,6 +44,9 @@ use model\orders\Order;
             $id = $variables['id'] ?? "";            
                         
             try {
+                /** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+                
                 $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- Selecciona -";
                 $_SESSION['people_qty'] = $variables['people_qty'] ?? $_SESSION['people_qty'] ?? "- Selecciona -"; 
 

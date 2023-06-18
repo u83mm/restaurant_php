@@ -33,5 +33,5 @@
     <hr>
 
     <h4><strong><?php echo strtoupper($home->language['price']); ?>: <?php echo number_format($menuDayPrice, 2, ",", "."); ?>&nbsp;€</strong></h4>
-    <p>*Bebida a elegir, agua, vino o refresco</p>
+    <p>*<?php echo strtoupper($home->language['menu_day_footer']); ?></p>
 </aside>
