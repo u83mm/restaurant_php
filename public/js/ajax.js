@@ -22,3 +22,29 @@ function getXMLHTTPRequest() {
 	}
 	return peticion;
 }
+
+
+/** Test page language */
+/*function testLanguage() {	
+	let languageValue = this.value;	
+
+	let peticion = getXMLHTTPRequest();
+	let url = "/../end_points/test_language.php";
+	let params = new FormData();	
+				
+	params.append("language", languageValue);
+	
+	peticion.onreadystatechange = consulta;
+	peticion.open('POST', url, true);	
+	peticion.send(params);    
+
+	function consulta() {
+		if(peticion.readyState == 1) {
+			//muestraGif();
+			alert("no funciona");
+		}
+		else if(peticion.readyState == 4 && peticion.status == 200) {
+			alert("Funciona");
+		} 
+	}	
+}*/

@@ -18,6 +18,9 @@
          */
         public function index(): void
         {
+            /** Test page language */
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+            
             $menuDay = new QueryMenu();           
 
             /** Show diferent Menu's day dishes */

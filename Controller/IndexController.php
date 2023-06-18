@@ -21,7 +21,10 @@
        */
         public function index(): void
         {                      
-            try {               
+            try {
+                /** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+                                             
                 $menuDayQuery = new QueryMenu();            
 
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -126,6 +129,7 @@
                 if($phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
 
                 $_SESSION['user_name'] = "visiting";
+                $_SESSION['language'] = "spanish";
                 $this->index();
 
             } catch (\Throwable $th) {

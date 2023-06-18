@@ -47,5 +47,13 @@ window.onload = function() {
             finishCheck[index].addEventListener("click", finishDish);
             finishCheck[index].addEventListener("click", setFinishDishValue);
         }
-    }   
+    }  
+    
+    
+    /** Test page language */
+    /*let language = document.getElementById('language');
+
+    if(language) {           
+        language.addEventListener("click", testLanguage);
+    }*/
 }

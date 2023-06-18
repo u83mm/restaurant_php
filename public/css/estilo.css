@@ -282,6 +282,11 @@ del {
 	animation-fill-mode: forwards;
 }*/
 
+.languageFlag {
+	width: 2em;
+	margin-right: 1em;
+}
+
 
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {

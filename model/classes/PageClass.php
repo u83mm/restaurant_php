@@ -15,14 +15,20 @@
 				"Registration"	=> 	"/register.php",				
 				"Login"			=> 	"/login.php",
 			],
+			public array $language = [],
 		)
 		{			
 			$links = new NavLinks();
+			$language = new Language();
 
 			/** Configure menus by ROLE */			
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN')	$this->nav_links = $links->admin();
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_WAITER') $this->nav_links = $links->waiter();
 			if (isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_USER') $this->nav_links = $links->user();
+
+
+			/** Configure page language */
+			$this->language = $_SESSION['language'] == "spanish" ? $language->spanish() : $language->english();
 
 			if (isset($_SESSION['id_user'])) {
 				array_pop($this->nav_links);
@@ -63,7 +69,7 @@
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
 				<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 				<script type="text/javascript" src="/js/eventos.js"></script>
-				<script type="text/javascript" src="/js/ajax.js"></script>							
+				<script type="text/javascript" src="/js/ajax.js"></script>						
 			</head>
 			<body class="ps-3 pe-3">
 				<header class="d-md-flex header">					
@@ -71,7 +77,11 @@
 						<h1 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h1>
 					</div>
 					<div class="col-12 col-md-1 d-md-flex justify-content-center align-items-end pb-2 pe-2 text-end">
-						<a href="#">English</a>	
+						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">														
+							<button id="language" class=" btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
+						</form>				
+						<!-- <button id="language" class="btn btn-link" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button> -->
+						<!-- <a href="#"><img class="languageFlag" src="images/english-flag.svg" alt="Language flag" /><?php //echo $this->language['flag_text']; ?></a>	-->
 					</div>																				
 				</header>
 				<main class="container-fluid">									
@@ -129,7 +139,7 @@
 				</main>	
 				<footer class="container-fluid d-flex justify-content-center align-items-center">
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
-				</footer>							
+				</footer>												
 			</body>			
 		</html>
 <?php		
