@@ -66,11 +66,13 @@
 				<script type="text/javascript" src="/js/ajax.js"></script>							
 			</head>
 			<body class="ps-3 pe-3">
-				<header class="d-flex justify-content-end align-items-end align-items-xl-center header">
-					<div class="col-12 col-md-7 d-none d-md-inline-block"></div>
-					<div class="col-12 col-md-5">
-						<h1><?php echo $this->h1; ?></h1>
-					</div>										
+				<header class="d-md-flex header">					
+					<div class="col-12 col-md-11 d-md-flex justify-content-center align-items-end justify-content-md-end align-items-md-center pt-5 p-xl-0">
+						<h1 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h1>
+					</div>
+					<div class="col-12 col-md-1 d-md-flex justify-content-center align-items-end pb-2 pe-2 text-end">
+						<a href="#">English</a>	
+					</div>																				
 				</header>
 				<main class="container-fluid">									
 <?php			

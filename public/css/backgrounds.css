@@ -119,6 +119,7 @@
 .header {
 	background-image: url("/images/header.jpg");
 	background-size: cover;
-	height: 11em;
+	min-height: 11em;
+	height: auto;
 	background-position: center;	
 }
