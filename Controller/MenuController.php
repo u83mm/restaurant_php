@@ -2,12 +2,13 @@
     namespace Controller;
 
     use model\classes\CommonTasks;
+    use model\classes\Language;
     use model\classes\QueryMenu;    
     use model\fpdf\MyPdf;
 
     class MenuController
     {
-        public function __construct(private object $dbcon)      
+        public function __construct(private object $dbcon, private array $language = [])      
         {
             
         }
@@ -17,31 +18,34 @@
          * day price.
          */
         public function index(): void
-        {
+        {             
             /** Test page language */
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
             
-            $menuDay = new QueryMenu();           
+            
+            /** Configure page language */
+            $languageObject = new Language();
+			$this->language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
+            
+            $menuDay = new QueryMenu(); 
+
 
             /** Show diferent Menu's day dishes */
-
             $primeros = $menuDay->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDay->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon); 
             
             
             /** Calculate menu's day price */
-
             $menuDayPrice = $menuDay->getMenuDayPrice($this->dbcon);
 
 
             /** Show Menu's categories */
-
             $menuCategories = $menuDay->selectAll("dishes_menu", $this->dbcon);            
             $showResult = "";
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
-                $category = ucfirst($menuCategories[$i]['menu_category']);
+                $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);
                 $showResult .= "<li class='showMenuCategories'>
                                     <form class='d-inline' action='{$_SERVER['PHP_SELF']}' method='POST'>                                       
                                         <input class='btn btn-link' type='submit' name='action' value='$category'>

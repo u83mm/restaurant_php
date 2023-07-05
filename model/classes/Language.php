@@ -8,7 +8,8 @@
             
         }
 
-        public function spanish() : array {
+        public function spanish() : array 
+        {
             $this->language = [
                 "flag_text"                 => "English",
                 "flag"                      => "english",
@@ -25,12 +26,30 @@
                 "nav_link_sign_up"          => "registrate",
                 "nav_link_administration"   => "administración",
                 "nav_link_orders"           => "pedidos",
+                "our_menu"                  => "nuestra carta",
+                "aperitivos"                => "aperitivos",
+                "entrantes"                 => "entrantes",
+                "ensaladas"                 => "ensaladas",
+                "carnes"                    => "carnes",
+                "pescados"                  => "pescados",
+                "arroces"                   => "arroces",
+                "postres"                   => "postres",
+                "cafés"                     => "cafés",
+                "tintos"                    => "tintos",
+                "blancos"                   => "blancos",
+                "rosados"                   => "rosados",
+                "cavas"                     => "cavas",
+                "champagne"                 => "champagne",
+                "bebidas"                   => "bebidas",
+                "licores"                   => "licores",
+                "logged_as"                 => "logeado como",
             ];
 
             return $this->language;
         }
 
-        public function english() : array {
+        public function english() : array 
+        {
             $this->language = [
                 "flag_text"                 => "Español",
                 "flag"                      => "spanish",
@@ -47,6 +66,23 @@
                 "nav_link_sign_up"          => "sign up",
                 "nav_link_administration"   => "administration",
                 "nav_link_orders"           => "orders",
+                "our_menu"                  => "our menu",
+                "aperitivos"                => "aperitifs",
+                "entrantes"                 => "starters",
+                "ensaladas"                 => "salads",
+                "carnes"                    => "meats",
+                "pescados"                  => "fishes",
+                "arroces"                   => "rices",
+                "postres"                   => "desserts",
+                "cafés"                     => "coffees",
+                "tintos"                    => "red wines",
+                "blancos"                   => "white wines",
+                "rosados"                   => "pink wines",
+                "cavas"                     => "sparking wine",
+                "champagne"                 => "champagne",
+                "bebidas"                   => "drinks",
+                "licores"                   => "liquors",
+                "logged_as"                 => "logged as",
             ];
 
             return $this->language;

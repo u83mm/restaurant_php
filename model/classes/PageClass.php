@@ -75,7 +75,7 @@
 					</div>
 					<div class="col-12 col-md-1 d-md-flex justify-content-center align-items-end pb-2 pe-2 text-end">
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">														
-							<button id="language" class=" btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
+							<button id="language" class="btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
 						</form>										
 					</div>																				
 				</header>
@@ -119,7 +119,7 @@
 												<!-- Show user loged -->
 
 					<?php if(isset($_SESSION['role'])):?>
-					<p class="text-end pe-2">You are: <strong><?php echo ucfirst($_SESSION['user_name']); ?></strong></p>
+					<p class="text-end pe-2"><?php echo ucfirst($this->language['logged_as']); ?>: <strong><?php echo ucfirst($_SESSION['user_name']); ?></strong></p>
 					<?php endif ?>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>
 <?php
