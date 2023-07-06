@@ -36,7 +36,7 @@
                                     <input class="img-fluid" type="image" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe">
                                 </form>
                             </td>
-                            <td><?php echo $value['name']; ?></td>                                                
+                            <td><?php echo ucfirst($value['name']); ?></td>                                                
                             <td><?php echo ucfirst($value['category_name']); ?></td>
                             <td><?php echo ucfirst($value['menu_category']); ?></td>
                             <td><?php echo $value['available']; ?></td>

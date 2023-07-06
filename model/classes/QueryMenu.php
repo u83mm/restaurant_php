@@ -59,7 +59,7 @@
             $showResult = ""; 
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
-                $menuCategory = ucfirst($menuCategories[$i]['name']);
+                $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
                 if($menuCategories[$i]['available'] === "SI") {
                     $showResult .= "<li><a href='/menu/info_dishe/show_info.php?id={$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";

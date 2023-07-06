@@ -18,7 +18,7 @@
 				</figure>
 			</div>
 			<div class="col-12 col-md-6 col-lg-10 col-xl-11 d-flex justify-content-center align-items-center">
-				<h2 class="m-0 me-3"><?php echo ucfirst($category); ?></h2>	
+				<h2 class="m-0 me-3"><?php echo ucfirst($home->language[$category]); ?></h2>	
 			</div>
 		</div>		
 		<div class="row">
@@ -27,7 +27,7 @@
 			<?php echo $showResult; ?>					
 		</div>
 		<div class="row">
-			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post"><button class="btn btn-primary" type="submit" name="action" value="index">Volver atrás</button></form>
+			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post"><button class="btn btn-primary" type="submit" name="action" value="index"><?php echo ucfirst($home->language['go_back']) ?></button></form>
 		</div>				
 	</section>
 

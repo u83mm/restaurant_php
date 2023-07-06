@@ -8,9 +8,11 @@
 
     class MenuController
     {
+        private Language $languageObject;
+
         public function __construct(private object $dbcon, private array $language = [])      
         {
-            
+            $this->languageObject = new Language();
         }
 
         /**
@@ -23,9 +25,8 @@
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
             
             
-            /** Configure page language */
-            $languageObject = new Language();
-			$this->language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
+            /** Configure page language */           
+			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
             
             $menuDay = new QueryMenu(); 
 
@@ -74,23 +75,24 @@
          */
         public function showDishesByTheirCategory(string $category): void
         {
-            $menuDishes = new QueryMenu();            
+            // Change category's language to spanish to do the query to the DB
+            $this->language = $this->languageObject->spanish();
+            $category = $this->language[$category];            
+
+            $menuDishes = new QueryMenu();                  
 
             /** Show diferent Day's menu dishes */
-
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
 
 
             /** Calculate menu's day price */
-
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
            
 
             /** Show dishes */
-
-            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category, $this->dbcon);                                
+            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category, $this->dbcon);          
             $showResult = $menuDishes->showMenuListByCategory($rows, $category);            
           
             include(SITE_ROOT . "/../view/menu/category_view.php");
@@ -109,19 +111,16 @@
                       
 
             /** Show diferent Menu's day dishes */
-
             $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
             $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
             $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon); 
             
             
             /** Calculate menu's day price */
-
             $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
 
 
-            /** We obtain the dishe info to show */
-           
+            /** We obtain the dishe info to show */           
             $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $id, $this->dbcon);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   

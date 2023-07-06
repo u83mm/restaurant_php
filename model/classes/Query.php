@@ -5,6 +5,16 @@
 
     class Query 
     {
+        public Language $languageObject;
+        
+        public function __construct(public array $language = [])      
+        {
+            $this->languageObject = new Language();
+
+            /** Configure page language */           
+			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
+        }
+
         /**
          * Select all from "table name"
          */

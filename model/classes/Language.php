@@ -11,7 +11,7 @@
         public function spanish() : array 
         {
             $this->language = [
-                "flag_text"                 => "English",
+                "flag_text"                 => "english",
                 "flag"                      => "english",
                 "welcome"                   => "bienvenido",
                 "day_menu"                  => "menú del día",
@@ -28,20 +28,38 @@
                 "nav_link_orders"           => "pedidos",
                 "our_menu"                  => "nuestra carta",
                 "aperitivos"                => "aperitivos",
+                "aperitifs"                 => "aperitivos",
                 "entrantes"                 => "entrantes",
+                "starters"                  => "entrantes",
                 "ensaladas"                 => "ensaladas",
+                "salads"                    => "ensaladas",
                 "carnes"                    => "carnes",
+                "meats"                     => "carnes",
                 "pescados"                  => "pescados",
+                "fishes"                    => "pescados",
                 "arroces"                   => "arroces",
+                "rices"                     => "arroces",
                 "postres"                   => "postres",
+                "desserts"                  => "postres",
                 "cafés"                     => "cafés",
+                "coffees"                   => "cafés",
                 "tintos"                    => "tintos",
+                "red wines"                 => "tintos",
                 "blancos"                   => "blancos",
+                "white wines"               => "blancos",
                 "rosados"                   => "rosados",
+                "pink wines"                => "rosados",
                 "cavas"                     => "cavas",
+                "sparking wine"             => "cavas",
                 "champagne"                 => "champagne",
                 "bebidas"                   => "bebidas",
+                "drinks"                    => "bebidas",
                 "licores"                   => "licores",
+                "liquors"                   => "licores",
+                "olivas rellenas"           => "olivas rellenas",
+                "patatas chips"             => "patatas chips",
+                "anchoas de la casa"        => "anchoas de la casa",
+                "go_back"                   => "volver atrás",
                 "logged_as"                 => "logeado como",
             ];
 
@@ -51,7 +69,7 @@
         public function english() : array 
         {
             $this->language = [
-                "flag_text"                 => "Español",
+                "flag_text"                 => "español",
                 "flag"                      => "spanish",
                 "welcome"                   => "welcome",
                 "day_menu"                  => "day's menu",
@@ -82,6 +100,10 @@
                 "champagne"                 => "champagne",
                 "bebidas"                   => "drinks",
                 "licores"                   => "liquors",
+                "olivas rellenas"           => "stuffed olives",
+                "patatas chips"             => "bag of chips",
+                "anchoas de la casa"        => "house anchovies",
+                "go_back"                   => "go back",
                 "logged_as"                 => "logged as",
             ];
 
