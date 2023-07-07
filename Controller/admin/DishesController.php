@@ -86,7 +86,7 @@
         {                            
             try {
                 // We obtain all registries in "dishes" tables          
-                $query = new Query($this->dbcon);
+                $query = new Query();
                 $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
                 $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
 
@@ -135,7 +135,7 @@
 
 
                 // We obtain all registries in "dishes" tables           
-                $query = new Query($this->dbcon);
+                $query = new Query();
                 $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
                 $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
                 
@@ -224,7 +224,7 @@
                     }
     
                     $stm = $this->dbcon->pdo->prepare($query); 
-                    $stm->bindValue(":name", $fields['Name']);
+                    $stm->bindValue(":name", strtolower($fields['Name']));
                     $stm->bindValue(":description", $fields['Description']);
                     $stm->bindValue(":category", $fields['Category']); 
                     $stm->bindValue(":menu_id", $fields['Dishe_type']);
@@ -455,7 +455,7 @@
 	
             try {
                 /** Create objects */
-                $query = new Query($this->dbcon);
+                $query = new Query();
                 $commonTask = new CommonTasks();
 
                 /** Obtain dishe to delete */
