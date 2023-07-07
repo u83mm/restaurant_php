@@ -14,7 +14,7 @@
 		<div class="col mb-5 <?php echo $dishe['menu_category']; ?>"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2"><?php echo ucfirst($dishe['name']); ?></h2>				
+				<h2 class="m-0 me-2"><?php echo ucwords($home->language[$dishe['name']]); ?></h2>				
 			</div>
 		</div>		
 		<div class="row">
@@ -26,7 +26,7 @@
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-12 col-md-3 p-3 text-center">
-				<h3>Precio: <?php echo number_format(floatval($dishe['price']), 2, ",", ".") ; ?>€</h3>
+				<h3><?php echo ucfirst($home->language['price']); ?>: <?php echo number_format(floatval($dishe['price']), 2, ",", ".") ; ?>€</h3>
 			</div>
 
 
@@ -54,7 +54,7 @@
 		</div>
 		<div class="row">
 			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post">
-				<button class="btn btn-primary" type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>">Volver atrás</button>			
+				<button class="btn btn-primary" type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>			
 			</form>			
 		</div>			
 	</section>

@@ -5,11 +5,12 @@
 
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
 
-	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
-
-	$id = strtolower($_POST['id'] ?? $_GET['id'] ?? $id = "");	
+	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");				
 	
     $menuController = new MenuController($dbcon);
 
-    $menuController->showDisheInfo($id);
+	/** Test page language */
+	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+
+    $menuController->showDisheInfo();
 ?>

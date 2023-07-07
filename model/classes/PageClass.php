@@ -118,7 +118,7 @@
 
 												<!-- Show user loged -->
 
-					<?php if(isset($_SESSION['role'])):?>
+					<?php if(isset($_SESSION['role']) && $_SESSION['role'] != "ROLE_USER"):?>
 					<p class="text-end pe-2"><?php echo ucfirst($this->language['logged_as']); ?>: <strong><?php echo ucfirst($_SESSION['user_name']); ?></strong></p>
 					<?php endif ?>
 					<noscript><h4>Tienes javaScript desactivado</h4></noscript>

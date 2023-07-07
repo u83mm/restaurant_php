@@ -20,11 +20,7 @@
          * day price.
          */
         public function index(): void
-        {             
-            /** Test page language */
-            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
-            
-            
+        {                                                 
             /** Configure page language */           
 			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
             
@@ -52,9 +48,7 @@
                                         <input class='btn btn-link' type='submit' name='action' value='$category'>
                                     </form>
                                 </li>";
-
-                
-
+            
                 if($i == $y || $i == count($menuCategories)-1) {
                     $showResult .= "</ul></div>";
                     if($y < count($menuCategories)) {
@@ -104,8 +98,10 @@
         * 
         * @param string id The ID of the dish that needs to be displayed.
         */
-        public function showDisheInfo(string $id): void
-        {
+        public function showDisheInfo(): void
+        {            
+            $_SESSION['dishe_id'] = strtolower($_POST['id'] ?? $_GET['id'] ?? $_SESSION['dishe_id']);
+            
             $menuDishes = new QueryMenu();
             $commonTask = new CommonTasks(); 
                       
@@ -121,7 +117,7 @@
 
 
             /** We obtain the dishe info to show */           
-            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $id, $this->dbcon);
+            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id'], $this->dbcon);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   
 
