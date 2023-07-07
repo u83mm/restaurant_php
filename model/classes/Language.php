@@ -61,6 +61,7 @@
                 "anchoas de la casa"        => "anchoas de la casa",
                 "go_back"                   => "volver atrás",
                 "logged_as"                 => "logeado como",
+                "captcha_text"              => "introduce la serie de caracteres",
             ];
 
             return $this->language;
@@ -105,6 +106,7 @@
                 "anchoas de la casa"        => "house anchovies",
                 "go_back"                   => "go back",
                 "logged_as"                 => "logged as",
+                "captcha_text"              => "enter the code shown above",
             ];
 
             return $this->language;

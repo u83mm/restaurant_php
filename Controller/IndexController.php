@@ -54,7 +54,10 @@
         }
 
         public function showCaptcha():void
-        { 
+        {
+            /** Test page language */
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];            
+
             if(isset($_SESSION['user_name'])) {
                 $this->index();
                 die;
@@ -99,9 +102,7 @@
                     $fn = $x . '_' . substr(basename(__FILE__), 0, -4) . '.png';        
                     $char->save(IMG_DIR . '/' . $fn);              
                     $images[] = $fn;                
-                }
-                
-                $_SESSION['language'] = "spanish";
+                }                                
                 
                 include(SITE_ROOT . "/../view/captcha/captcha_view.php");
 
