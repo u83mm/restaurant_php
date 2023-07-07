@@ -10,7 +10,7 @@
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['first_plates']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($primeros as $key => $plato) { ?>
-                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($plato['name']); ?></a></em></li>
+                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($home->language[$plato['name']]); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
@@ -18,7 +18,7 @@
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['seconds']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($segundos as $key => $plato) { ?>
-                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($plato['name']); ?></a></em></li>
+                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($home->language[$plato['name']]); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
@@ -26,7 +26,7 @@
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['desserts']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($postres as $key => $postre) { ?>
-                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $postre['dishe_id']; ?>"><?php echo ucfirst($postre['name']); ?></a></em></li>
+                <li><em><a href="/menu/info_dishe/show_info.php?id=<?php echo $postre['dishe_id']; ?>"><?php echo ucfirst($home->language[$postre['name']]); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
