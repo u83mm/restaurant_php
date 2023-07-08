@@ -91,7 +91,7 @@
         {
             $id_user = $_REQUEST['id_user'];
 	
-            $query = new Query($this->dbcon);
+            $query = new Query();
 
             try {                
                 $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id_user, $this->dbcon);
@@ -177,7 +177,7 @@
                     if ($password !== $newPassword) {
                         $this->message = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
                     } else {
-                        $query = new Query($this->dbcon);
+                        $query = new Query();
                         $query->updatePassword("user", $newPassword, $id_user, $this->dbcon);
 
                         $this->message = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
@@ -207,7 +207,7 @@
             $id_user = $_REQUEST['id_user'];
 	
             try {
-                $query = new Query($this->dbcon);
+                $query = new Query();
                 $query->deleteRegistry("user", "id", $id_user, $this->dbcon);
                 $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
                 $this->index();

@@ -46,8 +46,7 @@
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu/menu.php",
-                    "Registrate"		=> 	"/register.php",                   
+                    "Carta"				=> 	"/menu/menu.php",                                 
                     "Pedidos"			=>	"/orders/index.php",
                     "Logeate"			=> 	"/login.php",
                 ];
@@ -57,8 +56,7 @@
 
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",				
+				"Menu"				=> 	"/menu/menu.php",								
 				"Orders"			=>	"/orders/index.php",
 				"Login "			=> 	"/login.php",
             ];
@@ -83,7 +81,7 @@
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
-				"Registration"		=> 	"/register.php",				
+				"Sign up"		    => 	"/register.php",				
 				"Login "			=> 	"/login.php",
             ];
 

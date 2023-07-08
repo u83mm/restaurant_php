@@ -80,6 +80,7 @@
                 "go_back"                       => "volver atrás",
                 "logged_as"                     => "logeado como",
                 "captcha_text"                  => "introduce la serie de caracteres",
+                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hola <strong>{$_SESSION['user_name']}</strong>, debes tener privilegios de administrador para realizar esta acción</p>",
             ];
 
             return $this->language;
@@ -143,6 +144,7 @@
                 "go_back"                       => "go back",
                 "logged_as"                     => "logged as",
                 "captcha_text"                  => "enter the code shown above",
+                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hi <strong>{$_SESSION['user_name']}</strong>, you must to have ROOT privileges to do this action</p>",
             ];
 
             return $this->language;

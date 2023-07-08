@@ -1,7 +1,8 @@
 <?php
 	declare(strict_types=1);
 
-    use Controller\orders\OrderController;  
+    use Controller\orders\OrderController;
+	use model\classes\Language;
 
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
 
@@ -10,12 +11,14 @@
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
     $orderController = new OrderController($dbcon);
 
-	/** Check for user`s sessions */
-	$_SESSION['user_name'] ?? $_SESSION['user_name'] = "";
-	$_SESSION['role'] ?? $_SESSION['role'] = "";
+	/** Test page language */
+	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+	$languageObject = new Language();
+	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
 
+	/** Check for user`s sessions */	
 	if($_SESSION['role'] !== "ROLE_ADMIN" && $_SESSION['role'] !== "ROLE_WAITER") {		
-		$error_msg = "<p class='alert alert-danger text-center container'>Hola <strong>{$_SESSION['user_name']}</strong>, debes tener privilegios de administrador para realizar esta acción</p>";
+		$error_msg = $language['alert_access'];
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
 	else {				
