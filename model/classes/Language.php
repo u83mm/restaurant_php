@@ -82,6 +82,16 @@
                 "logged_as"                     => "logeado como",
                 "captcha_text"                  => "introduce la serie de caracteres",
                 "alert_access"                  => "<p class='alert alert-danger text-center container'>Hola <strong>" . ucfirst($_SESSION['user_name']) . "</strong>, no tienes privilegios para realizar esta acción.</p>",
+                "register_form"                 => "formulario de registro",
+                "main_menu"                     => "menú principal",
+                "products"                      => "productos",
+                "menu_day_price"                => "precio del menú del día",
+                "show_list"                     => "listado",
+                "search"                        => "buscar",
+                "new"                           => "nuevo",
+                "users"                         => "usuarios",
+                "categories"                    => "categorías",
+                "orders"                        => "comandas",
             ];
 
             return $this->language;
@@ -147,6 +157,16 @@
                 "logged_as"                     => "logged as",
                 "captcha_text"                  => "enter the code shown above",
                 "alert_access"                  => "<p class='alert alert-danger text-center container'>Hi <strong>" . ucfirst($_SESSION['user_name']) . "</strong>, you don't have privileges to do this action.</p>",
+                "register_form"                 => "register form",
+                "main_menu"                     => "main menu",
+                "products"                      => "products",
+                "menu_day_price"                => "menu's price of the day",
+                "show_list"                     => "show list",
+                "search"                        => "search",
+                "new"                           => "new",
+                "users"                         => "users",
+                "categories"                    => "categories",
+                "orders"                        => "orders",
             ];
 
             return $this->language;
