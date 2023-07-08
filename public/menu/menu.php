@@ -8,6 +8,7 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
+	//var_dump($action);die;
 	
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];

@@ -71,7 +71,7 @@
         {
             // Change category's language to spanish to do the query to the DB
             $this->language = $this->languageObject->spanish();
-            $category = $this->language[$category];            
+            $category = $this->language[$category];                       
 
             $menuDishes = new QueryMenu();                  
 
@@ -86,8 +86,8 @@
            
 
             /** Show dishes */
-            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category, $this->dbcon);          
-            $showResult = $menuDishes->showMenuListByCategory($rows, $category);            
+            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category, $this->dbcon);                   
+            $showResult = $menuDishes->showMenuListByCategory($rows, $category);                           
           
             include(SITE_ROOT . "/../view/menu/category_view.php");
         }        

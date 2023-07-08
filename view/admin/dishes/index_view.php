@@ -9,7 +9,7 @@
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links, "administration");
 ?>
-	<h4 class="text-center">LISTADO DE PRODUCTOS</h4>
+	<h4 class="text-center"><?php echo strtoupper($page->language['product_list']); ?></h4>
     <div class="container-fluid">        
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
@@ -18,12 +18,12 @@
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
-                            <th>Imagen</th>
-                            <th>Nombre</th>                                                
-                            <th>Menú Día</th>
-                            <th>Categoría</th>
-                            <th>Disponible</th>
-                            <th class="options">Options</th>
+                            <th><?php echo ucfirst($page->language['image']); ?></th>
+                            <th><?php echo ucfirst($page->language['name']); ?></th>                                                
+                            <th><?php echo ucfirst($page->language['day_menu']); ?></th>
+                            <th><?php echo ucfirst($page->language['category']); ?></th>
+                            <th><?php echo ucfirst($page->language['available']); ?></th>
+                            <th class="options"><?php echo ucfirst($page->language['options']); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,14 +36,14 @@
                                     <input class="img-fluid" type="image" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe">
                                 </form>
                             </td>
-                            <td><?php echo ucfirst($value['name']); ?></td>                                                
-                            <td><?php echo ucfirst($value['category_name']); ?></td>
-                            <td><?php echo ucfirst($value['menu_category']); ?></td>
-                            <td><?php echo $value['available']; ?></td>
+                            <td><?php echo ucfirst($page->language[$value['name']]); ?></td>                                                
+                            <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
+                            <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>
+                            <td><?php echo strtoupper($page->language[$value['available']]); ?></td>
                             <td class="text-center">
                                 <form action="#" method="post" class="d-inline">
                                     <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">
-                                    <input class="btn btn-outline-success w-45" type="submit" name="action" value="Edit">
+                                    <button class="btn btn-outline-success w-45" type="submit" name="action" value="edit"><?php echo ucfirst($page->language['edit']); ?></button>
                                 </form>
                                 <?php include(SITE_ROOT . "/../view/admin/dishes/delete_form.php"); ?>
                             </td>
@@ -70,7 +70,7 @@
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">
                         <!-- <input class="page-link" type="submit" value="Ant."> -->
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Ant.</button>
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['prev']); ?></button>
                     </form>                    
                 </li>
 				<li class="page-item">
@@ -108,7 +108,7 @@
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">                           
                         <!-- <input class="page-link" type="submit" value="Sig."> -->
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">Sig.</button>
+                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['next']); ?></button>
                     </form>                    
                 </li>				
 <?php
@@ -121,9 +121,9 @@
                                          <!-- BOTONES DE CONTROL -->
         <div class="row mb-5">
             <form class="text-center text-lg-start" action="/admin/admin_dishes.php" method="post">                
-                <button type="submit" class="btn btn-primary" name="action" value="show_form">Nuevo</button>                               
-                <button type="submit" class="btn btn-primary" name="action" value="listado">Ir a listado</button> 
-                <button type="submit" class="btn btn-primary" name="action" value="search">Buscar</button>               
+                <button type="submit" class="btn btn-primary" name="action" value="show_form"><?php echo ucfirst($page->language['new']); ?></button>                               
+                <button type="submit" class="btn btn-primary" name="action" value="listado"><?php echo ucfirst($page->language['go_to_list']); ?></button> 
+                <button type="submit" class="btn btn-primary" name="action" value="search"><?php echo ucfirst($page->language['search']); ?></button>               
             </form>
         </div>        
     </div>    

@@ -70,7 +70,7 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label">Disponible:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
-                    <?php if($dishe['available'] === "SI") {?>
+                    <?php if($dishe['available'] === "si") {?>
                         <input type="checkbox" name="available" id="available" value="SI" checked> 
                     <?php }else { ?>                    
                         <input type="checkbox" name="available" id="available" value="SI"> 

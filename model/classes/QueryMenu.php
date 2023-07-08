@@ -30,7 +30,7 @@
 
             $stm = $dbcon->pdo->prepare($query);           
             foreach ($fields as $key => $value) {
-                $stm->bindValue(":$key", $value); 
+                $stm->bindValue(":$key", strtolower($value)); 
             }
 
             $stm->execute();       				
@@ -61,7 +61,7 @@
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
                 $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
-                if($menuCategories[$i]['available'] === "SI") {
+                if($menuCategories[$i]['available'] === "si") {
                     $showResult .= "<li><a href='/menu/info_dishe/show_info.php?id={$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 }
 
