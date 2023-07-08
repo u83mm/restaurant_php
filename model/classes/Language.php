@@ -27,6 +27,7 @@
                 "nav_link_administration"       => "administración",
                 "nav_link_orders"               => "pedidos",
                 "our_menu"                      => "nuestra carta",
+                "send"                          => "enviar",
                 "aperitivos"                    => "aperitivos",
                 "aperitifs"                     => "aperitivos",
                 "entrantes"                     => "entrantes",
@@ -80,7 +81,7 @@
                 "go_back"                       => "volver atrás",
                 "logged_as"                     => "logeado como",
                 "captcha_text"                  => "introduce la serie de caracteres",
-                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hola <strong>{$_SESSION['user_name']}</strong>, debes tener privilegios de administrador para realizar esta acción</p>",
+                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hola <strong>" . ucfirst($_SESSION['user_name']) . "</strong>, no tienes privilegios para realizar esta acción.</p>",
             ];
 
             return $this->language;
@@ -105,6 +106,7 @@
                 "nav_link_administration"       => "administration",
                 "nav_link_orders"               => "orders",
                 "our_menu"                      => "our menu",
+                "send"                          => "send",
                 "aperitivos"                    => "aperitifs",
                 "entrantes"                     => "starters",
                 "ensaladas"                     => "salads",
@@ -144,7 +146,7 @@
                 "go_back"                       => "go back",
                 "logged_as"                     => "logged as",
                 "captcha_text"                  => "enter the code shown above",
-                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hi <strong>{$_SESSION['user_name']}</strong>, you must to have ROOT privileges to do this action</p>",
+                "alert_access"                  => "<p class='alert alert-danger text-center container'>Hi <strong>" . ucfirst($_SESSION['user_name']) . "</strong>, you don't have privileges to do this action.</p>",
             ];
 
             return $this->language;

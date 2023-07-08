@@ -39,7 +39,7 @@
 					</div>              									
 					<!--<img src="/view/captcha/captcha_view.php" alt="CAPTCHA"><br>-->
 					<div class="col text-center">
-						<button class="btn btn-outline-success" name="action" value="test_captcha" type="submit">Send</button>
+						<button class="btn btn-outline-success" name="action" value="test_captcha" type="submit"><?php echo ucfirst($home->language['send']); ?></button>
 					</div>										
 				</form>
 			</div>            

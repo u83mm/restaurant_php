@@ -8,7 +8,10 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? "");		
-	$indexController = new IndexController($dbcon);	
+	$indexController = new IndexController($dbcon);		
+
+	/** Test page language */
+	$_SESSION['language'] = $_POST['language'] ?? $_SESSION['language'] ?? "spanish";
 
 	match($action) {
 		default			=>	$indexController->showCaptcha(),

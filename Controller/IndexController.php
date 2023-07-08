@@ -21,10 +21,7 @@
        */
         public function index(): void
         {                      
-            try {
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                 
-                                             
+            try {                                                                            
                 $menuDayQuery = new QueryMenu();            
 
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -35,6 +32,7 @@
                 /** Calculate menu's day price */
 
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon); 
+                //var_dump($_SESSION['user_name']);die;               
                                                         
                 include(SITE_ROOT . "/../view/main_view.php");
 
@@ -54,14 +52,13 @@
         }
 
         public function showCaptcha():void
-        {
-            /** Test page language */
-            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];            
-
-            if(isset($_SESSION['user_name'])) {
+        {                                                            
+            if(isset($_SESSION['role'])) {
                 $this->index();
                 die;
-            }            
+            }
+            
+            $_SESSION['user_name'] = "";
 
             define('NUM_BYTES', 3);
             define('FONT_FILE', SITE_ROOT . '/ttf/FreeSansBold.ttf');
