@@ -23,7 +23,7 @@
             <select name="category" id="category" required>
                 <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
             <?php foreach ($categoriesDishesDay as $key => $category) { ?>
-                <option value="<?php echo $category["category_id"]; ?>"><?php if(isset($category)) echo ucfirst($category["category_name"]); ?></option>
+                <option value="<?php echo $category["category_id"]; ?>"><?php if(isset($category)) echo ucfirst($home->language[$category["category_name"]]); ?></option>
             <?php } ?>
             </select>
         </div>                
@@ -34,7 +34,7 @@
             <select name="dishes_type" id="dishes_type" required>
                 <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
             <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                <option value="<?php echo $category["menu_id"]; ?>"><?php if(isset($category)) echo ucfirst($category["menu_category"]); ?></option>
+                <option value="<?php echo $category["menu_id"]; ?>"><?php if(isset($category)) echo ucfirst($home->language[$category["menu_category"]]); ?></option>
             <?php } ?>
             </select>
         </div>                
