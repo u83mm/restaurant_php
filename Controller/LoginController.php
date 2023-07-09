@@ -20,7 +20,7 @@
         the home page. If the email does not exist, it displays an error message. If the password is
         incorrect, it displays an error message. If the email and password are empty, it displays
         the login form. */
-        public function login(): void
+        public function login(array $language = null): void
         {
             // recogemos los datos del formulario
 			$email = $_REQUEST['email'] ?? "";
@@ -50,14 +50,17 @@
 								header("Location: /");							
 							}
 							else {
-								$error_msg = "<p class='alert alert-danger text-center'>Tu usuario y contraseña no coinciden</p>";
-								include(SITE_ROOT . "/../view/login_view.php");
+								$error_msg = $language['alert_login'];								
+								//include(SITE_ROOT . "/../view/login_view.php");
 							}			
 						}
 						else {		
-							$error_msg = "<p class='alert alert-danger text-center'>Comprueba tus datos de acceso</p>";										
-							include(SITE_ROOT . "/../view/login_view.php");
+							$error_msg = $language['alert_login'];													
+							//include(SITE_ROOT . "/../view/login_view.php");
 						}
+
+						//include(SITE_ROOT . "/../view/login_view.php");
+						//return;
 					} catch (\Throwable $th) {					
 						$error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
