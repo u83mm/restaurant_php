@@ -63,6 +63,7 @@
                 "macarrones a la boloñesa"      => "macarrones a la boloñesa",
                 "espaguetis a la carbonara"     => "espaguetis a la carbonara",
                 "ensalada catalana"             => "ensalada catalana",
+                "catalan salad"                 => "ensalada catalana",
                 "ensalada mixta"                => "ensalada mixta",
                 "bistec con patatas y verduras" => "bistec con patatas y verduras",
                 "entrecot al gusto"             => "entrecote al gusto",
@@ -114,6 +115,9 @@
                 "description"                   => "descripción",
                 "dish_type"                     => "tipo de plato",
                 "select"                        => "selecciona",
+                "product_details"               => "detalles del producto",
+                "change_image"                  => "cambiar imagen",
+                "update"                        => "actualizar",
             ];
 
             return $this->language;
@@ -160,6 +164,7 @@
                 "macarrones a la boloñesa"      => "macaroni bolognese",
                 "espaguetis a la carbonara"     => "spaghetti carbonara",
                 "ensalada catalana"             => "catalan salad",
+                "catalan salad"                 => "catalan salad",
                 "ensalada mixta"                => "mixt salad",
                 "bistec con patatas y verduras" => "steak with potatoes and vegetables",
                 "entrecot al gusto"             => "entrecote to taste",
@@ -211,6 +216,9 @@
                 "description"                   => "description",
                 "dish_type"                     => "dish type",
                 "select"                        => "select",
+                "product_details"               => "product details",
+                "change_image"                  => "change image",
+                "update"                        => "update",
             ];
 
             return $this->language;

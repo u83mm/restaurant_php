@@ -3,6 +3,7 @@
 
     use Exception;
     use model\classes\CommonTasks;
+    use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
     use model\classes\Validate;    
@@ -10,10 +11,12 @@
 
     class DishesController
     {        
-        public function __construct(private object $dbcon)
-        {
+        private Language $languageObject;
 
-        }      
+        public function __construct(private object $dbcon, private array $language = [])      
+        {
+            $this->languageObject = new Language();
+        }    
 
         /** Show dishes index */
         public function index(): void
@@ -402,23 +405,28 @@
             }            
            
             try {
+                // Change category's language to spanish to do the query to the DB
+                $this->language = $this->languageObject->spanish();               
+
                 // Validate entries
                 $validate = new Validate();
-                $commonTask = new CommonTasks();         
+                $commonTask = new CommonTasks();                               
 
                 $fields = [
                     "id"            => $_REQUEST['dishe_id'] ?? "",
-                    "name"          => $validate->test_input($_REQUEST['name'] ?? ""),
+                    "name"          => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
                     "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
                     "available"     => $validate->test_input($_REQUEST['available'] ?? "NO"),
-                ];                                 
+                ];  
+                
+                //var_dump($fields['name']);die;
 
                 $validateOk = $validate->validate_form($fields);                   
 
-                if ($validateOk) {
+                if ($validateOk) {                     
                     $query = new QueryMenu();
 
                     /** Get the object to manage the picture in the DB  */

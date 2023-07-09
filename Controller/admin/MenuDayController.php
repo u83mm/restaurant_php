@@ -2,7 +2,7 @@
     namespace Controller\admin;
     
     use Exception;
-use model\classes\Query;
+    use model\classes\Query;
 
     class MenuDayController
     {
