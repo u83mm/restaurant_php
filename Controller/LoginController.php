@@ -50,12 +50,12 @@
 								header("Location: /");							
 							}
 							else {
-								$error_msg = $language['alert_login'];								
+								$error_msg = "<p class='alert alert-danger text-center'>" . ucfirst($language['alert_login']) . "</p>";							
 								//include(SITE_ROOT . "/../view/login_view.php");
 							}			
 						}
 						else {		
-							$error_msg = $language['alert_login'];													
+							$error_msg = "<p class='alert alert-danger text-center'>" . ucfirst($language['alert_login']) . "</p>";												
 							//include(SITE_ROOT . "/../view/login_view.php");
 						}
 

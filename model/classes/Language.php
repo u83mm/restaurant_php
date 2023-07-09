@@ -1,6 +1,10 @@
 <?php
     namespace model\classes;
 
+    require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
+
+	Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
+
     class Language
     {
         public function __construct(private array $language = [])
@@ -10,7 +14,16 @@
 
         public function spanish() : array 
         {
-            $this->language = [
+            global $dbcon;
+
+            $query = new Query();
+            $spanish_dict = $query->selectAll('spanish_dict', $dbcon);            
+
+            foreach ($spanish_dict as $key => $value) {
+                $this->language[$value['key_word']] = $value['value'];
+            }
+
+            /*$this->language = [
                 "flag_text"                     => "english",
                 "flag"                          => "english",
                 "welcome"                       => "bienvenido",
@@ -119,7 +132,7 @@
                 "product_details"               => "detalles del producto",
                 "change_image"                  => "cambiar imagen",
                 "update"                        => "actualizar",
-            ];
+            ];*/
 
             return $this->language;
         }
@@ -221,6 +234,7 @@
                 "product_details"               => "product details",
                 "change_image"                  => "change image",
                 "update"                        => "update",
+                "hi"                            => "hi",
             ];
 
             return $this->language;

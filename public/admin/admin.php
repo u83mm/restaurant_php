@@ -17,8 +17,8 @@
 	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
 
 	/** Check for user`s sessions */	
-	if($_SESSION['role'] !== "ROLE_ADMIN") {		
-		$error_msg = $language['alert_access'];
+	if($_SESSION['role'] !== "ROLE_ADMIN") {				
+		$error_msg = "<p class='alert alert-danger text-center container'>" . ucfirst($language['hi']) . " <strong>" . ucfirst($_SESSION['user_name']) . "</strong>, " . $language['alert_access'] . "</p>";
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}
 	else {		

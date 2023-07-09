@@ -20,7 +20,7 @@
        * the main view.
        */
         public function index(): void
-        {                      
+        {                                 
             try {                                                                            
                 $menuDayQuery = new QueryMenu();            
 

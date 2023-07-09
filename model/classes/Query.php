@@ -10,9 +10,6 @@
         public function __construct(public array $language = [])      
         {
             $this->languageObject = new Language();
-
-            /** Configure page language */           
-			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
         }
 
         /**
@@ -331,5 +328,26 @@
                 throw new \Exception("{$th->getMessage()}");
             }
         }
+
+        /**
+         * Select all from "table name" and return as JSON
+         */
+        public function selectAllAsJson(string $table, object $dbcon): string
+        {
+            $query = "SELECT * FROM $table";
+
+            try {
+                $stm = $dbcon->pdo->prepare($query);
+                $stm->execute();
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+
+                return json_encode($rows);
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
+        }
+
     }    
 ?>

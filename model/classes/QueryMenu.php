@@ -56,6 +56,9 @@
 
         public function showMenuListByCategory(array $menuCategories, string $category)
         { 
+            /** Configure page language */           
+			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
+            
             $showResult = ""; 
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
