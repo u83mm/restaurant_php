@@ -110,6 +110,10 @@
                 "no"                            => "no",
                 "prev"                          => "ant",
                 "next"                          => "sig",
+                "new_product"                   => "nuevo producto",
+                "description"                   => "descripción",
+                "dish_type"                     => "tipo de plato",
+                "select"                        => "selecciona",
             ];
 
             return $this->language;
@@ -203,6 +207,10 @@
                 "no"                            => "no",
                 "prev"                          => "prev",
                 "next"                          => "next",
+                "new_product"                   => "new product",
+                "description"                   => "description",
+                "dish_type"                     => "dish type",
+                "select"                        => "select",
             ];
 
             return $this->language;
