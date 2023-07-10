@@ -34,7 +34,7 @@
                             <td class="text-center">
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="d-inline">
                                     <input type="hidden" name="id_user" value="<?php echo $value['id']; ?>">
-                                    <input class="btn btn-outline-success" type="submit" name="action" value="Show">
+                                    <button class="btn btn-outline-success" type="submit" name="action" value="show"><?php echo ucfirst($page->language['edit']); ?></button>
                                 </form>
                                 <?php include(SITE_ROOT . "/../view/admin/user_delete_form.php"); ?>
                             </td>
@@ -46,8 +46,8 @@
         </div>
         <div class="row">
             <form class="text-center text-lg-start" action="#" method="post">
-                <button class="btn btn-primary mb-5" type="submit" name="action" value="new">Nuevo</button>                                
-                <a class="btn btn-primary mb-5" href="/admin/admin.php">Volver</a>
+                <button class="btn btn-primary mb-5" type="submit" name="action" value="new"><?php echo ucfirst($page->language['new']); ?></button>                                
+                <a class="btn btn-primary mb-5" href="/admin/admin.php"><?php echo ucfirst($page->language['go_back']); ?></a>
             </form>
         </div>        
     </div>    

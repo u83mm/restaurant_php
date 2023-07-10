@@ -7,13 +7,13 @@
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links, "administration");
 ?>
-	<h3 class="text-center">DATOS DE USUARIO</h3>
+	<h3 class="text-center"><?php echo strtoupper($page->language['user_data']); ?></h3>
     <div class="col-12 col-md-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
             <input type="hidden" name="id_user" value="<?php echo $user['id']?>">
             <div class="row mb-3">
-                <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="user_name">User:</label>
+                <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="user_name"><?php echo ucfirst($page->language['user']); ?>:</label>
                 <div class="col-sm-8">
                     <input class="form-control" type="text" name="user_name" id="user_name" value="<?php echo $user['user_name']; ?>" required>
                 </div>                
@@ -38,9 +38,9 @@
             <div class="row mb-3 mt-5">
                 <label class="col-12 col-sm-3 text-center text-md-end" for="nome">&nbsp;</label>
                 <div class="col-sm-8 text-center text-md-start">
-                    <input class="btn btn-outline-success" type="submit" name="action" value="Update">
-                    <input class="btn btn-outline-primary" type="submit" name="action" value="Change Password">
-                    <input class="btn btn-outline-primary" type="submit" name="action" value="Volver">
+                    <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>
+                    <button class="btn btn-outline-primary" type="submit" name="action" value="change password"><?php echo ucwords($page->language['change_password']); ?></button>
+                    <button class="btn btn-outline-primary" type="submit" name="action" value="volver"><?php echo ucfirst($page->language['go_back']); ?></button>
                 </div>                
             </div>                                                              
         </form>        

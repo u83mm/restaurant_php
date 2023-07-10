@@ -1,4 +1,4 @@
-<form class="d-inline" action="#" method="post" onsubmit="return confirm('¿Estás seguro de querer eliminar el registro?')">
+<form class="d-inline" action="#" method="post" onsubmit="return confirm('¿<?php echo ucfirst($page->language['alert_delete']); ?>?')">
     <input type="hidden" name="id_user" value="<?php echo $value['id']; ?>">
-    <input type="submit" class="btn btn-outline-danger" name="action" value="Delete">
+    <button type="submit" class="btn btn-outline-danger" name="action" value="delete"><?php echo ucfirst($page->language['delete']); ?></button>
 </form>
