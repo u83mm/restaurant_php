@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 09-07-2023 a las 21:09:57
+-- Tiempo de generación: 10-07-2023 a las 12:42:53
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -117,6 +117,120 @@ INSERT INTO `dishes_menu` (`menu_id`, `menu_category`) VALUES
 (13, 'champagne'),
 (14, 'bebidas'),
 (15, 'licores');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `english_dict`
+--
+
+CREATE TABLE `english_dict` (
+  `id` int(11) NOT NULL,
+  `key_word` varchar(50) NOT NULL,
+  `value` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `english_dict`
+--
+
+INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
+(1, 'flag_text', 'español'),
+(2, 'flag', 'spanish'),
+(3, 'welcome', 'welcome'),
+(4, 'day_menu', 'day\'s menu'),
+(5, 'first_plates', 'starters'),
+(6, 'seconds', 'main dishes'),
+(7, 'desserts', 'desserts'),
+(8, 'price', 'price'),
+(9, 'menu_day_footer', 'bdrink: water, wine or refresh drink'),
+(10, 'nav_link_home', 'home'),
+(11, 'nav_link_menu', 'menu'),
+(12, 'nav_link_logout', 'logout'),
+(13, 'nav_link_sign_up', 'sign up'),
+(14, 'nav_link_administration', 'administration'),
+(15, 'nav_link_orders', 'orders'),
+(16, 'our_menu', 'our menu'),
+(17, 'send', 'send'),
+(18, 'aperitivos', 'aperitifs'),
+(20, 'entrantes', 'starters'),
+(22, 'ensaladas', 'salads'),
+(24, 'carnes', 'meats'),
+(25, 'meats', 'carnes'),
+(26, 'pescados', 'fishes'),
+(28, 'arroces', 'rices'),
+(30, 'postres', 'desserts'),
+(32, 'cafés', 'coffees'),
+(34, 'tintos', 'red wines'),
+(36, 'blancos', 'white wines'),
+(38, 'rosados', 'pink wines'),
+(40, 'cavas', 'sparking wine'),
+(42, 'champagne', 'champagne'),
+(43, 'bebidas', 'drinks'),
+(45, 'licores', 'liquors'),
+(47, 'olivas rellenas', 'stuffed olives'),
+(48, 'patatas chips', 'bag of chips'),
+(49, 'anchoas de la casa', 'house anchovies'),
+(50, 'macarrones a la boloñesa', 'macaroni bolognese'),
+(51, 'espaguetis a la carbonara', 'spaghetti carbonara'),
+(52, 'ensalada catalana', 'catalan salad'),
+(53, 'catalan salad', 'catalan salad'),
+(54, 'ensalada mixta', 'mixt salad'),
+(55, 'bistec con patatas y verduras', 'steak with potatoes and vegetables'),
+(56, 'entrecot al gusto', 'entrecote to taste'),
+(57, 'salmón a la plancha', 'grilled salmon'),
+(58, 'paella valenciana', 'valencian paella'),
+(59, 'arroz con setas', 'rice with mushrooms'),
+(60, 'crema catalana', 'catalan cream'),
+(61, 'creps de la casa', 'house pancakes'),
+(62, 'café solo', 'black coffee'),
+(63, 'café cortado', 'small white coffee'),
+(64, 'tinto de la casa', 'house red wine'),
+(65, 'blanco de la casa', 'house white wine'),
+(66, 'refresco de cola', 'cola drink'),
+(67, 'agua mineral', 'mineral water'),
+(68, 'jarra de cerveza', 'beer jar'),
+(69, 'go_back', 'go back'),
+(70, 'logged_as', 'logged as'),
+(71, 'captcha_text', 'enter the code shown above'),
+(72, 'alert_access', 'you don\'t have privileges to do this action.'),
+(73, 'alert_login', 'check your credentials'),
+(74, 'alert_delete', 'are you sure you want to delete it'),
+(75, 'register_form', 'register form'),
+(76, 'main_menu', 'main menu'),
+(77, 'products', 'products'),
+(78, 'menu_day_price', 'menu\'s price of the day'),
+(79, 'show_list', 'show list'),
+(80, 'search', 'search'),
+(81, 'new', 'new'),
+(82, 'users', 'users'),
+(83, 'categories', 'categories'),
+(84, 'orders', 'orders'),
+(85, 'go_to_list', 'go to the list'),
+(86, 'product_list', 'product listing'),
+(87, 'image', 'image'),
+(88, 'name', 'name'),
+(89, 'category', 'category'),
+(90, 'available', 'available'),
+(91, 'options', 'options'),
+(92, 'edit', 'edit'),
+(93, 'delete', 'delete'),
+(94, 'carta', 'menu'),
+(95, 'primero', 'firts'),
+(96, 'segundo', 'second'),
+(97, 'postre', 'dessert'),
+(98, 'si', 'yes'),
+(99, 'no', 'no'),
+(100, 'prev', 'prev'),
+(101, 'next', 'next'),
+(102, 'new_product', 'new product'),
+(103, 'description', 'description'),
+(104, 'dish_type', 'dish type'),
+(105, 'select', 'select'),
+(106, 'product_details', 'product details'),
+(107, 'change_image', 'change image'),
+(108, 'update', 'update'),
+(109, 'hi', 'hi');
 
 -- --------------------------------------------------------
 
@@ -375,6 +489,12 @@ ALTER TABLE `dishes_menu`
   ADD PRIMARY KEY (`menu_id`);
 
 --
+-- Indices de la tabla `english_dict`
+--
+ALTER TABLE `english_dict`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `menu_day_price`
 --
 ALTER TABLE `menu_day_price`
@@ -427,6 +547,12 @@ ALTER TABLE `dishes_day`
 --
 ALTER TABLE `dishes_menu`
   MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `english_dict`
+--
+ALTER TABLE `english_dict`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
