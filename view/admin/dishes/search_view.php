@@ -8,42 +8,54 @@
 	$home->do_html_nav($home->nav_links, "administration");
 ?>	
     <div class="row">
-        <h3 class="text-center pb-2">BÚSCAR PRODUCTO</h3>
+        <h3 class="text-center pb-2"><?php echo strtoupper($home->language['search_product']); ?></h3>
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
         <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
-            <h4 class="text-center">Criterios de búsqueda</h4>                                    
+            <h4 class="text-center"><?php echo ucfirst($home->language['search_criteria']); ?></h4>                                    
             <div class="row mb-3">
-                <h5 class="text-center">Por nombre</h5> 
+
+
+                <!-- By name -->
+
+                <h5 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h5> 
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="name">
-                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
+                    <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
-                        <input class="form-control" type="text" name="critery" id="name" placeholder="Nombre del plato" required>
+                        <input class="form-control" type="text" name="critery" id="name" placeholder="<?php echo ucfirst($home->language['place_holder_dish_name']); ?>" required>
                     </div>                  
                 </form>
                 <hr>
-                <h5 class="text-center">Por disponibilidad</h5> 
+
+
+                <!-- By availability -->
+
+                <h5 class="text-center"><?php echo ucfirst($home->language['by_availability']); ?></h5> 
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
-                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
+                    <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="available" required>
-                            <option value="">- Selecciona -</option>
+                            <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
                             <option value="SI">Disponibles</option>
                             <option value="NO">NO disponibles</option>
                         </select> 
                     </div>                  
                 </form>
                 <hr>
-                <h5 class="text-center">Por categoría</h5>
+
+
+                <!-- By category -->
+
+                <h5 class="text-center"><?php echo ucfirst($home->language['by_category']); ?></h5>
                 <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
-                    <button class="btn btn-primary" name="action" value="search">Buscar</button>
+                    <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="category" required>
-                            <option value="">- Selecciona -</option>
+                            <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
                         <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                            <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($category["menu_category"]); ?></option>
+                            <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($home->language[$category["menu_category"]]); ?></option>
                         <?php } ?>                          
                         </select> 
                     </div>                  
@@ -60,7 +72,7 @@
     <div class="col-12 col-lg-6 mx-auto">                
 		<form action="/admin/admin.php" method="post">
             <input type="hidden" name="action" value="admin_menus">
-            <input type="submit" class="btn btn-primary mb-5" value="Volver">
+            <button type="submit" class="btn btn-primary mb-5" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button>
         </form>
     </div>
 <?php
