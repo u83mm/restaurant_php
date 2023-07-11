@@ -43,7 +43,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -66,7 +66,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -89,7 +89,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -112,7 +112,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -135,7 +135,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -158,7 +158,7 @@
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
-                            <input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo ucfirst($item['name']); ?>">
+                            <input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo strtolower($item['name']); ?>">
                             <?php echo ucfirst($home->language[$item['name']]); ?>
                         </div>
                         <div class="col-2 d-inline-block">
