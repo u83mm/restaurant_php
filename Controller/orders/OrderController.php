@@ -4,8 +4,9 @@
     namespace Controller\orders;
 
     use Controller\admin\ComandasController;
-use model\classes\Query;
-use model\orders\Order;
+    use model\classes\Language;
+    use model\classes\Query;
+    use model\orders\Order;
     use model\repositories\OrderRepository;
 
     class OrderController
@@ -25,11 +26,17 @@ use model\orders\Order;
         private array $coffees = [];
         private array $coffees_qty = [];
 
+
+        /** Create array and object for diferent languages */
+
+        private array $language = [];
+        private Language $languageObject;
+
         public function __construct(
             private object $dbcon, 
             private string $message = "")
         {
-                        
+            $this->languageObject = new Language();             
         }
       
         /**
@@ -45,11 +52,26 @@ use model\orders\Order;
                         
             try {
                 /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
-                
-                $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- Selecciona -";
-                $_SESSION['people_qty'] = $variables['people_qty'] ?? $_SESSION['people_qty'] ?? "- Selecciona -"; 
 
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+
+
+                /** Configure page language */
+
+			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
+                
+                
+                /** Show text in 'Select' elements, table number or people quantity */
+                
+                if(isset($_SESSION['table_number']) && ($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
+                    $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'];
+                    $_SESSION['people_qty']   = $variables['people_qty']   ?? $_SESSION['people_qty'];                   
+                }
+                else {
+                    $_SESSION['table_number'] = "- " . ucfirst($this->language['select']) . " -";
+                    $_SESSION['people_qty']   = "- " . ucfirst($this->language['select']) . " -";
+                }                
+                                
 
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
 

@@ -5,7 +5,7 @@
     <div class="row mb-4 col-12 col-md-8 mx-auto">
         <!-- Mesa -->
         <div class="col-6">
-            <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="table_number">Mesa:</label>
+            <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="table_number"><?php echo ucfirst($home->language['table']); ?>:</label>
             <div class="col-12 col-md-7 d-inline-block text-center text-md-start">
                 <select name="table_number" id="table_number" >
                     <option value="<?php if(isset($_SESSION['table_number'])) echo $_SESSION['table_number']; ?>"><?php if(isset($_SESSION['table_number'])) echo $_SESSION['table_number']; ?></option>
@@ -18,7 +18,7 @@
 
          <!-- Personas -->
         <div class="col-6">
-            <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="people_qty">Personas:</label>
+            <label class="col-12 col-md-4 text-center text-md-end col-form-label" for="people_qty"><?php echo ucfirst($home->language['people']); ?>:</label>
             <div class="col-12 col-md-7 d-inline-block text-center text-md-start">
                 <select name="people_qty" id="people_qty" >
                     <option value="<?php if(isset($_SESSION['people_qty'])) echo $_SESSION['people_qty']; ?>"><?php if(isset($_SESSION['people_qty'])) echo $_SESSION['people_qty']; ?></option>
@@ -36,7 +36,7 @@
                                             <!-- Aperitivos -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Aperitivos</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['aperitivos']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->aperitifs as $item): ?>
@@ -59,7 +59,7 @@
                                             <!-- Primeros -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Primeros</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['first_plates']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->firsts as $item): ?>
@@ -82,7 +82,7 @@
                                             <!-- Segundos -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Segundos</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['seconds']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->seconds as $item): ?>
@@ -105,7 +105,7 @@
                                             <!-- Bebidas -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Bebidas</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['drinks']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->drinks as $item): ?>
@@ -128,7 +128,7 @@
                                             <!-- Postres -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Postres</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['desserts']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->desserts as $item): ?>
@@ -151,7 +151,7 @@
                                             <!-- Cafés y licores -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center">Cafés y Licores</h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['coffees_and_loquuors']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->coffees as $item): ?>
@@ -174,9 +174,9 @@
     <div class="row mb-5">
         <div class="col-12 text-center">
             <input type="hidden" name="id" value="<?php echo $id; ?>">            
-            <button class="btn btn-outline-success" type="submit" name="action" value="save">Enviar</button>
-            <button class="btn btn-outline-primary" type="submit" name="action" value="reset_order">Nuevo Pedido</button>
-            <button class="btn btn-outline-primary" type="submit" name="action" value="update_order">Actualizar</button>                       
+            <button class="btn btn-outline-success" type="submit" name="action" value="save"><?php echo ucfirst($home->language['send']); ?></button>
+            <button class="btn btn-outline-primary" type="submit" name="action" value="reset_order"><?php echo ucwords($home->language['new_order']); ?></button>
+            <button class="btn btn-outline-primary" type="submit" name="action" value="update_order"><?php echo ucfirst($home->language['update']); ?></button>                       
         </div>  
     </div>                                                              
 </form>

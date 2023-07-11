@@ -8,7 +8,7 @@
 	$home->do_html_nav($home->nav_links, $home->language['nav_link_orders']);
 ?>	
 								<!--- SECTION WITH INFO -->
-	<h3 class="text-center">NUEVO PEDIDO</h3>
+	<h3 class="text-center"><?php echo strtoupper($home->language['new_order']); ?></h3>
     <div class="col-12 mx-auto">
         <?php echo $message = $this->message ?? ""; ?>
         <?php include(SITE_ROOT . "/../view/orders/form_view.php") ?>    
