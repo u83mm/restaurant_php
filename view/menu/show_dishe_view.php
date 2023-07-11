@@ -36,7 +36,7 @@
 			<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
 				<form action="/orders/index.php" method="post">
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
-					<label class="col-3 col-md-2 col-form-label" for="qty">Cant.</label>
+					<label class="col-3 col-md-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
 					<select class="align-middle" name="place" id="place">
 						<option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
@@ -47,7 +47,7 @@
 						<option value="drinks"><?php echo ucfirst($home->language['drink']); ?></option>
 						<option value="coffees"><?php echo ucfirst($home->language['coffees_and_liquors']); ?></option>
 					</select>
-					<button class="btn btn-outline-success">Pedir</button>
+					<button class="btn btn-outline-success"><?php echo ucfirst($home->language['to_order']); ?></button>
 				</form>				
 			<?php endif ?>
 			</div>		
