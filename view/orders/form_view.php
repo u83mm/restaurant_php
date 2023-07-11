@@ -151,7 +151,7 @@
                                             <!-- Cafés y licores -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-5">
-            <h3 class="text-center"><?php echo ucfirst($home->language['coffees_and_loquuors']); ?></h3>
+            <h3 class="text-center"><?php echo ucfirst($home->language['coffees_and_liquors']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
                 <?php foreach ($this->coffees as $item): ?>

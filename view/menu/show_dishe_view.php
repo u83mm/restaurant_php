@@ -39,13 +39,13 @@
 					<label class="col-3 col-md-2 col-form-label" for="qty">Cant.</label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
 					<select class="align-middle" name="place" id="place">
-						<option value="">- Select -</option>
-						<option value="aperitifs">Aperitivo</option>
-						<option value="firsts">Primero</option>
-						<option value="seconds">Segundo</option>
-						<option value="desserts">Postre</option>
-						<option value="drinks">Bebida</option>
-						<option value="coffees">Café y Licores</option>
+						<option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
+						<option value="aperitifs"><?php echo ucfirst($home->language['aperitif']); ?></option>
+						<option value="firsts"><?php echo ucfirst($home->language['primero']); ?></option>
+						<option value="seconds"><?php echo ucfirst($home->language['segundo']); ?></option>
+						<option value="desserts"><?php echo ucfirst($home->language['postre']); ?></option>
+						<option value="drinks"><?php echo ucfirst($home->language['drink']); ?></option>
+						<option value="coffees"><?php echo ucfirst($home->language['coffees_and_liquors']); ?></option>
 					</select>
 					<button class="btn btn-outline-success">Pedir</button>
 				</form>				
