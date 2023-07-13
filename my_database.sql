@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 10-07-2023 a las 12:42:53
+-- Tiempo de generación: 13-07-2023 a las 20:10:09
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -143,7 +143,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (6, 'seconds', 'main dishes'),
 (7, 'desserts', 'desserts'),
 (8, 'price', 'price'),
-(9, 'menu_day_footer', 'bdrink: water, wine or refresh drink'),
+(9, 'menu_day_footer', 'drink: water, wine or refresh drink'),
 (10, 'nav_link_home', 'home'),
 (11, 'nav_link_menu', 'menu'),
 (12, 'nav_link_logout', 'logout'),
@@ -216,7 +216,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (92, 'edit', 'edit'),
 (93, 'delete', 'delete'),
 (94, 'carta', 'menu'),
-(95, 'primero', 'firts'),
+(95, 'primero', 'first'),
 (96, 'segundo', 'second'),
 (97, 'postre', 'dessert'),
 (98, 'si', 'yes'),
@@ -230,7 +230,35 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (106, 'product_details', 'product details'),
 (107, 'change_image', 'change image'),
 (108, 'update', 'update'),
-(109, 'hi', 'hi');
+(109, 'hi', 'hi'),
+(110, 'search_product', 'search product'),
+(111, 'place_holder_dish_name', 'dish\'s name'),
+(112, 'by_name', 'by name'),
+(113, 'by_availability', 'by availability'),
+(114, 'by_category', 'by category'),
+(115, 'search_criteria', 'search criteria'),
+(116, 'availables', 'availables'),
+(117, 'change_password', 'change password'),
+(118, 'user_data', 'user data'),
+(119, 'user', 'user'),
+(120, 'password', 'password'),
+(121, 'repeat_password', 'repeat password'),
+(122, 'new_order', 'new order'),
+(123, 'table', 'table'),
+(124, 'people', 'people'),
+(125, 'drinks', 'drinks'),
+(126, 'coffees_and_liquors', 'coffees / liquors'),
+(127, 'aperitif', 'aperitif'),
+(128, 'drink', 'drink'),
+(129, 'to_order', 'order'),
+(130, 'qty', 'qty.'),
+(131, 'current_orders', 'current orders'),
+(132, 'people_qty', 'p. qty'),
+(133, 'firsts', 'starters'),
+(134, 'add', 'to add'),
+(135, 'see_data', 'see data'),
+(136, 'alert_table_number', 'select a table number'),
+(137, 'alert_people_qty', 'select people quantity');
 
 -- --------------------------------------------------------
 
@@ -285,14 +313,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 2, 'Patatas chips', '1', '1', 'Ensalada mixta,Espaguetis a la carbonara', '1,1', '1,1', 'Bistec con patatas y verduras,Entrecot al gusto', '1,1', '1,1', 'Creps de la casa,Crema Catalana', '1,1', '1,1', 'Agua mineral,Tinto de la casa', '2,1', '1,1', '', '', ''),
-(2, 2, 2, 'Patatas chips', '1', '1', '', '', '', '', '', '', '', '', '', 'Refresco de cola', '2', '', 'Café cortado', '1', '1'),
-(5, 4, 2, 'Patatas chips,Olivas rellenas', '1,2', '1,1', '', '', '', '', '', '', '', '', '', 'Refresco de cola', '2', '1', 'Café cortado', '1', ''),
-(8, 11, 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Café cortado,Café solo', '2,1', '1,1'),
-(9, 13, 2, 'Patatas chips', '1', '1', 'Ensalada mixta,Espaguetis a la carbonara', '1,1', '1,1', 'Paella Valenciana', '2', '1', 'Creps de la casa', '2', '1', 'Refresco de cola,Tinto de la casa,Agua mineral', '2,1,1', '1,1,1', 'Café solo,Café cortado', '1,1', '1,1'),
-(10, 3, 2, 'Anchoas de la casa,Patatas chips', '1,1', '1', '', '', '', '', '', '', '', '', '', 'Refresco de cola,Jarra de cerveza', '2,1', '1', '', '', ''),
-(12, 5, 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Café solo', '2', '0'),
-(13, 7, 2, 'Patatas chips,Anchoas de la casa', '1,1', '1', 'Ensalada mixta,Ensalada catalana', '1,1', '1,1', 'Salmón a la plancha,Bistec con patatas y verduras', '1,1', '0,<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>97</b><br />\r\n', 'Crema Catalana,Creps de la casa', '1,1', '0,<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>121</b><br />\r\n', 'Jarra de cerveza,Refresco de cola', '1,1', '1,1', '', '', '');
+(1, 1, 2, 'olivas rellenas', '1', '0', 'ensalada catalana', '1', '', 'paella valenciana', '2', '', 'creps de la casa,crema catalana', '1,1', '', 'agua mineral', '1', '', '', '', ''),
+(4, 2, 2, '', '', '0', 'ensalada mixta', '2', '0', 'paella valenciana', '2', '0', 'creps de la casa', '2', '0', '', '', '0', '', '', '0'),
+(6, 3, 2, '', '', '0', 'espaguetis a la carbonara', '1', '0', 'salmón a la plancha', '2', '0', '', '', '0', '', '', '0', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -439,7 +462,34 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (106, 'product_details', 'detalles del producto'),
 (107, 'change_image', 'cambiar imagen'),
 (108, 'update', 'actualizar'),
-(109, 'hi', 'hola');
+(109, 'hi', 'hola'),
+(110, 'search_product', 'buscar producto'),
+(111, 'place_holder_dish_name', 'nombre del plato'),
+(112, 'by_name', 'por nombre'),
+(113, 'by_availability', 'por disponibilidad'),
+(114, 'by_category', 'por categoría'),
+(115, 'search_criteria', 'criterios de búsqueda'),
+(116, 'availables', 'disponibles'),
+(117, 'change_password', 'cambiar contraseña'),
+(118, 'user_data', 'datos de usuario'),
+(119, 'user', 'usuario'),
+(120, 'password', 'contraseña'),
+(121, 'repeat_password', 'repite contraseña'),
+(122, 'new_order', 'nuevo pedido'),
+(123, 'table', 'mesa'),
+(124, 'people', 'personas'),
+(126, 'coffees_and_liquors', 'cafés / licores'),
+(127, 'aperitif', 'aperitivo'),
+(128, 'drink', 'bebida'),
+(129, 'to_order', 'pedir'),
+(130, 'qty', 'cant.'),
+(131, 'current_orders', 'pedidos en curso'),
+(132, 'people_qty', 'pers.'),
+(133, 'firsts', 'primeros'),
+(134, 'add', 'añadir'),
+(135, 'see_data', 'ver datos'),
+(136, 'alert_table_number', 'selecciona un número de mesa'),
+(137, 'alert_people_qty', 'selecciona número de personas');
 
 -- --------------------------------------------------------
 
@@ -552,7 +602,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -564,7 +614,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -576,7 +626,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
