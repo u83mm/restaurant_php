@@ -48,7 +48,7 @@
          */
         public function new(array $variables = null): void
         {
-            $id = $variables['id'] ?? "";            
+            $id = $variables['id'] ?? "";     
                         
             try {
                 /** Test page language */
@@ -60,18 +60,25 @@
 
 			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
                 
-                
+                $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- " . ucfirst($this->language['select']) . " -"; 
+                $_SESSION['people_qty'] = $variables['people_qty'] ?? $_SESSION['people_qty'] ?? "- " . ucfirst($this->language['select']) . " -";                      
+
                 /** Show text in 'Select' elements, table number or people quantity */
                 
-                if(isset($_SESSION['table_number']) && ($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
+                /*if(($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
                     $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'];
                     $_SESSION['people_qty']   = $variables['people_qty']   ?? $_SESSION['people_qty'];                   
                 }
                 else {
                     $_SESSION['table_number'] = "- " . ucfirst($this->language['select']) . " -";
                     $_SESSION['people_qty']   = "- " . ucfirst($this->language['select']) . " -";
-                }                
-                                
+                } */
+                
+                if(!isset($_SESSION['table_number']) && !isset($_SESSION['peopel_qty'])) {
+                    $_SESSION['table_number'] = "- " . ucfirst($this->language['select']) . " -";
+                    $_SESSION['people_qty']   = "- " . ucfirst($this->language['select']) . " -";
+                }
+                                                                
 
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
 
@@ -124,15 +131,27 @@
         * order repository.
         */
         public function save(): void
-        {      
+        {   
+            /** Test page language */
+
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+
+
+            /** Configure page language */
+
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
+
+
             /** Get table number, people qty and different products */
 
             $_SESSION['table_number'] = $_POST['table_number'];
             $_SESSION['people_qty'] = $_POST['people_qty'];
+            
+            //var_dump("- " . ucfirst($this->language['select']) . " -");die;
                      
             try {
-                if($_SESSION['table_number'] === "- Selecciona -") throw new \Exception("Selecciona un número de mesa", 1);
-                if($_SESSION['people_qty'] === "- Selecciona -") throw new \Exception("Selecciona un número de personas", 1);
+                if($_SESSION['table_number'] === "- " . ucfirst($this->language['select']) . " -") throw new \Exception(ucfirst($this->language['alert_table_number']), 1);
+                if($_SESSION['people_qty'] === "- " . ucfirst($this->language['select']) . " -") throw new \Exception(ucfirst($this->language['alert_people_qty']), 1);
                 
                 
                 /** Test if the table is bussy */

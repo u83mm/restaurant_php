@@ -16,12 +16,26 @@
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
 	$languageObject = new Language();
-	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
+	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();	
 
 	/** Check for user`s sessions */	
 	if($_SESSION['role'] !== "ROLE_ADMIN") {		
 		$error_msg = $language['alert_access'];
 		include(SITE_ROOT . "/../view/database_error.php");		
+	}	
+	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && ($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
+		$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");
+		match($action) {
+			'update_comanda'	=>	$comandasController->update(),
+			'delete'			=>	$comandasController->delete(),
+			'add'				=>	$orderController->new([
+				'table_number'	=>	$_SESSION['table_number'],
+				'people_qty'	=>	$_SESSION['people_qty'],				
+			]),	
+			'save'				=>	$comandasController->addToOrder(),		
+			'reset_order'		=>	$orderController->resetOrder(),
+			'show'				=>	$comandasController->show(),
+		};
 	}
 	else {
 		match($action) {
