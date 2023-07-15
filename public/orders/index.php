@@ -8,7 +8,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
-	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
+	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "new");
     $orderController = new OrderController($dbcon);
 
 	/** Test page language */
@@ -23,7 +23,8 @@
 	}
 	else {				
 		match($action) {
-			default			=>	$orderController->new(),
+			default			=>	$orderController->resetOrder(),
+			"new"			=>	$orderController->new(),
 			"reset_order"	=>	$orderController->resetOrder(),
 			"save"			=>	$orderController->save(),
 			"update_order"	=>	$orderController->update(),

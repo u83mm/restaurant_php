@@ -23,32 +23,42 @@
 		$error_msg = $language['alert_access'];
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}	
-	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && ($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
+	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > 2 && strlen($_SESSION['people_qty']) > 2)) {			
 		$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");
+		$table_number = isset($_POST['table_number']) ? $_POST['table_number'] : ucfirst($language[strtolower($_SESSION['table_number'])]);	
+		$people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : ucfirst($language[strtolower($_SESSION['people_qty'])]);		
+		$id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];
 		match($action) {
+			default 			=> 	$comandasController->index(),
 			'update_comanda'	=>	$comandasController->update(),
+			'index'				=>	$comandasController->index(),
 			'delete'			=>	$comandasController->delete(),
-			'add'				=>	$orderController->new([
-				'table_number'	=>	$_SESSION['table_number'],
-				'people_qty'	=>	$_SESSION['people_qty'],				
+			'add'				=>	$comandasController->add([
+				'table_number'	=>	$table_number,
+				'people_qty'	=>	$people_qty,
+				'id'			=>	$id,
+				'action'		=>	"add",				
 			]),	
-			'save'				=>	$comandasController->addToOrder(),		
-			'reset_order'		=>	$orderController->resetOrder(),
+			'save'				=>	$comandasController->addToOrder(),					
 			'show'				=>	$comandasController->show(),
 		};
 	}
 	else {
+		$table_number = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'];	
+		$people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'];		
+		$id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];
 		match($action) {
-			default 			=> 	$comandasController->index(),
+			default 			=> 	$comandasController->index(),			
 			'update_comanda'	=>	$comandasController->update(),
+			'index'				=>	$comandasController->index(),
 			'delete'			=>	$comandasController->delete(),
-			'add'				=>	$orderController->new([
-				'table_number'	=>	$_POST['table_number'],
-				'people_qty'	=>	$_POST['people_qty'],
-				'id'			=>	$_POST['id'],
+			'add'				=>	$comandasController->add([
+				'table_number'	=>	$table_number,
+				'people_qty'	=>	$people_qty,
+				'id'			=>	$id,
+				'action'		=>	"add",
 			]),
-			'save'				=>	$comandasController->addToOrder(),
-			'reset_order'		=>	$orderController->resetOrder(),
+			'save'				=>	$comandasController->addToOrder(),			
 			'update_order'		=>	$orderController->update(),
 			'show'				=>	$comandasController->show(),
 		};		

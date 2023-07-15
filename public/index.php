@@ -13,6 +13,8 @@
 	/** Test page language */
 	$_SESSION['language'] = $_POST['language'] ?? $_SESSION['language'] ?? "spanish";
 
+	if(isset($_SESSION['action'])) unset($_SESSION['action']);
+
 	match($action) {
 		default			=>	$indexController->showCaptcha(),
 		'test_captcha'	=>	$indexController->testCaptcha(),

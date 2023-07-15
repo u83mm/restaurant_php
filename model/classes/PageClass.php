@@ -74,7 +74,8 @@
 						<h1 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h1>
 					</div>
 					<div class="col-12 col-md-1 d-md-flex justify-content-center align-items-end pb-2 pe-2 text-end">
-						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">														
+						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">														
 							<button id="language" class="btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
 						</form>										
 					</div>																				

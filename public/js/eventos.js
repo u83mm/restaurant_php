@@ -34,6 +34,12 @@ function testDishesStriked() {
     }
 }
 
+
+/** Reset New Order form */
+function resetOrder() {
+    document.getElementById("new_order_form").action = "/orders/index.php"
+}
+
 window.onload = function() {
     /** Test for striked dishes */
     testDishesStriked();
@@ -50,10 +56,10 @@ window.onload = function() {
     }  
     
     
-    /** Test page language */
-    /*let language = document.getElementById('language');
+    /** Reset New Order form */
+    let newOrderButton = document.getElementById('new_order_button');
 
-    if(language) {           
-        language.addEventListener("click", testLanguage);
-    }*/
+    if(newOrderButton) {           
+        newOrderButton.addEventListener("click", resetOrder);
+    }
 }

@@ -47,39 +47,32 @@
          * is not used in this function.
          */
         public function new(array $variables = null): void
-        {
-            $id = $variables['id'] ?? "";     
+        {            
+            $_SESSION['id'] = $variables['id'] ?? "";
+            $_SESSION['action'] = "new";
+
+            if(isset($variables['action'])) $_SESSION['action'] = $variables['action'];                        
                         
             try {
                 /** Test page language */
-
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
-
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
 
                 /** Configure page language */
+			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
 
-			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
-                
-                $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'] ?? "- " . ucfirst($this->language['select']) . " -"; 
-                $_SESSION['people_qty'] = $variables['people_qty'] ?? $_SESSION['people_qty'] ?? "- " . ucfirst($this->language['select']) . " -";                      
 
-                /** Show text in 'Select' elements, table number or people quantity */
-                
-                /*if(($_SESSION['table_number'] >= 1 || $_SESSION['people_qty'] >= 1)) {
-                    $_SESSION['table_number'] = $variables['table_number'] ?? $_SESSION['table_number'];
-                    $_SESSION['people_qty']   = $variables['people_qty']   ?? $_SESSION['people_qty'];                   
+                /** Show text in 'Select' elements, table number or people quantity */ 
+                if(isset($_POST['language'])) {                                                          
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
                 }
-                else {
-                    $_SESSION['table_number'] = "- " . ucfirst($this->language['select']) . " -";
-                    $_SESSION['people_qty']   = "- " . ucfirst($this->language['select']) . " -";
-                } */
-                
-                if(!isset($_SESSION['table_number']) && !isset($_SESSION['peopel_qty'])) {
-                    $_SESSION['table_number'] = "- " . ucfirst($this->language['select']) . " -";
-                    $_SESSION['people_qty']   = "- " . ucfirst($this->language['select']) . " -";
-                }
-                                                                
 
+                if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
+                if(isset($variables['people_qty'])) $_SESSION['people_qty'] = $variables['people_qty'];
+                if(!isset($_SESSION['table_number'])) $_SESSION['table_number'] = ucfirst($this->language['select']);
+                if(!isset($_SESSION['people_qty'])) $_SESSION['people_qty'] = ucfirst($this->language['select']);                
+
+                                                                                                
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
 
                 $_SESSION['order'][] = [
@@ -131,27 +124,26 @@
         * order repository.
         */
         public function save(): void
-        {   
+        {                       
             /** Test page language */
 
-            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                    
 
 
             /** Configure page language */
 
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
 
-
+            //var_dump($_POST['table_number']);die;
             /** Get table number, people qty and different products */
 
-            $_SESSION['table_number'] = $_POST['table_number'];
-            $_SESSION['people_qty'] = $_POST['people_qty'];
-            
-            //var_dump("- " . ucfirst($this->language['select']) . " -");die;
+            $_SESSION['table_number'] = $_POST['table_number'] >= 1 ? $_POST['table_number'] : ucfirst($this->language[strtolower($_POST['table_number'])]);
+            $_SESSION['people_qty'] = $_POST['people_qty'] >= 1 ? $_POST['people_qty'] : ucfirst($this->language[$_POST['people_qty']]);         
+                       
                      
             try {
-                if($_SESSION['table_number'] === "- " . ucfirst($this->language['select']) . " -") throw new \Exception(ucfirst($this->language['alert_table_number']), 1);
-                if($_SESSION['people_qty'] === "- " . ucfirst($this->language['select']) . " -") throw new \Exception(ucfirst($this->language['alert_people_qty']), 1);
+                if($_SESSION['table_number'] === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_table_number']), 1);
+                if($_SESSION['people_qty'] === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_people_qty']), 1);
                 
                 
                 /** Test if the table is bussy */
@@ -219,11 +211,12 @@
         {
             unset($_SESSION['order']);
 
+            $_SESSION['action'] = "new";
 
             /** Get table number, people qty and different products */ 
 
-            $_SESSION['table_number'] = $_POST['table_number'];
-            $_SESSION['people_qty'] = $_POST['people_qty'];
+            $_SESSION['table_number'] = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'];
+            $_SESSION['people_qty'] = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'];
             
             $this->aperitifs = $_POST['aperitifs_name'] ?? [];
             $this->aperitifs_qty = $_POST['aperitif_qty'] ?? [];
@@ -249,6 +242,26 @@
             
 
             try { 
+                /** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
+
+
+                /** Configure page language */
+			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
+
+
+                /** Show text in 'Select' elements, table number or people quantity */ 
+                if(isset($_POST['language'])) {                                                          
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
+                }
+
+                if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
+                if(isset($variables['people_qty'])) $_SESSION['people_qty'] = $variables['people_qty'];
+                if(!isset($_SESSION['table_number'])) $_SESSION['table_number'] = ucfirst($this->language['select']);
+                if(!isset($_SESSION['people_qty'])) $_SESSION['people_qty'] = ucfirst($this->language['select']);  
+
+
                 /** Test products to update them before send them to the DB */
 
                 foreach ($items as $key => $value) {                                           
@@ -288,7 +301,8 @@
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
                 for($i = 1; $i <= 40; $i++) $persones[] = $i;
 
-                include(SITE_ROOT . "/../view/orders/new_view.php");    
+                include(SITE_ROOT . "/../view/orders/new_view.php"); 
+                //$this->new();   
                 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -310,11 +324,36 @@
         * This PHP function resets the order by unsetting the session variable and calling the "new"
         * function.
         */
-        public function resetOrder(): void {        
-            unset($_SESSION['order']);
-            unset($_SESSION['table_number']);
-            unset($_SESSION['people_qty']);
-            $this->new();							  			                       
+        public function resetOrder(): void {  
+            try {
+                unset($_SESSION['order']);
+                //unset($_SESSION['table_number']);
+                //unset($_SESSION['people_qty']);
+
+                /** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
+
+
+                /** Configure page language */
+                $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
+
+                $_SESSION['table_number'] = ucfirst($this->language['selecciona']);
+                $_SESSION['people_qty'] = ucfirst($this->language['selecciona']);
+                $this->new();
+
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                } 
+                
+                include(SITE_ROOT . "/../view/database_error.php");
+            }                  							  			                       
         }
     }    
 ?>  

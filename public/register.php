@@ -10,6 +10,8 @@
 	
 	$registerController = new RegisterController($dbcon);
 
+	if(isset($_SESSION['action'])) unset($_SESSION['action']);
+
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
 	$languageObject = new Language();

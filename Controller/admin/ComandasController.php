@@ -2,8 +2,9 @@
     declare(strict_types=1);
     
     namespace Controller\admin;
-   
-    use model\classes\Query;
+
+use model\classes\Language;
+use model\classes\Query;
     use model\orders\Order;
     use model\repositories\OrderRepository;
 
@@ -30,11 +31,17 @@
         private array $coffees_qty        = [];
         private array $coffees_finished   = [];
 
+
+        /** Create array and object for diferent languages */
+
+        private array $language = [];
+        private Language $languageObject;
+
         public function __construct(
             private object $dbcon, 
             private string $message = "")
         {
-            
+            $this->languageObject = new Language();
         }
 
        
@@ -47,7 +54,9 @@
          */
         
         public function index(string $message = null): void    
-        {
+        {  
+            $_SESSION['action'] = "index";
+
             $this->message = $message ?? "";
 
             $query  = new Query();
@@ -58,8 +67,7 @@
                 "people_qty"
             ];
 
-            try {
-                //$result = $query->selectFieldsFromTableOrderByField('orders', $fields, 'table_number', $this->dbcon);
+            try {                
                 $result = $query->selectAll('orders', $this->dbcon);
 
                 include(SITE_ROOT . "/../view/admin/comandas/index_view.php"); 
@@ -83,11 +91,15 @@
 
 
         public function show(): void
-        {            
+        {  
+            $_SESSION['action'] = "show";
+
+            $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];        
+
             try {
                 $query = new Query();
 
-                $result = $query->selectAllBy('orders', 'id', $_POST['id'], $this->dbcon);
+                $result = $query->selectAllBy('orders', 'id', $_SESSION['id'], $this->dbcon);
                 $row   = []; 
 
                 $id           = $result[0]['id'];
@@ -155,6 +167,86 @@
                 include(SITE_ROOT . "/../view/database_error.php");
             }
         }
+
+
+        /**
+         * This function creates arrays for table numbers and people quantity, saves dish information
+         * into an order array, and displays a new order view.
+         * 
+         * @param array variables An optional array of variables that can be passed to the function. It
+         * is not used in this function.
+         */
+        public function add(array $variables = null): void
+        {
+            $_SESSION['id'] = $variables['id'] ?? "";
+
+            if(isset($variables['action'])) $_SESSION['action'] = $variables['action'];                        
+                        
+            try {
+                /** Test page language */
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
+
+
+                /** Configure page language */
+			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
+
+
+                /** Show text in 'Select' elements, table number or people quantity */ 
+                if(isset($_POST['language'])) {                                                          
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) >= 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) >= 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
+                }
+
+                if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
+                if(isset($variables['people_qty'])) $_SESSION['people_qty'] = $variables['people_qty'];
+                if(!isset($_SESSION['table_number'])) $_SESSION['table_number'] = ucfirst($this->language['select']);
+                if(!isset($_SESSION['people_qty'])) $_SESSION['people_qty'] = ucfirst($this->language['select']);                
+
+                                                                                                
+                /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
+
+                $_SESSION['order'][] = [
+                    'name'      =>  $_POST['name'] ?? "",
+                    'qty'       =>  $_POST['qty'] ?? 0,
+                    'position'  =>  $_POST['place'] ?? "", 
+                ];                
+
+                foreach ($_SESSION['order'] as $item) { 
+                    if($item['position']) {
+                        match($item['position']) {
+                            'aperitifs'  =>  $this->aperitifs[] = $item,
+                            'firsts'     =>  $this->firsts[] = $item,
+                            'seconds'    =>  $this->seconds[] = $item,
+                            'desserts'   =>  $this->desserts[] = $item,
+                            'drinks'     =>  $this->drinks[] = $item,
+                            'coffees'    =>  $this->coffees[] = $item,
+                        };
+                    }                                      
+                }                 
+                                
+                /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
+
+                $tables = $persones = [];
+
+                for($i = 1; $i <= 20; $i++) $tables[] = $i;
+                for($i = 1; $i <= 40; $i++) $persones[] = $i;
+                
+                include(SITE_ROOT . "/../view/orders/new_view.php");                
+
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
+        }      
 
 
         /**
@@ -245,7 +337,7 @@
         }
         
         
-        public function addToOrder(): void
+        public function addToOrder(array $variables = []): void
         {
             $query = new Query();
             $order = new Order();
@@ -362,6 +454,6 @@
             unset($_SESSION['people_qty']);                        
 
             $this->index($this->message);
-        }
+        }             
     }
 ?>

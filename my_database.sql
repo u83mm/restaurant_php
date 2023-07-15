@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 13-07-2023 a las 20:10:09
+-- Tiempo de generación: 15-07-2023 a las 18:27:47
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -258,7 +258,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (134, 'add', 'to add'),
 (135, 'see_data', 'see data'),
 (136, 'alert_table_number', 'select a table number'),
-(137, 'alert_people_qty', 'select people quantity');
+(137, 'alert_people_qty', 'select people quantity'),
+(138, 'selecciona', 'select');
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
 (1, 1, 2, 'olivas rellenas', '1', '0', 'ensalada catalana', '1', '', 'paella valenciana', '2', '', 'creps de la casa,crema catalana', '1,1', '', 'agua mineral', '1', '', '', '', ''),
 (4, 2, 2, '', '', '0', 'ensalada mixta', '2', '0', 'paella valenciana', '2', '0', 'creps de la casa', '2', '0', '', '', '0', '', '', '0'),
-(6, 3, 2, '', '', '0', 'espaguetis a la carbonara', '1', '0', 'salmón a la plancha', '2', '0', '', '', '0', '', '', '0', '', '', '0');
+(6, 3, 2, 'olivas rellenas,patatas chips', '1,1', '0,<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>48</b><br />\r\n', 'espaguetis a la carbonara,espaguetis a la carbonara', '1,1', '0', 'salmón a la plancha', '2', '0', 'creps de la casa,crema catalana', '1,1', '0,<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>121</b><br />\r\n', 'agua mineral,tinto de la casa,jarra de cerveza', '1,1,1', '0,<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>145</b><br />\r\n', '', '', ''),
+(11, 4, 1, '', '', '0', 'ensalada mixta', '2', '0', '', '', '0', '', '', '0', '', '', '0', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -489,7 +491,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (134, 'add', 'añadir'),
 (135, 'see_data', 'ver datos'),
 (136, 'alert_table_number', 'selecciona un número de mesa'),
-(137, 'alert_people_qty', 'selecciona número de personas');
+(137, 'alert_people_qty', 'selecciona número de personas'),
+(138, 'selecciona', 'selecciona');
 
 -- --------------------------------------------------------
 
@@ -602,7 +605,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -614,7 +617,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -626,7 +629,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
