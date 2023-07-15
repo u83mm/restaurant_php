@@ -4,7 +4,7 @@
     use Controller\admin\DishesController;
 	use model\classes\Language;
 
-	require_once($_SERVER['DOCUMENT_ROOT'] . "/../model/aplication_fns.php");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
