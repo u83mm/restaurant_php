@@ -23,7 +23,7 @@
 		$error_msg = $language['alert_access'];
 		include(SITE_ROOT . "/../view/database_error.php");		
 	}	
-	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > 2 && strlen($_SESSION['people_qty']) > 2)) {			
+	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			
 		$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");
 		$table_number = isset($_POST['table_number']) ? $_POST['table_number'] : ucfirst($language[strtolower($_SESSION['table_number'])]);	
 		$people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : ucfirst($language[strtolower($_SESSION['people_qty'])]);		

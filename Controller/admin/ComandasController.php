@@ -193,8 +193,8 @@ use model\classes\Query;
 
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
-                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) >= 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
-                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) >= 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_PEOPLE_QTY ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
                 }
 
                 if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
@@ -448,12 +448,25 @@ use model\classes\Query;
         * This PHP function resets the order by unsetting the session variable and calling the "new"
         * function.
         */
-        public function resetOrder(): void {        
-            unset($_SESSION['order']);
-            unset($_SESSION['table_number']);
-            unset($_SESSION['people_qty']);                        
+        public function resetOrder(): void {                   
+            try {
+                unset($_SESSION['order']);                                       
+    
+                $this->index($this->message);
 
-            $this->index($this->message);
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                } 
+                
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
         }             
     }
 ?>

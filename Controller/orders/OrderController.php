@@ -63,8 +63,8 @@
 
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
-                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
-                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_PEOPLE_QTY ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
                 }
 
                 if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
@@ -134,7 +134,7 @@
 
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
 
-            //var_dump($_POST['table_number']);die;
+        
             /** Get table number, people qty and different products */
 
             $_SESSION['table_number'] = $_POST['table_number'] >= 1 ? $_POST['table_number'] : ucfirst($this->language[strtolower($_POST['table_number'])]);
@@ -252,8 +252,8 @@
 
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
-                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > 2 ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
-                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > 2 ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
+                    $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
+                    $_SESSION['people_qty'] = strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_PEOPLE_QTY ? ucfirst($this->language['select']) : $_SESSION['people_qty'] ;
                 }
 
                 if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
@@ -326,9 +326,7 @@
         */
         public function resetOrder(): void {  
             try {
-                unset($_SESSION['order']);
-                //unset($_SESSION['table_number']);
-                //unset($_SESSION['people_qty']);
+                unset($_SESSION['order']);                
 
                 /** Test page language */
                 $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
