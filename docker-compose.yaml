@@ -33,4 +33,4 @@ services:
       volumes: 
         - "../Restaurant:/var/www"
         - "./log/apache:/var/log/apache2"
-        - "./log/php:/srv/var/log"      
+        - "./log/php:/var/log"      

@@ -44,9 +44,9 @@
 		};
 	}
 	else {
-		$table_number = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'];	
-		$people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'];		
-		$id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];
+		$table_number = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'] ?? "";	
+		$people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'] ?? "";		
+		$id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'] ?? "";
 		match($action) {
 			default 			=> 	$comandasController->index(),			
 			'update_comanda'	=>	$comandasController->update(),

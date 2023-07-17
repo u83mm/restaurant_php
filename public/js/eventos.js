@@ -5,12 +5,17 @@
  */
 function finishDish() {   
     let originalText = document.getElementById(this.id).parentElement.firstElementChild.value;
+
+    // Capitalize the first letter
+    originalText = originalText.charAt(0).toUpperCase() + originalText.slice(1);
+    
     let strikedText = "<del>" + originalText + "</del>";
     let finishedValue = document.getElementById(this.id).previousElementSibling.value;
     let dish = document.getElementById(this.id);
 
     dish.innerHTML = finishedValue == 1 ?  originalText : strikedText;   
 }
+
 
 /**
  * The function toggles the value of a checkbox input's previous sibling input between 0 and 1.
@@ -19,6 +24,7 @@ function setFinishDishValue() {
     let finishedValue = document.getElementById(this.id).previousElementSibling;
     finishedValue.value = finishedValue.value == 1 ?  0 : 1;
 }
+
 
 /**
  * The function marks completed items orders as finished by striking through their original text.
@@ -39,6 +45,7 @@ function testDishesStriked() {
 function resetOrder() {
     document.getElementById("new_order_form").action = "/orders/index.php"
 }
+
 
 window.onload = function() {
     /** Test for striked dishes */

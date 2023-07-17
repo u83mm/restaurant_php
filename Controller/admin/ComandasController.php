@@ -3,8 +3,8 @@
     
     namespace Controller\admin;
 
-use model\classes\Language;
-use model\classes\Query;
+    use model\classes\Language;
+    use model\classes\Query;
     use model\orders\Order;
     use model\repositories\OrderRepository;
 
