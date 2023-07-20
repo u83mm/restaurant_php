@@ -287,6 +287,18 @@ del {
 	margin-right: 1em;
 }
 
+del {
+	display: block;
+}
+
+del::first-letter {
+	text-transform: capitalize;
+}
+
+.lineThrough {
+	text-decoration: line-through;
+}
+
 
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {

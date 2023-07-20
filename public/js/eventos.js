@@ -3,17 +3,13 @@
 /**
  * This function updates the text of an HTML element based on the value of a sibling element.
  */
-function finishDish() {   
-    let originalText = document.getElementById(this.id).parentElement.firstElementChild.value;
-
-    // Capitalize the first letter
-    originalText = originalText.charAt(0).toUpperCase() + originalText.slice(1);
-    
-    let strikedText = "<del>" + originalText + "</del>";
-    let finishedValue = document.getElementById(this.id).previousElementSibling.value;
-    let dish = document.getElementById(this.id);
-
-    dish.innerHTML = finishedValue == 1 ?  originalText : strikedText;   
+function finishDish() {       
+    if(this.className === "finished") {
+        document.getElementById(this.id).setAttribute("class", "finished lineThrough");
+    }
+    else {
+        document.getElementById(this.id).setAttribute("class", "finished");
+    }           
 }
 
 
@@ -30,13 +26,11 @@ function setFinishDishValue() {
  * The function marks completed items orders as finished by striking through their original text.
  */
 function testDishesStriked() {    
-    let itemsFinished = document.getElementsByClassName("item_finished");    
+    let itemsFinished = document.getElementsByClassName("item_finished");
+    let finished = document.getElementsByClassName("finished");
 
-    for (let index = 0; index < itemsFinished.length; index++) {
-        let originalText =  itemsFinished[index].previousElementSibling.value;
-        let strikedText = "<del>" + originalText + "</del>";
-
-        if(itemsFinished[index].value == 1) itemsFinished[index].nextElementSibling.innerHTML = strikedText; 
+    for (let index = 0; index < itemsFinished.length; index++) {        
+        if(itemsFinished[index].value == 1) finished[index].setAttribute("class", "finished lineThrough");                 
     }
 }
 
