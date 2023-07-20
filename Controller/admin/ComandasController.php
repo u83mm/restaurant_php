@@ -371,7 +371,7 @@
             $this->drinks_finished    = (explode(",", $result['drinks_finished']));
             $this->coffees            = (explode(",", $result['coffees']));
             $this->coffees_qty        = (explode(",", $result['coffees_qty']));
-            $this->drinks_finished    = (explode(",", $result['drinks_finished']));             
+            $this->coffees_finished   = (explode(",", $result['coffees_finished']));             
 
             $my_array = [
                 'aperitifs'          =>  $_POST['aperitifs_name'] ?? [],
