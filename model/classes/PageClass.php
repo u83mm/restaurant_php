@@ -70,8 +70,8 @@
 			</head>
 			<body class="ps-3 pe-3">
 				<header class="d-md-flex header">					
-					<div class="col-12 col-md-10 col-xl-11 d-md-flex justify-content-center align-items-end justify-content-xl-end align-items-xl-center pt-5 p-xl-0">
-						<h1 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h1>
+					<div class="col-12 col-md-10 col-xl-11 d-flex justify-content-center align-items-end justify-content-md-end align-items-xl-center pt-5 p-xl-0">
+						<h2 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h2>
 					</div>
 					<div class="col-12 col-md-2 col-xl-1 d-md-flex justify-content-center align-items-end pb-2 pe-1 text-end">
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">

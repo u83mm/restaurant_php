@@ -60,7 +60,7 @@ h1 {
 	font-family: Great Vibes, ubuntuRegular;		
 }
 
-.header h1 {
+.header h1, .header h2 {
 	color: white;
 }
 
