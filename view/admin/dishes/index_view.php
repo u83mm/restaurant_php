@@ -39,7 +39,11 @@
                             <td><?php echo ucfirst($page->language[$value['name']]); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
                             <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>
-                            <td><?php echo strtoupper($page->language[$value['available']]); ?></td>
+                            <?php if($value['available'] == true): ?>
+                                <td class="text-center">&#9989;</td>
+                            <?php else: ?>
+                                <td class="text-center">&#10060;</td>
+                            <?php endif ?>                            
                             <td class="text-center">
                                 <form action="#" method="post" class="d-inline">
                                     <input type="hidden" name="dishe_id" value="<?php echo $value['dishe_id']; ?>">

@@ -37,8 +37,8 @@
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="available" required>
                             <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
-                            <option value="SI"><?php echo ucfirst($home->language['availables']); ?></option>
-                            <option value="NO">NO <?php echo $home->language['availables']; ?></option>
+                            <option value="1"><?php echo ucfirst($home->language['availables']); ?></option>
+                            <option value="0">NO <?php echo $home->language['availables']; ?></option>
                         </select> 
                     </div>                  
                 </form>
