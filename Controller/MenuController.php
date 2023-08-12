@@ -163,13 +163,13 @@
 
                 /** Show dishes */
 
-                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category'], $this->dbcon);                                                              
+                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category'], $this->dbcon);                               
 
                 foreach ($rows as $key => $value) {
                     //$pdf->SetFont('Arial','I',10);
                     $pdf->SetFont('GreatVibes','',14);
 
-                    if($value['available'] === "SI") {
+                    if($value['available'] == true) {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
