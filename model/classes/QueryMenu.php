@@ -23,14 +23,20 @@
         } 
         
         public function updateDishe(array $fields, object $dbcon): void
-        {                     
+        {                               
             $query = "UPDATE dishes SET name = :name, description = :description, category_id = :category_id, 
                     menu_id = :menu_id, picture = :picture, price = :price, available = :available
                     WHERE dishe_id = :id";                 
 
-            $stm = $dbcon->pdo->prepare($query);           
+            $stm = $dbcon->pdo->prepare($query);
+                      
             foreach ($fields as $key => $value) {
-                $stm->bindValue(":$key", strtolower($value)); 
+                if(is_numeric($value)) {
+                    $stm->bindValue(":$key", $value);
+                    continue;       
+                }
+
+                $stm->bindValue(":$key", strtolower($value));                
             }
 
             $stm->execute();       				
