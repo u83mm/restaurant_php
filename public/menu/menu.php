@@ -35,7 +35,9 @@
 		'licores'	 	=> $menuController->showDishesByTheirCategory($action),
 		'menu_pdf'	 	=> $menuController->menu(),
 
-		// english version
+
+		// English version
+		
 		'aperitifs'  	=> $menuController->showDishesByTheirCategory($action),
 		'starters'	 	=> $menuController->showDishesByTheirCategory($action),
 		'salads'	 	=> $menuController->showDishesByTheirCategory($action),

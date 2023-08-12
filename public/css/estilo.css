@@ -250,7 +250,13 @@ section img {
 }
 
 .showMenuCategories {
-	margin-bottom: -1em;
+	/* margin-bottom: -1em; */
+	list-style-type: none;
+	margin-bottom: 1em;
+}
+
+.showMenuCategories input[type='submit'] {
+	width: 100%;
 }
 
 .captcha h2 {

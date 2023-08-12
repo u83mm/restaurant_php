@@ -45,14 +45,14 @@
                 $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);
                 $showResult .= "<li class='showMenuCategories'>
                                     <form class='d-inline' action='{$_SERVER['PHP_SELF']}' method='POST'>                                       
-                                        <input class='btn btn-link' type='submit' name='action' value='$category'>
+                                        <input class='btn btn-outline-secondary' type='submit' name='action' value='$category'>
                                     </form>
                                 </li>";
             
                 if($i == $y || $i == count($menuCategories)-1) {
                     $showResult .= "</ul></div>";
                     if($y < count($menuCategories)) {
-                        $showResult .= '<div class="col-6 col-md-4 col-lg-3"><ul>';
+                        $showResult .= '<div class="col-12 col-sm-6 col-md-4 col-lg-3"><ul class="ps-0">';
                     }
 
                     $y += 4; 
