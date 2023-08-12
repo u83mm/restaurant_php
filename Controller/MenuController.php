@@ -20,7 +20,25 @@
          * day price.
          */
         public function index(): void
-        {                                                 
+        {             
+            $emojis = [
+                "bebidas"	    =>	"&#127866;",
+                "aperitivos"    =>  "&#127839",
+                "entrantes"     =>  "&#127836",
+                "ensaladas"     =>  "&#129367",
+                "postres"       =>  "&#129473",
+                "carnes"        =>  "&#129385",
+                "arroces"       =>  "&#129368",
+                "pescados"      =>  "&#128031",
+                "cafés"         =>  "&#9749",
+                "tintos"        =>  "&#127863",
+                "blancos"       =>  "&#127863",
+                "rosados"       =>  "&#127863",
+                "champagne"     =>  "&#127870",
+                "cavas"         =>  "&#127870",
+                "licores"       =>  "&#127865"
+            ];
+
             /** Configure page language */           
 			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
             
@@ -42,10 +60,11 @@
             $showResult = "";
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
-                $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);
+                $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);                
+                $emoji = $emojis[strtolower($menuCategories[$i]['menu_category'])];
                 $showResult .= "<li class='showMenuCategories'>
                                     <form class='d-inline' action='{$_SERVER['PHP_SELF']}' method='POST'>                                       
-                                        <input class='btn btn-outline-secondary' type='submit' name='action' value='$category'>
+                                        <button class='btn btn-outline-secondary text-start' type='submit' name='action' value='$category'><span class='px-2 float-start'>$emoji</span>$category</button>
                                     </form>
                                 </li>";
             

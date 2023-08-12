@@ -255,7 +255,7 @@ section img {
 	margin-bottom: 1em;
 }
 
-.showMenuCategories input[type='submit'], a {
+.showMenuCategories input[type='submit'], .showMenuCategories button[type='submit'], .showMenuCategories a {
 	width: 100%;
 }
 
