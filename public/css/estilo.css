@@ -164,7 +164,7 @@ sup {
 }
 
 input[type=number] {
-	-moz-appearance: textfield;
+	appearance: textfield;
 }
 
 input[type=number].numberQty {
@@ -290,7 +290,7 @@ del {
 
 .languageFlag {
 	width: 2em;
-	margin-right: 1em;
+	margin-right: 0.5em;
 }
 
 del {
