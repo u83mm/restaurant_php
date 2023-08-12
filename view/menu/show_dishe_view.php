@@ -10,7 +10,7 @@
 	$home->do_html_nav($home->nav_links, "menu");
 ?>	
 								<!-- SECTION WITH INFO -->
-	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3">
+	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
 		<div class="col mb-5 <?php echo $dishe['menu_category']; ?>"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">

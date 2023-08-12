@@ -8,7 +8,7 @@
 	$home->do_html_nav($home->nav_links, $home->language['nav_link_home']);
 ?>	
 								<!--- SECTION WITH INFO -->
-	<section class="col-12 col-lg-9 p-sm-0 pe-lg-3">
+	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
 		<div class="col mb-3 mainImg"></div>
 		<div class="col d-flex justify-content-center align-items-center mb-3">
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['welcome']); ?></h2>
