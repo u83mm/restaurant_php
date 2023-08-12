@@ -22,8 +22,8 @@
 			</div>
 		</div>		
 		<div class="row">
-			<div class="col-12 col-md-4 col-lg-3">
-				<ul>
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<ul class="ps-0">
 			<?php echo $showResult; ?>					
 		</div>
 		<div class="row">
