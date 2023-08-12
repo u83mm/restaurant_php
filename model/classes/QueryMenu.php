@@ -11,7 +11,7 @@
                     INNER JOIN dishes_day
                     ON dishes.category_id = dishes_day.category_id 
                     WHERE dishes_day.category_name = :field
-                    AND dishes.available = 'SI'";
+                    AND dishes.available = 1";
 
             $stm = $dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            
@@ -70,7 +70,7 @@
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
                 $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
-                if($menuCategories[$i]['available'] === "si") {
+                if($menuCategories[$i]['available'] === 1) {
                     $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/info_dishe/show_info.php?id={$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 }
 
