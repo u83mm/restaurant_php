@@ -49,7 +49,7 @@
             $result = true;
             
             foreach ($fields as $key => $value) {
-                if (empty($value) || !isset($value)) {                                        
+                if ((empty($value) || !isset($value)) && $value != false) {                                        
                     $this->msg .= "<br/>'$key' es un dato requerido";
                     $result = false;					
                 }
