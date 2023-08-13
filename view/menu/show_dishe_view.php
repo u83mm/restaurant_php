@@ -24,7 +24,7 @@
             </div>		
 		</div>
 		<div class="row">
-			<div class="col-3"></div>
+			<div class="col-3 d-none d-xl-block"></div>
 			<div class="col-12 col-md-3 p-3 text-center">
 				<h3><?php echo ucfirst($home->language['price']); ?>: <?php echo number_format(floatval($dishe['price']), 2, ",", ".") ; ?>€</h3>
 			</div>
@@ -32,11 +32,11 @@
 
 			<!-- Select dish and Qty as First, Second, Dessert, or Coffe and liquors -->
 
-			<div class="col-12 col-md-5 text-md-end ps-4 pe-4 pb-4">
+			<div class="col-12 col-md-7 col-xl-5 text-md-end ps-4 pe-4 pb-4">
 			<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
 				<form action="/orders/index.php" method="post">
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
-					<label class="col-3 col-md-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
+					<label class="col-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
 					<select class="align-middle" name="place" id="place">
 						<option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
@@ -47,7 +47,9 @@
 						<option value="drinks"><?php echo ucfirst($home->language['drink']); ?></option>
 						<option value="coffees"><?php echo ucfirst($home->language['coffees_and_liquors']); ?></option>
 					</select>
-					<button class="btn btn-outline-success"><?php echo ucfirst($home->language['to_order']); ?></button>
+					<div class="col-12 col-md-2 text-center text-md-start d-inline-block">
+						<button class="btn btn-outline-success mt-3 m-md-0"><?php echo ucfirst($home->language['to_order']); ?></button>
+					</div>					
 				</form>				
 			<?php endif ?>
 			</div>		
