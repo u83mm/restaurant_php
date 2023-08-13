@@ -13,6 +13,9 @@
         public function __construct(private object $dbcon, private array $language = [])      
         {
             $this->languageObject = new Language();
+
+            /** Configure page language */           
+			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
         }
 
         /**
@@ -20,10 +23,7 @@
          * day price.
          */
         public function index(): void
-        {                    
-            /** Configure page language */           
-			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
-            
+        {                                            
             $menuDay = new QueryMenu(); 
 
 
@@ -130,7 +130,7 @@
          * It creates a PDF file with the title "Nuestra Carta" and shows it in the browser.
          */
         public function menu(): void
-        {   
+        {               
             define('FPDF_FONTPATH', SITE_ROOT .'/../model/fpdf/font');
             define('EURO_SIMBOL', chr(128));                     
 
@@ -145,19 +145,18 @@
 
             /** Start to build the menu */
            
-            $pdf->title = "Nuestra Carta";           
+            $pdf->title = ucwords($this->language['our_menu']);           
             $pdf->SetFillColor(0, 54.5, 54.5);           
             $pdf->AddPage();
-            $pdf->AliasNbPages();
-            //$pdf->SetFont('Arial','B',12);           
+            $pdf->AliasNbPages();                    
             $pdf->SetFont('GreatVibes','',18);  
 
 
             /** Show all the categories and their dishes*/
 
             foreach ($menuCategories as $key => $category) {                
-                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($category['menu_category'])), 0, 0, '');
-                $pdf->Cell(0, 10, "Precio", 0, 0, "");                
+                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category['menu_category']])), 0, 0, '');
+                $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                
                 //$pdf->Line(10, $pdf->getY()+10, $pdf->getX() -3, $pdf->GetY() + 10);
                 $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
                 $pdf->Ln(10);
@@ -172,13 +171,12 @@
                     $pdf->SetFont('GreatVibes','',14);
 
                     if($value['available'] == true) {
-                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value['name'])), 0, 0, 'L');
+                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$value['name']])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
                         $pdf->Ln(5);                                                                                        
                     }
-                    
-                    //$pdf->SetFont('Arial','B',12);
+                                       
                     $pdf->SetFont('GreatVibes','',18); 
                 }
 
