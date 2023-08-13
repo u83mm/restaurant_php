@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 12-08-2023 a las 16:53:44
+-- Tiempo de generación: 13-08-2023 a las 08:44:05
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -94,29 +94,30 @@ INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
 
 CREATE TABLE `dishes_menu` (
   `menu_id` int(11) NOT NULL,
-  `menu_category` varchar(50) NOT NULL
+  `menu_category` varchar(50) NOT NULL,
+  `menu_emoji` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `dishes_menu`
 --
 
-INSERT INTO `dishes_menu` (`menu_id`, `menu_category`) VALUES
-(1, 'aperitivos'),
-(2, 'entrantes'),
-(3, 'ensaladas'),
-(4, 'carnes'),
-(5, 'pescados'),
-(6, 'arroces'),
-(7, 'postres'),
-(8, 'cafés'),
-(9, 'tintos'),
-(10, 'blancos'),
-(11, 'rosados'),
-(12, 'cavas'),
-(13, 'champagne'),
-(14, 'bebidas'),
-(15, 'licores');
+INSERT INTO `dishes_menu` (`menu_id`, `menu_category`, `menu_emoji`) VALUES
+(1, 'aperitivos', '&#127839;'),
+(2, 'entrantes', '&#127836;'),
+(3, 'ensaladas', '&#129367;'),
+(4, 'carnes', '&#129385;'),
+(5, 'pescados', '&#128031;'),
+(6, 'arroces', '&#129368;'),
+(7, 'postres', '&#129473;'),
+(8, 'cafés', '&#9749;'),
+(9, 'tintos', '&#127863;'),
+(10, 'blancos', '&#127863;'),
+(11, 'rosados', '&#127863;'),
+(12, 'cavas', '&#127870;'),
+(13, 'champagne', '&#127870;'),
+(14, 'bebidas', '&#127866;'),
+(15, 'licores', '&#127865;');
 
 -- --------------------------------------------------------
 
@@ -316,7 +317,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
 (1, 1, 2, 'patatas chips,anchoas de la casa', '1,1', '1,1', 'ensalada mixta,espaguetis a la carbonara', '1,1', '0,1', 'paella valenciana,salmón a la plancha', '1,1', '0,1', 'creps de la casa', '2', '0', 'agua mineral,refresco de cola', '1,1', '0,0', '', '', ''),
 (2, 2, 1, 'olivas rellenas', '1', '0', 'ensalada mixta', '1', '0', 'salmón a la plancha', '1', '0', 'creps de la casa', '1', '0', 'jarra de cerveza', '1', '0', '', '', ''),
-(3, 3, 2, 'olivas rellenas,patatas chips,anchoas de la casa', '1,1,1', '1,1,1', 'ensalada mixta', '1', '1', 'paella valenciana', '1', '1', 'creps de la casa,crema catalana', '2,1', '1,1', 'agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa', '1,1,1,1,1', '1,1,1,1,1', 'café solo,café cortado', '1,1', '1,1');
+(3, 3, 2, 'olivas rellenas,patatas chips,anchoas de la casa', '1,1,1', '1,1,1', 'ensalada mixta', '1', '1', 'paella valenciana', '1', '1', 'creps de la casa,crema catalana', '2,1', '1,1', 'agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa', '1,1,1,1,1', '1,1,1,1,1', 'café solo,café cortado', '1,1', '1,1'),
+(4, 4, 1, 'patatas chips', '1', '1', 'ensalada mixta', '1', '1', 'salmón a la plancha', '1', '1', 'crema catalana,crema catalana', '1,0', '<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>121</b><br />\r\n', 'jarra de cerveza', '3', '1', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -616,7 +618,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
