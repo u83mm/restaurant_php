@@ -23,7 +23,7 @@
 		</div>
 		<div class="row d-flex justify-content-evenly">			
 			<?php foreach ($result as $key => $value): ?>
-                <div class="col-6 col-md-3 col-xl-2 mb-5 text-center">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-5 text-center">
                     <div class="w-100 menuDia">
                         <h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['table']); ?>:</strong> <?php echo $value['table_number']; ?></h4>
                         <h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['people_qty']); ?>:</strong> <?php echo $value['people_qty']; ?></h4>
