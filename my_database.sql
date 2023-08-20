@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 13-08-2023 a las 08:44:05
+-- Tiempo de generación: 20-08-2023 a las 10:10:47
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -144,7 +144,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (6, 'seconds', 'main dishes'),
 (7, 'desserts', 'desserts'),
 (8, 'price', 'price'),
-(9, 'menu_day_footer', 'drink: water, wine or refresh drink'),
+(9, 'menu_day_footer', 'water, wine or refresh drink'),
 (10, 'nav_link_home', 'home'),
 (11, 'nav_link_menu', 'menu'),
 (12, 'nav_link_logout', 'logout'),
@@ -318,7 +318,8 @@ INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitif
 (1, 1, 2, 'patatas chips,anchoas de la casa', '1,1', '1,1', 'ensalada mixta,espaguetis a la carbonara', '1,1', '0,1', 'paella valenciana,salmón a la plancha', '1,1', '0,1', 'creps de la casa', '2', '0', 'agua mineral,refresco de cola', '1,1', '0,0', '', '', ''),
 (2, 2, 1, 'olivas rellenas', '1', '0', 'ensalada mixta', '1', '0', 'salmón a la plancha', '1', '0', 'creps de la casa', '1', '0', 'jarra de cerveza', '1', '0', '', '', ''),
 (3, 3, 2, 'olivas rellenas,patatas chips,anchoas de la casa', '1,1,1', '1,1,1', 'ensalada mixta', '1', '1', 'paella valenciana', '1', '1', 'creps de la casa,crema catalana', '2,1', '1,1', 'agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa', '1,1,1,1,1', '1,1,1,1,1', 'café solo,café cortado', '1,1', '1,1'),
-(4, 4, 1, 'patatas chips', '1', '1', 'ensalada mixta', '1', '1', 'salmón a la plancha', '1', '1', 'crema catalana,crema catalana', '1,0', '<br />\r\n<b>Warning</b>:  Undefined array key 1 in <b>/var/www/view/admin/comandas/show_view.php</b> on line <b>121</b><br />\r\n', 'jarra de cerveza', '3', '1', '', '', '');
+(4, 4, 1, 'patatas chips', '1', '1', 'ensalada mixta', '1', '1', 'salmón a la plancha', '1', '1', 'crema catalana,crema catalana', '1,0', '1,1', 'jarra de cerveza', '3', '1', '', '', ''),
+(5, 5, 1, '', '', '0', 'macarrones a la boloñesa', '1', '0', '', '', '0', '', '', '0', 'jarra de cerveza', '1', '0', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -365,7 +366,7 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (6, 'seconds', 'segundos platos'),
 (7, 'desserts', 'postres'),
 (8, 'price', 'precio'),
-(9, 'menu_day_footer', 'bebida: agua, vino o refresco'),
+(9, 'menu_day_footer', 'agua, vino o refresco'),
 (10, 'nav_link_home', 'inicio'),
 (11, 'nav_link_menu', 'carta'),
 (12, 'nav_link_logout', 'salir'),
@@ -618,7 +619,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
