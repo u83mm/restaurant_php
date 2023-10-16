@@ -2,8 +2,13 @@ FROM php:8.1-apache
 
 ARG TIMEZONE="Europe/Madrid"
 
-#ARG USER_ID=1000
-#ARG GROUP_ID=1000
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+
+# Config files for php.ini and apache2.conf
+COPY /php_conf/php.ini-development /usr/local/etc/php/
+COPY /php_conf/php.ini-production /usr/local/etc/php/
+COPY /apache_conf/apache2.conf /etc/apache2
 
 COPY / /var/www/
 
@@ -37,8 +42,8 @@ COPY php.ini-development /usr/local/etc/php/php.ini-development
 COPY php.ini-production /usr/local/etc/php/php.ini-production
 
 # Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
-#RUN addgroup --gid ${GROUP_ID} mario
-#RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} mario
+RUN addgroup --gid ${GROUP_ID} mario
+RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} mario
 
 USER 1000
 
