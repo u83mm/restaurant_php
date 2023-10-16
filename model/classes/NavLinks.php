@@ -15,6 +15,7 @@
          */
         public function admin(): array
         {
+            // Spanish nav menu for admin
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
@@ -22,18 +23,21 @@
                     "Registrate"		=> 	"/register.php",
                     "Administración"	=>	"/admin/admin.php",
                     "Pedidos"			=>	"/orders/index.php",
-                    "Logeate"			=> 	"/login.php",
+                    "Reservas"			=> 	"/reservation.php",
+                    "Logeate"			=> 	"/login.php",                    
                 ];
 
                 return $this->nav_links;
             }
 
+            // English nav menu for admin
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
 				"Sign up"		    => 	"/register.php",
 				"Administration"	=>	"/admin/admin.php",
 				"Orders"			=>	"/orders/index.php",
+                "Reservations"		=> 	"/reservation.php",
 				"Login "			=> 	"/login.php",
             ];
 
@@ -43,6 +47,7 @@
 
         public function waiter(): array
         {
+            // Spanish nav menu for ROLE waiter
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
@@ -54,6 +59,7 @@
                 return $this->nav_links;
             }
 
+            // English nav menu for ROLE waiter
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",								
@@ -67,22 +73,26 @@
 
         public function user(): array
         {
+            // Spanish nav menu for ROLE user
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
                     "Carta"				=> 	"/menu/menu.php",
-                    "Registrate"		=> 	"/register.php",                                       
-                    "Logeate"			=> 	"/login.php",
+                    "Registrate"		=> 	"/register.php",
+                    "Reservas"			=> 	"/reservation.php",                                    
+                    "Logeate"			=> 	"/login.php",                   
                 ];
 
                 return $this->nav_links;
             }
             
+            // English nav menu for ROLE user
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu/menu.php",
-				"Sign up"		    => 	"/register.php",				
-				"Login "			=> 	"/login.php",
+				"Sign up"		    => 	"/register.php",
+                "Reservations"		=> 	"/reservation.php",			
+				"Login "			=> 	"/login.php",                
             ];
 
             return $this->nav_links;
