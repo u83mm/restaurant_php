@@ -21,7 +21,9 @@
        */
         public function index(): void
         {                                 
-            try {                                                                            
+            try {
+                require_once(SITE_ROOT . "/../Application/Cron_jobs/clean_access_log.php");
+                                                                                           
                 $menuDayQuery = new QueryMenu();            
 
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);

@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -22,4 +21,5 @@
 ###> my files to ignore ###
 /log/
 /db_vol/
+/public/images/captcha/*.png
 ###< my files to ignore ###
