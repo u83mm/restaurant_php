@@ -32,9 +32,7 @@
 
 
                 /** Calculate menu's day price */
-
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon); 
-                //var_dump($_SESSION['user_name']);die;               
+                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);                                
                                                         
                 include(SITE_ROOT . "/../view/main_view.php");
 
