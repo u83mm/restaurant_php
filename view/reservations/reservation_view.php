@@ -14,7 +14,7 @@
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['reservations']); ?></h2>			
 		</div>		
 		<div class="clear-fix">
-			
+			<?php include(SITE_ROOT . "/../view/reservations/reservation_form.php"); ?>
 		</div>
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
