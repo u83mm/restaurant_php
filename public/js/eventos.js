@@ -40,6 +40,15 @@ function resetOrder() {
     document.getElementById("new_order_form").action = "/orders/index.php"
 }
 
+/** Disable date before current day in forms with 'input type date' fields */
+function setDateMinAttributeOnForm() {
+    const today = new Date();
+    const minDate = today.toISOString().split('T')[0];   
+
+    // Set the min attribute of the input field to today's date
+    document.querySelector('input[type="date"]').min = minDate;    
+}
+
 
 window.onload = function() {
     /** Test for striked dishes */
@@ -63,4 +72,8 @@ window.onload = function() {
     if(newOrderButton) {           
         newOrderButton.addEventListener("click", resetOrder);
     }
+
+    /** Disable date before current day in forms with 'input type date' fields */
+    let dateElement = document.querySelector('input[type="date"]');
+    if (dateElement) setDateMinAttributeOnForm();
 }
