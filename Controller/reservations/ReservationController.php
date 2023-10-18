@@ -3,13 +3,23 @@
     
     namespace Controller\reservations;
 
+    use model\classes\Language;
+    use model\classes\Query;
     use model\classes\QueryMenu;
+    use model\classes\Validate;
 
     class ReservationController
     {
+        /** Create array and object for diferent languages */
+        private array $language = [];
+        private Language $languageObject;
+
         public function __construct(private object $dbcon, private string $message = "")
         {
-                        
+            $this->languageObject = new Language(); 
+            
+            /** Configure page language */
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
         }
      
         public function index(): void
@@ -51,6 +61,52 @@
 
                 include(SITE_ROOT . "/../view/database_error.php");
             }
-        }        
+        } 
+        
+
+        public function saveReservation() : void 
+        {
+            $validate = new Validate;
+
+            // Get values from reservations form
+            $fields = [
+                "date"          =>  $validate->test_input($_POST['date']),
+                "time"          =>  $validate->test_input($_POST['time']),
+                "name"          =>  $validate->test_input($_POST['name']),
+                "people_qty"    =>  $validate->test_input($_POST['qty']),                   
+            ];            
+            
+            try {
+                // Validate form
+                $ok = $validate->validate_form($fields);
+
+                if($ok) {
+                    if(!empty($_POST['comment'])) {
+                        $fields['comment'] = $validate->test_input($_POST['comment']);
+                    }                   
+                    
+                    // Save row in DB
+                    $query = new Query();
+                    $query->insertInto('reservations', $fields, $this->dbcon);
+                    $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";
+                    
+                    // Redirect to reservations view
+                    $this->index();
+                }
+                
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
+        }
     }    
 ?>  

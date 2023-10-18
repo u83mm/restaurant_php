@@ -305,6 +305,10 @@ del::first-letter {
 	text-decoration: line-through;
 }
 
+textarea {
+	resize: none;
+}
+
 
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {

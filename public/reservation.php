@@ -20,5 +20,6 @@ use Controller\reservations\ReservationController;
 	match($action) {
 		default			=>	$reservationController->index(),
 		'reservation'	=>	$reservationController->index(),
+		'save'			=>	$reservationController->saveReservation(),
 	};
 ?>
