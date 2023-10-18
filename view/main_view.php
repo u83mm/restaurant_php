@@ -2,7 +2,7 @@
 	use model\classes\PageClass;
 
 	$home = new PageClass();
-	$home->title = "My Restaurant | Inicio";			
+	$home->title = "My Restaurant | " . ucfirst($home->language['nav_link_home']);			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
 	$home->do_html_nav($home->nav_links, $home->language['nav_link_home']);

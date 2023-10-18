@@ -2,7 +2,7 @@
 	use model\classes\PageClass;
 
 	$page = new PageClass();
-    $page->title = "My Restaurant | Registro";
+    $page->title = "My Restaurant | " . ucfirst($page->language['nav_link_sign_up']);
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links, $page->language['nav_link_sign_up']);
