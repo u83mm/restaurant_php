@@ -1,4 +1,5 @@
 <form class="mb-5" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+
     <!-- DATE AND TIME-->
     <div class="row mb-0 mb-md-3">
         <div class="col-12 col-md-6">
@@ -12,28 +13,30 @@
             <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
                 <select name="time" id="time" required>
                     <option value=""> - Selecciona -</option>
-                    <option value="12.00">12.00</option>
+                    <?php foreach ($hours as $key => $value) :?>
+                    <option value="<?php echo number_format($value, 2); ?>"><?php echo number_format($value, 2); ?></option>
+                    <?php endforeach ?>
                 </select>
             </div>
         </div>               
     </div> 
     
-    <div class="row mb-0 mb-md-3">
-        <!-- NAME -->
+     <!-- NAME AND QTY -->
+    <div class="row mb-0 mb-md-3">       
         <div class="col-12 col-md-6">
             <label class="col-3 col-md-4 col-form-label mb-2 mb-md-0" for="name">Nombre:</label>
             <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
                 <input class="form-control" type="text" name="name" id="name" required>
             </div>        
-        </div>
-
-        <!-- QTY -->
+        </div>        
         <div class="col-12 col-md-6">
             <label class="col-3 col-md-4 col-form-label mb-2 mb-md-0" for="qty">Personas:</label>
             <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
                 <select name="qty" id="qty" required>
                     <option value=""> - Selecciona -</option>
-                    <option value="1">1</option>
+                    <?php foreach ($people as $key => $value) :?>
+                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                    <?php endforeach ?>
                 </select>
             </div>
         </div>        

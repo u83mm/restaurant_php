@@ -17,6 +17,7 @@
             try {
                 $menuDayQuery = new QueryMenu();            
 
+                /** Show diferent Menu's day dishes */
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
                 $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
                 $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
@@ -24,6 +25,16 @@
 
                 /** Calculate menu's day price */
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+
+                /** Hours to show in select element */
+                $hours = [12.00, 12.30, 13.00, 13.30, 14.00, 14.30, 15.00];
+
+                /** People qty to show in select element */
+                $people = [];
+
+                for($i = 1; $i <= 20; $i++ ) {
+                    array_push($people, $i);
+                }                                
 
                 include(SITE_ROOT . "/../view/reservations/reservation_view.php");
 
