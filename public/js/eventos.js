@@ -68,10 +68,7 @@ window.onload = function() {
     
     /** Reset New Order form */
     let newOrderButton = document.getElementById('new_order_button');
-
-    if(newOrderButton) {           
-        newOrderButton.addEventListener("click", resetOrder);
-    }
+    if(newOrderButton) newOrderButton.addEventListener("click", resetOrder);
 
     /** Disable date before current day in forms with 'input type date' fields */
     let dateElement = document.querySelector('input[type="date"]');
