@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 09-10-2023 a las 18:35:18
+-- Tiempo de generación: 18-10-2023 a las 20:27:28
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -260,7 +260,13 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (135, 'see_data', 'see data'),
 (136, 'alert_table_number', 'select a table number'),
 (137, 'alert_people_qty', 'select people quantity'),
-(138, 'selecciona', 'select');
+(138, 'selecciona', 'select'),
+(139, 'reservations', 'reservations'),
+(140, 'date', 'date'),
+(141, 'hour', 'hour'),
+(142, 'comment', 'comment'),
+(143, 'write_comment', 'write a comment'),
+(144, 'reservation_sent', 'your reservation has been sent');
 
 -- --------------------------------------------------------
 
@@ -320,6 +326,34 @@ INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitif
 (3, 3, 2, 'olivas rellenas,patatas chips,anchoas de la casa', '1,1,1', '1,1,1', 'ensalada mixta', '1', '1', 'paella valenciana', '1', '1', 'creps de la casa,crema catalana', '2,1', '1,1', 'agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa', '1,1,1,1,1', '1,1,1,1,1', 'café solo,café cortado', '1,1', '1,1'),
 (4, 4, 1, 'patatas chips', '1', '1', 'ensalada mixta', '1', '1', 'salmón a la plancha', '1', '1', 'crema catalana,crema catalana', '1,0', '1,1', 'jarra de cerveza', '3', '1', '', '', ''),
 (5, 5, 1, '', '', '0', 'macarrones a la boloñesa', '1', '0', '', '', '0', '', '', '0', 'jarra de cerveza', '1', '0', '', '', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reservations`
+--
+
+CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `time` varchar(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `people_qty` int(11) NOT NULL,
+  `comment` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reservations`
+--
+
+INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `people_qty`, `comment`) VALUES
+(1, '2023-10-18', '14.00', 'Pepe', 4, 'Queremos cerca de la ventana'),
+(2, '2023-10-18', '14.00', 'Juan', 6, 'Llevamos un niño.'),
+(3, '2023-10-19', '13.00', 'Sofía', 3, NULL),
+(4, '2023-10-21', '14.30', 'Alberto', 8, NULL),
+(5, '2023-10-21', '14.30', 'Alberto', 8, NULL),
+(6, '2023-10-22', '14.30', 'Susana', 9, NULL),
+(7, '2023-10-22', '14.30', 'Susana', 9, NULL);
 
 -- --------------------------------------------------------
 
@@ -494,7 +528,13 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (135, 'see_data', 'ver datos'),
 (136, 'alert_table_number', 'selecciona un número de mesa'),
 (137, 'alert_people_qty', 'selecciona número de personas'),
-(138, 'selecciona', 'selecciona');
+(138, 'selecciona', 'selecciona'),
+(139, 'reservations', 'reservas'),
+(140, 'date', 'fecha'),
+(141, 'hour', 'hora'),
+(142, 'comment', 'comentario'),
+(143, 'write_comment', 'escribe un comentario'),
+(144, 'reservation_sent', 'tu reserva ha sido enviada');
 
 -- --------------------------------------------------------
 
@@ -562,6 +602,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `reservations`
+--
+ALTER TABLE `reservations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -607,7 +653,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -622,6 +668,12 @@ ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `reservations`
+--
+ALTER TABLE `reservations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -631,7 +683,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
