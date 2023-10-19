@@ -22,6 +22,7 @@
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
         }
      
+        /** Show reservations form */
         public function index(): void
         {                                 
             try {
@@ -63,7 +64,7 @@
             }
         } 
         
-
+        /** Save a reservation date */
         public function saveReservation() : void 
         {
             $validate = new Validate;
@@ -107,6 +108,53 @@
 
                 include(SITE_ROOT . "/../view/database_error.php");
             }
+        }
+
+        /** Show current reservations */
+        public function showReservations() : void 
+        {
+            try {
+                $menuDayQuery = new QueryMenu();            
+
+                /** Show diferent Menu's day dishes */
+                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
+                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
+                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
+
+
+                /** Calculate menu's day price */
+                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+
+                /** Get reservations */
+                $query = new Query();
+
+                $rows = $query->selectFieldsFromTableOrderByField(
+                    'reservations', 
+                    [
+                        'name', 
+                        'people_qty', 
+                        'time', 
+                        'comment'
+                    ], 
+                    'time', 
+                    $this->dbcon
+                );                
+                
+                include(SITE_ROOT . "/../view/reservations/reservations_index.php");
+
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }            
         }
     }    
 ?>  

@@ -22,7 +22,6 @@
 	match($action) {
 		default					=>	$reservationController->index(),
 		'reservation'			=>	$reservationController->index(),
-		'save'					=>	$reservationController->saveReservation(),
-		'show_reservations'		=>	$reservationController->showReservations(),
+		'save'					=>	$reservationController->saveReservation(),		
 	};
 ?>

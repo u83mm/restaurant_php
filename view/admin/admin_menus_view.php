@@ -68,12 +68,12 @@
                 <form action="/admin/admin_comandas.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="index"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
         </div>
-                                            <!-- NEW SECTION -->
+                                            <!-- RESERVATIONS -->
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
-            <h4 class="text-center">&nbsp;</h4>
+            <h4 class="text-center"><?php echo strtoupper($page->language['reservations']); ?></h4>
             <div class="w-100 col-3 bg-success bg-opacity-10 adminMenus">
-
+                <form action="/admin/admin_reservations.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="show_reservations"><?php echo ucfirst($page->language['reservations']); ?></button></form>
             </div>
         </div>
                                             <!-- NEW SECTION -->
