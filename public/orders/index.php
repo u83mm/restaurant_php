@@ -16,6 +16,11 @@
 	$languageObject = new Language();
 	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
 
+	if(!isset($_SESSION['role'])) {
+		$error_msg = "<p class='alert alert-danger text-center'>{$language['alert_access']}</p>";
+		include(SITE_ROOT . "/../view/database_error.php");	
+	}
+
 	/** Check for user`s sessions */	
 	if($_SESSION['role'] !== "ROLE_ADMIN" && $_SESSION['role'] !== "ROLE_WAITER") {		
 		$error_msg = $language['alert_access'];

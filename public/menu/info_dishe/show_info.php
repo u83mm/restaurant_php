@@ -12,5 +12,8 @@
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
 
+	/** Check for user`s sessions */
+	!isset($_SESSION['role']) ? header("Location: /") : null;
+
     $menuController->showDisheInfo();
 ?>

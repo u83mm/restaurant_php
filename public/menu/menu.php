@@ -10,6 +10,9 @@
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
 	
 	if(isset($_SESSION['action'])) unset($_SESSION['action']);
+
+	/** Check for user`s sessions */
+	!isset($_SESSION['role']) ? header("Location: /") : null;
 	
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
