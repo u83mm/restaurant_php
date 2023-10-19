@@ -2,7 +2,7 @@
 	use model\classes\PageClass;
 
 	$page = new PageClass();
-    $page->title = "My Restaurant | Usuarios";
+    $page->title = ucfirst($page->language['users']) . " | " . ucfirst($page->language['edit']);
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links, "administration");
