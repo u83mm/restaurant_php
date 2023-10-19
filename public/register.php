@@ -21,7 +21,7 @@
 	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();
 
 	if($_SESSION['role'] === "ROLE_WAITER") {		
-		$error_msg = $language['alert_access'];
+		$error_msg = "<p class='alert alert-danger text-center'>{$language['alert_access']}</p>";
 		include(SITE_ROOT . "/../view/database_error.php");
 		return;	
 	}
