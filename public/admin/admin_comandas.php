@@ -18,10 +18,11 @@
 	$languageObject = new Language();
 	$language = $_SESSION['language'] == "spanish" ? $languageObject->spanish() : $languageObject->english();	
 
-	/** Check for user`s sessions */	
+	/** Check for user`s sessions */
+	!isset($_SESSION['role']) ? header("Location: /") : null;	
+	
 	if($_SESSION['role'] !== "ROLE_ADMIN") {		
-		$error_msg = $language['alert_access'];
-		include(SITE_ROOT . "/../view/database_error.php");		
+		header("Location: /login.php");	
 	}	
 	else if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			
 		$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");

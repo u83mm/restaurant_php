@@ -18,9 +18,10 @@
 	
 
 	/** Check for user`s sessions */	
+	!isset($_SESSION['role']) ? header("Location: /") : null;
+
 	if($_SESSION['role'] !== "ROLE_ADMIN") {		
-		$error_msg = $language['alert_access'];
-		include(SITE_ROOT . "/../view/database_error.php");		
+		header("Location: /login.php");	
 	}
 	else {		
 		match ($action) {
