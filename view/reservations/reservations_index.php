@@ -18,10 +18,10 @@
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr class="text-center">
-						<th>Name</th>
-						<th>People qty</th>
-						<th>Time</th>
-						<th>Comment</th>
+						<th><?php echo ucfirst($home->language['name']); ?></th>
+						<th><?php echo ucfirst($home->language['people_qty']); ?></th>
+						<th><?php echo ucfirst($home->language['time']); ?></th>
+						<th><?php echo ucfirst($home->language['comment']); ?></th>
 					</tr>					
 				</thead>
 				<tbody>
@@ -31,11 +31,15 @@
 							<td><?php echo $value['people_qty']; ?></td>
 							<td><?php echo $value['time']; ?></td>
 							<td><?php echo $value['comment']; ?></td>
-						</tr>
-					<?php endforeach ?>
+						</tr>						
+					<?php endforeach ?>											
 				</tbody>
-			</table>
-			
+			</table>						
+		</div>
+		<div class="row">
+			<div class="col-12 col-md-6">
+				<p><strong>Total: <?php echo $total; ?></strong></p>
+			</div>
 		</div>
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->

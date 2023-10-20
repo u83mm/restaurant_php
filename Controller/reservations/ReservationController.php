@@ -26,7 +26,8 @@
         public function index(): void
         {                                 
             try {
-                $menuDayQuery = new QueryMenu();            
+                $menuDayQuery = new QueryMenu();
+                $query = new Query();          
 
                 /** Show diferent Menu's day dishes */
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -38,7 +39,12 @@
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
 
                 /** Hours to show in select element */
-                $hours = [12.00, 12.30, 13.00, 13.30, 14.00, 14.30, 15.00];
+                $rows = $query->selectAll('dinner_hours', $this->dbcon);                
+                $hours = [];
+
+                foreach ($rows as $key => $value) {
+                    $hours[] = $value['hour'];
+                }                
 
                 /** People qty to show in select element */
                 $people = [];
@@ -111,7 +117,7 @@
         }
 
         /** Show current reservations */
-        public function showReservations() : void 
+        public function showAllReservations() : void 
         {
             try {
                 $menuDayQuery = new QueryMenu();            
@@ -138,7 +144,14 @@
                     ], 
                     'time', 
                     $this->dbcon
-                );                
+                ); 
+                
+                // Calculate total people
+                $total = 0;
+                
+                foreach ($rows as $key => $value) {
+                    $total += $value['people_qty'];
+                }
                 
                 include(SITE_ROOT . "/../view/reservations/reservations_index.php");
 
@@ -155,6 +168,66 @@
 
                 include(SITE_ROOT . "/../view/database_error.php");
             }            
+        }
+
+        /** Show admin search view */
+        public function showSearchPanel() : void 
+        {
+            $query = new Query();
+
+            /** Hours to show in select element */
+            $rows = $query->selectAll('dinner_hours', $this->dbcon);                
+            $hours = [];
+
+            foreach ($rows as $key => $value) {
+                $hours[] = $value['hour'];
+            }  
+
+            include(SITE_ROOT . "/../view/admin/reservations/search_view.php");    
+        }
+
+        /** Show search results */
+        public function searchReservationsByTime() : void 
+        {                        
+            try {
+                $query = new Query();
+                $menuDayQuery = new QueryMenu();            
+
+                /** Show diferent Menu's day dishes */
+                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
+                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
+                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
+
+
+                /** Calculate menu's day price */
+                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+
+                // Get the time from select element and make the query
+                $time = number_format((float) $_POST['time'], 2);            
+                $rows = $query->selectAllBy('reservations', 'time', $time, $this->dbcon);
+                
+                // Calculate total people
+                $total = 0;
+
+                foreach ($rows as $key => $value) {
+                    $total += $value['people_qty'];
+                }
+
+                include(SITE_ROOT . "/../view/reservations/reservations_index.php");
+
+            } catch (\Throwable $th) {
+                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $error_msg = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                include(SITE_ROOT . "/../view/database_error.php");
+            }
         }
     }    
 ?>  

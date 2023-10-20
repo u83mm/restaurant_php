@@ -30,7 +30,9 @@
 	}
 	else {		
 		match ($action) {
-			default	=>	$reservationController->showReservations(),			
+			default			=>	$reservationController->showAllReservations(),
+			"search_panel"	=>	$reservationController->showSearchPanel(),
+			"search"		=>	$reservationController->searchReservationsByTime(),			
 		};
 	}	
 ?>

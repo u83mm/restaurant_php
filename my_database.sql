@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 20-10-2023 a las 13:21:24
+-- Tiempo de generación: 20-10-2023 a las 20:21:40
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -294,7 +294,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (145, 'dishes', 'dishes'),
 (146, 'time', 'time'),
 (147, 'by_time', 'by the time'),
-(148, 'all_reservations', 'all reservations');
+(148, 'all_reservations', 'all reservations'),
+(149, 'search_reservations', 'search reservations');
 
 -- --------------------------------------------------------
 
@@ -567,7 +568,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (145, 'dishes', 'platos'),
 (146, 'time', 'hora'),
 (147, 'by_time', 'por la hora'),
-(148, 'all_reservations', 'todas las reservas');
+(148, 'all_reservations', 'todas las reservas'),
+(149, 'search_reservations', 'buscar reservas');
 
 -- --------------------------------------------------------
 
@@ -698,7 +700,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -728,7 +730,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

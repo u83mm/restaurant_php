@@ -64,7 +64,7 @@
        * 
        * @return array An array of associative arrays.
        */
-        public function selectAllBy(string $table, string $field, string $value, object $dbcon): array  
+        public function selectAllBy(string $table, string $field, string|float $value, object $dbcon): array  
         {
             $query = "SELECT * FROM $table WHERE $field = :val";                         
 
