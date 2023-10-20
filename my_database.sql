@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 18-10-2023 a las 20:27:28
+-- Tiempo de generación: 20-10-2023 a las 13:21:24
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `my_database`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dinner_hours`
+--
+
+CREATE TABLE `dinner_hours` (
+  `id` int(11) NOT NULL,
+  `hour` float(4,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `dinner_hours`
+--
+
+INSERT INTO `dinner_hours` (`id`, `hour`) VALUES
+(1, 12.00),
+(2, 12.30),
+(3, 13.00),
+(4, 13.30),
+(5, 14.00),
+(6, 14.30),
+(7, 15.00);
 
 -- --------------------------------------------------------
 
@@ -266,7 +290,11 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (141, 'hour', 'hour'),
 (142, 'comment', 'comment'),
 (143, 'write_comment', 'write a comment'),
-(144, 'reservation_sent', 'your reservation has been sent');
+(144, 'reservation_sent', 'your reservation has been sent'),
+(145, 'dishes', 'dishes'),
+(146, 'time', 'time'),
+(147, 'by_time', 'by the time'),
+(148, 'all_reservations', 'all reservations');
 
 -- --------------------------------------------------------
 
@@ -353,7 +381,8 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `people_qty`, `comment
 (4, '2023-10-21', '14.30', 'Alberto', 8, NULL),
 (5, '2023-10-21', '14.30', 'Alberto', 8, NULL),
 (6, '2023-10-22', '14.30', 'Susana', 9, NULL),
-(7, '2023-10-22', '14.30', 'Susana', 9, NULL);
+(7, '2023-10-22', '14.30', 'Susana', 9, NULL),
+(8, '2023-10-25', '15.00', 'Peter', 2, 'I want paella for two people. Before we&#039;ll take a botle of white wine.');
 
 -- --------------------------------------------------------
 
@@ -534,7 +563,11 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (141, 'hour', 'hora'),
 (142, 'comment', 'comentario'),
 (143, 'write_comment', 'escribe un comentario'),
-(144, 'reservation_sent', 'tu reserva ha sido enviada');
+(144, 'reservation_sent', 'tu reserva ha sido enviada'),
+(145, 'dishes', 'platos'),
+(146, 'time', 'hora'),
+(147, 'by_time', 'por la hora'),
+(148, 'all_reservations', 'todas las reservas');
 
 -- --------------------------------------------------------
 
@@ -562,6 +595,12 @@ INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_role`) VALUES
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `dinner_hours`
+--
+ALTER TABLE `dinner_hours`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `dishes`
@@ -632,6 +671,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `dinner_hours`
+--
+ALTER TABLE `dinner_hours`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `dishes`
 --
 ALTER TABLE `dishes`
@@ -653,7 +698,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -671,7 +716,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -683,7 +728,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
