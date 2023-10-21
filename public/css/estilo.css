@@ -379,8 +379,6 @@ textarea {
 *			 Configuración para KINDLE FIRE					   *
 ***************************************************************/
 @media (min-width: 1051px) and (max-width: 1280px) {
-	.adminMenus {
-		width: 20em;		
-	}	
+	
 }
 
