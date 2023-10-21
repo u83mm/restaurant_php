@@ -5,7 +5,7 @@
         <div class="col-12 col-md-6">
             <label class="col-3 col-md-4 form-label mb-2 mb-md-0" for="date"><?php echo ucfirst($home->language['date']); ?>:</label>
             <div class="col-8 col-md-5 d-inline-block mb-2 mb-md-0">
-                <input class="form-control" type="date" name="date" id="date" required>
+                <input class="form-control blockBefore" type="date" name="date" id="date" required>
             </div> 
         </div>
         <div class="col-12 col-md-6">

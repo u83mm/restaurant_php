@@ -32,7 +32,7 @@
 		match ($action) {
 			default			=>	$reservationController->showAllReservations(),
 			"search_panel"	=>	$reservationController->showSearchPanel(),
-			"search"		=>	$reservationController->searchReservationsByTime(),			
+			"search"		=>	$reservationController->searchReservationsByDateAndTime(),			
 		};
 	}	
 ?>

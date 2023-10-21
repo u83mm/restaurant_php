@@ -3,10 +3,12 @@
     
     namespace Controller\reservations;
 
+    use model\classes\CommonTasks;
     use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
-    use model\classes\Validate;
+use model\classes\QueryReservations;
+use model\classes\Validate;
 
     class ReservationController
     {
@@ -70,7 +72,7 @@
             }
         } 
         
-        /** Save a reservation date */
+        /** Save a reservation */
         public function saveReservation() : void 
         {
             $validate = new Validate;
@@ -116,7 +118,7 @@
             }
         }
 
-        /** Show current reservations */
+        /** Show all reservations */
         public function showAllReservations() : void 
         {
             try {
@@ -138,7 +140,8 @@
                     'reservations', 
                     [
                         'name', 
-                        'people_qty', 
+                        'people_qty',
+                        'date', 
                         'time', 
                         'comment'
                     ], 
@@ -187,11 +190,12 @@
         }
 
         /** Show search results */
-        public function searchReservationsByTime() : void 
+        public function searchReservationsByDateAndTime() : void 
         {                        
             try {
-                $query = new Query();
-                $menuDayQuery = new QueryMenu();            
+                $queryReservation = new QueryReservations();
+                $menuDayQuery = new QueryMenu();
+                $commonTasks = new CommonTasks;            
 
                 /** Show diferent Menu's day dishes */
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -202,9 +206,14 @@
                 /** Calculate menu's day price */
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
 
-                // Get the time from select element and make the query
-                $time = number_format((float) $_POST['time'], 2);            
-                $rows = $query->selectAllBy('reservations', 'time', $time, $this->dbcon);
+                // Get date to make the query by date
+                $date = $_POST['date'];
+                $time = $_POST['time'] ? $_POST['time'] : "";
+
+                $rows = $queryReservation->selectAllByDateAndTime('reservations', 'date', $date, $this->dbcon, $time, 'time');
+                
+                // Format the date to show in the view results
+                $date = $commonTasks->showDayMonthYear($date, $_SESSION['language']);                              
                 
                 // Calculate total people
                 $total = 0;
