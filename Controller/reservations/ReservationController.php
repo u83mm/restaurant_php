@@ -7,8 +7,10 @@
     use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
-use model\classes\QueryReservations;
-use model\classes\Validate;
+    use model\classes\QueryReservations;
+    use model\classes\Validate;
+
+    use PDO;
 
     class ReservationController
     {
@@ -122,7 +124,8 @@ use model\classes\Validate;
         public function showAllReservations() : void 
         {
             try {
-                $menuDayQuery = new QueryMenu();            
+                $menuDayQuery = new QueryMenu(); 
+                $commonTasks = new CommonTasks;           
 
                 /** Show diferent Menu's day dishes */
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -133,6 +136,26 @@ use model\classes\Validate;
                 /** Calculate menu's day price */
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
 
+
+                /** Select all distint dates from current date */
+                $currentDate = date('Y-m-d');                
+                $query = "SELECT DISTINCT date FROM reservations WHERE date > '$currentDate'";                
+
+                try {
+                    $stm = $this->dbcon->pdo->prepare($query);
+                    //$stm->bindValue(":val", $value);                            
+                    $stm->execute();       
+                    $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                    $stm->closeCursor();
+                            
+                } catch (\Throwable $th) {
+                    throw new \Exception("{$th->getMessage()}", 1);
+                }                 
+                  
+                foreach ($rows as $key => $value) {
+                    $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                }                             
+                
                 /** Get reservations */
                 $query = new Query();
 
@@ -148,13 +171,13 @@ use model\classes\Validate;
                     'time', 
                     $this->dbcon
                 ); 
-                
+                                                            
                 // Calculate total people
                 $total = 0;
                 
                 foreach ($rows as $key => $value) {
-                    $total += $value['people_qty'];
-                }
+                    $rows[$key]['date'] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                }                                 
                 
                 include(SITE_ROOT . "/../view/reservations/reservations_index.php");
 
@@ -193,6 +216,7 @@ use model\classes\Validate;
         public function searchReservationsByDateAndTime() : void 
         {                        
             try {
+                // Create objects
                 $queryReservation = new QueryReservations();
                 $menuDayQuery = new QueryMenu();
                 $commonTasks = new CommonTasks;            
@@ -206,21 +230,26 @@ use model\classes\Validate;
                 /** Calculate menu's day price */
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
 
-                // Get date to make the query by date
-                $date = $_POST['date'];
+                // Get date and time to make the query by date
+                $dates = [
+                    'date' => $_POST['date'],
+                ];                
+                
                 $time = $_POST['time'] ? $_POST['time'] : "";
 
-                $rows = $queryReservation->selectAllByDateAndTime('reservations', 'date', $date, $this->dbcon, $time, 'time');
+                $rows = $queryReservation->selectAllByDateAndTime('reservations', 'date', $dates['date'], $this->dbcon, $time, 'time');                                                        
                 
                 // Format the date to show in the view results
-                $date = $commonTasks->showDayMonthYear($date, $_SESSION['language']);                              
+                foreach ($dates as $key => $value) {
+                    $date[$key] = $commonTasks->showDayMonthYear($value, $_SESSION['language']); 
+                }                                 
                 
                 // Calculate total people
                 $total = 0;
 
-                foreach ($rows as $key => $value) {
-                    $total += $value['people_qty'];
-                }
+                foreach ($rows as $key => $value) {                   
+                    $rows[$key]['date'] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                }                                   
 
                 include(SITE_ROOT . "/../view/reservations/reservations_index.php");
 

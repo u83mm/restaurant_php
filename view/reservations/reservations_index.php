@@ -15,32 +15,40 @@
 		</div>		
 		<div class="clear-fix">
 			<?php echo $message = $this->message ?? ""; ?>
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr class="text-center">
-						<th><?php echo ucfirst($home->language['name']); ?></th>
-						<th><?php echo ucfirst($home->language['people_qty']); ?></th>
-						<th><?php echo ucfirst($home->language['time']); ?></th>
-						<th><?php echo ucfirst($home->language['comment']); ?></th>
-					</tr>					
-				</thead>
-				<tbody>
-					<?php foreach ($rows as $key => $value) :?>
-						<tr>
-							<td><?php echo $value['name']; ?></td>
-							<td><?php echo $value['people_qty']; ?></td>
-							<td><?php echo $value['time']; ?></td>
-							<td><?php echo $value['comment']; ?></td>
-						</tr>						
-					<?php endforeach ?>											
-				</tbody>
-			</table>						
+			<?php foreach ($date as $key => $dates) :?>
+				<h4><strong><?php echo ucfirst($home->language['date']); ?>: </strong><?php echo $dates; ?></h4>
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr class="text-center">
+							<th><?php echo ucfirst($home->language['name']); ?></th>
+							<th><?php echo ucfirst($home->language['people_qty']); ?></th>
+							<th><?php echo ucfirst($home->language['time']); ?></th>
+							<th><?php echo ucfirst($home->language['comment']); ?></th>
+						</tr>					
+					</thead>
+					<tbody>
+						<?php foreach ($rows as $key => $value) :?>
+							<?php if ($value['date'] == $dates) :?>
+								<tr>
+									<td><?php echo $value['name']; ?></td>
+									<td><?php echo $value['people_qty']; ?></td>
+									<td><?php echo $value['time']; ?></td>
+									<td><?php echo $value['comment']; ?></td>
+								</tr>
+								<?php $total += $value['people_qty']; ?>
+							<?php endif ?>																							
+						<?php endforeach ?>											
+					</tbody>
+				</table>
+				<div class="col-12 col-md-6 mb-5">
+					<p><strong>Total: <?php echo $total; $total = 0;?></strong></p>
+				</div>
+			<?php endforeach ?>												
 		</div>
-		<div class="row">
-			<div class="col-12 col-md-6">
-				<p><strong>Total: <?php echo $total; ?></strong></p>
-			</div>
-		</div>
+		
+		<div class="col-12 col-md-6 col-lg-4 mb-4">            
+			<form action="/admin/admin_reservations.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($home->language['new_search']); ?></button></form>
+        </div>
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
 	<?php include(SITE_ROOT . "/../view/menu/menu_day_view.php"); ?>
