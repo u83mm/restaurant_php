@@ -5,11 +5,13 @@
     {
         // da formato a fechas que son Strings para que las muestre en formato ('dd-mm-YYYY')
         
-        public function showDayMonthYear(string $date = null): string
+        public function showDayMonthYear(string $date, string $language = null): string
         {
             $year = substr($date, 0, 4);
             $month = substr($date, 5, 2);
             $day = substr($date, 8, 2);
+
+            if($language === "english") return $year . "/" . $month . "/" . $day;
 
             return $day . "/" . $month . "/" . $year;
         }
