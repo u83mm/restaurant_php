@@ -53,20 +53,32 @@
             }
         }
 
-      /**
-       * > This function takes in a table name, a field name, a value, and a database connection
-       * object, and returns an array of all the rows in the table that match the field and value
-       * 
-       * @param string table The table name
-       * @param string field The field you want to search for.
-       * @param string value The value to be searched for.
-       * @param object dbcon The database connection object.
-       * 
-       * @return array An array of associative arrays.
-       */
-        public function selectAllBy(string $table, string $field, string|float $value, object $dbcon): array  
+     
+        /**
+         * The function selects all rows from a specified table and optionally orders the results.
+         * 
+         * @param string table The name of the table 
+         * @param string field The name of the column in the database table
+         * that you want to filter the results by.
+         * @param string value The `` parameter is the value that you want to match in the
+         * specified field of the table. It can be either a string or a float.
+         * @param object dbcon The `` parameter is an object that represents the database
+         * connection. It is expected to have a property named `pdo` which is an instance of the PDO
+         * class. The PDO class is a PHP extension that provides a lightweight and consistent interface
+         * for interacting with databases.
+         * @param string orderBy The `` parameter is an optional parameter that specifies the
+         * column by which the result should be ordered. If a value is provided for ``, the
+         * result will be sorted in ascending order based on the specified column. If no value is
+         * provided, the result will be returned in the order in which
+         * 
+         * @return array an array of rows fetched from the database table that match the specified
+         * field and value.
+         */
+        public function selectAllBy(string $table, string $field, string|float $value, object $dbcon, string $orderBy = null): array  
         {
-            $query = "SELECT * FROM $table WHERE $field = :val";                         
+            $query = "SELECT * FROM $table WHERE $field = :val";
+            
+            if ($orderBy) $query .= " ORDER BY $orderBy";            
 
             try {
                 $stm = $dbcon->pdo->prepare($query);
