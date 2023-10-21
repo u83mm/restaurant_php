@@ -40,6 +40,7 @@ function resetOrder() {
     document.getElementById("new_order_form").action = "/orders/index.php"
 }
 
+
 /** Disable date before current day in forms with 'input type date' fields */
 function setDateMinAttributeOnForm() {
     const today = new Date();
@@ -70,7 +71,10 @@ window.onload = function() {
     let newOrderButton = document.getElementById('new_order_button');
     if(newOrderButton) newOrderButton.addEventListener("click", resetOrder);
 
-    /** Disable date before current day in forms with 'input type date' fields */
-    let dateElement = document.querySelector('input[type="date"]');
+
+    /** Disable date before current day in forms with 'input[type="date"]' fields 
+     *  and class 'blockBefore'
+    */    
+    let dateElement = document.querySelector('.blockBefore');
     if (dateElement) setDateMinAttributeOnForm();
 }
