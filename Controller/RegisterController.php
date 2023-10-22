@@ -1,7 +1,8 @@
 <?php
     namespace Controller;
 
-    use model\classes\Query;    
+	use model\classes\Language;
+	use model\classes\Query;    
 
     /**
      * register a new user in the database. 
@@ -9,10 +10,16 @@
     class RegisterController
     {
         private object $dbcon;
+		private Language $languageObject;
+		private array $language = [];
 
         public function __construct(object $dbcon)
         {
             $this->dbcon = $dbcon;
+			$this->languageObject = new Language();
+
+			/** Configure page language */           
+			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
         }
 
         /* A method of the class `RegisterController` that is called when the user clicks on the
@@ -33,7 +40,7 @@
 					$rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
 
 					if ($rows) {
-						$error_msg = "<p class='error'>El email '{$email}' ya está registrado</p>";
+						$error_msg = "<p class='error text-center'>" . ucfirst($this->language['email_registered']) . "</p>";
 						include(SITE_ROOT . "/../view/register_view.php");											
 					}
 					else {

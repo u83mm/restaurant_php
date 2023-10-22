@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 20-10-2023 a las 20:21:40
+-- Tiempo de generación: 22-10-2023 a las 08:50:27
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -86,7 +86,7 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (17, 'café solo', 4, 8, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854429-coffee.jpg', '1.20', 1),
 (18, 'café cortado', 4, 8, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854551-coffee.jpg', '1.30', 1),
 (19, 'creps de la casa', 3, 7, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682856434-creps.jpg', '4.75', 1),
-(21, 'anchoas de la casa', 4, 1, 'Vestibulum vitae auctor odio. Vivamus sagittis eleifend fermentum. Aliquam dictum lacinia lacinia. Nulla commodo quam a convallis sollicitudin. Sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. Nullam vel eleifend enim, a varius lorem. Mauris at mi sed velit faucibus rhoncus.', '/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp', '11.75', 1),
+(21, 'anchoas de la casa', 4, 1, 'vestibulum vitae auctor odio. vivamus sagittis eleifend fermentum. aliquam dictum lacinia lacinia. nulla commodo quam a convallis sollicitudin. sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. nullam vel eleifend enim, a varius lorem. mauris at mi sed velit faucibus rhoncus.', '/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp', '11.75', 0),
 (26, 'jarra de cerveza', 4, 14, 'Duis quis nulla vitae odio feugiat vehicula a id felis. Phasellus in ultrices ipsum. Nunc et efficitur metus, et lacinia ex. Duis sit amet nunc blandit, euismod mi eu, vehicula risus. Fusce eu felis sem. Morbi faucibus euismod malesuada. Morbi dapibus diam eu erat sagittis semper. Vestibulum tristique a orci ac semper. Nam orci enim, egestas eget semper eget, volutpat eget lacus. Fusce dignissim quam eu convallis molestie. Aliquam at nulla maximus, venenatis nisi quis, molestie lectus.', '/var/www/public/uploads/dishes_pics/1688758699-beer_jar.png', '3.25', 1);
 
 -- --------------------------------------------------------
@@ -295,7 +295,10 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (146, 'time', 'time'),
 (147, 'by_time', 'by the time'),
 (148, 'all_reservations', 'all reservations'),
-(149, 'search_reservations', 'search reservations');
+(149, 'search_reservations', 'search reservations'),
+(150, 'new_search', 'new search'),
+(151, 'date_hour-optional', 'by date and hour(optional)'),
+(152, 'email_registered', 'the email is in use');
 
 -- --------------------------------------------------------
 
@@ -383,7 +386,10 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `people_qty`, `comment
 (5, '2023-10-21', '14.30', 'Alberto', 8, NULL),
 (6, '2023-10-22', '14.30', 'Susana', 9, NULL),
 (7, '2023-10-22', '14.30', 'Susana', 9, NULL),
-(8, '2023-10-25', '15.00', 'Peter', 2, 'I want paella for two people. Before we&#039;ll take a botle of white wine.');
+(8, '2023-10-25', '15.00', 'Peter', 2, 'I want paella for two people. Before we&#039;ll take a botle of white wine.'),
+(9, '2023-10-21', '14.00', 'Pablo', 2, NULL),
+(10, '2023-10-21', '14.30', 'Luís', 4, NULL),
+(11, '2023-10-21', '14.00', 'Alfonso', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -569,7 +575,10 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (146, 'time', 'hora'),
 (147, 'by_time', 'por la hora'),
 (148, 'all_reservations', 'todas las reservas'),
-(149, 'search_reservations', 'buscar reservas');
+(149, 'search_reservations', 'buscar reservas'),
+(150, 'new_search', 'nueva búsqueda'),
+(151, 'date_hour-optional', 'por fecha y hora(opcional)'),
+(152, 'email_registered', 'el email ya está registrado');
 
 -- --------------------------------------------------------
 
@@ -700,7 +709,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -718,7 +727,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -730,7 +739,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
