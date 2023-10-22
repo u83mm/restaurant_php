@@ -507,6 +507,8 @@
         /** Show search form */
         public function search(string $message = null, string $p = null, string $s = null): void
         {
+            $_SESSION['action'] = "search";
+            
             try {
                 $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;

@@ -75,7 +75,8 @@
 					</div>
 					<div class="col-12 col-md-2 col-xl-1 d-md-flex justify-content-center align-items-end pb-2 pe-1 text-end">
 						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">														
+							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">
+							<input type="hidden" name="date" value="<?php if(isset($_SESSION['date'])) echo $_SESSION['date']; ?>">													
 							<button id="language" class="btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="me-xl-1 languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
 						</form>										
 					</div>																				

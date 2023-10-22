@@ -29,7 +29,7 @@
         /** Show reservations form */
         public function index(): void
         {                                 
-            try {
+            try {                
                 $menuDayQuery = new QueryMenu();
                 $query = new Query();          
 
@@ -199,6 +199,8 @@
         /** Show admin search view */
         public function showSearchPanel() : void 
         {
+            $_SESSION['action'] = "search_panel";
+
             $query = new Query();
 
             /** Hours to show in select element */
@@ -214,7 +216,10 @@
 
         /** Show search results */
         public function searchReservationsByDateAndTime() : void 
-        {                        
+        {   
+            $_SESSION['action'] = "search";
+            $_SESSION['date'] = $_POST['date'] ?? date('Y-m-d');
+
             try {
                 // Create objects
                 $queryReservation = new QueryReservations();
@@ -232,10 +237,10 @@
 
                 // Get date and time to make the query by date
                 $dates = [
-                    'date' => $_POST['date'],
+                    'date' => $_POST['date'] ?? date('Y-m-d'),
                 ];                
                 
-                $time = $_POST['time'] ? $_POST['time'] : "";
+                $time = isset($_POST['time']) ? $_POST['time'] : "";
 
                 $rows = $queryReservation->selectAllByDateAndTime('reservations', 'date', $dates['date'], $this->dbcon, $time, 'time');                                                        
                 
