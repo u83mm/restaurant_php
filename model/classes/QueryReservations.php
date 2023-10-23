@@ -1,4 +1,6 @@
 <?php
+    declare(strict_types=1);
+    
     namespace model\classes;
 
     use model\classes\Query;
@@ -34,6 +36,23 @@
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);
             } 
-        }   
+        }
+        
+        /** Select distinct dates from current date */
+        public function selectDistinctDatesFromCurrent(string $table, object $dbcon) : array {
+            $query = "SELECT DISTINCT date FROM $table WHERE date > now()";                
+
+            try {
+                $stm = $dbcon->pdo->prepare($query);                                            
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+
+                return $rows;
+                        
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }  
+        }
     }    
 ?>

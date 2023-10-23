@@ -125,7 +125,8 @@
         {
             try {
                 $menuDayQuery = new QueryMenu(); 
-                $commonTasks = new CommonTasks;           
+                $commonTasks = new CommonTasks; 
+                $queryReservations = new QueryReservations();          
 
                 /** Show diferent Menu's day dishes */
                 $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
@@ -137,20 +138,8 @@
                 $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
 
 
-                /** Select all distint dates from current date */
-                $currentDate = date('Y-m-d');                
-                $query = "SELECT DISTINCT date FROM reservations WHERE date > '$currentDate'";                
-
-                try {
-                    $stm = $this->dbcon->pdo->prepare($query);
-                    //$stm->bindValue(":val", $value);                            
-                    $stm->execute();       
-                    $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                    $stm->closeCursor();
-                            
-                } catch (\Throwable $th) {
-                    throw new \Exception("{$th->getMessage()}", 1);
-                }                 
+                /** Select all distint dates from current date */                            
+                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);             
                   
                 foreach ($rows as $key => $value) {
                     $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
