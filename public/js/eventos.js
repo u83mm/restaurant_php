@@ -43,8 +43,8 @@ function resetOrder() {
 
 /** Disable date before current day in forms with 'input type date' fields */
 function setDateMinAttributeOnForm() {
-    const today = new Date();
-    const minDate = today.toISOString().split('T')[0];   
+    const today = new Date();        
+    const minDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();         
 
     // Set the min attribute of the input field to today's date
     document.querySelector('input[type="date"]').min = minDate;    
