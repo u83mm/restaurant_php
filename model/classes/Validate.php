@@ -49,9 +49,9 @@
             $result = true;
             
             foreach ($fields as $key => $value) {
-                if ((empty($value) || !isset($value)) && $value != false) {                                        
-                    $this->msg .= "<br/>'$key' es un dato requerido";
-                    $result = false;					
+                if ((empty($value) || !isset($value))) {                                        
+                    $this->msg .= "<br/>'$key' es un dato requerido";                    
+                    throw new \Exception($this->msg, 1);                    					
                 }
             }
                       

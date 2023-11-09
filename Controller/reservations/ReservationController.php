@@ -103,10 +103,10 @@
                 }
                 else {
                     $fields['email'] = $validate->test_input($_POST['email']);
-                }
+                }                
 
                 // Validate form
-                $ok = $validate->validate_form($fields);
+                $ok = $validate->validate_form($fields);                
 
                 if($ok) {                                                           
                     // Save row in DB
@@ -129,7 +129,9 @@
                                 </p>";
                 }
 
-                include(SITE_ROOT . "/../view/database_error.php");
+                //include(SITE_ROOT . "/../view/database_error.php");
+                $this->message = $error_msg;
+                $this->index();
             }
         }
 
