@@ -41,7 +41,7 @@
 					</tbody>
 				</table>
 				<div class="col-12 col-md-6 mb-5">
-					<p><strong>Total: <?php echo $total; $total = 0;?></strong></p>
+					<p><strong>Total <?php echo $home->language['persons']; ?>: <?php echo $total; $total = 0;?></strong></p>
 				</div>
 			<?php endforeach ?>												
 		</div>

@@ -40,13 +40,13 @@
         
         /** Select distinct dates from current date */
         public function selectDistinctDatesFromCurrent(string $table, object $dbcon) : array {
-            $query = "SELECT DISTINCT date FROM $table WHERE date > now()";                
+            $query = "SELECT DISTINCT date FROM $table WHERE date >= CURRENT_DATE()";                                       
 
             try {
                 $stm = $dbcon->pdo->prepare($query);                                            
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                $stm->closeCursor();
+                $stm->closeCursor();                
 
                 return $rows;
                         

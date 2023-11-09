@@ -27,7 +27,7 @@
         }
      
         /** Show reservations form */
-        public function index(): void
+        public function index(array $fields = []): void
         {                                 
             try {                
                 $menuDayQuery = new QueryMenu();
@@ -78,24 +78,37 @@
         public function saveReservation() : void 
         {
             $validate = new Validate;
+                                  
+            try {              
+                // Get values from reservations form
+                $fields = [
+                    "date"          =>  $validate->test_input($_POST['date']),
+                    "time"          =>  $validate->test_input($_POST['time']),
+                    "name"          =>  $validate->test_input($_POST['name']),
+                    "email"         =>  $validate->validate_email($_POST['email']), 
+                    "people_qty"    =>  $validate->test_input($_POST['qty']),                                    
+                ];
 
-            // Get values from reservations form
-            $fields = [
-                "date"          =>  $validate->test_input($_POST['date']),
-                "time"          =>  $validate->test_input($_POST['time']),
-                "name"          =>  $validate->test_input($_POST['name']),
-                "people_qty"    =>  $validate->test_input($_POST['qty']),                   
-            ];            
-            
-            try {
+                if(!empty($_POST['comment'])) {
+                    $fields['comment'] = $validate->test_input($_POST['comment']);
+                }
+                
+                // Validate email
+                if(!$fields['email']) {
+                    $this->message = "<p class='alert alert-danger text-center'>Enter a valid email please</p>";
+                    $fields['email'] = $_POST['email'];
+                                        
+                    $this->index($fields);
+                    exit();
+                }
+                else {
+                    $fields['email'] = $validate->test_input($_POST['email']);
+                }
+
                 // Validate form
                 $ok = $validate->validate_form($fields);
 
-                if($ok) {
-                    if(!empty($_POST['comment'])) {
-                        $fields['comment'] = $validate->test_input($_POST['comment']);
-                    }                   
-                    
+                if($ok) {                                                           
                     // Save row in DB
                     $query = new Query();
                     $query->insertInto('reservations', $fields, $this->dbcon);
@@ -139,7 +152,7 @@
 
 
                 /** Select all distint dates from current date */                            
-                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);             
+                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                        
                   
                 foreach ($rows as $key => $value) {
                     $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);

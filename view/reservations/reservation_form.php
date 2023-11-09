@@ -5,7 +5,7 @@
         <div class="col-12 col-md-6">
             <label class="col-3 col-md-4 form-label mb-2 mb-md-0" for="date"><?php echo ucfirst($home->language['date']); ?>:</label>
             <div class="col-8 col-md-5 d-inline-block mb-2 mb-md-0">
-                <input class="form-control blockBefore" type="date" name="date" id="date" required>
+                <input class="form-control blockBefore" type="date" name="date" id="date" value="<?php if(isset($fields['date'])) echo $fields['date']; ?>" required>
             </div> 
         </div>
         <div class="col-12 col-md-6">
@@ -26,7 +26,7 @@
         <div class="col-12 col-md-6">
             <label class="col-3 col-md-4 form-label mb-2 mb-md-0" for="name"><?php echo ucfirst($home->language['name']); ?>:</label>
             <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
-                <input class="form-control" type="text" name="name" id="name" required>
+                <input class="form-control" type="text" name="name" id="name" value="<?php if(isset($fields['date'])) echo $fields['name']; ?>" required>
             </div>        
         </div>        
         <div class="col-12 col-md-6">
@@ -42,12 +42,22 @@
         </div>        
     </div> 
 
+    <!-- Email -->
+    <div class="row mb-0 mb-md-3">       
+        <div class="col-12 col-md-6">
+            <label class="col-3 col-md-4 form-label mb-2 mb-md-0" for="email">Email:</label>
+            <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
+                <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($fields['date'])) echo $fields['email']; ?>" required>
+            </div>        
+        </div>                        
+    </div> 
+
     <!-- COMMENT -->
     <div class="row mb-0 mb-md-3">       
         <div class="col-12">
             <label class="col-2 col-md-2 form-label mb-2 mb-md-0" for="comment"><?php echo ucfirst($home->language['comment']); ?>:</label>
             <div class="col-12 col-md-9 d-md-inline-block">
-                <textarea class="form-control" name="comment" id="comment" rows="5" placeholder="<?php echo ucfirst($home->language['write_comment']); ?>"></textarea> 
+                <textarea class="form-control" name="comment" id="comment" rows="5" placeholder="<?php echo ucfirst($home->language['write_comment']); ?>"><?php if(isset($fields['comment'])) echo $fields['comment']; ?></textarea> 
             </div>
                    
         </div>                      
