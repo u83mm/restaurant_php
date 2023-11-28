@@ -162,7 +162,7 @@
                     }
                 }
                 else {
-                    $date[] = date('d/m/Y');
+                    $date[] = $commonTasks->showDayMonthYear(date('Y-m-d'), $_SESSION['language']);
                 }
                      
                 /** Get reservations */
