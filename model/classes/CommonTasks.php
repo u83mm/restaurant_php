@@ -3,7 +3,7 @@
 
     class CommonTasks
     {
-        // da formato a fechas que son Strings para que las muestre en formato ('dd-mm-YYYY')
+        // Da formato a fechas que son Strings para que las muestre en formato ('dd-mm-YYYY')
         
         public function showDayMonthYear(string $date, string $language = null): string
         {

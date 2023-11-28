@@ -154,12 +154,17 @@
 
 
                 /** Select all distint dates from current date */                            
-                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                        
-                  
-                foreach ($rows as $key => $value) {
-                    $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
-                }                             
+                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                                       
                 
+                if(count($rows) > 0) {
+                    foreach ($rows as $key => $value) {
+                        $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                    }
+                }
+                else {
+                    $date[] = date('d/m/Y');
+                }
+                     
                 /** Get reservations */
                 $query = new Query();
 
