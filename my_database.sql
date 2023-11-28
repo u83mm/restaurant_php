@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 09-11-2023 a las 21:55:03
+-- Tiempo de generación: 28-11-2023 a las 23:15:14
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -299,7 +299,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (150, 'new_search', 'new search'),
 (151, 'date_hour-optional', 'by date and hour(optional)'),
 (152, 'email_registered', 'the email is in use'),
-(153, 'persons', 'persons');
+(153, 'persons', 'persons'),
+(154, 'captcha_security_phrase', 'to test the site security you must use the captcha.');
 
 -- --------------------------------------------------------
 
@@ -394,7 +395,8 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`,
 (11, '2023-10-21', '14.00', 'Alfonso', '', 5, NULL),
 (12, '2023-10-27', '14.00', 'Juan Carlos', '', 3, NULL),
 (22, '2023-11-09', '13.00', 'Arjona', 'arjona@arjona.com', 11, 'Hoy no llevamos bebés'),
-(23, '2023-11-11', '13.00', 'Pepe', 'no@email.com', 3, NULL);
+(23, '2023-11-11', '13.00', 'Pepe', 'no@email.com', 3, NULL),
+(25, '2023-11-09', '12.00', 'Juan Carlos', 'no@email.com', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -584,7 +586,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (150, 'new_search', 'nueva búsqueda'),
 (151, 'date_hour-optional', 'por fecha y hora(opcional)'),
 (152, 'email_registered', 'el email ya está registrado'),
-(153, 'persons', 'personas');
+(153, 'persons', 'personas'),
+(154, 'captcha_security_phrase', 'para comprobar la seguridad del sitio debes usar el captcha.');
 
 -- --------------------------------------------------------
 
@@ -715,7 +718,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -733,7 +736,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -745,7 +748,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

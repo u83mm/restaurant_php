@@ -28,6 +28,7 @@
 				<form class="col col-md-6 mx-md-auto" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 					<div class="col">
 						<?php echo $this->message; ?>
+						<p class="text-center"><?php echo ucfirst($home->language['captcha_security_phrase']); ?></p>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_text']); ?>:</p>
 					</div>
 					<div class="col mb-3 mb-md-5">
