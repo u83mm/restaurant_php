@@ -33,4 +33,11 @@ services:
       volumes: 
         - "../Restaurant:/var/www"
         - "./log/apache:/var/log/apache2"
-        - "./log/php:/var/log"      
+        - "./log/php:/var/log"
+
+  mailer:
+    container_name: mailer
+    image: schickling/mailcatcher
+    ports:
+    - "1025:1025"
+    - "1080:1080"    

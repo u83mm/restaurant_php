@@ -930,7 +930,7 @@ default_socket_timeout = 60
 ;extension=ffi
 ;extension=ftp
 ;extension=fileinfo
-;extension=gd
+extension=gd
 ;extension=gettext
 ;extension=gmp
 ;extension=intl
@@ -1091,7 +1091,7 @@ smtp_port = 25
 
 ; For Unix only.  You may supply arguments as well (default: "sendmail -t -i").
 ; https://php.net/sendmail-path
-;sendmail_path =
+;sendmail_path = 
 
 ; Force the addition of the specified parameters to be passed as extra parameters
 ; to the sendmail binary. These parameters will always replace the value of
@@ -1963,5 +1963,3 @@ ldap.max_links = -1
 
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
-
-extension=twig.so
