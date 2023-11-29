@@ -5,11 +5,6 @@ ARG TIMEZONE="Europe/Madrid"
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
-# Config files for php.ini and apache2.conf
-COPY /php_conf/php.ini-development /usr/local/etc/php/
-COPY /php_conf/php.ini-production /usr/local/etc/php/
-COPY /apache_conf/apache2.conf /etc/apache2
-
 COPY / /var/www/
 
 # Set timezone
@@ -35,11 +30,12 @@ RUN mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-availabl
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
-# Configure php.ini
-RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini-developmento.old
+# Config files for php.ini and apache2.conf
+RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini-development.old
 RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini-production.old
-COPY php.ini-development /usr/local/etc/php/php.ini-development
-COPY php.ini-production /usr/local/etc/php/php.ini-production
+COPY /php_conf/php.ini-development /usr/local/etc/php/
+COPY /php_conf/php.ini-production /usr/local/etc/php/
+COPY /apache_conf/apache2.conf /etc/apache2
 
 # Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
 RUN addgroup --gid ${GROUP_ID} mario

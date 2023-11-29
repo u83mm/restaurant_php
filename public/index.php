@@ -3,9 +3,9 @@
 
 	use Controller\IndexController;
 
-	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");	
 
-	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
+	model\classes\Loader::init(SITE_ROOT . "/..");		
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? "");		
 	$indexController = new IndexController($dbcon);		
