@@ -11,6 +11,7 @@
     use model\classes\Validate;
 
     use PDO;
+    use PHPMailer\PHPMailer\PHPMailer;
 
     class ReservationController
     {
@@ -79,7 +80,21 @@
         {
             $validate = new Validate;
                                   
-            try {              
+            try { 
+                require SITE_ROOT . '/../vendor/autoload.php';
+
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = "mailer";
+                $mail->Port = 1025;
+
+                $mail->setFrom('sender@example.com', 'Sender Name');
+                $mail->addAddress('recipient@example.com');
+                $mail->Subject = 'Test Email';
+                $mail->Body = 'This is a test email.';
+               
+                if(!$mail->send()) throw new \Exception("Error Processing Request", 1);
+
                 // Get values from reservations form
                 $fields = [
                     "date"          =>  $validate->test_input($_POST['date']),
@@ -154,7 +169,7 @@
 
 
                 /** Select all distint dates from current date */                            
-                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                                       
+                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                                                      
                 
                 if(count($rows) > 0) {
                     foreach ($rows as $key => $value) {
@@ -165,10 +180,8 @@
                     $date[] = $commonTasks->showDayMonthYear(date('Y-m-d'), $_SESSION['language']);
                 }
                      
-                /** Get reservations */
-                $query = new Query();
-
-                $rows = $query->selectFieldsFromTableOrderByField(
+                /** Get reservations */                
+                $rows = $queryReservations->selectFieldsFromTableOrderByField(
                     'reservations', 
                     [
                         'name', 
@@ -177,9 +190,9 @@
                         'time', 
                         'comment'
                     ], 
-                    'time', 
+                    'date', 
                     $this->dbcon
-                ); 
+                );                 
                                                             
                 // Calculate total people
                 $total = 0;
