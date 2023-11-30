@@ -12,6 +12,7 @@
 
     use PDO;
     use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
 
     class ReservationController
     {
@@ -80,21 +81,7 @@
         {
             $validate = new Validate;
                                   
-            try { 
-                require SITE_ROOT . '/../vendor/autoload.php';
-
-                $mail = new PHPMailer(true);
-                $mail->isSMTP();
-                $mail->Host = "mailer";
-                $mail->Port = 1025;
-
-                $mail->setFrom('sender@example.com', 'Sender Name');
-                $mail->addAddress('recipient@example.com');
-                $mail->Subject = 'Test Email';
-                $mail->Body = 'This is a test email.';
-               
-                if(!$mail->send()) throw new \Exception("Error Processing Request", 1);
-
+            try {
                 // Get values from reservations form
                 $fields = [
                     "date"          =>  $validate->test_input($_POST['date']),
@@ -118,13 +105,89 @@
                 }
                 else {
                     $fields['email'] = $validate->test_input($_POST['email']);
-                }                
+                } 
 
                 // Validate form
-                $ok = $validate->validate_form($fields);                
+                $ok = $validate->validate_form($fields);  
+                                                                                             
+                if($ok) {
+                    // Send confirmation email for a reservation
+                    require_once SITE_ROOT . '/../vendor/autoload.php';
+                    $mail = new PHPMailer(true);
 
-                if($ok) {                                                           
-                    // Save row in DB
+                    // Config for development                
+                    /* $mail->isSMTP();
+                    $mail->Host = "mailer";
+                    $mail->Port = 1025; */
+
+                    // Config for production
+                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;             //Enable verbose debug output
+                    $mail->isSMTP();                                   //Send using SMTP
+                    $mail->Host       = 'localhost';                   //Set the SMTP server to send through
+                    /* $mail->SMTPAuth   = true;                          //Enable SMTP authentication
+                    $mail->Username   = 'user@example.com';            //SMTP username
+                    $mail->Password   = 'secret';   */                    //SMTP password
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption
+                    $mail->Port       = 587;  
+
+                    // Recipients
+                    $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');
+                    $mail->addAddress($fields['email']);
+                    /* $mail->addReplyTo('info@yourhouse.com', 'Information');
+                    $mail->addCC('reception@yourhouse.com');
+                    $mail->addBCC('bcc@example.com');  */              
+
+                    // Attachments                                                                                              
+                    $mail->addEmbeddedImage(SITE_ROOT . '/images/main_logo.png', 'main_logo');
+                    $mail->addEmbeddedImage(SITE_ROOT . '/images/restaurant_logo.png', 'restaurant_logo');
+
+                    // Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'Reservation received';
+                    $mail->Body    = "<div style='padding-left: 1em;'><img width='200' src='cid:main_logo' alt='main logo'><br>" .
+                                    "<p>Hi {$fields['name']}, we have received your reservation!. <br><br>" .
+                                    "Here are your reservation's data.</p>" .
+                                    "
+                                    <table style='margin-bottom: 2em'>
+                                        <tr>
+                                            <td style='text-align: right;'>Name:</td>
+                                            <td><strong>{$fields['name']}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='text-align: right;'>Date:</td>
+                                            <td><strong>{$fields['date']}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='text-align: right;'>Time:</td>
+                                            <td><strong>{$fields['time']}h</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td style='text-align: right;'>Qty:</td>
+                                            <td><strong>{$fields['people_qty']} pers.</strong></td>
+                                        </tr>
+                                    </table>
+                                    " .                                     
+                                    "In the event that you are unable to attend at the scheduled time, " . 
+                                    "or if you wish to cancel the appointment, we would appreciate it " . 
+                                    "if you would notify us in advance. <br><br>" .
+                                    "Thank you!<br><br>" . 
+                                    "Restaurant Your House<br>" . 
+                                    "<img style='padding: 1em; width: 7em;' src='cid:restaurant_logo' alt='restaurant logo'><br><br></div>";
+                    $mail->AltBody = "Hi {$fields['name']}, we have received your reservation!. \n\n" .
+                                    "Here are your reservation's data.\n\n" .
+                                    "Name:\t {$fields['name']}\n" . 
+                                    "Date:\t {$fields['date']}\n" .
+                                    "Time:\t {$fields['time']}h.\n" .
+                                    "Qty:\t\t {$fields['people_qty']} pers.\n\n" . 
+                                    "In the event that you are unable to attend at the scheduled time, " . 
+                                    "or if you wish to cancel the appointment, we would appreciate it " . 
+                                    "if you would notify us in advance. \n\n" .
+                                    "Thank you!\n\n" . 
+                                    "Restaurant Your House";                    
+                
+                    if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);
+                    
+                    // Save reservation in DB
                     $query = new Query();
                     $query->insertInto('reservations', $fields, $this->dbcon);
                     $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";
@@ -143,8 +206,7 @@
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                //include(SITE_ROOT . "/../view/database_error.php");
+                
                 $this->message = $error_msg;
                 $this->index();
             }
