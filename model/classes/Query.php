@@ -326,7 +326,7 @@
         public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField, object $dbcon): array
         {
             $fields = implode(", ", $fields);
-            $query = "SELECT $fields FROM $table ORDER BY $orderByField";
+            $query = "SELECT $fields FROM $table ORDER BY $orderByField DESC";
 
             try {
                 $stm = $dbcon->pdo->prepare($query);                                                   
