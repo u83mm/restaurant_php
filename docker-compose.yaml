@@ -1,4 +1,12 @@
-version: '3'
+version: '3.7'
+secrets:
+  fullchain_pem:
+    file: ./Postfix/src/secrets/fullchain.pem
+  privkey_pem:
+    file: ./Postfix/src/secrets/privkey.pem
+  users_txt:
+    file: ./Postfix/src/secrets/users.txt
+
 services:
   db:    
     build: ./MariaDB/
@@ -13,7 +21,10 @@ services:
       - "3306:3306"
     volumes: 
         - "./db_vol:/var/lib/mysql"
-        - "./log/db:/var/log"        
+        - "./log/db:/var/log"
+    networks:
+      front:
+        ipv4_address: 172.16.202.2        
 
   phpmyadmin:    
     image: phpmyadmin 
@@ -22,22 +33,40 @@ services:
       - "8080:80"
     environment:
       - PMA_ARBITRAY=1
+    networks:
+      front:
+        ipv4_address: 172.16.202.3
 
   web:      
-      build: .
-      user: "1000"
-      container_name: php
-      ports:
-      - "80:80"
-      tty: true
-      volumes: 
-        - "../Restaurant:/var/www"
-        - "./log/apache:/var/log/apache2"
-        - "./log/php:/var/log"
+    build: .
+    user: "1000"
+    container_name: php
+    ports:
+    - "80:80"
+    tty: true
+    volumes: 
+      - "../Restaurant:/var/www"
+      - "./log/apache:/var/log/apache2"
+      - "./log/php:/var/log"
+    networks:
+      front:
+        ipv4_address: 172.16.202.4
+      
 
   mailer:
     container_name: mailer
     image: schickling/mailcatcher
     ports:
-    - "1025:1025"
-    - "1080:1080"    
+    - "1025:25"
+    - "1080:1080"
+    networks:
+      front:
+        ipv4_address: 172.16.202.6
+
+networks:
+  front:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.202.0/24    

@@ -116,19 +116,19 @@
                     $mail = new PHPMailer(true);
 
                     // Config for development                
-                    /* $mail->isSMTP();
+                    $mail->isSMTP();
                     $mail->Host = "mailer";
-                    $mail->Port = 1025; */
+                    $mail->Port = 1025;
 
                     // Config for production
-                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;             //Enable verbose debug output
-                    $mail->isSMTP();                                   //Send using SMTP
-                    $mail->Host       = 'localhost';                   //Set the SMTP server to send through
-                    /* $mail->SMTPAuth   = true;                          //Enable SMTP authentication
-                    $mail->Username   = 'user@example.com';            //SMTP username
-                    $mail->Password   = 'secret';   */                    //SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption
-                    $mail->Port       = 587;  
+                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;           //Enable verbose debug output
+                    //$mail->isSMTP();                                   //Send using SMTP
+                    //$mail->Host       = 'localhost';                    //Set the SMTP server to send through
+                    //$mail->SMTPAuth   = true;                          //Enable SMTP authentication
+                    //$mail->Username   = 'testsender2';                    //SMTP username
+                    //$mail->Password   = '';                  //SMTP password
+                    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption                    
+                    //$mail->Port       = 587;  
 
                     // Recipients
                     $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');

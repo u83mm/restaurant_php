@@ -1,6 +1,6 @@
 <?php
 	declare(strict_types=1);
-
+	
 	use Controller\IndexController;
 
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");	
