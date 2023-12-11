@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 28-11-2023 a las 23:15:14
+-- Tiempo de generación: 11-12-2023 a las 20:31:13
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -300,7 +300,12 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (151, 'date_hour-optional', 'by date and hour(optional)'),
 (152, 'email_registered', 'the email is in use'),
 (153, 'persons', 'persons'),
-(154, 'captcha_security_phrase', 'to test the site security you must use the captcha.');
+(154, 'captcha_security_phrase', 'to test the site security you must use the captcha.'),
+(155, 'reservation_received', 'reservation received'),
+(156, 'reservation_mail_1th_paragraph', 'here are your reservation\'s data:'),
+(157, 'thanks', 'thank you so much!'),
+(158, 'reservation_mail_2th_paragraph', 'In the event that you are unable to attend at the scheduled time, or if you wish to cancel the appointment, we would appreciate it if you would notify us in advance.'),
+(160, 'reservation_mail_intro_paragraph', 'we have received your reservation!. ');
 
 -- --------------------------------------------------------
 
@@ -396,7 +401,25 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`,
 (12, '2023-10-27', '14.00', 'Juan Carlos', '', 3, NULL),
 (22, '2023-11-09', '13.00', 'Arjona', 'arjona@arjona.com', 11, 'Hoy no llevamos bebés'),
 (23, '2023-11-11', '13.00', 'Pepe', 'no@email.com', 3, NULL),
-(25, '2023-11-09', '12.00', 'Juan Carlos', 'no@email.com', 3, NULL);
+(25, '2023-11-09', '12.00', 'Juan Carlos', 'no@email.com', 3, NULL),
+(27, '2023-12-06', '12.30', 'Arjona', 'arjona@arjona.com', 7, NULL),
+(28, '2023-11-29', '12.00', 'Arjona', 'arjona@arjona.com', 11, NULL),
+(29, '2023-11-30', '12.00', 'Arjona', 'arjona@arjona.com', 11, NULL),
+(30, '2023-11-30', '12.00', 'Arjona', 'arjona@arjona.com', 11, NULL),
+(31, '2023-11-29', '13.00', 'Arjona', 'arjona@arjona.com', 15, NULL),
+(32, '2023-11-29', '12.30', 'Arjona', 'arjona@arjona.com', 14, NULL),
+(33, '2023-12-01', '13.30', 'Arjona', 'arjona@arjona.com', 3, NULL),
+(34, '2023-12-07', '12.30', 'Arjona', 'arjona@arjona.com', 3, NULL),
+(35, '2023-12-08', '13.00', 'Arjona', 'arjona@arjona.com', 9, NULL),
+(36, '2023-12-10', '13.00', 'Arjona', 'arjona@arjona.com', 10, NULL),
+(37, '2023-12-09', '13.00', 'Pepe', 'no@email.com', 9, NULL),
+(38, '2023-12-25', '15.00', 'Alberto', 'pepe@pepe.com', 6, NULL),
+(39, '2023-12-20', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 9, NULL),
+(40, '2023-12-04', '13.00', 'Alfonso', 'pepe@pepe.com', 5, NULL),
+(41, '2023-12-12', '12.30', 'Alfonso', 'pepe@pepe.com', 10, NULL),
+(42, '2023-12-20', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 8, NULL),
+(43, '2023-12-14', '14.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 14, NULL),
+(44, '2023-12-11', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 11, NULL);
 
 -- --------------------------------------------------------
 
@@ -587,7 +610,12 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (151, 'date_hour-optional', 'por fecha y hora(opcional)'),
 (152, 'email_registered', 'el email ya está registrado'),
 (153, 'persons', 'personas'),
-(154, 'captcha_security_phrase', 'para comprobar la seguridad del sitio debes usar el captcha.');
+(154, 'captcha_security_phrase', 'para comprobar la seguridad del sitio debes usar el captcha.'),
+(155, 'reservation_received', 'reserva recibida'),
+(156, 'reservation_mail_1th_paragraph', 'aquí están los datos de su reserva:'),
+(157, 'thanks', 'muchas gracias!'),
+(158, 'reservation_mail_2th_paragraph', 'En el caso en el que no pudiese acudir en la hora indicada o de que quisiera cancelar la cita, agradeceríamos que nos lo comunicase con antelación.'),
+(159, 'reservation_mail_intro_paragraph', 'hemos recibido su reserva!.');
 
 -- --------------------------------------------------------
 
@@ -718,7 +746,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -736,7 +764,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -748,7 +776,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
