@@ -1,11 +1,4 @@
 version: '3.7'
-secrets:
-  fullchain_pem:
-    file: ./Postfix/src/secrets/fullchain.pem
-  privkey_pem:
-    file: ./Postfix/src/secrets/privkey.pem
-  users_txt:
-    file: ./Postfix/src/secrets/users.txt
 
 services:
   db:    
@@ -52,7 +45,6 @@ services:
       front:
         ipv4_address: 172.16.202.4
       
-
   mailer:
     container_name: mailer
     image: schickling/mailcatcher

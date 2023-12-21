@@ -13,6 +13,7 @@
     use PDO;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
+use Resend;
 
     class ReservationController
     {
@@ -109,17 +110,64 @@
 
                 // Validate form
                 $ok = $validate->validate_form($fields);  
-                                                                                             
+                             
                 if($ok) {
-                    // Send confirmation email for a reservation
+                    // Send emails with Resend API to test functionality
                     require_once SITE_ROOT . '/../vendor/autoload.php';
+                    $resend = Resend::client('re_8E64TxAJ_2Ft8a1HqTdLiKdonsvtdB6QG');
+
+                    $resend->emails->send([
+                        'from'      =>  'Restaurant Your House <onboarding@resend.dev>',
+                        'to'        =>  [
+                            $fields['email'],                            
+                        ],
+                        'subject'   =>  ucfirst($this->language['reservation_received']),                        
+                        'html'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
+                                        ucfirst($this->language['reservation_mail_1th_paragraph']) .
+                                        "
+                                        <table style='margin-bottom: 2em'>
+                                            <tr>
+                                                <td style='text-align: right;'>" . ucfirst($this->language['name']) . ":</td>
+                                                <td><strong>{$fields['name']}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td style='text-align: right;'>" . ucfirst($this->language['date']) . ":</td>
+                                                <td><strong>{$fields['date']}</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td style='text-align: right;'>" . ucfirst($this->language['time']) . ":</td>
+                                                <td><strong>{$fields['time']}h</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td style='text-align: right;'>" . ucfirst($this->language['qty']) . ":</td>
+                                                <td><strong>{$fields['people_qty']} pers.</strong></td>
+                                            </tr>
+                                        </table>
+                                        " . 
+                                        $this->language['reservation_mail_2th_paragraph'] . " <br><br>" .
+                                        ucfirst($this->language['thanks']) . "<br><br>" . 
+                                        "Restaurant Your House<br>",
+                                        
+                        'text'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
+                                        ucfirst($this->language['reservation_mail_1th_paragraph']) . "\n\n" .                                    
+                                        ucfirst($this->language['name']) . ":\t {$fields['name']}\n" . 
+                                        ucfirst($this->language['date']) . ":\t {$fields['date']}\n" .
+                                        ucfirst($this->language['time']) . ":\t {$fields['time']}h.\n" .
+                                        ucfirst($this->language['qty'])  . ":\t {$fields['people_qty']} pers.\n\n" . 
+                                        $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
+                                        ucfirst($this->language['thanks']) . "\n\n" . 
+                                        "Restaurant Your House",   
+                    ]);
+
+                    // Send confirmation email for a reservation using PHPMailer 
+                    /* require_once SITE_ROOT . '/../vendor/autoload.php';
                     $mail = new PHPMailer(true);
 
                     // Config for development                
                     $mail->isSMTP();
                     $mail->Host = "mailer";
                     $mail->Port = 1025;
-                    $mail->CharSet = "UTF8";
+                    $mail->CharSet = "UTF8"; */
 
                     // Config for production
                     //$mail->SMTPDebug = SMTP::DEBUG_SERVER;           //Enable verbose debug output
@@ -132,18 +180,18 @@
                     //$mail->Port       = 587;  
 
                     // Recipients
-                    $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');
-                    $mail->addAddress($fields['email']);
+                    /* $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');
+                    $mail->addAddress($fields['email']); */
                     /* $mail->addReplyTo('info@yourhouse.com', 'Information');
                     $mail->addCC('reception@yourhouse.com');
                     $mail->addBCC('bcc@example.com');  */              
 
                     // Attachments                                                                                              
-                    $mail->addEmbeddedImage(SITE_ROOT . '/images/main_logo.png', 'main_logo');
-                    $mail->addEmbeddedImage(SITE_ROOT . '/images/restaurant_logo.png', 'restaurant_logo');
+                    /* $mail->addEmbeddedImage(SITE_ROOT . '/images/main_logo.png', 'main_logo');
+                    $mail->addEmbeddedImage(SITE_ROOT . '/images/restaurant_logo.png', 'restaurant_logo'); */
 
                     // Content
-                    $mail->isHTML(true);                                  //Set email format to HTML
+                    /* $mail->isHTML(true);                                  //Set email format to HTML
                     $mail->Subject = ucfirst($this->language['reservation_received']);
                     $mail->Body    = "<div style='padding-left: 1em;'><img width='200' src='cid:main_logo' alt='main logo'><br><br>" .
                                     ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
@@ -171,8 +219,8 @@
                                     $this->language['reservation_mail_2th_paragraph'] . " <br><br>" .
                                     ucfirst($this->language['thanks']) . "<br><br>" . 
                                     "Restaurant Your House<br>" . 
-                                    "<img style='padding: 1em; width: 7em;' src='cid:restaurant_logo' alt='restaurant logo'><br><br></div>";
-                    $mail->AltBody = ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
+                                    "<img style='padding: 1em; width: 7em;' src='cid:restaurant_logo' alt='restaurant logo'><br><br></div>"; */
+                    /* $mail->AltBody = ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
                                     ucfirst($this->language['reservation_mail_1th_paragraph']) . "\n\n" .                                    
                                     ucfirst($this->language['name']) . ":\t {$fields['name']}\n" . 
                                     ucfirst($this->language['date']) . ":\t {$fields['date']}\n" .
@@ -180,9 +228,9 @@
                                     ucfirst($this->language['qty'])  . ":\t {$fields['people_qty']} pers.\n\n" . 
                                     $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
                                     ucfirst($this->language['thanks']) . "\n\n" . 
-                                    "Restaurant Your House";                    
+                                    "Restaurant Your House";                     
                 
-                    if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);
+                    if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);*/
                     
                     // Save reservation in DB
                     $query = new Query();
