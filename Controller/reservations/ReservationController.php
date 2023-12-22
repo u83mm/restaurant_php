@@ -113,8 +113,8 @@ use Resend;
                              
                 if($ok) {
                     // Send emails with Resend API to test functionality
-                    require_once SITE_ROOT . '/../vendor/autoload.php';
-                    $resend = Resend::client('re_8E64TxAJ_2Ft8a1HqTdLiKdonsvtdB6QG');
+                    require_once SITE_ROOT . '/../vendor/autoload.php';                                       
+                    $resend = Resend::client(RESEND_API_KEY);
 
                     $resend->emails->send([
                         'from'      =>  'Restaurant Your House <onboarding@resend.dev>',
