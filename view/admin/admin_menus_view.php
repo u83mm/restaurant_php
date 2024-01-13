@@ -15,7 +15,7 @@
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['products']); ?></h4>
-            <div class="w-100 bg-success bg-opacity-10 adminMenus">            
+            <div class="shadow rounded adminMenus">            
                 <div class="row">
                     <div class="col-6 col-md-4">
                         <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php"><?php echo ucfirst($page->language['show_list']); ?></a> 
@@ -46,7 +46,7 @@
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['users']); ?></h4>
-            <div class="w-100 bg-success bg-opacity-10 adminMenus">            
+            <div class="shadow rounded adminMenus">            
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="listado"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
         </div>
@@ -54,7 +54,7 @@
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
-            <div class="w-100 bg-success bg-opacity-10 adminMenus">            
+            <div class="shadow rounded adminMenus">            
                 <a class="btn btn-primary mb-5" href="<?php echo $_SERVER['PHP_SELF']; ?>"><?php echo ucfirst($page->language['show_list']); ?></a>
             </div> 
         </div>                                                                                                                                                                                                                                           
@@ -64,7 +64,7 @@
                                             <!-- COMANDAS -->
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['orders']); ?></h4>
-            <div class="w-100 col-3 bg-success bg-opacity-10 adminMenus">
+            <div class="shadow rounded adminMenus">
                 <form action="/admin/admin_comandas.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="index"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
         </div>
@@ -72,7 +72,7 @@
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['reservations']); ?></h4>
-            <div class="w-100 col-3 bg-success bg-opacity-10 adminMenus">
+            <div class="shadow rounded adminMenus">
                 <form action="/admin/admin_reservations.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($page->language['search']); ?></button></form>
             </div>
         </div>
@@ -80,7 +80,7 @@
 
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center">&nbsp;</h4>
-            <div class="w-100 col-3 bg-success bg-opacity-10 adminMenus">
+            <div class="shadow rounded adminMenus">
 
             </div>
         </div>                                                                    

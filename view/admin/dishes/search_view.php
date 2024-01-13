@@ -7,13 +7,12 @@
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
 	$home->do_html_nav($home->nav_links, "administration");
 ?>	
-    <div class="row">
+    <div class="row justify-content-evenly">
         <h3 class="text-center pb-2"><?php echo strtoupper($home->language['search_product']); ?></h3>
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center"><?php echo ucfirst($home->language['search_criteria']); ?></h4>                                    
             <div class="row mb-3">
-
 
                 <!-- By name -->
 
@@ -62,10 +61,10 @@
                 </form>                                        
             </div>            
         </div>
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center">TEXTO</h4>            
         </div> 
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center">TEXTO</h4>            
         </div>                                                                                   
     </div>  

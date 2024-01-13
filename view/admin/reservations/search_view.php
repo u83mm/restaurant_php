@@ -7,10 +7,10 @@
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
 	$home->do_html_nav($home->nav_links, "administration");
 ?>	
-    <div class="row">
+    <div class="row justify-content-evenly">
         <h3 class="text-center pb-2"><?php echo ucwords($home->language['search_reservations']); ?></h3>
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center"><?php echo ucfirst($home->language['search_criteria']); ?></h4>                                    
             <div class="row mb-3">               
 
@@ -18,18 +18,20 @@
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['date_hour-optional']); ?></h5> 
                 <form class="text-center mb-3" action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">                                        
-                    <div class="col-sm-7 col-md-5 col-lg-5 d-inline-block">
+                    <div class="col col-lg-5 d-inline-block mb-2">
                         <input class="form-control" type="date" name="date" id="date" required>                        
                     </div> 
-                    <div class="col-sm-5 col-md-4 col-lg-4 d-inline-block">                        
+                    <div class="col col-lg-4 d-inline-block">                        
                         <select name="time">
                             <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
                             <?php foreach ($hours as $key => $value) :?>
                              <option value="<?php echo $value; ?>"><?php echo number_format($value, 2); ?></option>       
                             <?php endforeach ?>
                         </select>
-                    </div> 
-                    <button class="btn btn-primary mt-3 mt-md-0" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>                 
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary mt-3" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
+                    </div>                                      
                 </form>
                 <hr> 
                 
@@ -42,10 +44,10 @@
             </div>            
         </div>
 
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center">TEXTO</h4>            
         </div>
-        <div class="mx-auto mb-3 bg-success bg-opacity-10 adminMenus">
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center">TEXTO</h4>            
         </div>                                                                                        
     </div>  
