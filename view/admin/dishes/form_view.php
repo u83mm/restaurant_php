@@ -8,7 +8,7 @@
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="description"><?php echo ucfirst($home->language['description']); ?>:</label>
         <div class="col-sm-8">
-            <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php if(isset($fields)) echo $fields['Description']; ?></textarea>                    
+            <textarea class="form-control" name="description" id="description" cols="30" rows="10" required><?php if(isset($fields)) echo $fields['Description']; ?></textarea>                    
         </div>                
     </div>
     <div class="row mb-3">
