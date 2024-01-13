@@ -64,9 +64,9 @@
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
-				<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-				<script type="text/javascript" src="/js/eventos.js"></script>
-				<script type="text/javascript" src="/js/ajax.js"></script>						
+				<script src="/js/bootstrap.bundle.min.js"></script>
+				<script src="/js/eventos.js"></script>
+				<script src="/js/ajax.js"></script>						
 			</head>
 			<body class="ps-3 pe-3">
 				<header class="d-md-flex header">					
