@@ -8,14 +8,12 @@
      * register a new user in the database. 
      */
     class RegisterController
-    {
-        private object $dbcon;
+    {        
 		private Language $languageObject;
 		private array $language = [];
 
-        public function __construct(object $dbcon)
-        {
-            $this->dbcon = $dbcon;
+        public function __construct(private object $dbcon = DB_CON)
+        {            
 			$this->languageObject = new Language();
 
 			/** Configure page language */           

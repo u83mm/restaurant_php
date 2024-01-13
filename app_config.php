@@ -10,6 +10,10 @@
 	/** API KEY to send emails with Resend API */
 	define('RESEND_API_KEY', 're_8E64TxAJ_2Ft8a1HqTdLiKdonsvtdB6QG');
 
+	/** Define connection */
+	require_once(SITE_ROOT . "/../Application/connect.php");
+	define('DB_CON', $dbcon);
+
 	session_start();
 	session_regenerate_id();
 ?>

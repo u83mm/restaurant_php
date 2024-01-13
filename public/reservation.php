@@ -17,7 +17,7 @@
 	/** Check for user`s sessions */
 	!isset($_SESSION['role']) ? header("Location: /") : null;
 
-    $reservationController = new ReservationController($dbcon);
+    $reservationController = new ReservationController();
 
 	match($action) {
 		default					=>	$reservationController->index(),

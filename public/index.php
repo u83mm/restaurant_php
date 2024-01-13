@@ -8,7 +8,7 @@
 	model\classes\Loader::init(SITE_ROOT . "/..");		
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? "");		
-	$indexController = new IndexController($dbcon);		
+	$indexController = new IndexController();		
 
 	/** Test page language */
 	$_SESSION['language'] = $_POST['language'] ?? $_SESSION['language'] ?? "spanish";

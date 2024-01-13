@@ -6,7 +6,7 @@
 
     class AdminController
     {         
-        public function __construct(private object $dbcon, private string $message = "")
+        public function __construct(private object $dbcon = DB_CON, private string $message = "")
         {
 
         }

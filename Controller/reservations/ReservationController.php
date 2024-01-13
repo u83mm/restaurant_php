@@ -13,7 +13,7 @@
     use PDO;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
-use Resend;
+    use Resend;
 
     class ReservationController
     {
@@ -21,7 +21,7 @@ use Resend;
         private array $language = [];
         private Language $languageObject;
 
-        public function __construct(private object $dbcon, private string $message = "")
+        public function __construct(private object $dbcon = DB_CON, private string $message = "")
         {
             $this->languageObject = new Language(); 
             

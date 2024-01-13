@@ -10,7 +10,7 @@
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "index");
 	$message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
-    $menuDayController = new MenuDayController($dbcon);
+    $menuDayController = new MenuDayController();
 	
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];

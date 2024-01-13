@@ -9,7 +9,7 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
-    $adminController = new AdminController($dbcon);
+    $adminController = new AdminController();
 
 	if(isset($_SESSION['action'])) unset($_SESSION['action']);
 

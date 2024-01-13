@@ -9,7 +9,7 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "");
-	$loginController = new LoginController($dbcon);	
+	$loginController = new LoginController();	
 
 	/** Check for user`s sessions */
 	!isset($_SESSION['role']) ? header("Location: /") : null;

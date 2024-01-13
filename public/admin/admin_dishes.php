@@ -9,7 +9,7 @@
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");
 
 	$action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "listado");	
-    $dishesController = new DishesController($dbcon);
+    $dishesController = new DishesController();
 	
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];

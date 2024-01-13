@@ -38,7 +38,7 @@
         private Language $languageObject;
 
         public function __construct(
-            private object $dbcon, 
+            private object $dbcon = DB_CON, 
             private string $message = "")
         {
             $this->languageObject = new Language();

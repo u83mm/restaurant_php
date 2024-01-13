@@ -6,7 +6,7 @@
 
     class MenuDayController
     {
-        public function __construct(private object $dbcon)
+        public function __construct(private object $dbcon = DB_CON)
         {
             
         }

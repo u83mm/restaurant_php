@@ -17,7 +17,7 @@
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
 	
-    $menuController = new MenuController($dbcon);	
+    $menuController = new MenuController();	
 
     match($action) {
 		default		 	=> $menuController->index(),

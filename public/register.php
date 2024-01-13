@@ -8,7 +8,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");		
 	
-	$registerController = new RegisterController($dbcon);
+	$registerController = new RegisterController();
 
 	if(isset($_SESSION['action'])) unset($_SESSION['action']);
 

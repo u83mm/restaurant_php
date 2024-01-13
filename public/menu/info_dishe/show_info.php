@@ -7,7 +7,7 @@
 
 	model\classes\Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");				
 	
-    $menuController = new MenuController($dbcon);
+    $menuController = new MenuController();
 
 	/** Test page language */
 	$_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];

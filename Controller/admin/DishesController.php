@@ -13,7 +13,7 @@
     {        
         private Language $languageObject;
 
-        public function __construct(private object $dbcon, private array $language = [])      
+        public function __construct(private object $dbcon = DB_CON, private array $language = [])      
         {
             $this->languageObject = new Language();
         }    
