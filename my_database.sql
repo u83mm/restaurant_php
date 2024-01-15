@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 11-12-2023 a las 20:31:13
+-- Tiempo de generación: 15-01-2024 a las 21:46:31
 -- Versión del servidor: 10.11.2-MariaDB-1:10.11.2+maria~ubu2204
 -- Versión de PHP: 8.0.27
 
@@ -305,7 +305,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (156, 'reservation_mail_1th_paragraph', 'here are your reservation\'s data:'),
 (157, 'thanks', 'thank you so much!'),
 (158, 'reservation_mail_2th_paragraph', 'In the event that you are unable to attend at the scheduled time, or if you wish to cancel the appointment, we would appreciate it if you would notify us in advance.'),
-(160, 'reservation_mail_intro_paragraph', 'we have received your reservation!. ');
+(160, 'reservation_mail_intro_paragraph', 'we have received your reservation!. '),
+(161, 'lan', 'en');
 
 -- --------------------------------------------------------
 
@@ -419,7 +420,17 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`,
 (41, '2023-12-12', '12.30', 'Alfonso', 'pepe@pepe.com', 10, NULL),
 (42, '2023-12-20', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 8, NULL),
 (43, '2023-12-14', '14.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 14, NULL),
-(44, '2023-12-11', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 11, NULL);
+(44, '2023-12-11', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 11, NULL),
+(45, '2023-12-28', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 2, NULL),
+(46, '2023-12-20', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 5, NULL),
+(47, '2023-12-26', '13.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 4, NULL),
+(48, '2023-12-28', '14.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 14, NULL),
+(49, '2023-12-27', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 13, NULL),
+(50, '2023-12-22', '13.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 13, NULL),
+(51, '2023-12-22', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 11, NULL),
+(52, '2023-12-28', '13.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 11, NULL),
+(53, '2023-12-29', '12.30', 'Mario Moreno', 'cursotecnoweb@gmail.com', 12, NULL),
+(54, '2024-01-14', '14.00', 'Mario Moreno', 'cursotecnoweb@gmail.com', 3, 'Queremos una paella de pollo y conejo');
 
 -- --------------------------------------------------------
 
@@ -615,7 +626,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (156, 'reservation_mail_1th_paragraph', 'aquí están los datos de su reserva:'),
 (157, 'thanks', 'muchas gracias!'),
 (158, 'reservation_mail_2th_paragraph', 'En el caso en el que no pudiese acudir en la hora indicada o de que quisiera cancelar la cita, agradeceríamos que nos lo comunicase con antelación.'),
-(159, 'reservation_mail_intro_paragraph', 'hemos recibido su reserva!.');
+(159, 'reservation_mail_intro_paragraph', 'hemos recibido su reserva!.'),
+(160, 'lan', 'es');
 
 -- --------------------------------------------------------
 
@@ -746,7 +758,7 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -758,13 +770,13 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -776,7 +788,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=161;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
