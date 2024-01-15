@@ -24,13 +24,13 @@
             try {                                                                                                          
                 $menuDayQuery = new QueryMenu();            
 
-                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
-                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
-                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
+                $primeros = $menuDayQuery->selectDishesOfDay("primero");
+                $segundos = $menuDayQuery->selectDishesOfDay("segundo");
+                $postres = $menuDayQuery->selectDishesOfDay("postre");
 
 
                 /** Calculate menu's day price */
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);                                
+                $menuDayPrice = $menuDayQuery->getMenuDayPrice();                                
                                                         
                 include(SITE_ROOT . "/../view/main_view.php");
 

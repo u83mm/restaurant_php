@@ -35,7 +35,7 @@
 				if (!empty($user_name) && !empty($password) && !empty($email)) {
 					$query = new Query();
 
-					$rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
+					$rows = $query->selectAllBy("user", "email", $email);
 
 					if ($rows) {
 						$error_msg = "<p class='error text-center'>" . ucfirst($this->language['email_registered']) . "</p>";

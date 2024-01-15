@@ -28,17 +28,19 @@
 
 
             /** Show diferent Menu's day dishes */
-            $primeros = $menuDay->selectDishesOfDay("primero", $this->dbcon);
-            $segundos = $menuDay->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDay->selectDishesOfDay("postre", $this->dbcon); 
+            $primeros = $menuDay->selectDishesOfDay("primero");
+            $segundos = $menuDay->selectDishesOfDay("segundo");
+            $postres = $menuDay->selectDishesOfDay("postre"); 
             
             
             /** Calculate menu's day price */
-            $menuDayPrice = $menuDay->getMenuDayPrice($this->dbcon);
+            $menuDayPrice = $menuDay->getMenuDayPrice();
+
+            //dd($menuDay);
 
 
             /** Show Menu's categories */
-            $menuCategories = $menuDay->selectAll("dishes_menu", $this->dbcon);            
+            $menuCategories = $menuDay->selectAll("dishes_menu");            
             $showResult = "";
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
@@ -70,7 +72,7 @@
          * @param string category The category of dishes to be shown.
          */
         public function showDishesByTheirCategory(string $category): void
-        {
+        {            
             // Change category's language to spanish to do the query to the DB
             $this->language = $this->languageObject->spanish();
             $category = $this->language[$category];                       
@@ -78,17 +80,16 @@
             $menuDishes = new QueryMenu();                  
 
             /** Show diferent Day's menu dishes */
-            $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
-            $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon);
+            $primeros = $menuDishes->selectDishesOfDay("primero");
+            $segundos = $menuDishes->selectDishesOfDay("segundo");
+            $postres = $menuDishes->selectDishesOfDay("postre");
 
 
             /** Calculate menu's day price */
-            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
-           
-
+            $menuDayPrice = $menuDishes->getMenuDayPrice();
+                       
             /** Show dishes */
-            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category, $this->dbcon);                   
+            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
             $showResult = $menuDishes->showMenuListByCategory($rows, $category);                           
           
             include(SITE_ROOT . "/../view/menu/category_view.php");
@@ -109,17 +110,17 @@
                       
 
             /** Show diferent Menu's day dishes */
-            $primeros = $menuDishes->selectDishesOfDay("primero", $this->dbcon);
-            $segundos = $menuDishes->selectDishesOfDay("segundo", $this->dbcon);
-            $postres = $menuDishes->selectDishesOfDay("postre", $this->dbcon); 
+            $primeros = $menuDishes->selectDishesOfDay("primero");
+            $segundos = $menuDishes->selectDishesOfDay("segundo");
+            $postres = $menuDishes->selectDishesOfDay("postre"); 
             
             
             /** Calculate menu's day price */
-            $menuDayPrice = $menuDishes->getMenuDayPrice($this->dbcon);
+            $menuDayPrice = $menuDishes->getMenuDayPrice();
 
 
             /** We obtain the dishe info to show */           
-            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id'], $this->dbcon);
+            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   
 
@@ -140,7 +141,7 @@
             /** We obtain Menu's categories */
 
             $menu = new QueryMenu();  
-            $menuCategories = $menu->selectAll("dishes_menu", $this->dbcon);    
+            $menuCategories = $menu->selectAll("dishes_menu");    
             
 
             /** Start to build the menu */
@@ -164,7 +165,7 @@
 
                 /** Show dishes */
 
-                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category'], $this->dbcon);                               
+                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
 
                 foreach ($rows as $key => $value) {
                     //$pdf->SetFont('Arial','I',10);

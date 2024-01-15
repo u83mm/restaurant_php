@@ -4,8 +4,13 @@
     use PDO;
 
     class QueryMenu extends Query
-    {
-        public function selectDishesOfDay(string $field, object $dbcon):array
+    {                
+        public function __construct(protected object $dbcon = DB_CON)
+        {
+            $this->languageObject = new Language();
+        }
+
+        public function selectDishesOfDay(string $field):array
         {
             $query = "SELECT * FROM dishes 
                     INNER JOIN dishes_day
@@ -13,7 +18,7 @@
                     WHERE dishes_day.category_name = :field
                     AND dishes.available = 1";
 
-            $stm = $dbcon->pdo->prepare($query);
+            $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -44,14 +49,14 @@
             $dbcon = null;            
         }
 
-        public function selectAllInnerjoinByMenuCategory(string $table1, string $table2, string $foreignKeyField, string $menuCategory, object $dbcon): array
+        public function selectAllInnerjoinByMenuCategory(string $table1, string $table2, string $foreignKeyField, string $menuCategory): array
         {
             $query = "SELECT * FROM $table1 
                         INNER JOIN $table2 
                         ON $table1.$foreignKeyField = $table2.$foreignKeyField
                         WHERE $table2.menu_category = :menu_category";
                 
-            $stm = $dbcon->pdo->prepare($query);
+            $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":menu_category", $menuCategory);                                         
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -97,13 +102,11 @@
          * 
          * @return float The price of the menu of the day.
          */
-        public function getMenuDayPrice(object $dbcon): float
+        public function getMenuDayPrice(): float
         {            
-            $rows = parent::selectAll("menu_day_price", $dbcon);
-
-            $menuDayPrice = $rows[0]['price'] ?? 0.00;
+            $rows = $this->selectAll("menu_day_price");            
             
-            return $menuDayPrice;
+            return $rows[0]['price'] ?? 0.00;
         }
 
         public function selectDishesLikePagination(string $desde, string $pagerows, string $field, string $value, object $dbcon)

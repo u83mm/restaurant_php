@@ -7,7 +7,7 @@
     {
         public Language $languageObject;
         
-        public function __construct(public array $language = [])      
+        public function __construct(protected object $dbcon = DB_CON, public array $language = [])      
         {
             $this->languageObject = new Language();
         }
@@ -15,12 +15,12 @@
         /**
          * Select all from "table name"
          */
-        public function selectAll(string $table, object $dbcon): array     
+        public function selectAll(string $table): array     
         {
             $query = "SELECT * FROM $table";                 
 
             try {
-                $stm = $dbcon->pdo->prepare($query);               
+                $stm = $this->dbcon->pdo->prepare($query);               
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();                
@@ -74,14 +74,14 @@
          * @return array an array of rows fetched from the database table that match the specified
          * field and value.
          */
-        public function selectAllBy(string $table, string $field, string|float $value, object $dbcon, string $orderBy = null): array  
+        public function selectAllBy(string $table, string $field, string|float $value, string $orderBy = null): array  
         {
             $query = "SELECT * FROM $table WHERE $field = :val";
             
             if ($orderBy) $query .= " ORDER BY $orderBy";            
 
             try {
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":val", $value);                            
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -188,7 +188,7 @@
         /**
          * Select one registry by their "id" doing JOIN with another table by their foreign key
          */
-        public function selectOneByIdInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldId, string $id, object $dbcon):array
+        public function selectOneByIdInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldId, string $id):array
         {
             $query = "SELECT * FROM $table1 
                         INNER JOIN $table2
@@ -196,7 +196,7 @@
                         WHERE $table1.$fieldId = :id";
                     
             try {
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":id", $id);                            
                 $stm->execute();       
                 $rows = $stm->fetch(PDO::FETCH_ASSOC);            
