@@ -50,7 +50,7 @@
 		{
 ?>
 		<!DOCTYPE html>
-		<html lang="es">
+		<html lang="<?php echo $this->language['lang']; ?>">
 			<head>
 				<meta charset='UTF-8' />
 				<meta name="title" content="Web site" /> 
