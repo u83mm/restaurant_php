@@ -50,7 +50,7 @@
                     $email = $validate->validate_email($email) ? $validate->test_input($email) : throw new \Exception("Email isn't in valid format", 1);                  
 
                     $query = new Query();
-                    $rows = $query->selectAllBy("user", "email", $email, $this->dbcon);
+                    $rows = $query->selectAllBy("user", "email", $email);
 
                     if($rows) {
                         $this->message = "<p class='alert alert-danger text-center'>El email '{$email}' ya está registrado</p>";
@@ -95,7 +95,7 @@
 
             try {                
                 $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id_user, $this->dbcon);
-                $roles = $query->selectAll('roles', $this->dbcon);
+                $roles = $query->selectAll('roles');
 
                 include(SITE_ROOT . "/../view/admin/user_show_view.php");
                 

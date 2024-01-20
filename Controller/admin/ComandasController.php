@@ -99,7 +99,7 @@
             try {
                 $query = new Query();
 
-                $result = $query->selectAllBy('orders', 'id', $_SESSION['id'], $this->dbcon);
+                $result = $query->selectAllBy('orders', 'id', $_SESSION['id']);
                 $row   = []; 
 
                 $id           = $result[0]['id'];
