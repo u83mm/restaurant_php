@@ -68,7 +68,7 @@
 				<script src="/js/eventos.js"></script>
 				<script src="/js/ajax.js"></script>						
 			</head>
-			<body class="ps-3 pe-3">
+			<body class="ps-md-3 pe-md-3">
 				<header class="d-md-flex header">					
 					<div class="col-12 col-md-10 col-xl-11 d-flex justify-content-center align-items-end justify-content-md-end align-items-xl-center pt-5 p-xl-0">
 						<h2 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h2>
