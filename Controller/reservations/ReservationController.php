@@ -36,14 +36,8 @@
                 $menuDayQuery = new QueryMenu();
                 $query = new Query();          
 
-                /** Show diferent Menu's day dishes */
-                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
-                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
-                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
-
-
-                /** Calculate menu's day price */
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+                /** Get dishes, dessert and price to show in the Day's menu aside section */
+                $menuDaySections = $menuDayQuery->getMenuDayElements();
 
                 /** Hours to show in select element */
                 $rows = $query->selectAll('dinner_hours', $this->dbcon);                
@@ -265,14 +259,8 @@
                 $commonTasks = new CommonTasks; 
                 $queryReservations = new QueryReservations();          
 
-                /** Show diferent Menu's day dishes */
-                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
-                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
-                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
-
-
-                /** Calculate menu's day price */
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+                /** Get dishes, dessert and price to show in the Day's menu aside section */
+                $menuDaySections = $menuDayQuery->getMenuDayElements(); 
 
 
                 /** Select all distint dates from current date */                            
@@ -355,14 +343,8 @@
                 $menuDayQuery = new QueryMenu();
                 $commonTasks = new CommonTasks;            
 
-                /** Show diferent Menu's day dishes */
-                $primeros = $menuDayQuery->selectDishesOfDay("primero", $this->dbcon);
-                $segundos = $menuDayQuery->selectDishesOfDay("segundo", $this->dbcon);
-                $postres = $menuDayQuery->selectDishesOfDay("postre", $this->dbcon);
-
-
-                /** Calculate menu's day price */
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice($this->dbcon);
+                /** Get dishes, dessert and price to show in the Day's menu aside section */
+                $menuDaySections = $menuDayQuery->getMenuDayElements(); 
 
                 // Get date and time to make the query by date
                 $dates = [

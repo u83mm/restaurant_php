@@ -27,16 +27,8 @@
             $menuDay = new QueryMenu(); 
 
 
-            /** Show diferent Menu's day dishes */
-            $primeros = $menuDay->selectDishesOfDay("primero");
-            $segundos = $menuDay->selectDishesOfDay("segundo");
-            $postres = $menuDay->selectDishesOfDay("postre"); 
-            
-            
-            /** Calculate menu's day price */
-            $menuDayPrice = $menuDay->getMenuDayPrice();
-
-            //dd($menuDay);
+            /** Get dishes, dessert and price to show in the Day's menu aside section */
+            $menuDaySections = $menuDay->getMenuDayElements();
 
 
             /** Show Menu's categories */
@@ -79,14 +71,8 @@
 
             $menuDishes = new QueryMenu();                  
 
-            /** Show diferent Day's menu dishes */
-            $primeros = $menuDishes->selectDishesOfDay("primero");
-            $segundos = $menuDishes->selectDishesOfDay("segundo");
-            $postres = $menuDishes->selectDishesOfDay("postre");
-
-
-            /** Calculate menu's day price */
-            $menuDayPrice = $menuDishes->getMenuDayPrice();
+            /** Get dishes, dessert and price to show in the Day's menu aside section */
+            $menuDaySections = $menuDishes->getMenuDayElements();
                        
             /** Show dishes */
             $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
@@ -109,14 +95,8 @@
             $commonTask = new CommonTasks(); 
                       
 
-            /** Show diferent Menu's day dishes */
-            $primeros = $menuDishes->selectDishesOfDay("primero");
-            $segundos = $menuDishes->selectDishesOfDay("segundo");
-            $postres = $menuDishes->selectDishesOfDay("postre"); 
-            
-            
-            /** Calculate menu's day price */
-            $menuDayPrice = $menuDishes->getMenuDayPrice();
+            /** Get dishes, dessert and price to show in the Day's menu aside section */
+            $menuDaySections = $menuDishes->getMenuDayElements();
 
 
             /** We obtain the dishe info to show */           

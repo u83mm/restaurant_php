@@ -22,15 +22,10 @@
         public function index(): void
         {                                 
             try {                                                                                                          
-                $menuDayQuery = new QueryMenu();            
+                $menuDayQuery = new QueryMenu();                            
 
-                $primeros = $menuDayQuery->selectDishesOfDay("primero");
-                $segundos = $menuDayQuery->selectDishesOfDay("segundo");
-                $postres = $menuDayQuery->selectDishesOfDay("postre");
-
-
-                /** Calculate menu's day price */
-                $menuDayPrice = $menuDayQuery->getMenuDayPrice();                                
+                /** Get dishes, dessert and price to show in the Day's menu aside section */
+                $menuDaySections = $menuDayQuery->getMenuDayElements();                                            
                                                         
                 include(SITE_ROOT . "/../view/main_view.php");
 
