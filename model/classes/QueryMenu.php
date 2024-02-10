@@ -195,6 +195,18 @@
 
             return $rows;
         }
+
+        /** Return an array with the elements to show in the Day's menu aside section */
+        public function getMenuDayElements() : array {
+            $menuDayInfo = [
+                'main'    =>  $this->selectDishesOfDay('primero'),
+                'second'  =>  $this->selectDishesOfDay('segundo'),
+                'dessert' =>  $this->selectDishesOfDay('postre'),
+                'price'   =>  $this->getMenuDayPrice(),
+            ];
+
+            return $menuDayInfo;
+        }
     }
     
 ?>
