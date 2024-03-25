@@ -9,7 +9,7 @@
 	$_SESSION['language'] = $_POST['language'] ?? $_SESSION['language'] ?? "spanish";                   
 
     $uri = explode("/", PATH);
-    array_shift($uri);           
+    array_shift($uri);          
 
     router($uri);      
 ?>

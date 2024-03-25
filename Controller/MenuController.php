@@ -1,6 +1,6 @@
-<?php
-    //namespace Controller;
-
+<?php  
+    declare(strict_types=1);   
+    
     use model\classes\CommonTasks;
     use model\classes\Language;
     use model\classes\QueryMenu;    
@@ -88,9 +88,10 @@
         * @param string id The ID of the dish that needs to be displayed.
         */
         public function showDisheInfo(): void
-        {            
-            $_SESSION['dishe_id'] = strtolower($_POST['id'] ?? $_GET['id'] ?? $_SESSION['dishe_id']);
+        { 
+            global $id;                       
             
+            $_SESSION['dishe_id'] = isset($id) ? $id : null;                           
             $menuDishes = new QueryMenu();
             $commonTask = new CommonTasks(); 
                       
