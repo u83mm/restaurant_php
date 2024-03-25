@@ -1,8 +1,7 @@
 <?php
-    namespace Controller;
+    //namespace Controller;
 
-    use PDO;
-	use Controller\IndexController;
+    //use PDO;	
 
     /**
      * A class that contains the methods to login and logout. 
@@ -20,8 +19,13 @@
         the home page. If the email does not exist, it displays an error message. If the password is
         incorrect, it displays an error message. If the email and password are empty, it displays
         the login form. */
-        public function login(array $language = null): void
+        public function index(array $language = null): void
         {
+			if(!isset($_SESSION['role'])) {
+                header("Location: /");	
+                die;
+            }
+			
             // recogemos los datos del formulario
 			$email = $_REQUEST['email'] ?? "";
 			$password = $_REQUEST['password'] ?? "";			
