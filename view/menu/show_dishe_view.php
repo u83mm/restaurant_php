@@ -55,8 +55,8 @@
 			</div>		
 		</div>
 		<div class="row">
-			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post">
-				<button class="btn btn-primary" type="submit" name="action" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>			
+			<form class="mb-3 text-center text-lg-start" action="/menu/showDishesByTheirCategory" method="post">
+				<button class="btn btn-primary" type="submit" name="category" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>			
 			</form>			
 		</div>			
 	</section>

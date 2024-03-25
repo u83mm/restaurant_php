@@ -27,7 +27,7 @@
 			<?php echo $showResult; ?>					
 		</div>
 		<div class="row">
-			<form class="mb-3 text-center text-lg-start" action="/menu/menu.php" method="post"><button class="btn btn-primary" type="submit" name="action" value="index"><?php echo ucfirst($home->language['go_back']) ?></button></form>
+			<form class="mb-3 text-center text-lg-start" action="/menu" method="post"><button class="btn btn-primary" type="submit" name="action" value="index"><?php echo ucfirst($home->language['go_back']) ?></button></form>
 		</div>				
 	</section>
 

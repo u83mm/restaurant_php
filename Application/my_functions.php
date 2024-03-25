@@ -49,7 +49,7 @@
             require_once($controllerRoute . $controllerName . ".php");                     
                       
             $controller = new $controllerName;                       
-            $controller->$method();                                
+            $controller->$method();                         
     
         } catch (\Throwable $th) {
             $error_msg = "<p class='alert alert-danger text-center'>Page not found</p>";
