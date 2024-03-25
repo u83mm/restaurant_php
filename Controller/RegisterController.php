@@ -1,5 +1,5 @@
 <?php
-    namespace Controller;
+    //namespace Controller;
 
 	use model\classes\Language;
 	use model\classes\Query;    
@@ -22,7 +22,7 @@
 
         /* A method of the class `RegisterController` that is called when the user clicks on the
         register button. */
-        public function register(): void
+        public function index(): void
         {
             $user_name = $_REQUEST['user_name'] ?? "";
 			$password = $_REQUEST['password'] ?? "";
