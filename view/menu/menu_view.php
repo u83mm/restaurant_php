@@ -13,7 +13,7 @@
 		<div class="row mb-3">
 			<div class="col-12 col-md-3 col-lg-2 col-xl-1 d-flex justify-content-center align-items-center">
 				<figure class="figure">							
-						<a href="/menu/menu.php?action=menu_pdf" target="_blank"><img class="figure-img img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
+						<a href="/menu/menu" target="_blank"><img class="figure-img img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
 						<figcaption class="figure-caption text-center"><?php echo ucfirst($this->language['nav_link_menu']); ?></figcaption>
 				</figure>
 			</div>

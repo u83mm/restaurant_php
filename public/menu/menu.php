@@ -35,8 +35,7 @@
 		'cavas'		 	=> $menuController->showDishesByTheirCategory($action),
 		'champagne'	 	=> $menuController->showDishesByTheirCategory($action),
 		'bebidas'	 	=> $menuController->showDishesByTheirCategory($action),
-		'licores'	 	=> $menuController->showDishesByTheirCategory($action),
-		'menu_pdf'	 	=> $menuController->menu(),
+		'licores'	 	=> $menuController->showDishesByTheirCategory($action),		
 
 
 		// English version
