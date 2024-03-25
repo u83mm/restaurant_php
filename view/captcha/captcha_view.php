@@ -25,7 +25,7 @@
 					
 		<div class="row">
 			<div class="col col-lg-8 mx-auto">
-				<form class="col col-md-6 mx-md-auto" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+				<form class="col col-md-6 mx-md-auto" method="post" action="/">
 					<div class="col">
 						<?php echo $this->message; ?>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_security_phrase']); ?></p>

@@ -1,8 +1,7 @@
 <?php
     namespace Controller;
 
-    use PDO;
-	use Controller\IndexController;
+    use PDO;	
 
     /**
      * A class that contains the methods to login and logout. 
@@ -22,6 +21,11 @@
         the login form. */
         public function login(array $language = null): void
         {
+			if(!isset($_SESSION['role'])) {
+                header("Location: /");	
+                die;
+            }
+
             // recogemos los datos del formulario
 			$email = $_REQUEST['email'] ?? "";
 			$password = $_REQUEST['password'] ?? "";			

@@ -20,7 +20,12 @@
        * the main view.
        */
         public function index(): void
-        {                                 
+        {    
+            if(!isset($_SESSION['role'])) {
+                $this->showCaptcha();
+                die;
+            }
+
             try {                                                                                                          
                 $menuDayQuery = new QueryMenu();                            
 
