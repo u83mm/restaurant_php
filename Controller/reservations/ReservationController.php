@@ -1,7 +1,7 @@
 <?php
     declare(strict_types=1);
     
-    namespace Controller\reservations;
+    //namespace Controller\reservations;
 
     use model\classes\CommonTasks;
     use model\classes\Language;
@@ -10,10 +10,10 @@
     use model\classes\QueryReservations;
     use model\classes\Validate;
 
-    use PDO;
+    //use PDO;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
-    use Resend;
+    //use Resend;
 
     class ReservationController
     {
