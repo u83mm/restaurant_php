@@ -1,7 +1,5 @@
 <?php
-    declare(strict_types=1);
-    
-    namespace Controller;
+    declare(strict_types=1);        
 
     use model\captcha\SingleChar;
     use model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};
@@ -20,7 +18,12 @@
        * the main view.
        */
         public function index(): void
-        {                                 
+        {  
+            if(!isset($_SESSION['role'])) {
+                $this->showCaptcha();
+                die;
+            }
+                                           
             try {                                                                                                          
                 $menuDayQuery = new QueryMenu();                            
 
@@ -115,8 +118,8 @@
         {           
             $validate = new Validate();
 
-            $phrase = strtolower($_POST['phrase']) ?? "";
-            $captcha = strtolower($validate->test_input($_POST['captcha'])) ?? "";           
+            $phrase = strtolower($_REQUEST['phrase']) ?? "";
+            $captcha = strtolower($validate->test_input($_REQUEST['captcha'])) ?? "";           
 
             try {
                 if($phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);

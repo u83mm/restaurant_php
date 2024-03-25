@@ -25,7 +25,7 @@
 					
 		<div class="row">
 			<div class="col col-lg-8 mx-auto">
-				<form class="col col-md-6 mx-md-auto" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+				<form class="col col-md-6 mx-md-auto" method="post" action="/index/testCaptcha">
 					<div class="col">
 						<?php echo $this->message; ?>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_security_phrase']); ?></p>
@@ -40,7 +40,7 @@
 					</div>              									
 					<!--<img src="/view/captcha/captcha_view.php" alt="CAPTCHA"><br>-->
 					<div class="col text-center">
-						<button class="btn btn-outline-success" name="action" value="test_captcha" type="submit"><?php echo ucfirst($home->language['send']); ?></button>
+						<button class="btn btn-outline-success" name="action" value="test_captcha" type="submit"><?php echo ucfirst($home->language['send']); ?></button>						
 					</div>										
 				</form>
 			</div>            
