@@ -23,17 +23,17 @@
                 <div class="col-sm-6">
                     <input class="form-control" type="password" name="new_password" id="new_password" required>
                 </div>                
-            </div>               
+            </div>                       
             <div class="row mb-3">
-                <label class="col-sm-4" for="nome">&nbsp;</label>
-                <div class="col-sm-6">
-                    <button class="btn btn-outline-success" type="submit" name="action" value="change password"><?php echo ucwords($home->language['change_password']); ?></button>                
+                <label class="col-sm-4" for="none">&nbsp;</label>
+                <div class="col-12 col-sm-3 mb-2 mb-md-0">
+                    <button class="btn btn-outline-success" type="submit" name="action" value="change password"><?php echo ucwords($home->language['change_password']); ?></button>                                    
+                </div>
+                <div class="col-sm-4">                    
+                    <a class="btn btn-primary mb-5" href="/admin/admin/show/<?php echo $id; ?>"><?php echo ucfirst($home->language['go_back']); ?></a>
                 </div>                
             </div>                                                              
-        </form>
-        <form action="/admin/admin/show" method="post">                        
-            <a class="btn btn-primary mb-5" href="/admin/admin/show/<?php echo $id; ?>"><?php echo ucfirst($home->language['go_back']); ?></a>
-        </form>
+        </form>        
     </div>    
 <?php
 	$home->do_html_footer();
