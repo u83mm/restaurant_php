@@ -1,4 +1,4 @@
-<form class="mb-5" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+<form class="mb-5" action="/reservations/reservation/save" method="post">
 
     <!-- DATE AND TIME-->
     <div class="row mb-0 mb-md-3">

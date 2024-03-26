@@ -72,7 +72,7 @@
         } 
         
         /** Save a reservation */
-        public function saveReservation() : void 
+        public function save() : void 
         {
             $validate = new Validate;
                                   
