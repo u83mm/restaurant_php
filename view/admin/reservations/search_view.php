@@ -17,7 +17,7 @@
                 <!-- By date and time(optional) -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['date_hour-optional']); ?></h5> 
-                <form class="text-center mb-3" action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">                                        
+                <form class="text-center mb-3" action="/reservations/reservation/searchReservationsByDateAndTime" method="post" class="mb-3">                                        
                     <div class="col col-lg-5 d-inline-block mb-2">
                         <input class="form-control" type="date" name="date" id="date" required>                        
                     </div> 
