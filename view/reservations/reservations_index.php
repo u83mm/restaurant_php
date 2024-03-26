@@ -47,7 +47,7 @@
 		</div>
 		
 		<div class="col-12 col-md-6 col-lg-4 mb-4">            
-			<form action="/admin/admin_reservations.php" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($home->language['new_search']); ?></button></form>
+			<form action="/reservations/reservation/showSearchPanel" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($home->language['new_search']); ?></button></form>
         </div>
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->

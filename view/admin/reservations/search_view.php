@@ -38,7 +38,7 @@
                 <!-- All the reservations order by time -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['all_reservations']); ?></h5> 
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">                    
+                <form action="/reservations/reservation/showAllReservations" method="post" class="mb-3">                    
                     <button class="btn btn-primary" name="action" value=""><?php echo ucfirst($home->language['search']); ?></button>                                    
                 </form>
             </div>            
@@ -52,7 +52,7 @@
         </div>                                                                                        
     </div>  
     <div class="col-12 col-lg-6 mx-auto">                
-		<form action="/admin/admin.php" method="post">
+		<form action="/admin/admin/adminMenus" method="post">
             <input type="hidden" name="action" value="admin_menus">
             <button type="submit" class="btn btn-primary mb-5" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button>
         </form>
