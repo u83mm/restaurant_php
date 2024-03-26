@@ -1,6 +1,6 @@
 <?php    
     declare(strict_types=1);
-    
+
     use model\classes\Query;    
     use model\classes\Validate;
 
@@ -15,11 +15,7 @@
         public function adminMenus(string $message = null):void
         {
             /** Check for user`s sessions */
-            !isset($_SESSION['role']) ? header("Location: /") : null;	
-
-            if($_SESSION['role'] !== "ROLE_ADMIN") {						
-                header("Location: /login");
-            }
+            testAccess();
 
             /** Test page language */
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 

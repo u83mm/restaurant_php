@@ -254,6 +254,9 @@
         /** Show all reservations */
         public function showAllReservations() : void 
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             try {
                 $menuDayQuery = new QueryMenu(); 
                 $commonTasks = new CommonTasks; 
@@ -316,6 +319,9 @@
         /** Show admin search view */
         public function showSearchPanel() : void 
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search_panel";
 
             $query = new Query();
@@ -333,7 +339,10 @@
 
         /** Show search results */
         public function searchReservationsByDateAndTime() : void 
-        {   
+        { 
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search";
             $_SESSION['date'] = $_POST['date'] ?? date('Y-m-d');
 
@@ -384,4 +393,4 @@
             }
         }
     }    
-?>  
+?>
