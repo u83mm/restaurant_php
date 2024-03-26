@@ -25,17 +25,15 @@
             $controllerNamePrefix = ucfirst($uri[0]);
             $method = $uri[1];       
         }
-        else if(count($uri) > 2) {
+        else if(count($uri) > 2) {            
             if(!empty($uri) && preg_match('/^([1-9]){1,5}$/', $uri[count($uri) - 1])) {
                 $id = $uri[count($uri) - 1]; 
-                array_pop($uri);                                                             
+                array_pop($uri);                                                     
             }
-            else {
-                foreach ($uri as $key => $value) {
-                    if($key == count($uri) - 2) break;
-                    $route .= $value . "/";            
-                }                     
-            } 
+            foreach ($uri as $key => $value) {
+                if($key == count($uri) - 2) break;
+                $route .= $value . "/";            
+            }                          
 
             $controllerNamePrefix = ucfirst($uri[count($uri) - 2]);
             $method = $uri[count($uri) - 1];                                                       
@@ -44,7 +42,7 @@
         // Build the Controller
         try {
             $controllerRoute = SITE_ROOT . "/../Controller/" . $route;        
-            $controllerName = $controllerNamePrefix . "Controller";                          
+            $controllerName = $controllerNamePrefix . "Controller";                        
            
             require_once($controllerRoute . $controllerName . ".php");                     
                       
