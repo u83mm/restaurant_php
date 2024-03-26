@@ -33,7 +33,7 @@
                 <hr />
                 <h4 class="text-center"><?php echo mb_strtoupper($page->language['menu_day_price']); ?></h4>
                 <div class="row">
-                    <form action="/admin/admin_menu_day_price.php" method="post">
+                    <form action="/admin/menuDay/index" method="post">
                         <button class="btn btn-primary" name="action" value="index"><?php echo ucfirst($page->language['send']); ?></button>
                         <div class="col-4 col-md-3 col-lg-4 text-center text-sm-start d-inline-block ms-2">
                             <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php //if(isset($fields)) echo $fields['Price']; ?>" required>

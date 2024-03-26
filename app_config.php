@@ -19,4 +19,7 @@
 
 	session_start();
 	session_regenerate_id();
+
+	/** Configure directories to load their classes */
+	model\classes\Loader::init(SITE_ROOT . "/../Controller/admin");
 ?>
