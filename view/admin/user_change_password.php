@@ -31,10 +31,8 @@
                 </div>                
             </div>                                                              
         </form>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">  
-            <input type="hidden" name="action" value="show">
-            <button type="submit" class="btn btn-primary mb-5" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button>
+        <form action="/admin/admin/show" method="post">                        
+            <a class="btn btn-primary mb-5" href="/admin/admin/show/<?php echo $id; ?>"><?php echo ucfirst($home->language['go_back']); ?></a>
         </form>
     </div>    
 <?php

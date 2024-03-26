@@ -47,7 +47,7 @@
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['users']); ?></h4>
             <div class="shadow rounded adminMenus">            
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="listado"><?php echo ucfirst($page->language['show_list']); ?></button></form>
+                <form action="/admin/admin/index" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="listado"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
         </div>
                                             <!-- CATEGORIAS -->

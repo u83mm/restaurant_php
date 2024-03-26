@@ -27,7 +27,10 @@
 
         /** Show user index */
         public function index(): void
-        {           
+        {    
+            /** Check for user`s sessions */
+            testAccess();
+
             $query = new Query();
             $rows = $query->selectAllInnerjoinByField('user', 'roles', 'id_role', $this->dbcon);				                        
             $message = $this->message;
@@ -38,6 +41,9 @@
         /** Create new user */
         public function new(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             $validate = new Validate();
             
             $user_name = $_REQUEST['user_name'] ?? "";                     
@@ -91,13 +97,16 @@
         }
 
         public function show(): void
-        {
-            $id_user = $_REQUEST['id_user'];
+        {   
+            /** Check for user`s sessions */
+            testAccess();
+
+            global $id;                        
 	
             $query = new Query();
 
             try {                
-                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id_user, $this->dbcon);
+                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id, $this->dbcon);
                 $roles = $query->selectAll('roles');
 
                 include(SITE_ROOT . "/../view/admin/user_show_view.php");
@@ -119,7 +128,10 @@
 
         /** Update user */
         public function update(): void
-        {            
+        {  
+            /** Check for user`s sessions */
+            testAccess();
+
             try {
                 /** We create the instances to objects */
                 $validate = new Validate();
@@ -169,6 +181,11 @@
         /** Change user password */
         public function changePassword(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
+            global $id;
+
             $validate = new Validate();
 	
             $password = $validate->test_input($_REQUEST['password'] ?? "");
@@ -207,6 +224,9 @@
         /** Deleting a user from the database. */
         public function delete(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+            
             $id_user = $_REQUEST['id_user'];
 	
             try {

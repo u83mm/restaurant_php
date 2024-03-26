@@ -38,9 +38,9 @@
             <div class="row mb-3 mt-5">
                 <label class="col-12 col-sm-3 text-center text-md-end" for="nome">&nbsp;</label>
                 <div class="col-sm-8 text-center text-md-start">
-                    <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>
-                    <button class="btn btn-outline-primary" type="submit" name="action" value="change password"><?php echo ucwords($page->language['change_password']); ?></button>
-                    <button class="btn btn-outline-primary" type="submit" name="action" value="volver"><?php echo ucfirst($page->language['go_back']); ?></button>
+                    <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>                    
+                    <a class="btn btn-outline-success" href="/admin/admin/changePassword/<? echo $id; ?>"><?php echo ucwords($page->language['change_password']); ?></a>
+                    <a class="btn btn-outline-primary" href="/admin/admin/index"><?php echo ucfirst($page->language['go_back']); ?></a>
                 </div>                
             </div>                                                              
         </form>        
