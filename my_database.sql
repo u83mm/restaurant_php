@@ -181,7 +181,7 @@ CREATE TABLE `english_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,7 +343,9 @@ INSERT INTO `english_dict` VALUES
 (164,'new_user','new user'),
 (165,'user_list','user list'),
 (166,'password_updated','password updated successfully.'),
-(167,'password_not_equal','passwords are not equal.');
+(167,'password_not_equal','passwords are not equal.'),
+(168,'row_updated','changes updated successfully.'),
+(169,'created_user','user created successfully.');
 /*!40000 ALTER TABLE `english_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +534,7 @@ CREATE TABLE `spanish_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -706,7 +708,9 @@ INSERT INTO `spanish_dict` VALUES
 (163,'new_user','nuevo usuario'),
 (164,'user_list','listado de usuarios'),
 (165,'password_updated','se ha actualizado la contraseña.'),
-(166,'password_not_equal','las contraseñas no son iguales.');
+(166,'password_not_equal','las contraseñas no son iguales.'),
+(167,'row_updated','cambios actualizados correctamente.'),
+(168,'created_user','usuario creado correctamente.');
 /*!40000 ALTER TABLE `spanish_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -752,4 +756,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-27  8:45:26
+-- Dump completed on 2024-03-27 13:10:18
