@@ -10,7 +10,7 @@
 	<h3 class="text-center"><?php echo strtoupper($home->language['change_password']); ?></h3>
     <div class="col-6 mx-auto">
         <?php echo $message = $this->message ?? ""; ?>
-        <form action="/admin/admin/changePassword" method="post"> 
+        <form action="/admin/admin/changePassword/<?php echo $id; ?>" method="post"> 
             <input type="hidden" name="id_user" value="<?php echo $id; ?>">           
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label" for="password"><?php echo ucfirst($home->language['password']); ?>:</label>

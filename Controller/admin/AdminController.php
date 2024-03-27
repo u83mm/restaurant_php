@@ -1,14 +1,25 @@
 <?php    
     declare(strict_types=1);
 
+    use model\classes\Language;
     use model\classes\Query;    
     use model\classes\Validate;
 
     class AdminController
-    {         
-        public function __construct(private object $dbcon = DB_CON, private string $message = "")
-        {
+    {   
+        /** Create array and object for diferent languages */
+        private array $language = [];
+        private Language $languageObject;
 
+        public function __construct(
+            private object $dbcon = DB_CON, 
+            private string $message = "",             
+        )
+        {
+            $this->languageObject = new Language(); 
+            
+            /** Configure page language */
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
         }
 
         /** Show main menus views */
@@ -196,12 +207,12 @@
                 if (!empty($password) && !empty($newPassword)) {
                     $id = $validate->test_input($_REQUEST['id_user'] ?? "");
                     if ($password !== $newPassword) {
-                        $this->message = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
+                        $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
                     } else {
                         $query = new Query();
                         $query->updatePassword("user", $newPassword, $id, $this->dbcon);
 
-                        $this->message = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
+                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
                     }
                     
                 }

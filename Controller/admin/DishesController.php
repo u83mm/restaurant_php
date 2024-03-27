@@ -73,7 +73,7 @@
                     $message = $e->getMessage();                    
                 }
                 else {
-                    $message = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                    $message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
                 }
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
@@ -100,7 +100,7 @@
                     $error_msg = $e->getMessage();                    
                 }
                 else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                    $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
                 }
 
                 include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
