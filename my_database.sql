@@ -181,7 +181,7 @@ CREATE TABLE `english_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,7 +341,9 @@ INSERT INTO `english_dict` VALUES
 (162,'must_be_logged','you must be logged to do that.'),
 (163,'must_be_admin','you must be admin to do that.'),
 (164,'new_user','new user'),
-(165,'user_list','user list');
+(165,'user_list','user list'),
+(166,'password_updated','password updated successfully.'),
+(167,'password_not_equal','passwords are not equal.');
 /*!40000 ALTER TABLE `english_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -530,7 +532,7 @@ CREATE TABLE `spanish_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,7 +704,9 @@ INSERT INTO `spanish_dict` VALUES
 (161,'must_be_logged','debes estar logeado para hacer eso.'),
 (162,'must_be_admin','debes ser administrador para hacer eso.'),
 (163,'new_user','nuevo usuario'),
-(164,'user_list','listado de usuarios');
+(164,'user_list','listado de usuarios'),
+(165,'password_updated','se ha actualizado la contraseña.'),
+(166,'password_not_equal','las contraseñas no son iguales.');
 /*!40000 ALTER TABLE `spanish_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -722,8 +726,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `email_2` (`email`),
-  KEY `fk_user_role` (`id_role`),
-  CONSTRAINT `fk_user_role` FOREIGN KEY (`id_role`) REFERENCES `roles` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_user_role` (`id_role`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -735,7 +738,7 @@ LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES
 (1,'admin','$2y$10$UmlPg2q.E8FyQ/y8/zkcgu/OXaar1erO8gEldBqGI5BtB3vElwReq','admin@admin.com',1),
-(2,'pepe','$2y$10$06rwi52tnOtwSM.u3OSpIuth3eu4M1pEzysOEv9r9kJ//1PUh7YwO','pepe@pepe.com',3),
+(2,'pepe','$2y$10$oTPd2ePIjQS3WjgXg1NKhezOdATvrAwO7nomn1drrQP7nA5fnH0l.','pepe@pepe.com',3),
 (3,'luis','$2y$10$30PDCa6OsP4RetegiCIbYORAxooMOZ11p.A5HNbwp5LZHDEttpHwq','luis@luis.com',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -749,4 +752,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-26 20:25:48
+-- Dump completed on 2024-03-27  8:45:26
