@@ -10,7 +10,7 @@
 	<h3 class="text-center"><?php echo strtoupper($page->language['user_data']); ?></h3>
     <div class="col-12 col-md-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
-        <form action="/admin/admin/update" method="post">
+        <form action="/admin/admin/update/<?php echo $id; ?>" method="post">
             <input type="hidden" name="id_user" value="<?php echo $user['id']?>">
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="user_name"><?php echo ucfirst($page->language['user']); ?>:</label>

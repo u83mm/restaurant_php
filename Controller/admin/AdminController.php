@@ -143,18 +143,28 @@
             /** Check for user`s sessions */
             testAccess();
 
+            global $id;
+
             try {
                 /** We create the instances to objects */
                 $validate = new Validate();
                 $query = new Query();
 
-
-                /** We get values from form */
-                $user_name = $validate->test_input($_REQUEST['user_name']) ?? "";
-                $id_user = $validate->test_input($_REQUEST['id_user']) ?? "";
-                $email = ($validate->validate_email($_REQUEST['email'])) ? $validate->test_input($_REQUEST['email']) : "";           
-                $role = $validate->test_input($_REQUEST['role']) ?? "";
-
+                /** We obtain data from form otherwise from DB */
+                if(isset($id_user)) {
+                    /** We get values from form */
+                    $user_name = $validate->test_input($_REQUEST['user_name']) ?? "";
+                    $id_user = $validate->test_input($_REQUEST['id_user']) ?? "";
+                    $email = ($validate->validate_email($_REQUEST['email'])) ? $validate->test_input($_REQUEST['email']) : "";           
+                    $role = $validate->test_input($_REQUEST['role']) ?? "";
+                }
+                else {
+                    $user = $query->selectOneBy("user", "id", $id, $this->dbcon);
+                    $user_name = $user['user_name'];
+                    $id_user = $user['id'];
+                    $email = $user['email'];
+                    $role = $user['id_role'];
+                }                
                 
                 /** Setting properties */
                 $fields = [
@@ -171,7 +181,7 @@
                 
                 /** Save data */
                 $query->updateRegistry("user", $fields, 'id', $this->dbcon);
-                $this->message = "<p class='alert alert-success text-center'>Registro actualizado correctamente</p>";                                    
+                $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['row_updated']) . "</p>";                                    
                 $this->index();
 
             } catch (\Throwable $th) {			                                
