@@ -181,7 +181,7 @@ CREATE TABLE `english_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +345,8 @@ INSERT INTO `english_dict` VALUES
 (166,'password_updated','password updated successfully.'),
 (167,'password_not_equal','passwords are not equal.'),
 (168,'row_updated','changes updated successfully.'),
-(169,'created_user','user created successfully.');
+(169,'created_user','user created successfully.'),
+(170,'delected_user','user delected.');
 /*!40000 ALTER TABLE `english_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -534,7 +535,7 @@ CREATE TABLE `spanish_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -710,7 +711,8 @@ INSERT INTO `spanish_dict` VALUES
 (165,'password_updated','se ha actualizado la contraseña.'),
 (166,'password_not_equal','las contraseñas no son iguales.'),
 (167,'row_updated','cambios actualizados correctamente.'),
-(168,'created_user','usuario creado correctamente.');
+(168,'created_user','usuario creado correctamente.'),
+(169,'delected_user','se ha eliminado el usuario.');
 /*!40000 ALTER TABLE `spanish_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -742,7 +744,7 @@ LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES
 (1,'admin','$2y$10$UmlPg2q.E8FyQ/y8/zkcgu/OXaar1erO8gEldBqGI5BtB3vElwReq','admin@admin.com',1),
-(2,'pepe','$2y$10$oTPd2ePIjQS3WjgXg1NKhezOdATvrAwO7nomn1drrQP7nA5fnH0l.','pepe@pepe.com',3),
+(2,'pepe','$2y$10$NUQqSCSKnEJhr/FsIbfMaeh6jLw5uV4akaH1mFtMJ7LkGA/rFAlbS','pepe@pepe.com',3),
 (3,'luis','$2y$10$30PDCa6OsP4RetegiCIbYORAxooMOZ11p.A5HNbwp5LZHDEttpHwq','luis@luis.com',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -756,4 +758,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-27 13:10:18
+-- Dump completed on 2024-03-27 22:27:54
