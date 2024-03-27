@@ -51,7 +51,7 @@
 
         /** Create new user */
         public function new(): void
-        {
+        {                        
             /** Check for user`s sessions */
             testAccess();
 
@@ -70,9 +70,9 @@
                     $email = $validate->validate_email($email) ? $validate->test_input($email) : throw new \Exception("Email isn't in valid format", 1);                  
 
                     $query = new Query();
-                    $rows = $query->selectAllBy("user", "email", $email);
+                    $rows = $query->selectOneBy("user", "email", $email, $this->dbcon);                    
 
-                    if($rows) {
+                    if($rows) {                                             
                         $this->message = "<p class='alert alert-danger text-center'>El email '{$email}' ya está registrado</p>";
                         include(SITE_ROOT . "/../view/admin/user_new_view.php");											
                     }
@@ -84,7 +84,7 @@
                         ];
 
                         $query->insertInto('user', $fields, $this->dbcon);                                                                         
-                        $this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>"; 
+                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>"; 
                         $this->index();
                     }										
                 }

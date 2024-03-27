@@ -9,7 +9,7 @@
 ?>
 	<h3 class="text-center"><?php echo strtoupper($home->language['new_user']); ?></h3>
     <div class="col-12 col-md-6 mx-auto">
-        <?php echo $this->message; ?>
+		<?php echo $this->message; ?>
         <?php include(SITE_ROOT. "/../view/admin/form_view.php"); ?>
 		<form action="/admin/admin/index" method="post">
 			<input type="submit" class="btn btn-primary mb-5" name="action" value="<?php echo ucfirst($home->language['go_back']); ?>">
