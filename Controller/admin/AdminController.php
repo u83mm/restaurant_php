@@ -189,16 +189,17 @@
             $validate = new Validate();
 	
             $password = $validate->test_input($_REQUEST['password'] ?? "");
-            $id_user = $validate->test_input($_REQUEST['id_user'] ?? "");
+            //$id = $validate->test_input($_REQUEST['id_user'] ?? "");
             $newPassword = $validate->test_input($_REQUEST['new_password'] ?? "");
 
             try {
-                if (!empty($password) && !empty($id_user) && !empty($newPassword)) {
+                if (!empty($password) && !empty($newPassword)) {
+                    $id = $validate->test_input($_REQUEST['id_user'] ?? "");
                     if ($password !== $newPassword) {
                         $this->message = "<p class='alert alert-danger text-center'>Las contraseñas no son iguales</p>";
                     } else {
                         $query = new Query();
-                        $query->updatePassword("user", $newPassword, $id_user, $this->dbcon);
+                        $query->updatePassword("user", $newPassword, $id, $this->dbcon);
 
                         $this->message = "<p class='alert alert-success text-center'>Se ha cambiado la contraseña</p>";
                     }
