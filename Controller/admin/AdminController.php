@@ -150,22 +150,21 @@
                 $validate = new Validate();
                 $query = new Query();
 
-                /** We obtain data from form otherwise from DB */
-                if(isset($id_user)) {
-                    /** We get values from form */
-                    $user_name = $validate->test_input($_REQUEST['user_name']) ?? "";
-                    $id_user = $validate->test_input($_REQUEST['id_user']) ?? "";
-                    $email = ($validate->validate_email($_REQUEST['email'])) ? $validate->test_input($_REQUEST['email']) : "";           
-                    $role = $validate->test_input($_REQUEST['role']) ?? "";
-                }
-                else {
+                /** We get values from form */
+                $user_name = isset($_REQUEST['user_name']) ? $validate->test_input($_REQUEST['user_name']) : "";
+                $id_user = isset($_REQUEST['id_user']) ? $validate->test_input($_REQUEST['id_user']) : ""; 
+                $email = isset($_REQUEST['email']) && $validate->validate_email($_REQUEST['email']) ? $validate->test_input($_REQUEST['email']) : "";                            ;                          
+                $role = isset($_REQUEST['role']) ? $validate->test_input($_REQUEST['role']) : "";
+
+                /** We obtain data from form otherwise from DB */                
+                if(empty($id_user)) {
                     $user = $query->selectOneBy("user", "id", $id, $this->dbcon);
                     $user_name = $user['user_name'];
                     $id_user = $user['id'];
                     $email = $user['email'];
-                    $role = $user['id_role'];
-                }                
-                
+                    $role = $user['id_role'];                    
+                }                                
+                                
                 /** Setting properties */
                 $fields = [
                     'id'        => $id_user,
