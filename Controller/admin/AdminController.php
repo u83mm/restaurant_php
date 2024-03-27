@@ -51,15 +51,16 @@
 
         /** Create new user */
         public function new(): void
-        {                        
+        {              
             /** Check for user`s sessions */
             testAccess();
 
             $validate = new Validate();
+            $query = new Query();
             
             $user_name = $_REQUEST['user_name'] ?? "";                     
             $password = $_REQUEST['password'] ?? "";
-            $email = $_REQUEST['email'] ?? "";
+            $email = $_REQUEST['email'] ?? "";            
 
             try {
                 if(!empty($user_name) && !empty($password) && !empty($email)) {
@@ -69,12 +70,12 @@
                     $password = $validate->test_input($password);
                     $email = $validate->validate_email($email) ? $validate->test_input($email) : throw new \Exception("Email isn't in valid format", 1);                  
 
-                    $query = new Query();
+                    
                     $rows = $query->selectOneBy("user", "email", $email, $this->dbcon);                    
 
                     if($rows) {                                             
                         $this->message = "<p class='alert alert-danger text-center'>El email '{$email}' ya está registrado</p>";
-                        include(SITE_ROOT . "/../view/admin/user_new_view.php");											
+                        include(SITE_ROOT . "/../view/admin/user_new_view.php");                       										
                     }
                     else {
                         $fields = [
@@ -83,15 +84,16 @@
                             'email'     => $email,
                         ];
 
-                        $query->insertInto('user', $fields, $this->dbcon);                                                                         
-                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>"; 
-                        $this->index();
+                        $query->insertInto('user', $fields, $this->dbcon);                        
+                                                                                               
+                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
+                        $this->index();                       
                     }										
                 }
                 else {
                     include(SITE_ROOT . "/../view/admin/user_new_view.php");
                 }
-
+                                
             } catch (\Throwable $th) {			
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
@@ -247,12 +249,14 @@
             /** Check for user`s sessions */
             testAccess();
             
-            $id_user = $_REQUEST['id_user'];
+            $id_user = $_REQUEST['id_user'] ?? "";
+
+            if(!isset($id_user)) $this->index();
 	
             try {
                 $query = new Query();
                 $query->deleteRegistry("user", "id", $id_user, $this->dbcon);
-                $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
+                $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['delected_user']) . "</p>";
                 $this->index();
 
             } catch (\Throwable $th) {
