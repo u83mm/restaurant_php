@@ -7,7 +7,7 @@
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
 	$home->do_html_nav($home->nav_links, "administration");
 ?>
-	<h3 class="text-center"><?php echo strtoupper($home->language['change_password']); ?></h3>
+	<h3 class="text-center"><?php echo mb_strtoupper($home->language['change_password']); ?></h3>
     <div class="col-6 mx-auto">
         <?php echo $message = $this->message ?? ""; ?>
         <form action="/admin/admin/changePassword/<?php echo $id; ?>" method="post"> 
