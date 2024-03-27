@@ -15,13 +15,13 @@
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label" for="password"><?php echo ucfirst($home->language['password']); ?>:</label>
                 <div class="col-sm-6">
-                    <input class="form-control" type="password" name="password" id="password" required>
+                    <input class="form-control" type="password" name="password" id="password" value="<?php if(isset($password)) echo $password; ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label" for="new_password"><?php echo ucfirst($home->language['repeat_password']); ?>:</label>
                 <div class="col-sm-6">
-                    <input class="form-control" type="password" name="new_password" id="new_password" required>
+                    <input class="form-control" type="password" name="new_password" id="new_password" value="<?php if(isset($newPassword)) echo $newPassword; ?>" required>
                 </div>                
             </div>                       
             <div class="row mb-3">

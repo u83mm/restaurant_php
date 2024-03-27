@@ -156,7 +156,7 @@
                 $email = isset($_REQUEST['email']) && $validate->validate_email($_REQUEST['email']) ? $validate->test_input($_REQUEST['email']) : "";                            ;                          
                 $role = isset($_REQUEST['role']) ? $validate->test_input($_REQUEST['role']) : "";
 
-                /** We obtain data from form otherwise from DB */                
+                /** Fix warnings when show the alert message on updating the user and we change the language */                
                 if(empty($id_user)) {
                     $user = $query->selectOneBy("user", "id", $id, $this->dbcon);
                     $user_name = $user['user_name'];
@@ -204,27 +204,26 @@
             /** Check for user`s sessions */
             testAccess();
 
-            global $id;
+            global $id;            
 
             $validate = new Validate();
+            $query = new Query();
 	
-            $password = $validate->test_input($_REQUEST['password'] ?? "");
-            //$id = $validate->test_input($_REQUEST['id_user'] ?? "");
-            $newPassword = $validate->test_input($_REQUEST['new_password'] ?? "");
+            /** We get values from the form*/
+            $password = $validate->test_input($_REQUEST['password'] ?? "");            
+            $newPassword = $validate->test_input($_REQUEST['new_password'] ?? "");            
 
             try {
-                if (!empty($password) && !empty($newPassword)) {
+                if(!empty($password) && !empty($newPassword)) {
                     $id = $validate->test_input($_REQUEST['id_user'] ?? "");
                     if ($password !== $newPassword) {
                         $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
-                    } else {
-                        $query = new Query();
+                    } else {                        
                         $query->updatePassword("user", $newPassword, $id, $this->dbcon);
 
                         $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
-                    }
-                    
-                }
+                    }                    
+                }                
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
