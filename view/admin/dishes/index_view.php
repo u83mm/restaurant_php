@@ -13,7 +13,7 @@
     <div class="container-fluid">        
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
-            <?php echo $message = $message ?? ""; ?>
+            <?php echo $message = $this->message ?? ""; ?>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">
@@ -30,11 +30,8 @@
                     <?php if(isset($rows)) foreach ($rows as $value) { ?>
                         <tr>
                             <td><?php echo $value['dishe_id']; ?></td>                            
-                            <td class="align-middle col-1">                               
-                                <form class="d-inline" action="/menu/info_dishe/show_info.php" method="post">
-                                    <input type="hidden" name="id" value="<?php echo $value['dishe_id']; ?>">
-                                    <input class="img-fluid" type="image" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe">
-                                </form>
+                            <td class="align-middle col-1">                                                               
+                                <a href="/menu/showDisheInfo/<?php echo $value['dishe_id']; ?>"><img class="img-fluid" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe"></a>
                             </td>
                             <td><?php echo ucfirst($page->language[$value['name']]); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>

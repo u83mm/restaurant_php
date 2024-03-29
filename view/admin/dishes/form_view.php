@@ -1,4 +1,4 @@
-<form action="#" method="post" enctype="multipart/form-data">
+<form action="/admin/dishes/new" method="post" enctype="multipart/form-data">
     <div class="row mb-3">
         <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="name"><?php echo ucfirst($home->language['name']); ?>:</label>
         <div class="col-sm-8">

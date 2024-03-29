@@ -13,7 +13,11 @@
     {        
         private Language $languageObject;
 
-        public function __construct(private object $dbcon = DB_CON, private array $language = [])      
+        public function __construct(
+            private object $dbcon = DB_CON, 
+            private array $language = [],
+            private string $message = ""
+        )      
         {
             $this->languageObject = new Language();
         }    
@@ -21,6 +25,9 @@
         /** Show dishes index */
         public function index(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             $message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
@@ -86,7 +93,12 @@
         }
 
         public function showForm(): void
-        {                            
+        {  
+            /** Check for user`s sessions */
+            testAccess();
+            
+            unset($_SESSION['action']);
+
             try {
                 // We obtain all registries in "dishes" tables          
                 $query = new Query();
@@ -115,6 +127,15 @@
         /** Create new dish */
         public function new(): void
         {
+            /** Check for user`s sessions */
+            testAccess();  
+            
+            /** Test for session to stop the method when change language */
+            if(isset($_SESSION['action'])) {
+                $this->index();
+                die;
+            }
+
             try {
                 $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
                 $image_fieldname = "dishe_img";
@@ -144,18 +165,18 @@
                 
 
                 // Validate entries
-                $validate = new Validate();                           
-
+                $validate = new Validate();  
+                
                 $fields = [
                     "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
                     "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
                     "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
                     "Dishe_type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "Price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
-                ];
-
+                ];                
+                
                 $validateOk = $validate->validate_form($fields);
-
+                
 
                 /** Begin transaction */
                 $this->dbcon->pdo->beginTransaction();
@@ -215,7 +236,7 @@
             }
             	            
             try {
-                if ($validateOk) {
+                if($validateOk) {
                     $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
                                 VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
                                 
@@ -238,8 +259,9 @@
                     
                     $this->dbcon->pdo->commit();
 
-                    $success_msg = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";                   
-                    header("Location: /admin/admin_dishes.php?message={$success_msg}");										
+                    $this->message = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";
+                    $_SESSION['action'] = "skip_method";                
+                    $this->index();                   								
                 }
                 else {
                     $error_msg = $validate->get_msg();
@@ -265,6 +287,9 @@
 
         public function edit(): void
         {  
+            /** Check for user`s sessions */
+            testAccess();
+
             global $id;  
 
             try {
@@ -322,6 +347,9 @@
         /** Update dishe */
         public function update(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             /** If there is a picture to update */
             try {
                 if ($_FILES['dishe_img']['name']) {                                     
@@ -458,7 +486,12 @@
         /** Deleting a dish from the database. */
         public function delete(): void
         {
-            $dishe = $_REQUEST['dishe_id'];
+            /** Check for user`s sessions */
+            testAccess();
+
+            $dishe = $_REQUEST['dishe_id'] ?? "";
+
+            if(!isset($dishe)) $this->index();
 	
             try {
                 /** Create objects */
@@ -466,14 +499,16 @@
                 $commonTask = new CommonTasks();
 
                 /** Obtain dishe to delete */
-                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);                                                              
-
-                $commonTask->deletePicture($dishe_to_delete['picture']);
-                $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
-
-                $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
-
-                include(SITE_ROOT . "/../view/database_error.php");
+                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);
+                
+                if($dishe_to_delete) {
+                    $commonTask->deletePicture($dishe_to_delete['picture']);
+                    $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
+    
+                    $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
+                }
+                
+                $this->index();                
 
             } catch (\PDOException $e) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
@@ -506,6 +541,9 @@
         /** Show search form */
         public function search(string $message = null, string $p = null, string $s = null): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search";
             
             try {
