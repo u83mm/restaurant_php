@@ -1,13 +1,13 @@
 <?php   
-    namespace Controller\admin;
+    //namespace Controller\admin;
 
-    use Exception;
+    //use Exception;
     use model\classes\CommonTasks;
     use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
     use model\classes\Validate;    
-    use PDOException;     
+    //use PDOException;     
 
     class DishesController
     {        
@@ -264,18 +264,18 @@
         }
 
         public function edit(): void
-        {                                             
+        {  
+            global $id;  
+
             try {
-                // We obtain all registries in "dishes_day" and "dishes_menu" tables
-            
+                // We obtain all registries in "dishes_day" and "dishes_menu" tables            
                 $query = new Query();
                 $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
                 $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
 
 
                 /** Get the id */
-
-                $dishe_id = $_REQUEST['dishe_id']; 
+                $dishe_id = $id;                
 
                 /** 
                  * We make inner joins to diferent tables to obtain the elements to show in "selects"
@@ -285,8 +285,7 @@
                 $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id, $this->dbcon);
                 $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id, $this->dbcon);
                 
-                /** Showing dishe_picture in show info */
-                
+                /** Showing dishe_picture in show info */                
                 $commonTask = new CommonTasks();                
                 $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                
 

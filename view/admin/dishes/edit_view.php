@@ -82,7 +82,8 @@
                 <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
                 <div class="col-12 col-md-8 text-center text-sm-start">                   
                     <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>                   
-                    <button class="btn btn-outline-success" type="submit" name="action" value="volver"><?php echo ucfirst($page->language['go_back']); ?></button>
+                    <!-- <button class="btn btn-outline-success" type="submit" name="action" value="volver"><?php //echo ucfirst($page->language['go_back']); ?></button> -->
+                    <a class="btn btn-outline-success" href="/admin/dishes/index"><?php echo ucfirst($page->language['go_back']); ?></a>
                 </div>                
             </div>                                                              
         </form>        

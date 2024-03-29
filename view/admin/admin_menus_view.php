@@ -18,16 +18,12 @@
             <div class="shadow rounded adminMenus">            
                 <div class="row">
                     <div class="col-6 col-md-4">
-                        <a class="btn btn-primary mb-5" href="/admin/admin_dishes.php"><?php echo ucfirst($page->language['show_list']); ?></a> 
+                        <a class="btn btn-primary mb-5" href="/admin/dishes/index"><?php echo ucfirst($page->language['show_list']); ?></a> 
                     </div>
                     <div class="col-6 col-md-3">
-                        <form class="text-center text-lg-start d-inline" action="/admin/admin_dishes.php" method="post">                                
-                            <button type="submit" class="btn btn-primary" name="action" value="search"><?php echo ucfirst($page->language['search']); ?></button>               
-                        </form>
+                        <a class="btn btn-primary" href="/admin/dishes/search"><?php echo ucfirst($page->language['search']); ?></a>
                     </div><div class="col-6 col-md-3">
-                        <form class="text-center text-lg-start d-inline" action="/admin/admin_dishes.php" method="post">                                
-                            <button type="submit" class="btn btn-primary" name="action" value="show_form"><?php echo ucfirst($page->language['new']); ?></button>               
-                        </form>
+                        <a class="btn btn-primary" href="/admin/dishes/showForm"><?php echo ucfirst($page->language['new']); ?></a>
                     </div>                
                 </div>            
                 <hr />
@@ -55,7 +51,7 @@
         <div class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
             <div class="shadow rounded adminMenus">            
-                <a class="btn btn-primary mb-5" href="<?php echo $_SERVER['PHP_SELF']; ?>"><?php echo ucfirst($page->language['show_list']); ?></a>
+                <a class="btn btn-primary mb-5" href="#"><?php echo ucfirst($page->language['show_list']); ?></a>
             </div> 
         </div>                                                                                                                                                                                                                                           
     </div>

@@ -69,10 +69,7 @@
         </div>                                                                                   
     </div>  
     <div class="col-12 col-lg-6 mx-auto">                
-		<form action="/admin/admin.php" method="post">
-            <input type="hidden" name="action" value="admin_menus">
-            <button type="submit" class="btn btn-primary mb-5" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button>
-        </form>
+        <a class="btn btn-primary mb-5" href="/admin/admin/adminMenus"><?php echo ucfirst($home->language['go_back']); ?></a>
     </div>
 <?php
 	$home->do_html_footer();

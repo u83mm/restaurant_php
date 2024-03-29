@@ -71,7 +71,7 @@
                                 </p>";
                 }
         
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                include(SITE_ROOT . "/../view/database_error.php");
             }
         }
     }
