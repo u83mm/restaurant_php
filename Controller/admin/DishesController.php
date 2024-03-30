@@ -350,6 +350,8 @@
             /** Check for user`s sessions */
             testAccess();
 
+            global $id;
+
             /** If there is a picture to update */
             try {
                 if ($_FILES['dishe_img']['name']) {                                     
@@ -440,16 +442,14 @@
                 $commonTask = new CommonTasks();                               
 
                 $fields = [
-                    "id"            => $_REQUEST['dishe_id'] ?? "",
+                    "id"            => $_REQUEST['dishe_id'] ?? $id ?? "",
                     "name"          => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
                     "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
                     "available"     => $validate->test_input($_REQUEST['available'] ?? 0),
-                ];  
-                
-                //var_dump($fields['available']);die;
+                ];                                  
 
                 $validateOk = $validate->validate_form($fields);                   
 
@@ -469,9 +469,10 @@
                     }
 
                     $query->updateDishe($fields, $this->dbcon);
-                    $msg = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    $this->index();
                     
-                    header("Location: /admin/admin_dishes.php?message={$msg}");
+                    //header("Location: /admin/admin_dishes.php?message={$msg}");
 
                 } else {
                     $error_msg = $validate->get_msg();

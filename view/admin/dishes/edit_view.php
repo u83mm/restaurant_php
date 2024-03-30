@@ -10,8 +10,7 @@
 	<h3 class="text-center"><?php echo strtoupper($page->language['product_details']); ?></h3>
     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
-        <form action="#" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="dishe_id" value="<?php echo $dishe['dishe_id']?>">
+        <form action="/admin/dishes/update/<?php echo $dishe['dishe_id']?>" method="post" enctype="multipart/form-data">           
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="name"><?php echo ucfirst($page->language['name']); ?>:</label>
                 <div class="col-sm-8">
@@ -81,8 +80,7 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end">&nbsp;</label>
                 <div class="col-12 col-md-8 text-center text-sm-start">                   
-                    <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>                   
-                    <!-- <button class="btn btn-outline-success" type="submit" name="action" value="volver"><?php //echo ucfirst($page->language['go_back']); ?></button> -->
+                    <button class="btn btn-outline-success" type="submit" name="action" value="update"><?php echo ucfirst($page->language['update']); ?></button>                                       
                     <a class="btn btn-outline-success" href="/admin/dishes/index"><?php echo ucfirst($page->language['go_back']); ?></a>
                 </div>                
             </div>                                                              
