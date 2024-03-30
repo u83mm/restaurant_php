@@ -69,10 +69,10 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label"><?php echo ucfirst($page->language['available']); ?>:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
-                    <?php if($dishe['available'] == true) {?>
-                        <input type="checkbox" name="available" id="available" value="1" checked> 
+                    <?php if($dishe['available'] === 'si') {?>
+                        <input type="checkbox" name="available" id="available" value="no" checked> 
                     <?php }else { ?>                    
-                        <input type="checkbox" name="available" id="available" value="1"> 
+                        <input type="checkbox" name="available" id="available" value="si"> 
                     <?php } ?>
                 </div>                
             </div>

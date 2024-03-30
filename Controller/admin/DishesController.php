@@ -448,7 +448,7 @@
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"     => $validate->test_input($_REQUEST['available'] ?? 0),
+                    "available"     => $validate->test_input($_REQUEST['available'] ?? 'no'),
                 ];                                  
 
                 $validateOk = $validate->validate_form($fields);                   
