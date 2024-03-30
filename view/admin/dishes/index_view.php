@@ -36,7 +36,7 @@
                             <td><?php echo ucfirst($page->language[$value['name']]); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
                             <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>
-                            <?php if($value['available'] == true): ?>
+                            <?php if($value['available'] === 'si'): ?>
                                 <td class="text-center">&#9989;</td>
                             <?php else: ?>
                                 <td class="text-center">&#10060;</td>
@@ -62,7 +62,7 @@
 			if($current_page != 1) {
 ?>
 				<li class="page-item">
-                    <form action="/admin/dishes/index" method="POST">
+                    <form action="<?php PATH ?>" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -72,7 +72,7 @@
                     </form>                    
                 </li>
 				<li class="page-item">
-                     <form action="/admin/dishes/index" method="POST">
+                     <form action="<?php PATH ?>" method="POST">
                         <input type="hidden" name="s" value="0">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -90,7 +90,7 @@
 			if($current_page != $pagina) {
 ?>
 				<li class="page-item">
-                    <form action="/admin/dishes/index" method="POST">
+                    <form action="<?php PATH ?>" method="POST">
                         <input type="hidden" name="s" value="<?php echo $last; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -100,7 +100,7 @@
                     </form>                   
                 </li>
 				<li class="page-item">
-                    <form action="/admin/dishes/index" method="POST">
+                    <form action="<?php PATH ?>" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">

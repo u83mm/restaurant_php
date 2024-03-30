@@ -541,7 +541,7 @@
 
         /** Show search form */
         public function search(string $message = null, string $p = null, string $s = null): void
-        {
+        {            
             /** Check for user`s sessions */
             testAccess();
 
@@ -560,12 +560,12 @@
                 $fields = [
                     "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
-                ];                                 
-
+                ];  
+                                               
                 if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
                     /** Test validation */
-                    $validateOk = $validate->validate_form($fields);                    
-
+                    $validateOk = $validate->validate_form($fields); 
+                                                         
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
                         $pagerows = 6; // Number of rows for page.

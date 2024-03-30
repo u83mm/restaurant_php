@@ -17,7 +17,7 @@
                 <!-- By name -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h5> 
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
+                <form action="<?php PATH ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="name">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -30,14 +30,14 @@
                 <!-- By availability -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_availability']); ?></h5> 
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
+                <form action="<?php PATH ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
                         <select name="critery" id="available" required>
                             <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
-                            <option value="1"><?php echo ucfirst($home->language['availables']); ?></option>
-                            <option value="0">NO <?php echo $home->language['availables']; ?></option>
+                            <option value="si"><?php echo ucfirst($home->language['availables']); ?></option>
+                            <option value="no">NO <?php echo $home->language['availables']; ?></option>
                         </select> 
                     </div>                  
                 </form>
@@ -47,7 +47,7 @@
                 <!-- By category -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_category']); ?></h5>
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">
+                <form action="<?php PATH ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
