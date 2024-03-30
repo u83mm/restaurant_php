@@ -38,10 +38,11 @@
                     $this->method = $this->uri[1];       
                 }
                 else if(count($this->uri) > 2) {            
-                    if(!empty($this->uri) && preg_match('/^([1-9]){1,5}$/', $this->uri[count($this->uri) - 1])) {
-                        $id = $this->uri[count($this->uri) - 1]; 
+                    if(!empty($this->uri) && preg_match('/^([0-9]){1,5}$/', $this->uri[count($this->uri) - 1])) {
+                        $id = $this->uri[count($this->uri) - 1];                                                
                         array_pop($this->uri);                                                     
                     }
+                    
                     foreach ($this->uri as $key => $value) {
                         if($key == count($this->uri) - 2) break;
                         $this->route .= $value . "/";            
@@ -53,7 +54,7 @@
 
                 // Build the Controller
                 $this->controllerRoute = SITE_ROOT . "/../Controller/" . $this->route;        
-                $this->controllerName = $this->controllerNamePrefix . "Controller";                        
+                $this->controllerName = $this->controllerNamePrefix . "Controller";                                       
                
                 require_once($this->controllerRoute . $this->controllerName . ".php");                     
                           
