@@ -13,7 +13,7 @@
     <div class="container-fluid">        
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
-            <?php echo $message = $this->message ?? ""; ?>
+            <?php echo $message = $_SESSION['message'] ?? $this->message ?? ""; ?>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">

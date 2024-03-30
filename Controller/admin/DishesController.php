@@ -28,7 +28,7 @@
             /** Check for user`s sessions */
             testAccess();
 
-            $message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
+            //$message = $_POST['message'] ?? $_GET['message'] ?? "";
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
 
@@ -74,6 +74,8 @@
                 $commonTask = new CommonTasks();                          
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
+
+                unset($_SESSION['message']);
             } 
             catch (\PDOException $e) {
                 if ($_SESSION['role'] === "ROLE_ADMIN") {                   
@@ -470,9 +472,10 @@
 
                     $query->updateDishe($fields, $this->dbcon);
                     $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
-                    $this->index();
+                    //$this->index();
+                    $_SESSION['message'] = $this->message;
                     
-                    //header("Location: /admin/admin_dishes.php?message={$msg}");
+                    header("Location: /admin/dishes/index");
 
                 } else {
                     $error_msg = $validate->get_msg();
