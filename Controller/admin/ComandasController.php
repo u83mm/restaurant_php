@@ -56,14 +56,12 @@
          * If no argument is passed, it defaults to an empty string.
          */
         
-        public function index(string $message = null): void    
+        public function index(): void    
         {  
             /** Check for user`s sessions */
             testAccess();
 
-            $_SESSION['action'] = "index";
-
-            $this->message = $message ?? "";
+            $_SESSION['action'] = "index";            
 
             $query  = new Query();
             
@@ -331,14 +329,16 @@
             /** Check for user`s sessions */
             testAccess();
             
-
-            $id = $_POST['id'];
+            $id = isset($_POST['id']) ? $_POST['id'] : "";
             $orderRepository = new OrderRepository();
             
             try {
-                $orderRepository->deleteRegistry("orders", "id", $id, $this->dbcon);
-                $message = "<p class='alert alert-success text-center'>Order deleted!</p>";
-                $this->index($message);
+                if($id) {
+                    $orderRepository->deleteRegistry("orders", "id", $id, $this->dbcon);
+                    $this->message = "<p class='alert alert-success text-center'>Order deleted!</p>";                    
+                } 
+                
+                $this->index();
                 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
