@@ -16,7 +16,7 @@
                     INNER JOIN dishes_day
                     ON dishes.category_id = dishes_day.category_id 
                     WHERE dishes_day.category_name = :field
-                    AND dishes.available = 1";
+                    AND dishes.available = 'si'";
 
             $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            
