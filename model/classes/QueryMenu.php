@@ -66,16 +66,16 @@
         }
 
         public function showMenuListByCategory(array $menuCategories, string $category)
-        { 
+        {             
             /** Configure page language */           
 			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
             
-            $showResult = ""; 
+            $showResult = "";             
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
                 $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
-                if($menuCategories[$i]['available'] === 1) {
+                if($menuCategories[$i]['available'] === 'si') {
                     $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 }
 
@@ -87,7 +87,7 @@
 
                     $y += 4; 
                 }               
-            }
+            }            
 
             return $showResult;
         }
