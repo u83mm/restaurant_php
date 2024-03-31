@@ -25,7 +25,7 @@
 			<?php foreach ($row as $key_order => $order): ?>
                 <div class="col-12 col-md-6 col-xl-4 mb-5">
 				<div class="w-100 menuDia">
-					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">							
+					<form action="/admin/comandas/index" method="post">							
 
 													<!-- Mesa y personas -->
 
