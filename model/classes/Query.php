@@ -148,8 +148,16 @@
                 throw new \Exception("{$th->getMessage()}", 1);
             }            
         }
-
-
+      
+        /**
+         * This PHP function updates a user's password in a specified table using a hashed password and
+         * the user's ID.
+         * 
+         * @param string table The `table` parameter 
+         * @param string password The `password` parameter
+         * @param string id_user The `id_user` parameter
+         * @param object dbcon The `dbcon` parameter
+         */
         public function updatePassword(string $table, string $password, string $id_user, object $dbcon): void
         {
             $query = "UPDATE $table SET password = :password WHERE id = :id_user";                 
@@ -167,7 +175,7 @@
             }
         }
 
-
+        /** Delete a row */
         public function deleteRegistry(string $table, string $fieldId, string $id, object $dbcon)
         {
             $query = "DELETE FROM $table WHERE $fieldId = :id";                 
@@ -316,9 +324,7 @@
          * @param string table The name of the database table from which to select fields.
          * @param array fields An array of strings representing the names of the fields to be selected
          * from the table.
-         * @param object dbcon  is an object representing the database connection. It is likely
-         * an instance of a class that manages database connections and provides a PDO object for
-         * executing queries.
+         * @param object dbcon  is an object representing the database connection. 
          * 
          * @return array an array of rows fetched from the specified table, containing only the
          * specified fields.
@@ -332,6 +338,38 @@
                 $stm = $dbcon->pdo->prepare($query);                                                   
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+            
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}");
+            }
+        }
+
+        
+       /**
+        * The function `selectFieldsFromTableById` retrieves specific fields from a table based on a
+        * given ID value.
+        * 
+        * @param array fields An array of field names that you want to select from the table.
+        * @param string table The `table` parameter 
+        * @param string id The id field in the table (ex. user_id).
+        * @param string value The id value.
+        * 
+        * @return array An array containing the selected fields from the specified table where the
+        * provided ID matches the given value.
+        */
+        public function selectFieldsFromTableById(array $fields, string $table, string $fieldId, string $value): array
+        {
+            $fields = implode(", ", $fields);
+            $query = "SELECT $fields FROM $table WHERE $fieldId = :value";
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":value", $value);                                                   
+                $stm->execute();       
+                $rows = $stm->fetch(PDO::FETCH_ASSOC);
                 $stm->closeCursor();
             
                 return $rows;

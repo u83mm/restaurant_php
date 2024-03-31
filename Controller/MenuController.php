@@ -31,14 +31,14 @@
 
             /** Show Menu's categories */
             $menuCategories = $menuDay->selectAll("dishes_menu");            
-            $showResult = "";
+            $showResult = "";            
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
                 $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);                
                 $emoji = $menuCategories[$i]['menu_emoji'];
                 
                 $showResult .= "<li class='showMenuCategories'>
-                                    <form class='d-inline' action='/menu/showDishesByTheirCategory' method='POST'>                                       
+                                    <form class='d-inline' action='/menu/showDishesByTheirCategory/{$menuCategories[$i]['menu_id']}' method='POST'>                                       
                                         <button class='btn btn-outline-secondary text-start' type='submit' name='category' value='$category'><span class='px-2 float-start'>$emoji</span>$category</button>
                                     </form>
                                 </li>";
@@ -63,14 +63,28 @@
          */
         public function showDishesByTheirCategory(string $category = null): void
         { 
-            $category = $phrase = strtolower($_REQUEST['category']) ?? "";
+            global $id;
+            
+            $menuDishes = new QueryMenu(); 
+
+            if(!isset($_REQUEST['category'])) {
+                $rows = $menuDishes->selectFieldsFromTableById(
+                    ['menu_category'], 
+                    'dishes_menu', 
+                    'menu_id', 
+                    $id
+                );
+                 
+                $category =  $rows['menu_category'];             
+            }
+            else {
+                $category = strtolower($_REQUEST['category']) ?? ""; 
+            }                                                        
 
             // Change category's language to spanish to do the query to the DB
             $this->language = $this->languageObject->spanish();
-            $category = $this->language[$category];                       
-
-            $menuDishes = new QueryMenu();                  
-
+            $category = $this->language[$category];
+                                        
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $menuDishes->getMenuDayElements();
                        
