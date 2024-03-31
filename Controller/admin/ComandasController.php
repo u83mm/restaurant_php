@@ -1,7 +1,7 @@
 <?php
     declare(strict_types=1);
     
-    namespace Controller\admin;
+    //namespace Controller\admin;
 
     use model\classes\Language;
     use model\classes\Query;
@@ -42,6 +42,9 @@
             private string $message = "")
         {
             $this->languageObject = new Language();
+
+            /** Test page language */
+            $language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();	
         }
 
        
