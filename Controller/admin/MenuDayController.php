@@ -1,8 +1,9 @@
 <?php      
-    namespace Controller\admin;
+    //namespace Controller\admin;
     
-    use Exception;
-    use model\classes\Query;
+    //use Exception;
+    
+    use model\classes\Query; 
 
     class MenuDayController
     {
@@ -35,7 +36,7 @@
                 $adminController->adminMenus($message);
             } 
             catch (\Exception $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                                
+                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                                               
                 $adminController->adminMenus($error_msg);
             } 
             catch (\Throwable $th) {

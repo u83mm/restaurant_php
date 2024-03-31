@@ -1,19 +1,23 @@
 <?php   
-    namespace Controller\admin;
+    //namespace Controller\admin;
 
-    use Exception;
+    //use Exception;
     use model\classes\CommonTasks;
     use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
     use model\classes\Validate;    
-    use PDOException;     
+    //use PDOException;     
 
     class DishesController
     {        
         private Language $languageObject;
 
-        public function __construct(private object $dbcon = DB_CON, private array $language = [])      
+        public function __construct(
+            private object $dbcon = DB_CON, 
+            private array $language = [],
+            private string $message = ""
+        )      
         {
             $this->languageObject = new Language();
         }    
@@ -21,7 +25,10 @@
         /** Show dishes index */
         public function index(): void
         {
-            $message = $_POST['message'] ?? $_GET['message'] ?? $message = "";
+            /** Check for user`s sessions */
+            testAccess();
+
+            //$message = $_POST['message'] ?? $_GET['message'] ?? "";
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
 
@@ -67,13 +74,15 @@
                 $commonTask = new CommonTasks();                          
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
+
+                unset($_SESSION['message']);
             } 
             catch (\PDOException $e) {
                 if ($_SESSION['role'] === "ROLE_ADMIN") {                   
                     $message = $e->getMessage();                    
                 }
                 else {
-                    $message = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                    $message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
                 }
 
                 include(SITE_ROOT . "/../view/admin/dishes/index_view.php");
@@ -86,7 +95,12 @@
         }
 
         public function showForm(): void
-        {                            
+        {  
+            /** Check for user`s sessions */
+            testAccess();
+            
+            unset($_SESSION['action']);
+
             try {
                 // We obtain all registries in "dishes" tables          
                 $query = new Query();
@@ -100,7 +114,7 @@
                     $error_msg = $e->getMessage();                    
                 }
                 else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$h->getMessage()}</p>";					
+                    $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
                 }
 
                 include(SITE_ROOT . "/../view/admin/dishes/new_view.php");
@@ -115,6 +129,15 @@
         /** Create new dish */
         public function new(): void
         {
+            /** Check for user`s sessions */
+            testAccess();  
+            
+            /** Test for session to stop the method when change language */
+            if(isset($_SESSION['action'])) {
+                $this->index();
+                die;
+            }
+
             try {
                 $upload_dir = SITE_ROOT . "/uploads/dishes_pics/";
                 $image_fieldname = "dishe_img";
@@ -144,18 +167,18 @@
                 
 
                 // Validate entries
-                $validate = new Validate();                           
-
+                $validate = new Validate();  
+                
                 $fields = [
                     "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
                     "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
                     "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
                     "Dishe_type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "Price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
-                ];
-
+                ];                
+                
                 $validateOk = $validate->validate_form($fields);
-
+                
 
                 /** Begin transaction */
                 $this->dbcon->pdo->beginTransaction();
@@ -215,7 +238,7 @@
             }
             	            
             try {
-                if ($validateOk) {
+                if($validateOk) {
                     $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
                                 VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
                                 
@@ -238,8 +261,9 @@
                     
                     $this->dbcon->pdo->commit();
 
-                    $success_msg = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";                   
-                    header("Location: /admin/admin_dishes.php?message={$success_msg}");										
+                    $this->message = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";
+                    $_SESSION['action'] = "skip_method";                
+                    $this->index();                   								
                 }
                 else {
                     $error_msg = $validate->get_msg();
@@ -264,18 +288,21 @@
         }
 
         public function edit(): void
-        {                                             
+        {  
+            /** Check for user`s sessions */
+            testAccess();
+
+            global $id;  
+
             try {
-                // We obtain all registries in "dishes_day" and "dishes_menu" tables
-            
+                // We obtain all registries in "dishes_day" and "dishes_menu" tables            
                 $query = new Query();
                 $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
                 $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
 
 
                 /** Get the id */
-
-                $dishe_id = $_REQUEST['dishe_id']; 
+                $dishe_id = $id;                
 
                 /** 
                  * We make inner joins to diferent tables to obtain the elements to show in "selects"
@@ -285,8 +312,7 @@
                 $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id, $this->dbcon);
                 $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id, $this->dbcon);
                 
-                /** Showing dishe_picture in show info */
-                
+                /** Showing dishe_picture in show info */                
                 $commonTask = new CommonTasks();                
                 $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                
 
@@ -323,6 +349,11 @@
         /** Update dishe */
         public function update(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+
+            global $id;
+
             /** If there is a picture to update */
             try {
                 if ($_FILES['dishe_img']['name']) {                                     
@@ -413,16 +444,14 @@
                 $commonTask = new CommonTasks();                               
 
                 $fields = [
-                    "id"            => $_REQUEST['dishe_id'] ?? "",
+                    "id"            => $_REQUEST['dishe_id'] ?? $id ?? "",
                     "name"          => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
                     "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"     => $validate->test_input($_REQUEST['available'] ?? 0),
-                ];  
-                
-                //var_dump($fields['available']);die;
+                    "available"     => $validate->test_input($_REQUEST['available'] ?? 'no'),
+                ];                                  
 
                 $validateOk = $validate->validate_form($fields);                   
 
@@ -442,9 +471,11 @@
                     }
 
                     $query->updateDishe($fields, $this->dbcon);
-                    $msg = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    //$this->index();
+                    $_SESSION['message'] = $this->message;
                     
-                    header("Location: /admin/admin_dishes.php?message={$msg}");
+                    header("Location: /admin/dishes/index");
 
                 } else {
                     $error_msg = $validate->get_msg();
@@ -459,7 +490,12 @@
         /** Deleting a dish from the database. */
         public function delete(): void
         {
-            $dishe = $_REQUEST['dishe_id'];
+            /** Check for user`s sessions */
+            testAccess();
+
+            $dishe = $_REQUEST['dishe_id'] ?? "";
+
+            if(!isset($dishe)) $this->index();
 	
             try {
                 /** Create objects */
@@ -467,14 +503,16 @@
                 $commonTask = new CommonTasks();
 
                 /** Obtain dishe to delete */
-                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);                                                              
-
-                $commonTask->deletePicture($dishe_to_delete['picture']);
-                $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
-
-                $success_msg = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";
-
-                include(SITE_ROOT . "/../view/database_error.php");
+                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);
+                
+                if($dishe_to_delete) {
+                    $commonTask->deletePicture($dishe_to_delete['picture']);
+                    $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
+    
+                    $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
+                }
+                
+                $this->index();                
 
             } catch (\PDOException $e) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
@@ -506,7 +544,10 @@
 
         /** Show search form */
         public function search(string $message = null, string $p = null, string $s = null): void
-        {
+        {            
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search";
             
             try {
@@ -522,12 +563,12 @@
                 $fields = [
                     "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
-                ];                                 
-
+                ];  
+                                               
                 if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
                     /** Test validation */
-                    $validateOk = $validate->validate_form($fields);                    
-
+                    $validateOk = $validate->validate_form($fields); 
+                                                         
                     if($validateOk) {
                         /** Calculate necesary pages for pagination */ 
                         $pagerows = 6; // Number of rows for page.

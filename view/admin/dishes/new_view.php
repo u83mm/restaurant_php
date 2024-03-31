@@ -10,8 +10,8 @@
 	<h3 class="text-center"><?php echo strtoupper($home->language['new_product']); ?></h3>
     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mx-auto">
         <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
-        <?php include(SITE_ROOT. "/../view/admin/dishes/form_view.php"); ?>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-primary mb-5" name="action" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button></form>
+        <?php include(SITE_ROOT. "/../view/admin/dishes/form_view.php"); ?>		
+		<a class="btn btn-primary mb-5" href="/admin/dishes/index"><?php echo ucfirst($home->language['go_back']); ?></a>
     </div>
 <?php
 	$home->do_html_footer();

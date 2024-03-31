@@ -22,4 +22,5 @@
 /log/
 /db_vol/
 /public/images/captcha/
+/public/uploads/
 ###< my files to ignore ###

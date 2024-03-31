@@ -14,6 +14,12 @@
 	require_once(SITE_ROOT . "/../Application/connect.php");
 	define('DB_CON', $dbcon);
 
+	/** Define current URL */
+	define('PATH', rtrim($_SERVER['REQUEST_URI'], "/"));
+
 	session_start();
 	session_regenerate_id();
+
+	/** Configure directories to load their classes */
+	model\classes\Loader::init(SITE_ROOT . "/../Controller/admin");
 ?>

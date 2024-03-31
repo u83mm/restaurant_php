@@ -19,12 +19,12 @@
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu/menu.php",
-                    "Registrate"		=> 	"/register.php",
-                    "Administración"	=>	"/admin/admin.php",
+                    "Carta"				=> 	"/menu",
+                    "Registrate"		=> 	"/register",
+                    "Administración"	=>	"/admin/admin/adminMenus",
                     "Pedidos"			=>	"/orders/index.php",
-                    "Reservas"			=> 	"/reservation.php",
-                    "Logeate"			=> 	"/login.php",                    
+                    "Reservas"			=> 	"/reservations/reservation/index",
+                    "Logeate"			=> 	"/login",                    
                 ];
 
                 return $this->nav_links;
@@ -33,12 +33,12 @@
             // English nav menu for admin
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Sign up"		    => 	"/register.php",
-				"Administration"	=>	"/admin/admin.php",
+				"Menu"				=> 	"/menu",
+				"Sign up"		    => 	"/register",
+				"Administration"	=>	"/admin/admin/adminMenus",
 				"Orders"			=>	"/orders/index.php",
-                "Reservations"		=> 	"/reservation.php",
-				"Login "			=> 	"/login.php",
+                "Reservations"		=> 	"/reservations/reservation/index",
+				"Login "			=> 	"/login",
             ];
 
             return $this->nav_links;
@@ -51,9 +51,9 @@
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu/menu.php",                                 
+                    "Carta"				=> 	"/menu",                                 
                     "Pedidos"			=>	"/orders/index.php",
-                    "Logeate"			=> 	"/login.php",
+                    "Logeate"			=> 	"/login",
                 ];
 
                 return $this->nav_links;
@@ -62,9 +62,9 @@
             // English nav menu for ROLE waiter
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",								
+				"Menu"				=> 	"/menu",								
 				"Orders"			=>	"/orders/index.php",
-				"Login "			=> 	"/login.php",
+				"Login "			=> 	"/login",
             ];
 
             return $this->nav_links;
@@ -77,10 +77,10 @@
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu/menu.php",
-                    "Registrate"		=> 	"/register.php",
-                    "Reservas"			=> 	"/reservation.php",                                    
-                    "Logeate"			=> 	"/login.php",                   
+                    "Carta"				=> 	"/menu",
+                    "Registrate"		=> 	"/register",
+                    "Reservas"			=> 	"/reservations/reservation/index",                                    
+                    "Logeate"			=> 	"/login",                   
                 ];
 
                 return $this->nav_links;
@@ -89,10 +89,10 @@
             // English nav menu for ROLE user
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu/menu.php",
-				"Sign up"		    => 	"/register.php",
-                "Reservations"		=> 	"/reservation.php",			
-				"Login "			=> 	"/login.php",                
+				"Menu"				=> 	"/menu",
+				"Sign up"		    => 	"/register",
+                "Reservations"		=> 	"/reservations/reservation/index",			
+				"Login "			=> 	"/login",                
             ];
 
             return $this->nav_links;

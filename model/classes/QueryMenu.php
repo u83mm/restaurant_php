@@ -76,7 +76,7 @@
                 $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
                 if($menuCategories[$i]['available'] === 1) {
-                    $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/info_dishe/show_info.php?id={$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
+                    $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 }
 
                 if($i == $y || $i == count($menuCategories)-1) {

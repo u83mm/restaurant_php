@@ -1,5 +1,5 @@
-<?php
-    namespace Controller;
+<?php  
+    declare(strict_types=1);   
 
     use model\classes\CommonTasks;
     use model\classes\Language;
@@ -26,10 +26,8 @@
         {                                            
             $menuDay = new QueryMenu(); 
 
-
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $menuDay->getMenuDayElements();
-
 
             /** Show Menu's categories */
             $menuCategories = $menuDay->selectAll("dishes_menu");            
@@ -40,8 +38,8 @@
                 $emoji = $menuCategories[$i]['menu_emoji'];
                 
                 $showResult .= "<li class='showMenuCategories'>
-                                    <form class='d-inline' action='{$_SERVER['PHP_SELF']}' method='POST'>                                       
-                                        <button class='btn btn-outline-secondary text-start' type='submit' name='action' value='$category'><span class='px-2 float-start'>$emoji</span>$category</button>
+                                    <form class='d-inline' action='/menu/showDishesByTheirCategory' method='POST'>                                       
+                                        <button class='btn btn-outline-secondary text-start' type='submit' name='category' value='$category'><span class='px-2 float-start'>$emoji</span>$category</button>
                                     </form>
                                 </li>";
             
@@ -63,8 +61,10 @@
          * 
          * @param string category The category of dishes to be shown.
          */
-        public function showDishesByTheirCategory(string $category): void
-        {            
+        public function showDishesByTheirCategory(string $category = null): void
+        { 
+            $category = $phrase = strtolower($_REQUEST['category']) ?? "";
+
             // Change category's language to spanish to do the query to the DB
             $this->language = $this->languageObject->spanish();
             $category = $this->language[$category];                       
@@ -76,7 +76,7 @@
                        
             /** Show dishes */
             $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
-            $showResult = $menuDishes->showMenuListByCategory($rows, $category);                           
+            $showResult = $menuDishes->showMenuListByCategory($rows, $category);                          
           
             include(SITE_ROOT . "/../view/menu/category_view.php");
         }        
@@ -88,9 +88,10 @@
         * @param string id The ID of the dish that needs to be displayed.
         */
         public function showDisheInfo(): void
-        {            
-            $_SESSION['dishe_id'] = strtolower($_POST['id'] ?? $_GET['id'] ?? $_SESSION['dishe_id']);
+        { 
+            global $id;                       
             
+            $_SESSION['dishe_id'] = isset($id) ? $id : null;                           
             $menuDishes = new QueryMenu();
             $commonTask = new CommonTasks(); 
                       

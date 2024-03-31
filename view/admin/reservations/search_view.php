@@ -17,7 +17,7 @@
                 <!-- By date and time(optional) -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['date_hour-optional']); ?></h5> 
-                <form class="text-center mb-3" action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">                                        
+                <form class="text-center mb-3" action="/reservations/reservation/searchReservationsByDateAndTime" method="post" class="mb-3">                                        
                     <div class="col col-lg-5 d-inline-block mb-2">
                         <input class="form-control" type="date" name="date" id="date" required>                        
                     </div> 
@@ -38,7 +38,7 @@
                 <!-- All the reservations order by time -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['all_reservations']); ?></h5> 
-                <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" class="mb-3">                    
+                <form action="/reservations/reservation/showAllReservations" method="post" class="mb-3">                    
                     <button class="btn btn-primary" name="action" value=""><?php echo ucfirst($home->language['search']); ?></button>                                    
                 </form>
             </div>            
@@ -52,7 +52,7 @@
         </div>                                                                                        
     </div>  
     <div class="col-12 col-lg-6 mx-auto">                
-		<form action="/admin/admin.php" method="post">
+		<form action="/admin/admin/adminMenus" method="post">
             <input type="hidden" name="action" value="admin_menus">
             <button type="submit" class="btn btn-primary mb-5" value="volver"><?php echo ucfirst($home->language['go_back']); ?></button>
         </form>

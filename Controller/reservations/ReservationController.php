@@ -1,7 +1,7 @@
 <?php
     declare(strict_types=1);
     
-    namespace Controller\reservations;
+    //namespace Controller\reservations;
 
     use model\classes\CommonTasks;
     use model\classes\Language;
@@ -10,10 +10,10 @@
     use model\classes\QueryReservations;
     use model\classes\Validate;
 
-    use PDO;
+    //use PDO;
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
-    use Resend;
+    //use Resend;
 
     class ReservationController
     {
@@ -72,7 +72,7 @@
         } 
         
         /** Save a reservation */
-        public function saveReservation() : void 
+        public function save() : void 
         {
             $validate = new Validate;
                                   
@@ -254,6 +254,9 @@
         /** Show all reservations */
         public function showAllReservations() : void 
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             try {
                 $menuDayQuery = new QueryMenu(); 
                 $commonTasks = new CommonTasks; 
@@ -316,6 +319,9 @@
         /** Show admin search view */
         public function showSearchPanel() : void 
         {
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search_panel";
 
             $query = new Query();
@@ -333,7 +339,10 @@
 
         /** Show search results */
         public function searchReservationsByDateAndTime() : void 
-        {   
+        { 
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "search";
             $_SESSION['date'] = $_POST['date'] ?? date('Y-m-d');
 
@@ -384,4 +393,4 @@
             }
         }
     }    
-?>  
+?>

@@ -1,7 +1,7 @@
 <?php
     declare(strict_types=1);
     
-    namespace Controller;
+    //namespace Controller;
 
     use model\captcha\SingleChar;
     use model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};
@@ -120,11 +120,11 @@
         {           
             $validate = new Validate();
 
-            $phrase = strtolower($_POST['phrase']) ?? "";
-            $captcha = strtolower($validate->test_input($_POST['captcha'])) ?? "";           
+            $phrase = isset($_POST['phrase']) ? strtolower($_POST['phrase']) : "";
+            $captcha = isset($_POST['captcha']) ? strtolower($validate->test_input($_POST['captcha'])) : "";           
 
             try {
-                if($phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
+                if(empty($phrase) || $phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
 
                 $_SESSION['user_name'] = "visiter";
                 $_SESSION['role'] = "ROLE_USER";                

@@ -48,7 +48,7 @@
                 else if($x == $current_page) {
                     $s =($pagerows * $x) - $pagerows; ?>
                     <li class='page-item'>                        
-                        <form class="active" action="/admin/admin_dishes.php" method="POST">
+                        <form class="active" action="<?php PATH ?>" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                             <input type="hidden" name="action" value="<?php echo $action; ?>">
@@ -60,7 +60,7 @@
                 else {
                     $s = ($pagerows * $x) - $pagerows; ?>
                     <li class='page-item'>
-                        <form action="/admin/admin_dishes.php" method="POST">
+                        <form action="<?php PATH ?>" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                             <input type="hidden" name="action" value="<?php echo $action; ?>">
