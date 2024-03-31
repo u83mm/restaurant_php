@@ -58,6 +58,9 @@
         
         public function index(string $message = null): void    
         {  
+            /** Check for user`s sessions */
+            testAccess();
+
             $_SESSION['action'] = "index";
 
             $this->message = $message ?? "";
@@ -95,6 +98,9 @@
 
         public function show(): void
         {  
+            /** Check for user`s sessions */
+            testAccess();
+            
             $_SESSION['action'] = "show";
 
             $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];        
