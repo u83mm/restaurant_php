@@ -1,16 +1,26 @@
 <?php
-    //namespace Controller;
+    declare(strict_types=1);
 
-    //use PDO;	
+	use model\classes\Language;	
 
     /**
      * A class that contains the methods to login and logout. 
      */
     class LoginController
     {       
-		public function __construct(private object $dbcon = DB_CON)
+		private Language $languageObject;
+		
+
+		public function __construct(
+			private object $dbcon = DB_CON,
+			private array $language = [],
+			private string $message = ""
+		)
         {
-                        
+			$this->languageObject = new Language();  
+
+			/** Configure page language */
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();        
         }
 		
         /* Checking if the user is logged in. If not, it checks if the email and password are not
@@ -24,7 +34,7 @@
 			if(!isset($_SESSION['role'])) {
                 header("Location: /");	
                 die;
-            }
+            }			
 			
             // recogemos los datos del formulario
 			$email = $_REQUEST['email'] ?? "";
@@ -54,23 +64,19 @@
 								header("Location: /");							
 							}
 							else {
-								$error_msg = "<p class='alert alert-danger text-center'>" . ucfirst($language['alert_login']) . "</p>";							
-								//include(SITE_ROOT . "/../view/login_view.php");
+								$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
 							}			
 						}
 						else {		
-							$error_msg = "<p class='alert alert-danger text-center'>" . ucfirst($language['alert_login']) . "</p>";												
-							//include(SITE_ROOT . "/../view/login_view.php");
+							$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
 						}
-
-						//include(SITE_ROOT . "/../view/login_view.php");
-						//return;
+						
 					} catch (\Throwable $th) {					
-						$error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+						$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
 						include(SITE_ROOT . "/../view/database_error.php");				
 					}	
-				}									
+				}								
 			}
 			else {		
 				header("Location: /");

@@ -9,7 +9,7 @@
 ?>
 	<h3 class="text-center">LOGIN</h3>
     <div class="col-12 col-md-6 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $this->message; ?>
         <form action="/login" method="post">
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="email">Email:</label>
