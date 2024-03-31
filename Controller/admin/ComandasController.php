@@ -99,10 +99,9 @@
         public function show(): void
         {  
             /** Check for user`s sessions */
-            testAccess();
+            testAccess();            
             
             $_SESSION['action'] = "show";
-
             $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];        
 
             try {
@@ -187,6 +186,10 @@
          */
         public function add(array $variables = null): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+            
+
             $_SESSION['id'] = $variables['id'] ?? "";
 
             if(isset($variables['action'])) $_SESSION['action'] = $variables['action'];                        
@@ -263,39 +266,42 @@
          */
         public function update(array $array = null): void
         {  
+            /** Check for user`s sessions */
+            testAccess();                       
+            
             $order = new Order();
             $orderRepository = new OrderRepository();
             
-            $id = intval($_POST['id']);                      
+            $id = !empty($_POST['id']) ? intval($_POST['id']) : "";                        
 
-            try {                            
-                /** We set the order to update */
-
-                $order->setId($id);
-                $order->setAperitif($_POST['aperitifs_name']             ?? []); 
-                $order->setAperitifQty($_POST['aperitifs_qty']           ?? []);
-                $order->setAperitifFinished($_POST['aperitifs_finished'] ?? []);               
-                $order->setFirst($_POST['firsts_name']                   ?? []);
-                $order->setFirstQty($_POST['firsts_qty']                 ?? []);
-                $order->setFirstFinished($_POST['firsts_finished']       ?? []);                   
-                $order->setSecond($_POST['seconds_name']                 ?? []);
-                $order->setSecondQty($_POST['seconds_qty']               ?? []);
-                $order->setSecondFinished($_POST['seconds_finished']     ?? []);   
-                $order->setDessert($_POST['desserts_name']               ?? []); 
-                $order->setDessertQty($_POST['desserts_qty']             ?? []);
-                $order->setDessertFinished($_POST['desserts_finished']   ?? []);
-                $order->setDrink($_POST['drinks_name']                   ?? []);
-                $order->setDrinkQty($_POST['drinks_qty']                 ?? []); 
-                $order->setDrinkFinished($_POST['drinks_finished']       ?? []); 
-                $order->setCoffee($_POST['coffees_name']                 ?? []);
-                $order->setCoffeeQty($_POST['coffees_qty']               ?? []);
-                $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
-
+            try { 
+                if(!empty($id)) {
+                    /** We set the order to update */
+                    $order->setId($id);
+                    $order->setAperitif($_POST['aperitifs_name']             ?? []); 
+                    $order->setAperitifQty($_POST['aperitifs_qty']           ?? []);
+                    $order->setAperitifFinished($_POST['aperitifs_finished'] ?? []);               
+                    $order->setFirst($_POST['firsts_name']                   ?? []);
+                    $order->setFirstQty($_POST['firsts_qty']                 ?? []);
+                    $order->setFirstFinished($_POST['firsts_finished']       ?? []);                   
+                    $order->setSecond($_POST['seconds_name']                 ?? []);
+                    $order->setSecondQty($_POST['seconds_qty']               ?? []);
+                    $order->setSecondFinished($_POST['seconds_finished']     ?? []);   
+                    $order->setDessert($_POST['desserts_name']               ?? []); 
+                    $order->setDessertQty($_POST['desserts_qty']             ?? []);
+                    $order->setDessertFinished($_POST['desserts_finished']   ?? []);
+                    $order->setDrink($_POST['drinks_name']                   ?? []);
+                    $order->setDrinkQty($_POST['drinks_qty']                 ?? []); 
+                    $order->setDrinkFinished($_POST['drinks_finished']       ?? []); 
+                    $order->setCoffee($_POST['coffees_name']                 ?? []);
+                    $order->setCoffeeQty($_POST['coffees_qty']               ?? []);
+                    $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
+                                       
+                    /** Update the order */
+                    $orderRepository->updateOrder($order, $this->dbcon);
+                }                           
                 
-                /** Update the order */
-
-                $orderRepository->updateOrder($order, $this->dbcon);
-                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
+                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                 
                 $this->show();               
 
             } catch (\Throwable $th) {
@@ -322,6 +328,10 @@
          */
         public function delete(): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+            
+
             $id = $_POST['id'];
             $orderRepository = new OrderRepository();
             
@@ -348,6 +358,10 @@
         
         public function addToOrder(array $variables = []): void
         {
+            /** Check for user`s sessions */
+            testAccess();
+            
+
             $query = new Query();
             $order = new Order();
             $orderRepository = new OrderRepository();

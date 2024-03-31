@@ -25,7 +25,7 @@
 			<?php foreach ($row as $key_order => $order): ?>
                 <div class="col-12 col-md-6 col-xl-4 mb-5">
 				<div class="w-100 menuDia">
-					<form action="/admin/comandas/index" method="post">							
+					<form action="/admin/comandas/update" method="post">							
 
 													<!-- Mesa y personas -->
 
@@ -184,8 +184,8 @@
 							<input type="hidden" name="table_number" value="<?php echo $order['table_number']; ?>"> 
 							<input type="hidden" name="people_qty" value="<?php echo $order['people_qty'] ?>">         						
 							<button class="btn btn-outline-primary" type="submit" name="action" value="update_comanda"><?php echo ucfirst($home->language['update']); ?></button>
-							<button class="btn btn-outline-success" type="submit" name="action" value="add"><?php echo ucfirst($home->language['add']); ?></button>	
-                            <button class="btn btn-outline-success" type="submit" name="action"><?php echo ucfirst($home->language['go_back']); ?></button>					
+							<button class="btn btn-outline-success" type="submit" name="action" value="add"><?php echo ucfirst($home->language['add']); ?></button>	                            
+							<a class="btn btn-outline-success" href="/admin/comandas/index"><?php echo ucfirst($home->language['go_back']); ?></a>
 						</div>
 					</form>
 					<?php include("delete_form.php") ?>
