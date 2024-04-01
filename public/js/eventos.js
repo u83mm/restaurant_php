@@ -57,11 +57,20 @@ function setDateMinAttributeOnForm() {
     document.querySelector('input[type="date"]').min = minDate;    
 }
 
+function changeActionShowOrderForm() {
+    // obtain elements
+    let buttonElement = document.querySelector('#update_button');
+    let formElement = document.querySelector('#show_order_form');    
+
+    // change attribute action to href attribute from the button and send the form
+    formElement.setAttribute('action', buttonElement.value); 
+    formElement.submit();      
+}
+
 
 window.onload = function() {
     /** Test for striked dishes */
     testDishesStriked();
-
 
     /** Add event "click" to dishes in 'Comandas' view */
 	let finishCheck = document.querySelectorAll("div.finished");
@@ -72,16 +81,21 @@ window.onload = function() {
             finishCheck[index].addEventListener("click", setFinishDishValue);
         }
     }  
-    
-    
+        
     /** Reset New Order form */
     let newOrderButton = document.getElementById('new_order_button');
     if(newOrderButton) newOrderButton.addEventListener("click", resetOrder);
-
 
     /** Disable date before current day in forms with 'input[type="date"]' fields 
      *  and class 'blockBefore'
      */    
     let dateElement = document.querySelector('.blockBefore');
     if (dateElement) setDateMinAttributeOnForm();
+
+    /** Change the action attribute in show order form */
+    let buttonElement = document.querySelector('#update_button');
+
+    if(buttonElement) {        
+        buttonElement.addEventListener("click", changeActionShowOrderForm);
+    }
 }

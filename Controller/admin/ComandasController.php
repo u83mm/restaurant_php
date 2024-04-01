@@ -156,6 +156,7 @@
                 ];                   
 
                 include(SITE_ROOT . "/../view/admin/comandas/show_view.php");
+                unset($_SESSION['message']);   
                                 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -187,6 +188,35 @@
             /** Check for user`s sessions */
             testAccess();
             
+
+            //! Lógica importada de antiguo controlador
+            if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			
+                $action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");
+                $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : ucfirst($this->language[strtolower($_SESSION['table_number'])]);	
+                $people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : ucfirst($this->language[strtolower($_SESSION['people_qty'])]);		
+                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];
+
+                $array = [
+                    'table_number'	=>	$table_number,
+                    'people_qty'	=>	$people_qty,
+                    'id'			=>	$id,
+                    'action'		=>	"add",				
+                ];	
+            }
+            else {
+                $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'] ?? "";	
+                $people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'] ?? "";		
+                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'] ?? "";
+                $array = [
+                    'table_number'	=>	$table_number,
+                    'people_qty'	=>	$people_qty,
+                    'id'			=>	$id,
+                    'action'		=>	"add",				
+                ];		
+            }	
+
+            //! ---------------------------------------------------------
+
 
             $_SESSION['id'] = $variables['id'] ?? "";
 
@@ -265,15 +295,15 @@
         public function update(array $array = null): void
         {  
             /** Check for user`s sessions */
-            testAccess();                       
+            testAccess();                        
             
             $order = new Order();
             $orderRepository = new OrderRepository();
             
-            $id = !empty($_POST['id']) ? intval($_POST['id']) : "";                        
+            $id = !empty($_POST['id']) ? intval($_POST['id']) : "";                                   
 
             try { 
-                if(!empty($id)) {
+                if(!empty($id)) {                    
                     /** We set the order to update */
                     $order->setId($id);
                     $order->setAperitif($_POST['aperitifs_name']             ?? []); 
@@ -296,11 +326,11 @@
                     $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
                                        
                     /** Update the order */
-                    $orderRepository->updateOrder($order, $this->dbcon);
+                    $orderRepository->updateOrder($order, $this->dbcon);                                        
                 }                           
                 
-                $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                 
-                $this->show();               
+                $_SESSION['message'] = "<p class='alert alert-success text-center'>Order update successfully</p>";                
+                header("Location: /admin/comandas/show");                    
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -361,11 +391,10 @@
             /** Check for user`s sessions */
             testAccess();
             
-
             $query = new Query();
             $order = new Order();
             $orderRepository = new OrderRepository();
-
+        
             $id = $_POST['id'];
 
             $result = $query->selectOneBy('orders', 'id', $id, $this->dbcon);                                                    
