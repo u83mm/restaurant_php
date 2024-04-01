@@ -176,7 +176,7 @@
             <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">            
             <button class="btn btn-outline-success" type="submit" name="action" value="save"><?php echo ucfirst($home->language['send']); ?></button>            
             <button id="new_order_button" class="btn btn-outline-primary" name="action" value="reset_order"><?php echo ucwords($home->language['new_order']); ?></button>
-            <button class="btn btn-outline-primary" type="submit" name="action" value="update_order"><?php echo ucfirst($home->language['update']); ?></button>                       
+            <button id="update_add_to_order" class="btn btn-outline-primary" type="submit" name="action" value="update_order"><?php echo ucfirst($home->language['update']); ?></button>                       
         </div>  
     </div>                                                              
 </form>

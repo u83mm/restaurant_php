@@ -57,14 +57,17 @@ function setDateMinAttributeOnForm() {
     document.querySelector('input[type="date"]').min = minDate;    
 }
 
-function changeActionShowOrderForm() {
-    // obtain elements
-    let buttonElement = document.querySelector('#update_button');
-    let formElement = document.querySelector('#show_order_form');    
+/** Change action attribute in order view when click 'update' button */
+function changeActionShowOrderForm() {         
+    let formElement = document.getElementById('show_order_form')
 
-    // change attribute action to href attribute from the button and send the form
-    formElement.setAttribute('action', buttonElement.value); 
-    formElement.submit();      
+    formElement.action = "/admin/comandas/update";
+    formElement.submit();
+}
+
+/** Change the acction attrib. in 'add_to_order_form' form */
+function updateAddList() {
+    document.getElementById('new_order_form').action = "/admin/comandas/updateAddList";
 }
 
 
@@ -98,4 +101,9 @@ window.onload = function() {
     if(buttonElement) {        
         buttonElement.addEventListener("click", changeActionShowOrderForm);
     }
+
+    /** Change the acction attrib. in 'add_to_order_form' form */
+    let buttonElementUpdateAddList = document.querySelector('#update_add_to_order');
+
+    if(buttonElementUpdateAddList) buttonElementUpdateAddList.addEventListener('click', updateAddList);
 }
