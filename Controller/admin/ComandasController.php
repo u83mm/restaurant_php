@@ -183,40 +183,29 @@
          * @param array variables An optional array of variables that can be passed to the function. It
          * is not used in this function.
          */
-        public function add(array $variables = null): void
+        public function add(): void
         {
             /** Check for user`s sessions */
             testAccess();
-            
-
-            //! Lógica importada de antiguo controlador
-            if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			
-                $action = strtolower($_POST['action'] ?? $_GET['action'] ?? $action = "add");
+                        
+            /** Configure order options */
+            if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			                
                 $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : ucfirst($this->language[strtolower($_SESSION['table_number'])]);	
                 $people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : ucfirst($this->language[strtolower($_SESSION['people_qty'])]);		
-                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];
-
-                $array = [
-                    'table_number'	=>	$table_number,
-                    'people_qty'	=>	$people_qty,
-                    'id'			=>	$id,
-                    'action'		=>	"add",				
-                ];	
+                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];                	
             }
             else {
                 $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'] ?? "";	
                 $people_qty = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'] ?? "";		
-                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'] ?? "";
-                $array = [
-                    'table_number'	=>	$table_number,
-                    'people_qty'	=>	$people_qty,
-                    'id'			=>	$id,
-                    'action'		=>	"add",				
-                ];		
-            }	
-
-            //! ---------------------------------------------------------
-
+                $id = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'] ?? "";                	
+            }
+            
+            $variables = [
+                'table_number'	=>	$table_number,
+                'people_qty'	=>	$people_qty,
+                'id'			=>	$id,
+                'action'		=>	"add",				
+            ];           
 
             $_SESSION['id'] = $variables['id'] ?? "";
 
@@ -271,7 +260,7 @@
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
                 for($i = 1; $i <= 40; $i++) $persones[] = $i;
                 
-                include(SITE_ROOT . "/../view/orders/new_view.php");                
+                include(SITE_ROOT . "/../view/admin/comandas/add_to_order.php");                
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
