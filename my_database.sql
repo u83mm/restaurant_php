@@ -16,54 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `backup_orders`
---
-
-DROP TABLE IF EXISTS `backup_orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `backup_orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `table_number` tinyint(3) unsigned NOT NULL,
-  `people_qty` tinyint(3) unsigned NOT NULL,
-  `aperitifs` text DEFAULT NULL,
-  `aperitifs_qty` text DEFAULT NULL,
-  `aperitifs_finished` text DEFAULT '0',
-  `firsts` text DEFAULT NULL,
-  `firsts_qty` text DEFAULT NULL,
-  `firsts_finished` text DEFAULT '0',
-  `seconds` text DEFAULT NULL,
-  `seconds_qty` text DEFAULT NULL,
-  `seconds_finished` text DEFAULT '0',
-  `desserts` text DEFAULT NULL,
-  `desserts_qty` text DEFAULT NULL,
-  `desserts_finished` text DEFAULT '0',
-  `drinks` text DEFAULT NULL,
-  `drinks_qty` text DEFAULT NULL,
-  `drinks_finished` text DEFAULT '0',
-  `coffees` text DEFAULT NULL,
-  `coffees_qty` text DEFAULT NULL,
-  `coffees_finished` text DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `backup_orders`
---
-
-LOCK TABLES `backup_orders` WRITE;
-/*!40000 ALTER TABLE `backup_orders` DISABLE KEYS */;
-INSERT INTO `backup_orders` VALUES
-(1,1,2,'patatas chips,anchoas de la casa','1,1','1,1','ensalada mixta,espaguetis a la carbonara','1,1','0,1','paella valenciana,salmón a la plancha','1,1','0,1','creps de la casa','2','0','agua mineral,refresco de cola','1,1','0,0','','',''),
-(2,2,1,'olivas rellenas','1','0','ensalada mixta','1','0','salmón a la plancha','1','0','creps de la casa','1','0','jarra de cerveza','1','0','','',''),
-(3,3,2,'olivas rellenas,patatas chips,anchoas de la casa','1,1,1','1,1,1','ensalada mixta','1','1','paella valenciana','1','1','creps de la casa,crema catalana','2,1','1,1','agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa','1,1,1,1,1','1,1,1,1,1','café solo,café cortado','1,1','1,1'),
-(4,4,1,'patatas chips','1','1','ensalada mixta','1','1','salmón a la plancha','1','1','crema catalana,crema catalana','1,0','1,1','jarra de cerveza','3','1','','',''),
-(5,5,1,'','','0','macarrones a la boloñesa','1','0','','','0','','','0','jarra de cerveza','1','0','','','0');
-/*!40000 ALTER TABLE `backup_orders` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `dinner_hours`
 --
 
@@ -806,4 +758,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-01 12:29:40
+-- Dump completed on 2024-04-01 20:59:45
