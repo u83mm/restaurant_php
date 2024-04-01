@@ -77,8 +77,7 @@
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu",
-                    "Registrate"		=> 	"/register",
+                    "Carta"				=> 	"/menu",                    
                     "Reservas"			=> 	"/reservations/reservation/index",                                    
                     "Logeate"			=> 	"/login",                   
                 ];
@@ -89,8 +88,7 @@
             // English nav menu for ROLE user
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu",
-				"Sign up"		    => 	"/register",
+				"Menu"				=> 	"/menu",				
                 "Reservations"		=> 	"/reservations/reservation/index",			
 				"Login "			=> 	"/login",                
             ];
