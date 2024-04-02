@@ -35,12 +35,22 @@ function testDishesStriked() {
 }
 
 
-/** Reset New Order form */
+/**
+ * Functions in new order view
+ * 
+ *  - resetOrder()
+ *  - saveNewOrder()
+ */
+
+// Reset New Order form
 function resetOrder() {
-    document.getElementById("new_order_form").action = "/orders/order/resetOrder"
+    document.getElementById("new_order_form").action = "/orders/order/resetOrder";
 }
 
-
+// Save a new order
+function saveNewOrder() {
+    document.getElementById("new_order_form").action = "/orders/order/save";
+}
 
 
 /** Disable date before current day in forms with 'input type date' fields */
@@ -87,9 +97,13 @@ window.onload = function() {
         }
     }  
         
-    /** Reset New Order form */
+    /** Reset new order form */
     let newOrderButton = document.getElementById('new_order_button');
     if(newOrderButton) newOrderButton.addEventListener("click", resetOrder);
+    
+    /** Save new order form */
+    let sendOrderButton = document.getElementById('send_order_button');
+    if(sendOrderButton) sendOrderButton.addEventListener("click", saveNewOrder);
 
     /** Disable date before current day in forms with 'input[type="date"]' fields 
      *  and class 'blockBefore'

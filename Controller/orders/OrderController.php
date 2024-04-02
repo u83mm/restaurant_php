@@ -1,11 +1,6 @@
 <?php
     declare(strict_types=1);
-    
-    //namespace Controller\orders;
-
-    //use Controller\admin\ComandasController;
-
-    //use ComandasController;
+        
     use model\classes\Language;
     use model\classes\Query;
     use model\orders\Order;
@@ -76,7 +71,6 @@
 
                                                                                                 
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
-
                 $_SESSION['order'][] = [
                     'name'      =>  $_POST['name'] ?? "",
                     'qty'       =>  $_POST['qty'] ?? 0,
@@ -97,7 +91,6 @@
                 }                 
                                 
                 /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
-
                 $tables = $persones = [];
 
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
@@ -126,40 +119,32 @@
         * order repository.
         */
         public function save(): void
-        {                       
+        {                         
             /** Test page language */
-
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                    
 
 
             /** Configure page language */
-
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
 
         
             /** Get table number, people qty and different products */
-
             $_SESSION['table_number'] = $_POST['table_number'] >= 1 ? $_POST['table_number'] : ucfirst($this->language[strtolower($_POST['table_number'])]);
             $_SESSION['people_qty'] = $_POST['people_qty'] >= 1 ? $_POST['people_qty'] : ucfirst($this->language[$_POST['people_qty']]);         
-                       
-                     
+                                            
             try {
                 if($_SESSION['table_number'] === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_table_number']), 1);
                 if($_SESSION['people_qty'] === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_people_qty']), 1);
                 
                 
                 /** Test if the table is bussy */
-
                 $query = new Query();
                 $bussy_table = $query->selectOneBy('orders', 'table_number', $_SESSION['table_number'], $this->dbcon);
                 if($bussy_table) throw new \Exception("Mesa ocupada", 1);
                 
 
                 /** we set an order */
-
-                $order = new Order();
-                // TODO / se puede eliminar el require cuando esté toda la app refactorizada al uso del router.
-                require_once(SITE_ROOT . "/../Application/Controller/admin/ComandasController.php");
+                $order = new Order();                
 
                 $comandasController = new ComandasController();
                 $orderRepository = new OrderRepository();                
