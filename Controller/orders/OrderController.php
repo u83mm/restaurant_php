@@ -1,9 +1,11 @@
 <?php
     declare(strict_types=1);
     
-    namespace Controller\orders;
+    //namespace Controller\orders;
 
-    use Controller\admin\ComandasController;
+    //use Controller\admin\ComandasController;
+
+    //use ComandasController;
     use model\classes\Language;
     use model\classes\Query;
     use model\orders\Order;
@@ -156,7 +158,10 @@
                 /** we set an order */
 
                 $order = new Order();
-                $comandasController = new ComandasController($this->dbcon);
+                // TODO / se puede eliminar el require cuando esté toda la app refactorizada al uso del router.
+                require_once(SITE_ROOT . "/../Application/Controller/admin/ComandasController.php");
+
+                $comandasController = new ComandasController();
                 $orderRepository = new OrderRepository();                
 
                 $order->setTable(intval($_SESSION['table_number']));

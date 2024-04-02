@@ -22,7 +22,7 @@
                     "Carta"				=> 	"/menu",
                     "Registrate"		=> 	"/register",
                     "Administración"	=>	"/admin/admin/adminMenus",
-                    "Pedidos"			=>	"/orders/index.php",
+                    "Pedidos"			=>	"/orders/order/new",
                     "Reservas"			=> 	"/reservations/reservation/index",
                     "Logeate"			=> 	"/login",                    
                 ];
@@ -36,7 +36,7 @@
 				"Menu"				=> 	"/menu",
 				"Sign up"		    => 	"/register",
 				"Administration"	=>	"/admin/admin/adminMenus",
-				"Orders"			=>	"/orders/index.php",
+				"Orders"			=>	"/orders/order/new",
                 "Reservations"		=> 	"/reservations/reservation/index",
 				"Login "			=> 	"/login",
             ];
@@ -52,7 +52,7 @@
                 $this->nav_links = [
                     "Inicio"			=>	"/",
                     "Carta"				=> 	"/menu",                                 
-                    "Pedidos"			=>	"/orders/index.php",
+                    "Pedidos"			=>	"/orders/order/new",
                     "Logeate"			=> 	"/login",
                 ];
 
@@ -63,7 +63,7 @@
             $this->nav_links = [
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu",								
-				"Orders"			=>	"/orders/index.php",
+				"Orders"			=>	"/orders/order/new",
 				"Login "			=> 	"/login",
             ];
 
