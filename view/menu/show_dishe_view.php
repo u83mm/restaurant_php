@@ -34,7 +34,7 @@
 
 			<div class="col-12 col-md-7 col-xl-5 text-md-end ps-4 pe-4 pb-4">
 			<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
-				<form action="/orders/index.php" method="post">
+				<form action="/orders/order/new" method="post">
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
 					<label class="col-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
