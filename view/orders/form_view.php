@@ -1,4 +1,4 @@
-<form id="new_order_form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
+<form id="new_order_form" action="/orders/order/update" method="post"> 
 
                                             <!-- MESA Y PERSONAS -->
 
@@ -175,7 +175,7 @@
         <div class="col-12 text-center">
             <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">            
             <button class="btn btn-outline-success" type="submit" name="action" value="save"><?php echo ucfirst($home->language['send']); ?></button>
-            <!--<a href="/orders/index.php" class="btn btn-outline-primary" type="submit" name="action" value="reset_order"><?php echo ucwords($home->language['new_order']); ?></a> -->
+            <!--<a href="/orders/index.php" class="btn btn-outline-primary" type="submit" name="action" value="reset_order"><?php //echo ucwords($home->language['new_order']); ?></a> -->
             <button id="new_order_button" class="btn btn-outline-primary" name="action" value="reset_order"><?php echo ucwords($home->language['new_order']); ?></button>
             <button class="btn btn-outline-primary" type="submit" name="action" value="update_order"><?php echo ucfirst($home->language['update']); ?></button>                       
         </div>  
