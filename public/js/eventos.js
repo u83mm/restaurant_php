@@ -37,8 +37,10 @@ function testDishesStriked() {
 
 /** Reset New Order form */
 function resetOrder() {
-    document.getElementById("new_order_form").action = "/orders/index.php"
+    document.getElementById("new_order_form").action = "/orders/order/resetOrder"
 }
+
+
 
 
 /** Disable date before current day in forms with 'input type date' fields */
