@@ -33,6 +33,7 @@
                 $menuDaySections = $menuDayQuery->getMenuDayElements();                                            
                                                         
                 include(SITE_ROOT . "/../view/main_view.php");
+                unset($_SESSION['message']);
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -127,7 +128,8 @@
                 if(empty($phrase) || $phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
 
                 $_SESSION['user_name'] = "visiter";
-                $_SESSION['role'] = "ROLE_USER";                
+                $_SESSION['role'] = "ROLE_USER"; 
+                unset($_SESSION['message']);               
                 $this->index();
 
             } catch (\Throwable $th) {

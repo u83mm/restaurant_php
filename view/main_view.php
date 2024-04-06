@@ -9,6 +9,9 @@
 ?>	
 								<!--- SECTION WITH INFO -->
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
+		<div>
+			<?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?>
+		</div>
 		<div class="col mb-3 mainImg"></div>
 		<div class="col d-flex justify-content-center align-items-center mb-3">
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['welcome']); ?></h2>

@@ -1,11 +1,12 @@
 <?php    
     declare(strict_types=1);
 
+    use Application\Core\Controller;
     use model\classes\Language;
     use model\classes\Query;    
     use model\classes\Validate;
 
-    class AdminController
+    class AdminController extends Controller
     {   
         /** Create array and object for diferent languages */
         private array $language = [];
@@ -26,7 +27,7 @@
         public function adminMenus(string $message = null):void
         {
             /** Check for user`s sessions */
-            testAccess();
+            $this->testAccess();
 
             /** Test page language */
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
@@ -39,8 +40,8 @@
         /** Show user index */
         public function index(): void
         {    
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */                        
+            $this->testAccess(['ROLE_ADMIN']);
 
             $query = new Query();
             $rows = $query->selectAllInnerjoinByField('user', 'roles', 'id_role', $this->dbcon);				                        
@@ -52,8 +53,8 @@
         /** Create new user */
         public function new(): void
         {              
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */            
+            $this->testAccess(['ROLE_ADMIN']);
 
             $validate = new Validate();
             $query = new Query();
@@ -111,8 +112,8 @@
 
         public function show(): void
         {   
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */            
+            $this->testAccess(['ROLE_ADMIN']);
 
             global $id;                        
 	
@@ -142,8 +143,8 @@
         /** Update user */
         public function update(): void
         {  
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */            
+            $this->testAccess(['ROLE_ADMIN']);
 
             global $id;
 
@@ -203,8 +204,8 @@
         /** Change user password */
         public function changePassword(): void
         {
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */            
+            $this->testAccess(['ROLE_ADMIN']);
 
             global $id;            
 
@@ -246,8 +247,8 @@
         /** Deleting a user from the database. */
         public function delete(): void
         {
-            /** Check for user`s sessions */
-            testAccess();
+            /** Check for user`s sessions */            
+            $this->testAccess(['ROLE_ADMIN']);
             
             $id_user = $_REQUEST['id_user'] ?? "";
 
