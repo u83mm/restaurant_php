@@ -27,7 +27,7 @@
         public function adminMenus(string $message = null):void
         {
             /** Check for user`s sessions */
-            $this->testAccess();
+            $this->testAccess(['ROLE_ADMIN']);
 
             /** Test page language */
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
