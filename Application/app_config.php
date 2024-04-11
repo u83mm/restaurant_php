@@ -1,5 +1,7 @@
 <?php	
-
+	session_start();
+	session_regenerate_id();
+	
 	/** Define el directorio raiz */
 	define("SITE_ROOT", $_SERVER['DOCUMENT_ROOT']);
 
@@ -15,10 +17,7 @@
 	define('DB_CON', $dbcon);
 
 	/** Define current URL */
-	define('PATH', rtrim($_SERVER['REQUEST_URI'], "/"));
-
-	session_start();
-	session_regenerate_id();
+	define('PATH', rtrim($_SERVER['REQUEST_URI'], "/"));	
 
 	/** Configure directories to load their classes */
 	model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
