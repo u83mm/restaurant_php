@@ -19,10 +19,7 @@
        */
         public function index(): void
         {    
-            if(!isset($_SESSION['role'])) {
-                $this->showCaptcha();
-                die;
-            }
+            if(!isset($_SESSION['role'])) header("Location: /index/showCaptcha");
 
             try {                                                                                                          
                 $menuDayQuery = new QueryMenu();                            
@@ -50,10 +47,7 @@
 
         public function showCaptcha():void
         {                                                            
-            if(isset($_SESSION['role'])) {
-                $this->index();
-                die;
-            }
+            if(isset($_SESSION['role'])) header("Location: /");
             
             $_SESSION['user_name'] = "";
 
@@ -68,7 +62,7 @@
             $images = [];        
 
             try {
-                for ($x = 0; $x < $length; $x++) {
+                for($x = 0; $x < $length; $x++) {
                     $char = new SingleChar($phrase[$x], FONT_FILE);
                     $char->writeFill();
                     shuffle($strategies);                
@@ -123,27 +117,31 @@
             $captcha = isset($_POST['captcha']) ? strtolower($validate->test_input($_POST['captcha'])) : "";           
 
             try {
-                if(empty($phrase) || $phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
-
-                $_SESSION['user_name'] = "visiter";
-                $_SESSION['role'] = "ROLE_USER"; 
-                unset($_SESSION['message']);               
-                $this->index();
-
+                if(!$validate->validate_form(['captcha' => $captcha])) {
+                    $this->message = $validate->get_msg();
+                    $this->showCaptcha();                    
+                }                
+                elseif(empty($phrase) || $phrase !== $captcha) throw new \Exception("Error Processing Captcha", 1);
+                else {
+                    $_SESSION['user_name'] = "visiter";
+                    $_SESSION['role'] = "ROLE_USER"; 
+                    unset($_SESSION['message']);                                  
+                    header("Location: /");
+                }
+                
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                $this->message = $error_msg;
+               
                 $this->showCaptcha();
             }
         }
     }    
-?>  
+?>

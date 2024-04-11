@@ -18,14 +18,13 @@
 		<div class="row">
 			<div class="col col-lg-8 mx-lg-auto text-center mb-5">
 			<?php foreach ($images as $image): ?>
-				<img class="col-1"src="/images/captcha/<?php echo $image ?>" alt="captcha image">
+				<img class="col-1" src="/images/captcha/<?php echo $image ?>" alt="captcha image">
 			<?php endforeach ?>
 			</div>
 		</div>
 					
 		<div class="row">
 			<div class="col col-lg-8 mx-auto">
-
 				<form class="col col-md-6 mx-md-auto" method="post" action="/index/testCaptcha">
 					<div class="col">
 						<?php echo $this->message; ?>
@@ -35,13 +34,12 @@
 					<div class="col mb-3 mb-md-5">
 						<label class="form-label" for="captcha">CAPTCHA:</label>
 						<div class="col-4 d-inline-block">
-							<input type="hidden" name="phrase" value="<?php echo $phrase; ?>">
-							<input class="form-control" type="text" name="captcha" id="captcha" maxlength="6" required>			
+							<input type="hidden" name="phrase" value="<?php if(isset($phrase)) echo $phrase; ?>">
+							<input class="form-control" type="text" name="captcha" id="captcha" maxlength="6" value="<?php if(isset($captcha)) echo $captcha; ?>" required>			
 						</div>	
-					</div>              									
-					<!--<img src="/view/captcha/captcha_view.php" alt="CAPTCHA"><br>-->
+					</div>              														
 					<div class="col text-center">
-						<button class="btn btn-outline-success" name="action" value="test_captcha" type="submit"><?php echo ucfirst($home->language['send']); ?></button>						
+						<button class="btn btn-outline-success" type="submit"><?php echo ucfirst($home->language['send']); ?></button>						
 					</div>										
 				</form>
 			</div>            
