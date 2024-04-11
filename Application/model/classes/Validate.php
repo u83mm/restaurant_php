@@ -46,16 +46,19 @@
          */
         public function validate_form(array $fields): bool
         {                 
-            $result = true;
-            
             foreach ($fields as $key => $value) {
-                if ((empty($value) || !isset($value))) {                                        
-                    $this->msg .= "<br/>'$key' es un dato requerido";                    
-                    throw new \Exception($this->msg, 1);                    					
-                }
+                if (empty($value) || !isset($value)) {                                                              
+                    $this->msg = "<p class='alert alert-danger text-center'>'" . ucfirst($key) . "' is a required field.</p>";  
+                    return false;                                   				
+                }                
+
+                if($key === "email" && !$this->validate_email($value)) {
+                    $this->msg = "<p class='alert alert-danger text-center'>Insert a valid e-mail.</p>";
+                    return false;
+                }                
             }
                       
-            return $result;
+            return true;
         }
         
         /**
