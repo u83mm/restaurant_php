@@ -14,7 +14,7 @@
 		private Language $languageObject;
 		private array $language = [];
 
-        public function __construct(private object $dbcon = DB_CON)
+        public function __construct()
         {            
 			$this->languageObject = new Language();
 
@@ -22,8 +22,7 @@
 			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
         }
 
-        /* A method of the class `RegisterController` that is called when the user clicks on the
-        register button. */
+        /* Register a new User */
         public function index(): void
         { 			
 			/** Check for user`s sessions */
@@ -37,42 +36,30 @@
 					$validate = new Validate;
 					$fields = [];
 
-					if($validate->validate_email($_REQUEST['email'])) {
-						$fields = [
-							'user_name' =>	$user_name = $validate->test_input($_REQUEST['user_name']) ?? "",
-							'password'	=>	$password = $validate->test_input($_REQUEST['password']) ?? "",
-							'email'		=>	$validate->test_input($_REQUEST['email'])
-						];
+					$fields = [
+						'user_name' =>	$validate->test_input($_REQUEST['user_name']),
+						'password'	=>	$validate->test_input($_REQUEST['password']),
+						'email'		=>	$validate->test_input($_REQUEST['email'])
+					];
 
-						if($validate->validate_form($fields)) {
-							$query = new Query();
-		
-							$rows = $query->selectAllBy("user", "email", $fields['email']);
-		
-							if($rows) {
-								$error_msg = "<p class='error text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
-							}
-							else {
-								$query = "INSERT INTO user (user_name, password, email) VALUES (:name, :password, :email)";                 
-			
-								$stm = $this->dbcon->pdo->prepare($query); 
-								$stm->bindValue(":name", $user_name);
-								$stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));
-								$stm->bindValue(":email", $fields['email']);              
-								$stm->execute();       				
-								$stm->closeCursor();						
-				
-								$success_msg = "<p>El usuario se ha registrado correctamente</p>";
-								include(SITE_ROOT . "/../Application/view/database_error.php");
-								die;
-							}
+					if($validate->validate_form($fields)) {
+						$query = new Query();
+	
+						$rows = $query->selectAllBy("user", "email", $fields['email']);
+	
+						if($rows) {
+							$error_msg = "<p class='error text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
 						}
-						else {
-							$error_msg = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
+						else {							
+							$query->insertInto('user', $fields);              														
+			
+							$success_msg = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>";
+							include(SITE_ROOT . "/../Application/view/database_error.php");
+							die;
 						}
 					}
 					else {
-						$error_msg = "<p class='error text-center'>Enter a valid e-mail</p>";
+						$error_msg = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
 					}					
 				}								
 
