@@ -257,7 +257,7 @@
          * @param string table The table name
          * @param object dbcon The database connection object.
          */
-        public function insertInto(string $table, array|object $fields, object $dbcon): void
+        public function insertInto(string $table, array|object $fields): void
         {
             /** Initialice variables */
             $query = $values = "";
@@ -278,7 +278,7 @@
             $query = $insert . $values;            
                                                     
             try {
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 foreach ($fields as $key => $value) {
                     if($key === 'password') {
                         $stm->bindValue(":password", password_hash($value, PASSWORD_DEFAULT));

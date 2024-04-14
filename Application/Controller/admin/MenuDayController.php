@@ -29,7 +29,7 @@
                 $rows = $query->selectCount("menu_day_price", $this->dbcon);
                 if($rows) $query->truncateTable("menu_day_price", $this->dbcon);
 
-                $query->insertInto("menu_day_price",$fields, $this->dbcon);
+                $query->insertInto("menu_day_price",$fields);
                 $message = "<p class='alert alert-success text-center'>Precio actualizado</p>";
                 $adminController->adminMenus($message);
             } 

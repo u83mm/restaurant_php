@@ -85,7 +85,7 @@
                             'email'     => $email,
                         ];
 
-                        $query->insertInto('user', $fields, $this->dbcon);                        
+                        $query->insertInto('user', $fields);                        
                                                                                                
                         $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
                         $this->index();                       

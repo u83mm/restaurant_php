@@ -225,7 +225,7 @@
                     
                     // Save reservation in DB
                     $query = new Query();
-                    $query->insertInto('reservations', $fields, $this->dbcon);
+                    $query->insertInto('reservations', $fields);
                     $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";
                     
                     // Redirect to reservations view
