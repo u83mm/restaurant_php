@@ -1,7 +1,9 @@
 <?php
     declare(strict_types=1);
 
-	use model\classes\Language;	
+use GuzzleHttp\Psr7\Message;
+use model\classes\Language;
+	use model\classes\Validate;
 
     /**
      * A class that contains the methods to login and logout. 
@@ -23,60 +25,72 @@
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();        
         }
 		
-        /* Checking if the user is logged in. If not, it checks if the email and password are not
-        empty. If they are not empty, it checks if the email exists in the database. If it does, it
-        checks if the password is correct. If it is, it sets the session variables and redirects to
-        the home page. If the email does not exist, it displays an error message. If the password is
-        incorrect, it displays an error message. If the email and password are empty, it displays
-        the login form. */
-        public function index(array $language = null): void
+        
+        /**
+		 * The index function checks if a user is logged in, validates login form input, queries the
+		 * database for user credentials, and sets session variables upon successful login.
+		 * 
+		 * @param array language Based on the provided code snippet, the `index` function is
+		 * responsible for handling user login functionality. It checks if the user is already logged
+		 * in by checking the existence of `['id_user']`. If not, it processes the login form
+		 * submission, validates the form fields, queries the database
+		 */
+		public function index(array $language = null): void
         {
 			if(!isset($_SESSION['role'])) {
-                header("Location: /");	
-                die;
-
-            }			
+                header("Location: /");	                
+            }
 			
-            // recogemos los datos del formulario
-			$email = $_REQUEST['email'] ?? "";
-			$password = $_REQUEST['password'] ?? "";			
+			$fields = [];
+			$validate = new Validate;			            			
 
 			if(!isset($_SESSION['id_user'])) {	
-				if(!empty($email) && !empty($password)) {
-					// hacemos la consulta a la DB				
-					$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
+				if($_SERVER['REQUEST_METHOD'] === 'POST') {
+					// get values from the form
+					$fields = [
+						'email'	=>	$validate->test_input($_REQUEST['email']),
+						'password'	=>	$validate->test_input($_REQUEST['password']),
+					];
 
-					try {
-						$stm = $this->dbcon->pdo->prepare($query);
-						$stm->bindValue(":val", $email);				
-						$stm->execute();					
+					if($validate->validate_form($fields)) {
+						// hacemos la consulta a la DB				
+						$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
 
-						// si encuentra el usuario en la DB
-						if($stm->rowCount() == 1) {
-							$result = $stm->fetch(PDO::FETCH_ASSOC);					
-							
-							// comprueba que la contraseña introducida coincide con la de la DB
-							if(password_verify($password, $result['password'])) {												
-								$_SESSION['id_user'] = $result['id'];						
-								$_SESSION['user_name'] = $result['user_name'];
-								$_SESSION['role'] = $result['role'];												
-								$stm->closeCursor();
-																
-								header("Location: /");							
+						try {
+							$stm = $this->dbcon->pdo->prepare($query);
+							$stm->bindValue(":val", $fields['email']);				
+							$stm->execute();					
+
+							// si encuentra el usuario en la DB
+							if($stm->rowCount() == 1) {
+								$result = $stm->fetch(PDO::FETCH_ASSOC);					
+								
+								// comprueba que la contraseña introducida coincide con la de la DB
+								if(password_verify($fields['password'], $result['password'])) {												
+									$_SESSION['id_user'] = $result['id'];						
+									$_SESSION['user_name'] = $result['user_name'];
+									$_SESSION['role'] = $result['role'];												
+									$stm->closeCursor();
+																	
+									header("Location: /");							
+								}
+								else {
+									$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
+								}			
 							}
-							else {
-								$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
-							}			
+							else {		
+								$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
+							}
+							
+						} catch (\Throwable $th) {					
+							$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+								de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+							include(SITE_ROOT . "/../Application/view/database_error.php");				
 						}
-						else {		
-							$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
-						}
-						
-					} catch (\Throwable $th) {					
-						$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-						include(SITE_ROOT . "/../Application/view/database_error.php");				
-					}	
+					}
+					else {
+						$this->message = $validate->get_msg();
+					}						
 				}								
 			}
 			else {		
