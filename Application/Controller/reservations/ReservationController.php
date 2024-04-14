@@ -37,7 +37,7 @@
                 $menuDaySections = $menuDayQuery->getMenuDayElements();
 
                 /** Hours to show in select element */
-                $rows = $query->selectAll('dinner_hours', $this->dbcon);                
+                $rows = $query->selectAll('dinner_hours');                
                 $hours = [];
 
                 foreach ($rows as $key => $value) {
@@ -324,7 +324,7 @@
             $query = new Query();
 
             /** Hours to show in select element */
-            $rows = $query->selectAll('dinner_hours', $this->dbcon);                
+            $rows = $query->selectAll('dinner_hours');                
             $hours = [];
 
             foreach ($rows as $key => $value) {

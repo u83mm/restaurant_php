@@ -71,7 +71,7 @@
             ];
 
             try {                
-                $result = $query->selectAll('orders', $this->dbcon);
+                $result = $query->selectAll('orders');
 
                 include(SITE_ROOT . "/../Application/view/admin/comandas/index_view.php"); 
 

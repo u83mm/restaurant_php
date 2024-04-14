@@ -229,7 +229,7 @@
          * 
          * @return array An array of objects.
          */
-        public function selectAllInnerjoinByField(string $table1, string $table2, string $foreignKeyField, object $dbcon): array
+        public function selectAllInnerjoinByField(string $table1, string $table2, string $foreignKeyField): array
         {
             $query = "SELECT * FROM $table1 
                         INNER JOIN $table2 
@@ -237,7 +237,7 @@
                         ORDER BY $table1.id";
                 
             try {
-                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm = $this->dbcon->pdo->prepare($query);                                                   
                 $stm->execute();       
                 $rows = $stm->fetchAll();
                 $stm->closeCursor();
@@ -302,12 +302,12 @@
         * @param string table The name of the table you want to truncate.
         * @param dbcon This is the database connection object.
         */
-        public function truncateTable(string $table, $dbcon): void
+        public function truncateTable(string $table): void
         {
             $query = "TRUNCATE TABLE $table";
                 
             try {
-                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm = $this->dbcon->pdo->prepare($query);                                                   
                 $stm->execute();                   
                 $stm->closeCursor();
 

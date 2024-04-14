@@ -103,8 +103,8 @@
             try {
                 // We obtain all registries in "dishes" tables          
                 $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+                $categoriesDishesDay = $query->selectAll("dishes_day");
+                $categoriesDishesMenu = $query->selectAll("dishes_menu");
 
                 include(SITE_ROOT . "/../Application/view/admin/dishes/new_view.php");
                 
@@ -161,8 +161,8 @@
 
                 // We obtain all registries in "dishes" tables           
                 $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+                $categoriesDishesDay = $query->selectAll("dishes_day");
+                $categoriesDishesMenu = $query->selectAll("dishes_menu");
                 
 
                 // Validate entries
@@ -296,8 +296,8 @@
             try {
                 // We obtain all registries in "dishes_day" and "dishes_menu" tables            
                 $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day", $this->dbcon);
-                $categoriesDishesMenu = $query->selectAll("dishes_menu", $this->dbcon);
+                $categoriesDishesDay = $query->selectAll("dishes_day");
+                $categoriesDishesMenu = $query->selectAll("dishes_menu");
 
 
                 /** Get the id */

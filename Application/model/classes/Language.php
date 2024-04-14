@@ -17,7 +17,7 @@
             global $dbcon;
 
             $query = new Query();
-            $spanish_dict = $query->selectAll('spanish_dict', $dbcon);                      
+            $spanish_dict = $query->selectAll('spanish_dict');                      
 
             foreach ($spanish_dict as $key => $value) {
                 $this->language[$value['key_word']] = $value['value'];
@@ -31,7 +31,7 @@
             global $dbcon;
 
             $query = new Query();            
-            $english_dict = $query->selectAll('english_dict', $dbcon);            
+            $english_dict = $query->selectAll('english_dict');            
 
             foreach ($english_dict as $key => $value) {
                 $this->language[$value['key_word']] = $value['value'];
