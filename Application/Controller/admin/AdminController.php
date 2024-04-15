@@ -56,44 +56,37 @@
             /** Check for user`s sessions */            
             $this->testAccess(['ROLE_ADMIN']);
 
+            $fields = [];
             $validate = new Validate();
-            $query = new Query();
-            
-            $user_name = $_REQUEST['user_name'] ?? "";                     
-            $password = $_REQUEST['password'] ?? "";
-            $email = $_REQUEST['email'] ?? "";            
+            $query = new Query();                                
 
             try {
-                if(!empty($user_name) && !empty($password) && !empty($email)) {
+                if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $fields = [
+                        'user_name' =>  $validate->test_input($_REQUEST['user_name']),
+                        'password'  =>  $validate->test_input($_REQUEST['password']),
+                        'email'     =>  $validate->test_input($_REQUEST['email'])
+                    ];
 
-                    /** Validate fields */
-                    $user_name = $validate->test_input($user_name); 
-                    $password = $validate->test_input($password);
-                    $email = $validate->validate_email($email) ? $validate->test_input($email) : throw new \Exception("Email isn't in valid format", 1);                  
+                    if($validate->validate_form($fields)) {
+                        $rows = $query->selectOneBy("user", "email", $fields['email'], $this->dbcon);                    
 
-                    
-                    $rows = $query->selectOneBy("user", "email", $email, $this->dbcon);                    
-
-                    if($rows) {                                             
-                        $this->message = "<p class='alert alert-danger text-center'>El email '{$email}' ya está registrado</p>";
-                        include(SITE_ROOT . "/../Application/view/admin/user_new_view.php");                       										
+                        if($rows) {                                             
+                            $this->message = "<p class='alert alert-danger text-center'>El email '{$fields['email']}' ya está registrado</p>";                                                 										
+                        }
+                        else {                            
+                            $query->insertInto('user', $fields);                        
+                                                                                                
+                            $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
+                            $this->index();                       
+                        }
                     }
                     else {
-                        $fields = [
-                            'user_name' => $user_name,
-                            'password'  => $password,
-                            'email'     => $email,
-                        ];
-
-                        $query->insertInto('user', $fields);                        
-                                                                                               
-                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
-                        $this->index();                       
-                    }										
+                        $this->message = $validate->get_msg();
+                    }                                                                            										
                 }
-                else {
-                    include(SITE_ROOT . "/../Application/view/admin/user_new_view.php");
-                }
+                
+                include(SITE_ROOT . "/../Application/view/admin/user_new_view.php");
                                 
             } catch (\Throwable $th) {			
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

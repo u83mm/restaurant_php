@@ -44,11 +44,11 @@
                 </table>
             </div>            
         </div>
-        <div class="row">
-            <form class="text-center text-lg-start" action="/admin/admin/new" method="post">
-                <button class="btn btn-primary mb-5" type="submit" name="action" value="new"><?php echo ucfirst($page->language['new']); ?></button>                                
-                <a class="btn btn-primary mb-5" href="/admin/admin/adminMenus"><?php echo ucfirst($page->language['go_back']); ?></a>
-            </form>
+        <div class="row">            
+            <div class="col-12 col-lg-8 mx-auto">
+                <a class="btn btn-primary" href="/admin/admin/new"><?php echo ucfirst($page->language['new']); ?></a>
+                <a class="btn btn-primary" href="/admin/admin/adminMenus"><?php echo ucfirst($page->language['go_back']); ?></a>
+            </div>
         </div>        
     </div>    
 <?php
