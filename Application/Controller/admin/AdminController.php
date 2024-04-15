@@ -78,7 +78,8 @@
                             $query->insertInto('user', $fields);                        
                                                                                                 
                             $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
-                            $this->index();                       
+                            $this->index();
+                            die;                      
                         }
                     }
                     else {
