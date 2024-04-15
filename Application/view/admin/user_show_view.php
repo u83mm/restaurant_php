@@ -9,19 +9,19 @@
 ?>
 	<h3 class="text-center"><?php echo strtoupper($page->language['user_data']); ?></h3>
     <div class="col-12 col-md-6 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message = $error_msg ?? $success_msg ?? $this->message ?? ""; ?>
         <form action="/admin/admin/update/<?php echo $id; ?>" method="post">
             <input type="hidden" name="id_user" value="<?php echo $user['id']?>">
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="user_name"><?php echo ucfirst($page->language['user']); ?>:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" name="user_name" id="user_name" value="<?php echo $user['user_name']; ?>" required>
+                    <input class="form-control" type="text" name="user_name" id="user_name" value="<?php if(isset($fields['user_name'])) echo $fields['user_name']; ?>" >
                 </div>                
             </div>            
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-md-end col-form-label" for="email">Email:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="email" name="email" id="email" value="<?php echo $user['email']; ?>" required>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($fields['email'])) echo $fields['email']; ?>" >
                 </div>                
             </div> 
             <div class="row mb-3">

@@ -115,6 +115,12 @@
 
             try {                
                 $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id, $this->dbcon);
+
+                $fields = [
+                    'user_name' => $user['user_name'],
+                    'email'     => $user['email']
+                ];
+                
                 $roles = $query->selectAll('roles');
 
                 include(SITE_ROOT . "/../Application/view/admin/user_show_view.php");
@@ -147,33 +153,32 @@
                 $validate = new Validate();
                 $query = new Query();
 
-                /** We get values from form */
-                $user_name = isset($_REQUEST['user_name']) ? $validate->test_input($_REQUEST['user_name']) : "";
-                $id_user = isset($_REQUEST['id_user']) ? $validate->test_input($_REQUEST['id_user']) : ""; 
-                $email = isset($_REQUEST['email']) && $validate->validate_email($_REQUEST['email']) ? $validate->test_input($_REQUEST['email']) : "";                            ;                          
-                $role = isset($_REQUEST['role']) ? $validate->test_input($_REQUEST['role']) : "";
-
-                /** Fix warnings when show the alert message on updating the user and we change the language */                
-                if(empty($id_user)) {
-                    $user = $query->selectOneBy("user", "id", $id, $this->dbcon);
-                    $user_name = $user['user_name'];
-                    $id_user = $user['id'];
-                    $email = $user['email'];
-                    $role = $user['id_role'];                    
-                }                                
-                                
-                /** Setting properties */
+                /** We get values from form */                
                 $fields = [
-                    'id'        => $id_user,
-                    'user_name' => $user_name,                    
-                    'email'     => $email,
-                    'id_role'   => $role,
+                    'id'        => $validate->test_input($_REQUEST['id_user']),
+                    'user_name' => $validate->test_input($_REQUEST['user_name']),                    
+                    'email'     => $validate->test_input($_REQUEST['email']),
+                    'id_role'   => $validate->test_input($_REQUEST['role']),
                 ];
 
-                $validate_ok = $validate->validate_form($fields);
+                /** Fix warnings when show the alert message on updating the user and we change the language */                
+                if(empty($fields['id'])) {
+                    $user = $query->selectOneBy("user", "id", $id, $this->dbcon);                    
+                    
+                    /** Setting properties */
+                    $fields = [
+                        'id'        => $user['id'],
+                        'user_name' => $user['user_name'],                    
+                        'email'     => $user['email'],
+                        'id_role'   => $user['id_role'],
+                    ];
+                }                                
 
-                if(!$validate_ok) throw new \Exception($validate->get_msg(), 1);
-
+                if(!$validate->validate_form($fields)) {
+                    $this->message = $validate->get_msg();
+                    $this->show();
+                    die;
+                }
                 
                 /** Save data */
                 $query->updateRegistry("user", $fields, 'id', $this->dbcon);
