@@ -208,24 +208,33 @@
 
             global $id;            
 
+            /** Build objects */
             $validate = new Validate();
-            $query = new Query();
-	
-            /** We get values from the form*/
-            $password = $validate->test_input($_REQUEST['password'] ?? "");            
-            $newPassword = $validate->test_input($_REQUEST['new_password'] ?? "");            
-
+            $query = new Query();            
+                        
             try {
-                if(!empty($password) && !empty($newPassword)) {
-                    $id = $validate->test_input($_REQUEST['id_user'] ?? "");
-                    if ($password !== $newPassword) {
-                        $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
-                    } else {                        
-                        $query->updatePassword("user", $newPassword, $id, $this->dbcon);
+                if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $fields = [
+                        'password'  =>  $validate->test_input($_REQUEST['password']),
+                        'new_password'  =>  $validate->test_input($_REQUEST['new_password'])
+                    ];
 
-                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
-                    }                    
-                }                
+                    if($validate->validate_form($fields)) {
+                        $id = $validate->test_input($_REQUEST['id_user'] ?? "");
+                        if ($fields['password'] !== $fields['new_password']) {
+                            $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
+                        } else {                        
+                            $query->updatePassword("user", $fields['new_password'], $id, $this->dbcon);
+    
+                            $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
+                        } 
+                    }
+                    else {
+                        $this->message = $validate->get_msg();
+                    }
+                    
+                }
+                               
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
