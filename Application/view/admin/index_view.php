@@ -10,7 +10,7 @@
 	<h3 class="text-center"><?php echo strtoupper($page->language['user_list']); ?></h3>
     <div class="col mx-auto">
         <div class="col-12 col-md-6 mx-auto">
-            <?php echo $message = $message ?? ""; ?>
+            <?php echo $message ?? ""; ?>
         </div>
         <div class="row">
             <div class="col-12 col-lg-8 mx-auto table-responsive">
@@ -32,8 +32,7 @@
                             <td><?php echo $value['email']; ?></td>
                             <td><?php echo $value['role']; ?></td>
                             <td class="text-center">
-                                <form action="/admin/admin/show" method="post" class="d-inline">
-                                    <!-- <input type="hidden" name="id_user" value="<?php //echo $value['id']; ?>"> -->                                                                           
+                                <form action="/admin/admin/show" method="post" class="d-inline">                                                                                                           
                                     <a class="btn btn-outline-success" href="/admin/admin/show/<?php echo $value['id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
                                 </form>
                                 <?php include(SITE_ROOT . "/../Application/view/admin/user_delete_form.php"); ?>

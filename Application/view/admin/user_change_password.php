@@ -9,7 +9,7 @@
 ?>
 	<h3 class="text-center"><?php echo mb_strtoupper($home->language['change_password']); ?></h3>
     <div class="col-6 mx-auto">
-        <?php echo $message = $this->message ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         <form action="/admin/admin/changePassword/<?php echo $id; ?>" method="post"> 
             <input type="hidden" name="id_user" value="<?php echo $id; ?>">           
             <div class="row mb-3">
