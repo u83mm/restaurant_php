@@ -18,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-12 col-md-8 mx-auto">
-				<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : $this->message; ?>
+				<?php echo isset($_SESSION['message']) ? $_SESSION['message'] : $message; ?>
 			</div>
 		</div>
 		<div class="row d-flex justify-content-evenly">			
@@ -160,7 +160,7 @@
 
 						<div class="col">
 							<?php if (!empty($order['coffees'][$key_order][0])): ?>	
-							<h4 class="text-center"><strong><?php echo strtoupper($home->language['coffees_and_liquors']); ?></strong></h4>
+							<h4 class="text-center"><strong><?php echo mb_strtoupper($home->language['coffees_and_liquors']); ?></strong></h4>
 							<ul>
 							<?php foreach ($order['coffees'][$key_order] as $key => $value): ?>						
 								<li>
@@ -182,8 +182,7 @@
 						<div class="col-12 text-center">
 							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">
 							<input type="hidden" name="table_number" value="<?php echo $order['table_number']; ?>"> 
-							<input type="hidden" name="people_qty" value="<?php echo $order['people_qty'] ?>">         						
-							<!-- <button class="btn btn-outline-primary" type="submit" name="action" value="update_comanda"><?php //echo ucfirst($home->language['update']); ?></button> -->
+							<input type="hidden" name="people_qty" value="<?php echo $order['people_qty'] ?>">         													
 							<button type="button" id="update_button" class="btn btn-outline-primary" value="/admin/comandas/update"><?php echo ucfirst($home->language['update']); ?></button>
 							<button class="btn btn-outline-success" type="submit" name="action" value="add"><?php echo ucfirst($home->language['add']); ?></button>	                            
 							<a class="btn btn-outline-success" href="/admin/comandas/index"><?php echo ucfirst($home->language['go_back']); ?></a>

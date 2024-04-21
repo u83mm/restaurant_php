@@ -18,7 +18,7 @@
 
 		<div class="row">
 			<div class="col-12 col-md-8 mx-auto">
-				<?php echo $this->message; ?>
+				<?php echo $message ?? ''; ?>
 			</div>
 		</div>
 		<div class="row d-flex justify-content-evenly">			

@@ -38,7 +38,9 @@
 
         public function __construct(
             private object $dbcon = DB_CON, 
-            private string $message = "")
+            private string $message = "",
+            private array $fields = []
+        )
         {
             $this->languageObject = new Language();
 
@@ -62,33 +64,31 @@
 
             $_SESSION['action'] = "index";            
 
-            $query  = new Query();
-            
-            $fields = [
-                'id',
-                "table_number",
-                "people_qty"
-            ];
+            $query  = new Query();                        
 
             try {                
                 $result = $query->selectAll('orders');
-
-                include(SITE_ROOT . "/../Application/view/admin/comandas/index_view.php"); 
+                
+                $this->render('/view/admin/comandas/index_view.php', [
+                    'message' => $this->message,
+                    'fields' => $this->fields,
+                    'result' => $result
+                ]);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
-                }
-
-                $this->message = $error_msg;
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                }                
+                
+                $this->render('/view/database_error', [
+                    'message' => $this->message
+                ]);
             }                              
         }
 
@@ -153,24 +153,29 @@
                     'coffees_qty'        =>  $this->coffees_qty,
                     'coffees_finished'   =>  $this->coffees_finished,
                 ];                   
+                
+                $this->render('/view/admin/comandas/show_view.php', [
+                    'message' => $this->message,
+                    'fields' => $this->fields,
+                    'row' => $row
+                ]);
 
-                include(SITE_ROOT . "/../Application/view/admin/comandas/show_view.php");
-                unset($_SESSION['message']);   
+                unset($_SESSION['message']);                   
                                 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
-                }
-
-                $this->message = $error_msg;
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                }                
+                
+                $this->render('/view/database_error.php', [
+                    'message' => $this->message
+                ]);
             }
         }
 
@@ -258,21 +263,33 @@
 
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
                 for($i = 1; $i <= 40; $i++) $persones[] = $i;
-                
-                include(SITE_ROOT . "/../Application/view/admin/comandas/add_to_order.php");                
+                               
+                $this->render('/view/admin/comandas/add_to_order.php', [
+                    'tables' => $tables,
+                    'persones' => $persones,
+                    'aperitifs' => $this->aperitifs,
+                    'firsts' => $this->firsts,
+                    'seconds' => $this->seconds,
+                    'desserts' => $this->desserts,
+                    'drinks' => $this->drinks,
+                    'coffees' => $this->coffees,
+                    'message' => $this->message
+                ]);   
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                
+                $this->render('/view/database_error.php', [
+                    'message' => $this->message
+                ]);
             }
         }      
 
@@ -318,22 +335,22 @@
                 }                           
                 
                 $_SESSION['message'] = "<p class='alert alert-success text-center'>Order update successfully</p>";                
-                header("Location: /admin/comandas/show");                    
+                header("Location: /admin/comandas/show");                           
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
-                }
-
-                $this->message = $error_msg;
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                }               
+                
+                $this->render('/view/database_error.php', [
+                    'message' => $this->message
+                ]);
             }
         }
 
@@ -359,17 +376,17 @@
                 $this->index();
                 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
                 
-                $this->index($error_msg);
+                $this->index();
             }
         }
         
@@ -467,19 +484,19 @@
                 $this->resetOrder();
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                $this->message = $error_msg;
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                               
+                $this->render("/view/database_error.php", [
+                    'message' => $this->message
+                ]);
             }
         }
 
@@ -495,17 +512,19 @@
                 $this->index($this->message);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 } 
-                
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                                
+                $this->render("/view/database_error.php", [
+                    'message' => $this->message
+                ]);
             }
         } 
         
@@ -607,20 +626,33 @@
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;
                 for($i = 1; $i <= 40; $i++) $persones[] = $i;
 
-                include(SITE_ROOT . "/../Application/view/admin/comandas/add_to_order.php");                 
+                //include(SITE_ROOT . "/../Application/view/admin/comandas/add_to_order.php");
+                $this->render("/view/admin/comandas/add_to_order.php", [                    
+                    'tables' => $tables,
+                    'persones' => $persones,                                        
+                    'aperitifs' => $this->aperitifs,
+                    'firsts' => $this->firsts,
+                    'seconds' => $this->seconds,
+                    'desserts' => $this->desserts,
+                    'drinks' => $this->drinks,
+                    'coffees' => $this->coffees,                    
+                    'message' => $this->message
+                ]);
                 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 } 
-                
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                                
+                $this->render("/view/database_error.php", [
+                    'message' => $this->message
+                ]);
             }
         }
     }
