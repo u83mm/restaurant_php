@@ -105,18 +105,19 @@
         }
 
         /* Unsetting the session variables and destroying the session. */
-        public function logout(): void
-        {
-            unset($_SESSION['id_user']);
+       	public function logout(): void
+		{			
+			unset($_SESSION['id_user']);
 			unset($_SESSION['user_name']);
-			unset($_SESSION['role']);			
-		  
-			$_SESSION = array();
-		  
-			session_destroy();
-			setcookie('PHPSESSID', "0", time() - 3600);		  			            
+			unset($_SESSION['role']);
 
-			header("Location: /");	
-        }
+			session_unset();
+			session_destroy();
+
+			setcookie('PHPSESSID', '', time() - 3600);
+
+			header("Location: /");
+			exit();
+		}
     }    
 ?>
