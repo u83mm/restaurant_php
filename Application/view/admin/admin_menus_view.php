@@ -9,7 +9,7 @@
 ?>
     <div class="row mb-4">
         <h3 class="text-center pb-3"><?php echo mb_strtoupper($page->language['main_menu']); ?></h3>
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         
                                             <!-- PLATOS -->
 

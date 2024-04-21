@@ -32,9 +32,11 @@
             /** Test page language */
             $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
             
-            $error_msg = $message ?? "";
-            
-            include(SITE_ROOT . "/../Application/view/admin/admin_menus_view.php");
+            $this->message = $message ?? "";
+                
+            $this->render("/view/admin/admin_menus_view.php", [
+                'message' => $this->message
+            ]);
         }
 
         /** Show user index */
