@@ -1,11 +1,15 @@
 <?php      
     declare(strict_types=1);
-    
+
+    use Application\Core\Controller;
     use model\classes\Query; 
 
-    class MenuDayController
+    class MenuDayController extends Controller
     {
-        public function __construct(private object $dbcon = DB_CON)
+        public function __construct(
+            private object $dbcon = DB_CON,
+            private $message = ""
+        )
         {
             
         }
@@ -30,17 +34,18 @@
                 if($rows) $query->truncateTable("menu_day_price", $this->dbcon);
 
                 $query->insertInto("menu_day_price",$fields);
-                $message = "<p class='alert alert-success text-center'>Precio actualizado</p>";
-                $adminController->adminMenus($message);
+                $this->message = "<p class='alert alert-success text-center'>Precio actualizado</p>";
+                $adminController->adminMenus($this->message);
             } 
             catch (\Exception $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                                               
-                $adminController->adminMenus($error_msg);
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                                               
+                $adminController->adminMenus($this->message);
             } 
             catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";                        
-                include(SITE_ROOT . "/../Application/view/database_error.php");	
+                $this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+                        de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                
+                $this->render("/view/database_error.php", ["message" => $this->message]);	
             }            
         }
     }
