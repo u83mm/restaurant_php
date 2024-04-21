@@ -1,12 +1,13 @@
 <?php  
-    declare(strict_types=1);   
+    declare(strict_types=1);
 
+    use Application\Core\Controller;
     use model\classes\CommonTasks;
     use model\classes\Language;
     use model\classes\QueryMenu;    
     use model\fpdf\MyPdf;
 
-    class MenuController
+    class MenuController extends Controller
     {
         private Language $languageObject;
 
@@ -52,8 +53,11 @@
                     $y += 4; 
                 }
             }
-
-            include(SITE_ROOT . "/../Application/view/menu/menu_view.php");
+            
+            $this->render("/view/menu/menu_view.php", [
+                'showResult'        =>  $showResult,
+                'menuDaySections'   =>  $menuDaySections               
+            ]);
         }
 
         /**

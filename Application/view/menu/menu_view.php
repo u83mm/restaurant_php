@@ -14,7 +14,7 @@
 			<div class="col-12 col-md-3 col-lg-2 col-xl-1 d-flex justify-content-center align-items-center">
 				<figure class="figure">							
 						<a href="/menu/menu" target="_blank"><img class="figure-img img-fluid mainLogo" src="/images/menu.png" alt="menu_image"></a>
-						<figcaption class="figure-caption text-center"><?php echo ucfirst($this->language['nav_link_menu']); ?></figcaption>
+						<figcaption class="figure-caption text-center"><?php echo ucfirst($home->language['nav_link_menu']); ?></figcaption>
 				</figure>
 			</div>
 			<div class="col-12 col-md-6 col-lg-10 col-xl-11 d-flex justify-content-center align-items-center">
