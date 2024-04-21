@@ -129,7 +129,7 @@
                 'dishe'             =>  $dishe,
                 'description'       =>  $description,
                 'dishe_picture'     =>  $dishe_picture,
-                'menudDaySections'  =>  $menuDaySections
+                'menuDaySections'   =>  $menuDaySections
             ]);
         }
 
