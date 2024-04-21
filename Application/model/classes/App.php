@@ -3,7 +3,9 @@
 
     namespace Application\model\classes;
 
-    class App 
+    use Application\Core\Controller;
+
+    class App extends Controller
     {
         public function __construct(
             private string $controllerNamePrefix = "",
@@ -11,7 +13,8 @@
             private string $route = "",
             private string $controllerRoute = "",
             private string $controllerName = "",
-            private array $uri = []
+            private array $uri = [],
+            private string $message = ""
         ) {
             $this->controllerNamePrefix = ucfirst('index');            
         }
@@ -62,17 +65,19 @@
                 call_user_func_array([$controller, $this->method], []);                        
         
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>Page not found</p>";
+                $this->message = "<p class='alert alert-danger text-center'>Page not found</p>";
         
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
         
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->render("/view/database_error.php", [
+                    'message'   =>  $this->message
+                ]);
             }
         }
     }
