@@ -1,12 +1,13 @@
 <?php
-    declare(strict_types=1);     
+    declare(strict_types=1);
 
+    use Application\Core\Controller;
     use model\captcha\SingleChar;
     use model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};
     use model\classes\QueryMenu;
     use model\classes\Validate;
 
-    class IndexController
+    class IndexController extends Controller
     {
         public function __construct(private object $dbcon = DB_CON, private string $message = "")
         {
@@ -26,22 +27,27 @@
 
                 /** Get dishes, dessert and price to show in the Day's menu aside section */
                 $menuDaySections = $menuDayQuery->getMenuDayElements();                                            
-                                                        
-                include(SITE_ROOT . "/../Application/view/main_view.php");
+                                                                        
+                $this->render("/view/main_view.php", [
+                    'menuDaySections'   =>  $menuDaySections
+                ]);
+
                 unset($_SESSION['message']);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                
+                $this->render("/view/database_error.php", [
+                    'message'   =>  $message
+                ]);
             }
         }
 
@@ -91,21 +97,27 @@
                     $char->save(IMG_DIR . '/' . $fn);              
                     $images[] = $fn;                
                 }                                
-                
-                include(SITE_ROOT . "/../Application/view/captcha/captcha_view.php");
+                                
+                $this->render("/view/captcha/captcha_view.php", [
+                    'images'    =>  $images,
+                    'phrase'    =>  $phrase,
+                    'message'   =>  $this->message
+                ]);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                
+                $this->render("/view/database_error.php", [
+                    'message'   =>  $message
+                ]);
             }
         }
 

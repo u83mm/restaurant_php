@@ -27,7 +27,7 @@
 			<div class="col col-lg-8 mx-auto">
 				<form class="col col-md-6 mx-md-auto" method="post" action="/index/testCaptcha">
 					<div class="col">
-						<?php echo $this->message; ?>
+						<?php echo $message; ?>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_security_phrase']); ?></p>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_text']); ?>:</p>
 					</div>
