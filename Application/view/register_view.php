@@ -8,7 +8,7 @@
 	$page->do_html_nav($page->nav_links, $page->language['nav_link_sign_up']);
 ?>	
     <div class="col-12 col-md-6 mx-auto credentials">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         <h3 class="text-center"><?php echo strtoupper($page->language['register_form']); ?></h3>
         <form action="#" method="post">            
             <div class="row mb-3">

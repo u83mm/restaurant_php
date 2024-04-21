@@ -11,10 +11,13 @@
      */
     class RegisterController extends Controller
     {        
-		private Language $languageObject;
-		private array $language = [];
+		private Language $languageObject;		
 
-        public function __construct()
+        public function __construct(
+			private array $fields = [],
+			private string $message = "",
+			private array $language = []
+		)
         {            
 			$this->languageObject = new Language();
 
@@ -33,52 +36,57 @@
                 $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
 
 				if($_SERVER['REQUEST_METHOD'] === 'POST') {	
-					$validate = new Validate;
-					$fields = [];
+					$validate = new Validate;					
 
-					$fields = [
-						'user_name' =>	$validate->test_input($_REQUEST['user_name']),
-						'password'	=>	$validate->test_input($_REQUEST['password']),
-						'email'		=>	$validate->test_input($_REQUEST['email'])
+					$this->fields = [
+						'user_name' =>	isset($_REQUEST) ? $validate->test_input($_REQUEST['user_name']) : "",
+						'password'	=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['password']) : "",
+						'email'		=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['email']) : ""
 					];
 
-					if($validate->validate_form($fields)) {
+					if($validate->validate_form($this->fields)) {
 						$query = new Query();
 	
-						$rows = $query->selectAllBy("user", "email", $fields['email']);
+						$rows = $query->selectAllBy("user", "email", $this->fields['email']);
 	
 						if($rows) {
-							$error_msg = "<p class='error text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
+							$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
 						}
 						else {							
-							$query->insertInto('user', $fields);              														
+							$query->insertInto('user', $this->fields);              														
 			
-							$success_msg = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>";
-							include(SITE_ROOT . "/../Application/view/database_error.php");
-							die;
+							$this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>";
+
+							$this->render("/view/database_error.php", [
+								'message'	=>	$this->message
+							]);
 						}
 					}
 					else {
-						$error_msg = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
+						$this->message = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
 					}					
 				}								
-
-				include(SITE_ROOT . "/../Application/view/register_view.php");
+				
+				$this->render("/view/register_view.php", [
+					'message'	=>	$this->message,
+					'fields'	=>	$this->fields
+				]);
 
 			} catch (\Throwable $th) {			
-				$error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+				$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 						de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
 				
 				if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-					$error_msg = "<p class='alert alert-danger text-center'>
+					$this->message = "<p class='alert alert-danger text-center'>
 									Message: {$th->getMessage()}<br>
 									Path: {$th->getFile()}<br>
 									Line: {$th->getLine()}
 								</p>";
 				}
 				
-				include(SITE_ROOT . "/../Application/view/database_error.php");
-				exit();
+				$this->render("/view/database_error.php", [
+					'message'	=>	$this->message
+				]);
 			}
         }
     }    
