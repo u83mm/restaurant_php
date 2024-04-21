@@ -95,8 +95,12 @@
             /** Show dishes */
             $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
             $showResult = $menuDishes->showMenuListByCategory($rows, $category);                          
-          
-            include(SITE_ROOT . "/../Application/view/menu/category_view.php");
+                     
+            $this->render("/view/menu/category_view.php", [
+                'menuDaySections'   =>  $menuDaySections,
+                'category'          =>  $category,
+                'showResult'        =>  $showResult
+            ]);
         }        
 
        /**
