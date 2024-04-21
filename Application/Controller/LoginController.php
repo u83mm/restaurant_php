@@ -1,14 +1,14 @@
 <?php
     declare(strict_types=1);
 
-use GuzzleHttp\Psr7\Message;
-use model\classes\Language;
+	use Application\Core\Controller;
+	use model\classes\Language;
 	use model\classes\Validate;
 
     /**
      * A class that contains the methods to login and logout. 
      */
-    class LoginController
+    class LoginController extends Controller
     {       
 		private Language $languageObject;
 		
@@ -16,7 +16,8 @@ use model\classes\Language;
 		public function __construct(
 			private object $dbcon = DB_CON,
 			private array $language = [],
-			private string $message = ""
+			private string $message = "",
+			private array $fields = []
 		)
         {
 			$this->languageObject = new Language();  
@@ -36,29 +37,26 @@ use model\classes\Language;
 		 * submission, validates the form fields, queries the database
 		 */
 		public function index(array $language = null): void
-        {
-			if(!isset($_SESSION['role'])) {
-                header("Location: /");	                
-            }
-			
-			$fields = [];
+        {			
+			$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);
+						
 			$validate = new Validate;			            			
 
 			if(!isset($_SESSION['id_user'])) {	
 				if($_SERVER['REQUEST_METHOD'] === 'POST') {
 					// get values from the form
-					$fields = [
+					$this->fields = [
 						'email'	=>	$validate->test_input($_REQUEST['email']),
 						'password'	=>	$validate->test_input($_REQUEST['password']),
 					];
 
-					if($validate->validate_form($fields)) {
+					if($validate->validate_form($this->fields)) {
 						// hacemos la consulta a la DB				
 						$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
 
 						try {
 							$stm = $this->dbcon->pdo->prepare($query);
-							$stm->bindValue(":val", $fields['email']);				
+							$stm->bindValue(":val", $this->fields['email']);				
 							$stm->execute();					
 
 							// si encuentra el usuario en la DB
@@ -66,7 +64,7 @@ use model\classes\Language;
 								$result = $stm->fetch(PDO::FETCH_ASSOC);					
 								
 								// comprueba que la contraseña introducida coincide con la de la DB
-								if(password_verify($fields['password'], $result['password'])) {												
+								if(password_verify($this->fields['password'], $result['password'])) {												
 									$_SESSION['id_user'] = $result['id'];						
 									$_SESSION['user_name'] = $result['user_name'];
 									$_SESSION['role'] = $result['role'];												
@@ -85,7 +83,10 @@ use model\classes\Language;
 						} catch (\Throwable $th) {					
 							$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
 								de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-							include(SITE_ROOT . "/../Application/view/database_error.php");				
+							
+							$this->render("/view/database_error.php", [
+								'message'	=>	$this->message
+							]);				
 						}
 					}
 					else {
@@ -96,8 +97,11 @@ use model\classes\Language;
 			else {		
 				header("Location: /");
 			}			
-			
-			include(SITE_ROOT . "/../Application/view/login_view.php");	
+						
+			$this->render("/view/login_view.php", [
+				'message'	=>	$this->message,
+				'fields'	=>	$this->fields
+			]);
         }
 
         /* Unsetting the session variables and destroying the session. */

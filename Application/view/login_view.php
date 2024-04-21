@@ -8,7 +8,7 @@
 	$page->do_html_nav($page->nav_links, "login");
 ?>	
     <div class="col-12 col-md-6 col-lg-5 mx-auto credentials">
-        <?php echo $this->message; ?>
+        <?php echo $message; ?>
         <h3 class="text-center">Login</h3>
         <form action="/login" method="post">
             <div class="row mb-3">
