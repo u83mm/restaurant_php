@@ -9,7 +9,7 @@
 ?>	
     <div class="row justify-content-evenly">
         <h3 class="text-center pb-2"><?php echo strtoupper($home->language['search_product']); ?></h3>
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?> 
+        <?php echo $message ?? ""; ?> 
         <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
             <h4 class="text-center"><?php echo ucfirst($home->language['search_criteria']); ?></h4>                                    
             <div class="row mb-3">

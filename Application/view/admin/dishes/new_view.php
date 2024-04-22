@@ -9,7 +9,7 @@
 ?>
 	<h3 class="text-center"><?php echo strtoupper($home->language['new_product']); ?></h3>
     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         <?php include(SITE_ROOT. "/../Application/view/admin/dishes/form_view.php"); ?>		
 		<a class="btn btn-primary mb-5" href="/admin/dishes/index"><?php echo ucfirst($home->language['go_back']); ?></a>
     </div>

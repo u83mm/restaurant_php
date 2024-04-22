@@ -9,7 +9,7 @@
 ?>
 	<h3 class="text-center"><?php echo strtoupper($page->language['product_details']); ?></h3>
     <div class="col-12 col-md-9 col-lg-7 col-xl-6 mx-auto">
-        <?php echo $message = $error_msg ?? $success_msg ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         <form action="/admin/dishes/update/<?php echo $dishe['dishe_id']?>" method="post" enctype="multipart/form-data">           
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="name"><?php echo ucfirst($page->language['name']); ?>:</label>

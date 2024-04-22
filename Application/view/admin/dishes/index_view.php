@@ -13,7 +13,7 @@
     <div class="container-fluid">        
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
-            <?php echo $message = $_SESSION['message'] ?? $this->message ?? ""; ?>
+            <?php echo $message = $_SESSION['message'] ?? $message ?? ""; ?>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">
@@ -66,8 +66,7 @@
                         <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
-                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
-                        <!-- <input class="page-link" type="submit" value="Ant."> -->
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['prev']); ?></button>
                     </form>                    
                 </li>
@@ -76,8 +75,7 @@
                         <input type="hidden" name="s" value="0">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
-                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
-                        <!-- <input class="page-link" type="submit" value="<<"> -->
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><<</button>
                     </form>                    
                 </li>				
@@ -94,8 +92,7 @@
                         <input type="hidden" name="s" value="<?php echo $last; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
-                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">
-                        <!-- <input class="page-link" type="submit" value=">>"> -->
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">>></button>
                     </form>                   
                 </li>
@@ -104,8 +101,7 @@
                         <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
-                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                           
-                        <!-- <input class="page-link" type="submit" value="Sig."> -->
+                        <input type="hidden" name="critery" value="<?php echo $critery; ?>">                                                  
                         <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['next']); ?></button>
                     </form>                    
                 </li>				

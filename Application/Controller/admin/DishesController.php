@@ -15,7 +15,8 @@
         public function __construct(
             private object $dbcon = DB_CON, 
             private array $language = [],
-            private string $message = ""
+            private string $message = "",
+            private array $fields = []
         )      
         {
             $this->languageObject = new Language();
@@ -53,10 +54,8 @@
                 /** Select all dishes from DB */
 
                 $query = "SELECT * FROM dishes 
-                        INNER JOIN dishes_day 
-                        ON dishes.category_id = dishes_day.category_id
-                        INNER JOIN dishes_menu
-                        ON dishes.menu_id = dishes_menu.menu_id
+                        INNER JOIN dishes_day USING(category_id)
+                        INNER JOIN dishes_menu USING(menu_id)
                         ORDER BY dishes.dishe_id
                         LIMIT :desde, :pagerows";
                     
@@ -72,24 +71,37 @@
                 $field = null;
                 $commonTask = new CommonTasks();                          
 
-                include(SITE_ROOT . "/../Application/view/admin/dishes/index_view.php");
+                /** Render view file */
+                $this->render("/view/admin/dishes/index_view.php", [
+                    "rows"          => $rows,
+                    "pagina"        => $pagina,
+                    "desde"         => $desde,                    
+                    "field"         => $field,                    
+                    "action"        => $action,
+                    "pagerows"      => $pagerows,
+                    "current_page"  => $current_page,
+                    "last"          => $last,
+                    "total_rows"    => $total_rows,
+                    "message"       => $this->message,
+                    "commonTask"    => $commonTask
+                ]);
 
                 unset($_SESSION['message']);
-            } 
-            catch (\PDOException $e) {
-                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $message = $e->getMessage();                    
-                }
-                else {
-                    $message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
-                }
-
-                include(SITE_ROOT . "/../Application/view/admin/dishes/index_view.php");
-            }         
+            }                      
             catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../Application/view/database_error.php");	
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $this->message = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                } 
+                
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);
             }            
         }
 
@@ -105,23 +117,27 @@
                 $query = new Query();
                 $categoriesDishesDay = $query->selectAll("dishes_day");
                 $categoriesDishesMenu = $query->selectAll("dishes_menu");
-
-                include(SITE_ROOT . "/../Application/view/admin/dishes/new_view.php");
                 
-            } catch (\PDOException $e) {
-                if ($_SESSION['role'] === "ROLE_ADMIN") {                   
-                    $error_msg = $e->getMessage();                    
-                }
-                else {
-                    $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";					
-                }
-
-                include(SITE_ROOT . "/../Application/view/admin/dishes/new_view.php");
-
+                
+                $this->render("/view/admin/dishes/new_view.php", [
+                    "categoriesDishesDay" => $categoriesDishesDay,
+                    "categoriesDishesMenu" => $categoriesDishesMenu
+                ]);
+                
             } catch (\Throwable $th) {
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-							de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../Application/view/database_error.php");	
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $this->message = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                } 
+                
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);	
             }
         }
 
@@ -145,8 +161,8 @@
                 /** Picture's data */
                 $picture_name = trim($_FILES['dishe_img']['name']);
                 $type = trim($_FILES['dishe_img']['type']);
-                $size = trim($_FILES['dishe_img']['size']);
-                $error = trim($_FILES['dishe_img']['error']);
+                $size = $_FILES['dishe_img']['size'];
+                $error = $_FILES['dishe_img']['error'];
                 $temporal = trim($_FILES['dishe_img']['tmp_name']);
 
 
@@ -168,17 +184,14 @@
                 // Validate entries
                 $validate = new Validate();  
                 
-                $fields = [
+                $this->fields = [
                     "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
                     "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
                     "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
                     "Dishe_type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "Price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
-                ];                
+                ];                                                
                 
-                $validateOk = $validate->validate_form($fields);
-                
-
                 /** Begin transaction */
                 $this->dbcon->pdo->beginTransaction();
 
@@ -231,30 +244,34 @@
                     throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
                 }
             } catch (\Exception $e) {
-                $error_msg = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
-                $this->dbcon->pdo->rollBack();
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->message = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
+                $this->dbcon->pdo->rollBack();                
+                
+                /** Render error view */
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);
             }
             	            
             try {
-                if($validateOk) {
+                if($validate->validate_form($this->fields)) {
                     $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
                                 VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
                                 
                                         
                     /** Test price type, if isn't numeric delete picture from server and throw an exception*/
-                    if(!is_numeric($fields['Price'])){
+                    if(!is_numeric($this->fields['Price'])){
                         $commonTask->deletePicture($upload_filename);                        
                         throw new Exception("El campo 'Precio' debe ser numérico.");
                     }
     
                     $stm = $this->dbcon->pdo->prepare($query); 
-                    $stm->bindValue(":name", strtolower($fields['Name']));
-                    $stm->bindValue(":description", $fields['Description']);
-                    $stm->bindValue(":category", $fields['Category']); 
-                    $stm->bindValue(":menu_id", $fields['Dishe_type']);
+                    $stm->bindValue(":name", strtolower($this->fields['Name']));
+                    $stm->bindValue(":description", $this->fields['Description']);
+                    $stm->bindValue(":category", $this->fields['Category']); 
+                    $stm->bindValue(":menu_id", $this->fields['Dishe_type']);
                     $stm->bindValue(":picture", $upload_filename);
-                    $stm->bindValue(":price", $fields['Price']);             
+                    $stm->bindValue(":price", $this->fields['Price']);             
                     $stm->execute();       				
                     $stm->closeCursor();                    
                     
@@ -265,24 +282,36 @@
                     $this->index();                   								
                 }
                 else {
-                    $error_msg = $validate->get_msg();
+                    $this->message = $validate->get_msg();
                     $this->dbcon->pdo->rollBack();
-
-                    include(SITE_ROOT . "/../Application/view/admin/dishes/new_view.php");                   
+                                
+                    $this->render("/view/admin/dishes/new_view.php", [
+                        "message" => $this->message,
+                        "categoriesDishesDay" => $categoriesDishesDay,
+                        "categoriesDishesMenu" => $categoriesDishesMenu,
+                        "fields" => $this->fields
+                    ]);                   
                 }
 
             } catch (\Exception $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                              
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";                              
                 $this->dbcon->pdo->rollBack();
-                
-                include(SITE_ROOT . "/../Application/view/admin/dishes/new_view.php"); 
+                                 
+                $this->render("/view/admin/dishes/new_view.php", [
+                    "message" => $this->message,
+                    "categoriesDishesDay" => $categoriesDishesDay,
+                    "categoriesDishesMenu" => $categoriesDishesMenu,
+                    "fields" => $this->fields
+                ]);
 
             } catch (\Throwable $th) {			
-                $error_msg = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
+                $this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
                         de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
                 $this->dbcon->pdo->rollBack();
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");				
+                
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);				
             }            		
         }
 
@@ -313,35 +342,46 @@
                 
                 /** Showing dishe_picture in show info */                
                 $commonTask = new CommonTasks();                
-                $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                
+                $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                                
 
-                include(SITE_ROOT . "/../Application/view/admin/dishes/edit_view.php");
+                $this->render("/view/admin/dishes/edit_view.php", [
+                    "message" => $this->message,
+                    "categoriesDishesDay" => $categoriesDishesDay,
+                    "categoriesDishesMenu" => $categoriesDishesMenu,
+                    "dishe" => $dishe,
+                    "disheType" => $disheType,
+                    "dishePicture" => $dishePicture
+                ]);
                 
             } catch (\PDOException $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
-                                    Message: {$th->getMessage()}<br>
-                                    Path: {$th->getFile()}<br>
-                                    Line: {$th->getLine()}
+                    $this->message = "<p class='alert alert-danger text-center'>
+                                    Message: {$e->getMessage()}<br>
+                                    Path: {$e->getFile()}<br>
+                                    Line: {$e->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");				
+                
+                $this->render("/view/database_error", [
+                    "message" => $this->message
+                ]);				
             }	
         }
 
@@ -421,17 +461,19 @@
                     }
                 }                                                        
             } catch (\Exception $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$e->getMessage()}<br>
                                     Path: {$e->getFile()}<br>
                                     Line: {$e->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);
             }            
            
             try {
@@ -442,7 +484,7 @@
                 $validate = new Validate();
                 $commonTask = new CommonTasks();                               
 
-                $fields = [
+                $this->fields = [
                     "id"            => $_REQUEST['dishe_id'] ?? $id ?? "",
                     "name"          => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
                     "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
@@ -450,26 +492,24 @@
                     "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
                     "available"     => $validate->test_input($_REQUEST['available'] ?? 'no'),
-                ];                                  
+                ];                                                                   
 
-                $validateOk = $validate->validate_form($fields);                   
-
-                if ($validateOk) {                     
+                if ($validate->validate_form($this->fields)) {                     
                     $query = new QueryMenu();
 
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $query->selectOneBy("dishes", "dishe_id", $fields['id'], $this->dbcon);
+                    $dishe = $query->selectOneBy("dishes", "dishe_id", $this->fields['id'], $this->dbcon);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
                         $commonTask->deletePicture($dishe['picture']);
-                        $fields["picture"] = $file_name;
+                        $this->fields["picture"] = $file_name;
                     }
                     else {                        
-                        $fields["picture"] = $dishe['picture'];
+                        $this->fields["picture"] = $dishe['picture'];
                     }
 
-                    $query->updateDishe($fields, $this->dbcon);
+                    $query->updateDishe($this->fields, $this->dbcon);
                     $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
                     
                     $_SESSION['message'] = $this->message;
@@ -477,12 +517,18 @@
                     header("Location: /admin/dishes/index");
 
                 } else {
-                    $error_msg = $validate->get_msg();
-                    include(SITE_ROOT . "/../Application/view/admin/dishes/edit_view.php");  
+                    $this->message = $validate->get_msg();
+                    
+                    $this->render("/view/admin/dishes/edit_view.php", [
+                        "message" => $this->message
+                    ]);
                 }                                
             } catch (\Throwable $th) {			
-                $error_msg = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-                include(SITE_ROOT . "/../Application/view/database_error.php");				
+                $this->message = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);				
             }
         }        
 
@@ -514,30 +560,34 @@
                 $this->index();                
 
             } catch (\PDOException $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$e->getMessage()}<br>
                                     Path: {$e->getFile()}<br>
                                     Line: {$e->getLine()}
                                 </p>";
-                }
+                }                
 
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
-                }
+                }                
 
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);
             }
         }
 
@@ -559,31 +609,36 @@
                 $dishes = new QueryMenu();
                 $categoriesDishesMenu = $dishes->selectAll("dishes_menu", $this->dbcon);
 
-                $fields = [
+                $this->fields = [
                     "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
                 ];  
                                                
-                if($fields['Campo'] !== "" && $fields['Criterio'] !== "") {                    
-                    /** Test validation */
-                    $validateOk = $validate->validate_form($fields); 
-                                                         
-                    if($validateOk) {
+                if($this->fields['Campo'] !== "" && $this->fields['Criterio'] !== "") {                    
+                    /** Test validation */                                                                             
+                    if($validate->validate_form($this->fields)) {
                         /** Calculate necesary pages for pagination */ 
                         $pagerows = 6; // Number of rows for page.
                         $desde = 0;                        
 
                         /** Select method to do the search */
-                        match($fields['Campo']) {
-                            default   => $rows = $dishes->selectDishesLikeCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),
-                            'menu_id'   =>  $rows = $dishes->selectDishesByCritery($fields['Campo'], $fields['Criterio'], $this->dbcon),  
+                        match($this->fields['Campo']) {
+                            default   => $rows = $dishes->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio'], $this->dbcon),
+                            'menu_id' =>  $rows = $dishes->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio'], $this->dbcon),  
                         };                                                 
                                               
                         $total_rows = count($rows);                        
                         $pagina = 1;                        
 
-                        if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
-                        if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
+                        if(!$total_rows) {
+                            $this->message = "<p class='alert alert-danger text-center'>No se han encontrado registros</p>";
+                            $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
+                                "pagina"     => $pagina,                                                                                                                                                      
+                                "message"    => $this->message,                                                                
+                            ]);
+                        }                                        
+                        elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
+                                        
                         if($p && is_numeric($p)) $pagina = $p;                             
                         if($s && is_numeric($s)) $desde = $s;                                                
 
@@ -592,51 +647,72 @@
                           
                         /** Variables to manage in view file */
                         $action = "search";
-                        $field = $fields['Campo'];
-                        $critery = $fields['Criterio'];
+                        $field = $this->fields['Campo'];
+                        $critery = $this->fields['Criterio'];
                         $commonTask = new CommonTasks();                        
 
                         /** Select method to do the search */
-                        match($fields['Campo']) {
-                            default =>  $rows = $dishes->selectDishesLikePagination($desde, $pagerows, $field, $critery, $this->dbcon),
-                            'menu_id'   => $rows = $dishes->selectDishesByPagination($desde, $pagerows, $field, $critery, $this->dbcon),
-                        };
-                                                                     
-                        include(SITE_ROOT . "/../Application/view/admin/dishes/index_view.php");
+                        match($this->fields['Campo']) {
+                            default     =>  $rows = $dishes->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery, $this->dbcon),
+                            'menu_id'   =>  $rows = $dishes->selectDishesByPagination(intval($desde), $pagerows, $field, $critery, $this->dbcon),
+                        };                                                                                             
+
+                        /** Show dishes index */
+                        $this->render("/view/admin/dishes/index_view.php", [
+                            "rows"                  => $rows,                            
+                            "action"                => $action,
+                            "field"                 => $field,
+                            "critery"               => $critery,
+                            "current_page"          => $current_page,                                                       
+                            "pagina"                => $pagina,
+                            "desde"                 => $desde,                                                                            
+                            "pagerows"              => $pagerows,                            
+                            "last"                  => $last, 
+                            "total_rows"            => $total_rows,                           
+                            "message"               => $this->message,
+                            "commonTask"            => $commonTask,                           
+                        ]);                        
                     }
-                    else {
-                        $msg = $validate->get_msg();
-                        throw new Exception($msg, 1);                    
+                    else {                        
+                        throw new Exception($validate->get_msg(), 1);                    
                     }
                 }
                 else {
-                    include(SITE_ROOT . "/../Application/view/admin/dishes/search_view.php");
+                    /** Show search form */                    
+                    $this->render("/view/admin/dishes/search_view.php", [
+                        "categoriesDishesMenu"  => $categoriesDishesMenu,
+                    ]);
                 }
                                 
             } catch (\Exception $e) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$e->getMessage()}<br>
                                     Path: {$e->getFile()}<br>
                                     Line: {$e->getLine()}
                                 </p>";
-                }
+                }                
 
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);
+
             } catch (\Throwable $th) {			
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-
-                include(SITE_ROOT . "/../Application/view/database_error.php");			
+                
+                $this->render("/view/database_error.php", [
+                    "message" => $this->message
+                ]);			
             }             
         }
     }    
