@@ -57,13 +57,21 @@
 
                 // Build the Controller
                 $this->controllerRoute = SITE_ROOT . "/../Application/Controller/" . $this->route;        
-                $this->controllerName = $this->controllerNamePrefix . "Controller";                                       
-               
-                require_once($this->controllerRoute . $this->controllerName . ".php");                     
-                          
-                $controller = new $this->controllerName;                  
-                call_user_func_array([$controller, $this->method], []);                        
-        
+                $this->controllerName = $this->controllerNamePrefix . "Controller";
+
+                $file_name = $this->controllerRoute . $this->controllerName . ".php";
+                
+                if(file_exists($file_name)) {
+                    require_once($file_name);
+
+                    $controller = new $this->controllerName;                  
+                    call_user_func_array([$controller, $this->method], []);
+
+                } 
+                else {                    
+                    throw new \Exception("Page not found");
+                }                                                  
+                                                                          
             } catch (\Throwable $th) {
                 $this->message = "<p class='alert alert-danger text-center'>Page not found</p>";
         
