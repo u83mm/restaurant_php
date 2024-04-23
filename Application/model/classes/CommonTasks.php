@@ -38,7 +38,7 @@
 
         // Muestra paginación 
 
-        public function pagination1($pagina, $pagerows, $current_page, $action, $field = null) {
+        public function pagination1($pagina, $pagerows, $current_page, $critery, $field = null) {
             $x = $this->return_x_value($pagina, $current_page);
                 
             for($i = 1; $i <= 5; $i++) {
@@ -50,9 +50,9 @@
                     <li class='page-item'>                        
                         <form class="active" action="<?php PATH ?>" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
-                            <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                            <input type="hidden" name="action" value="<?php echo $action; ?>">
-                            <input type="hidden" name="name" value="<?php echo $field; ?>">
+                            <input type="hidden" name="p" value="<?php echo $pagina; ?>">                            
+                            <input type="hidden" name="critery" value="<?php echo $critery; ?>"> 
+                            <input type="hidden" name="field" value="<?php echo $field; ?>">
                             <button class="page-link" type="submit"><span><?php echo $x; ?></span></button>                           
                         </form>                       
                     </li>                    
@@ -62,9 +62,9 @@
                     <li class='page-item'>
                         <form action="<?php PATH ?>" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
-                            <input type="hidden" name="p" value="<?php echo $pagina; ?>">
-                            <input type="hidden" name="action" value="<?php echo $action; ?>">
-                            <input type="hidden" name="name" value="<?php echo $field; ?>">
+                            <input type="hidden" name="p" value="<?php echo $pagina; ?>">                            
+                            <input type="hidden" name="critery" value="<?php echo $critery; ?>"> 
+                            <input type="hidden" name="field" value="<?php echo $field; ?>">
                             <button class="page-link" type="submit"><?php echo $x; ?></button> 
                         </form>
                     </li>                   

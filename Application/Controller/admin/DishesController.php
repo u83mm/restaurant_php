@@ -27,14 +27,12 @@
         {
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
-
-            //$message = $_POST['message'] ?? $_GET['message'] ?? "";
+            
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
 
             try {                                
                 /** Calculate necesary pages for pagination */ 
-
                 $pagerows = 6; // Number of rows for page.
                 $desde = 0;
                 $query = new Query();
@@ -52,7 +50,6 @@
                 
                 
                 /** Select all dishes from DB */
-
                 $query = "SELECT * FROM dishes 
                         INNER JOIN dishes_day USING(category_id)
                         INNER JOIN dishes_menu USING(menu_id)
@@ -66,18 +63,18 @@
                 $rows = $stm->fetchAll();
                 $stm->closeCursor();
 
-                /** Variables to manage in view file */
-                $action = "listado";
+                /** Variables to manage in view file */                
                 $field = null;
-                $commonTask = new CommonTasks();                          
+                $commonTask = new CommonTasks();
+                $critery = "";                          
 
                 /** Render view file */
                 $this->render("/view/admin/dishes/index_view.php", [
                     "rows"          => $rows,
                     "pagina"        => $pagina,
                     "desde"         => $desde,                    
-                    "field"         => $field,                    
-                    "action"        => $action,
+                    "field"         => $field,
+                    "critery"       => $critery,                                        
                     "pagerows"      => $pagerows,
                     "current_page"  => $current_page,
                     "last"          => $last,
@@ -595,13 +592,11 @@
         public function search(string $message = null, string $p = null, string $s = null): void
         {            
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
-
-            $_SESSION['action'] = "search";
+            $this->testAccess(['ROLE_ADMIN']);            
             
             try {
                 $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
-	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
+	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;                
 
                 /** Validate entries */ 
                 $validate = new Validate();
@@ -612,7 +607,7 @@
                 $this->fields = [
                     "Campo"     =>  $validate->test_input($_REQUEST['field'] ?? ""), 
                     "Criterio"  =>  $validate->test_input($_REQUEST['critery'] ?? ""),                                  
-                ];  
+                ];                                 
                                                
                 if($this->fields['Campo'] !== "" && $this->fields['Criterio'] !== "") {                    
                     /** Test validation */                                                                             
@@ -645,8 +640,7 @@
                         $last = ($pagina * $pagerows) - $pagerows;
                         $current_page = ($desde/$pagerows) + 1;                                             
                           
-                        /** Variables to manage in view file */
-                        $action = "search";
+                        /** Variables to manage in view file */                       
                         $field = $this->fields['Campo'];
                         $critery = $this->fields['Criterio'];
                         $commonTask = new CommonTasks();                        
@@ -659,8 +653,7 @@
 
                         /** Show dishes index */
                         $this->render("/view/admin/dishes/index_view.php", [
-                            "rows"                  => $rows,                            
-                            "action"                => $action,
+                            "rows"                  => $rows,                                                        
                             "field"                 => $field,
                             "critery"               => $critery,
                             "current_page"          => $current_page,                                                       

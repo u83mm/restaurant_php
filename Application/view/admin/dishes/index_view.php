@@ -1,6 +1,4 @@
-<?php
-
-    use model\classes\CommonTasks;
+<?php    
     use model\classes\PageClass;
 
 	$page = new PageClass();
@@ -27,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php if(isset($rows)) foreach ($rows as $value) { ?>
+                    <?php if(isset($rows)) foreach ($rows as $value): ?>
                         <tr>
                             <td><?php echo $value['dishe_id']; ?></td>                            
                             <td class="align-middle col-1">                                                               
@@ -46,7 +44,7 @@
                                 <?php include(SITE_ROOT . "/../Application/view/admin/dishes/delete_form.php"); ?>
                             </td>
                         </tr>
-                    <?php } ?>
+                    <?php endforeach ?>
                     </tbody>
                 </table>
             </div>            
@@ -67,7 +65,7 @@
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['prev']); ?></button>
+                        <button class="page-link" type="submit"><?php echo ucfirst($page->language['prev']); ?></button>
                     </form>                    
                 </li>
 				<li class="page-item">
@@ -76,14 +74,13 @@
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><<</button>
+                        <button class="page-link" type="submit"><<</button>
                     </form>                    
                 </li>				
 <?php
 			}
-
-			$pagination = new CommonTasks();
-			$pagination->pagination1($pagina, $pagerows, $current_page, $action, $field);
+			
+            $commonTask->pagination1($pagina, $pagerows, $current_page, $critery, $field);
 
 			if($current_page != $pagina) {
 ?>
@@ -93,7 +90,7 @@
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">                        
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>">>></button>
+                        <button class="page-link" type="submit">>></button>
                     </form>                   
                 </li>
 				<li class="page-item">
@@ -102,7 +99,7 @@
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
                         <input type="hidden" name="critery" value="<?php echo $critery; ?>">                                                  
-                        <button class="page-link" type="submit" name="action" value="<?php echo $action; ?>"><?php echo ucfirst($page->language['next']); ?></button>
+                        <button class="page-link" type="submit"><?php echo ucfirst($page->language['next']); ?></button>
                     </form>                    
                 </li>				
 <?php
