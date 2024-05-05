@@ -14,7 +14,7 @@
          * @param object dbcon  is an object representing the database connection. It is used to
          * prepare and execute the SQL query to insert the order data into the database.
          */
-        public function saveOrder( Order $order, object $dbcon): void
+        public function saveOrder( Order $order): void
         {
             $query = "INSERT INTO orders (
                         table_number, 
@@ -50,7 +50,7 @@
                     )";                        
 
             try {
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":table_number",  $order->getTable());
                 $stm->bindValue(":people_qty",    $order->getPeople());
                 $stm->bindValue(":aperitifs",     implode(',', $order->getAperitif()));
@@ -83,7 +83,7 @@
          * @param object dbcon The  parameter is an object that represents a database connection.
          * It is used to prepare and execute the SQL query to update an order in the database.
          */
-        public function updateOrder(Order $order, object $dbcon): void
+        public function updateOrder(Order $order): void
         {
             $query = "UPDATE orders SET 
                         aperitifs          = :aperitifs, 
@@ -157,7 +157,7 @@
                     'coffees_finished'   => $order->getCoffeeFinished(),
                 ];
                 
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":id", $order->getId());
 
                 foreach ($bindings as $placeholder => $value) {

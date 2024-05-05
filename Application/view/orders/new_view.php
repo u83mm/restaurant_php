@@ -10,7 +10,7 @@
 								<!--- SECTION WITH INFO -->
 	<h3 class="text-center"><?php echo strtoupper($home->language['new_order']); ?></h3>
     <div class="col-12 mx-auto">
-        <?php echo $message = $this->message ?? ""; ?>
+        <?php echo $message ?? ""; ?>
         <?php include(SITE_ROOT . "/../Application/view/orders/form_view.php") ?>    
     </div>  		
 <?php

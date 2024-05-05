@@ -39,7 +39,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['aperitivos']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->aperitifs as $item): ?>
+                <?php foreach ($aperitifs as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
@@ -62,7 +62,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['first_plates']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->firsts as $item): ?>
+                <?php foreach ($firsts as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
@@ -85,7 +85,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['seconds']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->seconds as $item): ?>
+                <?php foreach ($seconds as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
@@ -108,7 +108,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['drinks']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->drinks as $item): ?>
+                <?php foreach ($drinks as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
@@ -131,7 +131,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['desserts']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->desserts as $item): ?>
+                <?php foreach ($desserts as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
@@ -154,7 +154,7 @@
             <h3 class="text-center"><?php echo ucfirst($home->language['coffees_and_liquors']); ?></h3>
             <div class="w-100 adminMenus menuDia">
                 <ul class="ps-4">
-                <?php foreach ($this->coffees as $item): ?>
+                <?php foreach ($coffees as $item): ?>
                     <?php if(isset($item['name'])): ?>
                     <li>
                         <div class="col-9 d-inline-block">
