@@ -84,6 +84,7 @@
         public function save() : void 
         {
             $validate = new Validate;
+            $commonTasks = new CommonTasks;
                                   
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -122,7 +123,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style='text-align: right;'>" . ucfirst($this->language['date']) . ":</td>
-                                                    <td><strong>{$this->fields['date']}</strong></td>
+                                                    <td><strong>{$commonTasks->showDayMonthYear($this->fields['date'], $_SESSION['language'])}</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td style='text-align: right;'>" . ucfirst($this->language['time']) . ":</td>
