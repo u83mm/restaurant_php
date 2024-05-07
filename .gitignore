@@ -23,4 +23,5 @@
 /db_vol/
 /public/images/captcha/
 /public/uploads/
+/Application/api_keys.php
 ###< my files to ignore ###
