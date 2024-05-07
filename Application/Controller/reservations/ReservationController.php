@@ -49,9 +49,14 @@
 
                 for($i = 1; $i <= 20; $i++ ) {
                     array_push($people, $i);
-                }                                
+                }                                                
 
-                include(SITE_ROOT . "/../Application/view/reservations/reservation_view.php");
+                $this->render('/view/reservations/reservation_view.php', [
+                    'hours' => $hours,
+                    'people' => $people,
+                    'menuDaySections' => $menuDaySections,
+                    'message' => $this->message
+                ]);
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

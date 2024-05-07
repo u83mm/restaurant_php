@@ -14,7 +14,7 @@
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['reservations']); ?></h2>			
 		</div>		
 		<div class="clear-fix">
-			<?php echo $message = $this->message ?? ""; ?>
+			<?php echo $message ?? ""; ?>
 			<?php include(SITE_ROOT . "/../Application/view/reservations/reservation_form.php"); ?>
 		</div>
 	</section>
