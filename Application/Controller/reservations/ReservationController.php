@@ -18,7 +18,11 @@
         private array $language = [];
         private Language $languageObject;
 
-        public function __construct(private object $dbcon = DB_CON, private string $message = "")
+        public function __construct(
+            private object $dbcon = DB_CON, 
+            private string $message = "",
+            private array $fields = []
+        )
         {
             $this->languageObject = new Language(); 
             
@@ -27,7 +31,7 @@
         }
      
         /** Show reservations form */
-        public function index(array $fields = []): void
+        public function index(): void
         {                                 
             try {                
                 $menuDayQuery = new QueryMenu();
@@ -44,7 +48,7 @@
                     $hours[] = $value['hour'];
                 }                
 
-                /** People qty to show in select element */
+                /** Show people qty options in select element */
                 $people = [];
 
                 for($i = 1; $i <= 20; $i++ ) {
@@ -55,21 +59,24 @@
                     'hours' => $hours,
                     'people' => $people,
                     'menuDaySections' => $menuDaySections,
-                    'message' => $this->message
+                    'message' => $this->message,
+                    'fields' => $this->fields
                 ]);
 
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $$this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $$this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
-                }
+                }                
 
-                include(SITE_ROOT . "/../Application/view/database_error.php");
+                $this->render('/view/database_error.php', [
+                    'message' => $this->message
+                ]);
             }
         } 
         
@@ -79,46 +86,105 @@
             $validate = new Validate;
                                   
             try {
-                // Get values from reservations form
-                $fields = [
-                    "date"          =>  $validate->test_input($_POST['date']),
-                    "time"          =>  $validate->test_input($_POST['time']),
-                    "name"          =>  $validate->test_input($_POST['name']),
-                    "email"         =>  $validate->validate_email($_POST['email']), 
-                    "people_qty"    =>  $validate->test_input($_POST['qty']),                                    
-                ];
+                if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    // Get values from reservations form
+                    $this->fields = [
+                        "date"          =>  $validate->test_input($_POST['date']),
+                        "time"          =>  $validate->test_input($_POST['time']),
+                        "name"          =>  $validate->test_input($_POST['name']),
+                        "email"         =>  $validate->test_input($_POST['email']), 
+                        "people_qty"    =>  $validate->test_input($_POST['qty']),                                    
+                    ];
 
-                if(!empty($_POST['comment'])) {
-                    $fields['comment'] = $validate->test_input($_POST['comment']);
-                }
-                
-                // Validate email
-                if(!$fields['email']) {
-                    $this->message = "<p class='alert alert-danger text-center'>Enter a valid email please</p>";
-                    $fields['email'] = $_POST['email'];
-                                        
-                    $this->index($fields);
-                    exit();
-                }
-                else {
-                    $fields['email'] = $validate->test_input($_POST['email']);
-                } 
+                    if(!empty($_POST['comment'])) {
+                        $this->fields['comment'] = $validate->test_input($_POST['comment']);
+                    }                                       
 
-                // Validate form
-                $ok = $validate->validate_form($fields);  
-                             
-                if($ok) {
-                    // Send emails with Resend API to test functionality
-                    require_once SITE_ROOT . '/../vendor/autoload.php';                                       
-                    $resend = Resend::client(RESEND_API_KEY);
+                    // Validate form                                             
+                    if($validate->validate_form($this->fields)) {
+                        // Send emails with Resend API to test functionality
+                        require_once SITE_ROOT . '/../vendor/autoload.php';                                       
+                        $resend = Resend::client(RESEND_API_KEY);
 
-                    $resend->emails->send([
-                        'from'      =>  'Restaurant Your House <onboarding@resend.dev>',
-                        'to'        =>  [
-                            $fields['email'],                            
-                        ],
-                        'subject'   =>  ucfirst($this->language['reservation_received']),                        
-                        'html'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
+                        $resend->emails->send([
+                            'from'      =>  'Restaurant Your House <onboarding@resend.dev>',
+                            'to'        =>  [
+                                $this->fields['email'],                            
+                            ],
+                            'subject'   =>  ucfirst($this->language['reservation_received']),                        
+                            'html'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
+                                            ucfirst($this->language['reservation_mail_1th_paragraph']) .
+                                            "
+                                            <table style='margin-bottom: 2em'>
+                                                <tr>
+                                                    <td style='text-align: right;'>" . ucfirst($this->language['name']) . ":</td>
+                                                    <td><strong>{$this->fields['name']}</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='text-align: right;'>" . ucfirst($this->language['date']) . ":</td>
+                                                    <td><strong>{$this->fields['date']}</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='text-align: right;'>" . ucfirst($this->language['time']) . ":</td>
+                                                    <td><strong>{$this->fields['time']}h</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='text-align: right;'>" . ucfirst($this->language['qty']) . ":</td>
+                                                    <td><strong>{$this->fields['people_qty']} pers.</strong></td>
+                                                </tr>
+                                            </table>
+                                            " . 
+                                            $this->language['reservation_mail_2th_paragraph'] . " <br><br>" .
+                                            ucfirst($this->language['thanks']) . "<br><br>" . 
+                                            "Restaurant Your House<br>",
+                                            
+                            'text'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
+                                            ucfirst($this->language['reservation_mail_1th_paragraph']) . "\n\n" .                                    
+                                            ucfirst($this->language['name']) . ":\t {$this->fields['name']}\n" . 
+                                            ucfirst($this->language['date']) . ":\t {$this->fields['date']}\n" .
+                                            ucfirst($this->language['time']) . ":\t {$this->fields['time']}h.\n" .
+                                            ucfirst($this->language['qty'])  . ":\t {$this->fields['people_qty']} pers.\n\n" . 
+                                            $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
+                                            ucfirst($this->language['thanks']) . "\n\n" . 
+                                            "Restaurant Your House",   
+                        ]);
+
+                        // Send confirmation email for a reservation using PHPMailer 
+                        /* require_once SITE_ROOT . '/../vendor/autoload.php';
+                        $mail = new PHPMailer(true);
+
+                        // Config for development                
+                        $mail->isSMTP();
+                        $mail->Host = "mailer";
+                        $mail->Port = 1025;
+                        $mail->CharSet = "UTF8"; */
+
+                        // Config for production
+                        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;           //Enable verbose debug output
+                        //$mail->isSMTP();                                   //Send using SMTP
+                        //$mail->Host       = 'localhost';                    //Set the SMTP server to send through
+                        //$mail->SMTPAuth   = true;                          //Enable SMTP authentication
+                        //$mail->Username   = 'testsender2';                    //SMTP username
+                        //$mail->Password   = '';                  //SMTP password
+                        //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption                    
+                        //$mail->Port       = 587;  
+
+                        // Recipients
+                        /* $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');
+                        $mail->addAddress($fields['email']); */
+                        /* $mail->addReplyTo('info@yourhouse.com', 'Information');
+                        $mail->addCC('reception@yourhouse.com');
+                        $mail->addBCC('bcc@example.com');  */              
+
+                        // Attachments                                                                                              
+                        /* $mail->addEmbeddedImage(SITE_ROOT . '/images/main_logo.png', 'main_logo');
+                        $mail->addEmbeddedImage(SITE_ROOT . '/images/restaurant_logo.png', 'restaurant_logo'); */
+
+                        // Content
+                        /* $mail->isHTML(true);                                  //Set email format to HTML
+                        $mail->Subject = ucfirst($this->language['reservation_received']);
+                        $mail->Body    = "<div style='padding-left: 1em;'><img width='200' src='cid:main_logo' alt='main logo'><br><br>" .
+                                        ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
                                         ucfirst($this->language['reservation_mail_1th_paragraph']) .
                                         "
                                         <table style='margin-bottom: 2em'>
@@ -142,9 +208,9 @@
                                         " . 
                                         $this->language['reservation_mail_2th_paragraph'] . " <br><br>" .
                                         ucfirst($this->language['thanks']) . "<br><br>" . 
-                                        "Restaurant Your House<br>",
-                                        
-                        'text'      =>  ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
+                                        "Restaurant Your House<br>" . 
+                                        "<img style='padding: 1em; width: 7em;' src='cid:restaurant_logo' alt='restaurant logo'><br><br></div>"; */
+                        /* $mail->AltBody = ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
                                         ucfirst($this->language['reservation_mail_1th_paragraph']) . "\n\n" .                                    
                                         ucfirst($this->language['name']) . ":\t {$fields['name']}\n" . 
                                         ucfirst($this->language['date']) . ":\t {$fields['date']}\n" .
@@ -152,91 +218,21 @@
                                         ucfirst($this->language['qty'])  . ":\t {$fields['people_qty']} pers.\n\n" . 
                                         $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
                                         ucfirst($this->language['thanks']) . "\n\n" . 
-                                        "Restaurant Your House",   
-                    ]);
-
-                    // Send confirmation email for a reservation using PHPMailer 
-                    /* require_once SITE_ROOT . '/../vendor/autoload.php';
-                    $mail = new PHPMailer(true);
-
-                    // Config for development                
-                    $mail->isSMTP();
-                    $mail->Host = "mailer";
-                    $mail->Port = 1025;
-                    $mail->CharSet = "UTF8"; */
-
-                    // Config for production
-                    //$mail->SMTPDebug = SMTP::DEBUG_SERVER;           //Enable verbose debug output
-                    //$mail->isSMTP();                                   //Send using SMTP
-                    //$mail->Host       = 'localhost';                    //Set the SMTP server to send through
-                    //$mail->SMTPAuth   = true;                          //Enable SMTP authentication
-                    //$mail->Username   = 'testsender2';                    //SMTP username
-                    //$mail->Password   = '';                  //SMTP password
-                    //$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;   //Enable implicit TLS encryption                    
-                    //$mail->Port       = 587;  
-
-                    // Recipients
-                    /* $mail->setFrom('restaurant@yourhouse.com', 'Restaurant Your House');
-                    $mail->addAddress($fields['email']); */
-                    /* $mail->addReplyTo('info@yourhouse.com', 'Information');
-                    $mail->addCC('reception@yourhouse.com');
-                    $mail->addBCC('bcc@example.com');  */              
-
-                    // Attachments                                                                                              
-                    /* $mail->addEmbeddedImage(SITE_ROOT . '/images/main_logo.png', 'main_logo');
-                    $mail->addEmbeddedImage(SITE_ROOT . '/images/restaurant_logo.png', 'restaurant_logo'); */
-
-                    // Content
-                    /* $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->Subject = ucfirst($this->language['reservation_received']);
-                    $mail->Body    = "<div style='padding-left: 1em;'><img width='200' src='cid:main_logo' alt='main logo'><br><br>" .
-                                    ucfirst($this->language['reservation_mail_intro_paragraph']) . "<br><br>" .
-                                    ucfirst($this->language['reservation_mail_1th_paragraph']) .
-                                    "
-                                    <table style='margin-bottom: 2em'>
-                                        <tr>
-                                            <td style='text-align: right;'>" . ucfirst($this->language['name']) . ":</td>
-                                            <td><strong>{$fields['name']}</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td style='text-align: right;'>" . ucfirst($this->language['date']) . ":</td>
-                                            <td><strong>{$fields['date']}</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td style='text-align: right;'>" . ucfirst($this->language['time']) . ":</td>
-                                            <td><strong>{$fields['time']}h</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td style='text-align: right;'>" . ucfirst($this->language['qty']) . ":</td>
-                                            <td><strong>{$fields['people_qty']} pers.</strong></td>
-                                        </tr>
-                                    </table>
-                                    " . 
-                                    $this->language['reservation_mail_2th_paragraph'] . " <br><br>" .
-                                    ucfirst($this->language['thanks']) . "<br><br>" . 
-                                    "Restaurant Your House<br>" . 
-                                    "<img style='padding: 1em; width: 7em;' src='cid:restaurant_logo' alt='restaurant logo'><br><br></div>"; */
-                    /* $mail->AltBody = ucfirst($this->language['reservation_mail_intro_paragraph']) . "\n\n" .
-                                    ucfirst($this->language['reservation_mail_1th_paragraph']) . "\n\n" .                                    
-                                    ucfirst($this->language['name']) . ":\t {$fields['name']}\n" . 
-                                    ucfirst($this->language['date']) . ":\t {$fields['date']}\n" .
-                                    ucfirst($this->language['time']) . ":\t {$fields['time']}h.\n" .
-                                    ucfirst($this->language['qty'])  . ":\t {$fields['people_qty']} pers.\n\n" . 
-                                    $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
-                                    ucfirst($this->language['thanks']) . "\n\n" . 
-                                    "Restaurant Your House";                     
-                
-                    if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);*/
+                                        "Restaurant Your House";                     
                     
-                    // Save reservation in DB
-                    $query = new Query();
-                    $query->insertInto('reservations', $fields);
-                    $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";
-                    
-                    // Redirect to reservations view
-                    $this->index();
-                }
-                
+                        if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);*/
+                        
+                        // Save reservation in DB
+                        $query = new Query();
+                        $query->insertInto('reservations', $this->fields);
+                        $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";                                                
+                        $this->index();
+                    }
+                    else {
+                        $this->message = $validate->get_msg();
+                        $this->index();
+                    }
+                }                                                
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
