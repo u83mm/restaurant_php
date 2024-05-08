@@ -235,17 +235,16 @@
                     }
                 }                                                
             } catch (\Throwable $th) {
-                $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $error_msg = "<p class='alert alert-danger text-center'>
+                    $this->message = "<p class='alert alert-danger text-center'>
                                     Message: {$th->getMessage()}<br>
                                     Path: {$th->getFile()}<br>
                                     Line: {$th->getLine()}
                                 </p>";
                 }
-                
-                $this->message = $error_msg;
+                                
                 $this->index();
             }
         }
@@ -287,8 +286,7 @@
                         'time', 
                         'comment'
                     ], 
-                    'date', 
-                    $this->dbcon
+                    'date'
                 );                 
                                                             
                 // Calculate total people
@@ -297,8 +295,14 @@
                 foreach ($rows as $key => $value) {
                     $rows[$key]['date'] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
                 }                                 
-                
-                include(SITE_ROOT . "/../Application/view/reservations/reservations_index.php");
+                               
+                $this->render('/view/reservations/reservations_index.php', [
+                    'date' => $date,
+                    'rows' => $rows,
+                    'menuDaySections' => $menuDaySections,
+                    'message' => $this->message,
+                    'total' => $total
+                ]);
 
             } catch (\Throwable $th) {
                 $error_msg = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

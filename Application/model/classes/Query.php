@@ -329,13 +329,13 @@
          * @return array an array of rows fetched from the specified table, containing only the
          * specified fields.
          */
-        public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField, object $dbcon): array
+        public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField): array
         {
             $fields = implode(", ", $fields);
             $query = "SELECT $fields FROM $table ORDER BY $orderByField DESC";
 
             try {
-                $stm = $dbcon->pdo->prepare($query);                                                   
+                $stm = $this->dbcon->pdo->prepare($query);                                                   
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();

@@ -14,7 +14,7 @@
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['reservations']); ?></h2>			
 		</div>		
 		<div class="clear-fix">
-			<?php echo $message = $this->message ?? ""; ?>
+			<?php echo $message ?? ""; ?>
 			<?php foreach ($date as $key => $dates) :?>
 				<h4><strong><?php echo ucfirst($home->language['date']); ?>: </strong><?php echo $dates; ?></h4>
 				<table class="table table-striped table-bordered">
