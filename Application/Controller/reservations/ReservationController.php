@@ -335,9 +335,12 @@
 
             foreach ($rows as $key => $value) {
                 $hours[] = $value['hour'];
-            }  
-
-            include(SITE_ROOT . "/../Application/view/admin/reservations/search_view.php");    
+            }              
+            
+            $this->render('/view/admin/reservations/search_view.php', [
+                'hours' => $hours,
+                'message' => $this->message
+            ]);
         }
 
         /** Show search results */
