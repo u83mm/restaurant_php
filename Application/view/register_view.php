@@ -19,9 +19,12 @@
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="password">Password:</label>
-                <div class="col-12 col-md-8">
+                <div class="col-10 col-md-7 pe-0">
                     <input class="form-control" type="password" name="password" id="password" value="<?php if(isset($fields['password'])) echo $fields['password']; ?>" required>
-                </div>                
+                </div>
+                <div class="col-1 col-md-1 ms-2 me-2 m-md-0 d-flex p-0 justify-content-center align-items-center">
+                    <img class="show_password" src="/images/eye.svg" alt="eye" height="20">
+                </div>                   
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end  col-form-label" for="email">Email:</label>
