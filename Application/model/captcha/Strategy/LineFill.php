@@ -3,13 +3,10 @@ namespace model\captcha\Strategy;
 
 use model\captcha\SingleChar;
 
-#[description("Adds lines to image background")]
+
 class LineFill
 {
-	#[description("Writes lines onto image following this strategy")]
-	#[SingleChar("char")]
-	#[int("num : number of lines")]
-	#[returns("void")]
+	
 	public static function writeFill(SingleChar $char, int $num) : void
 	{
 		for ($x = 0; $x < $num; $x++) {
