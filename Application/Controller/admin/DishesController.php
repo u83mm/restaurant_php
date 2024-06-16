@@ -495,7 +495,7 @@
                     $query = new QueryMenu();
 
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $query->selectOneBy("dishes", "dishe_id", $this->fields['id'], $this->dbcon);
+                    $dishe = $query->selectOneBy("dishes", "dishe_id", $this->fields['id']);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -545,7 +545,7 @@
                 $commonTask = new CommonTasks();
 
                 /** Obtain dishe to delete */
-                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe, $this->dbcon);
+                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe);
                 
                 if($dishe_to_delete) {
                     $commonTask->deletePicture($dishe_to_delete['picture']);

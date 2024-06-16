@@ -151,7 +151,7 @@
                 
                 /** Test if the table is bussy */
                 $query = new Query();
-                $bussy_table = $query->selectOneBy('orders', 'table_number', $_SESSION['table_number'], $this->dbcon);
+                $bussy_table = $query->selectOneBy('orders', 'table_number', $_SESSION['table_number']);
                 if($bussy_table) throw new \Exception("Mesa ocupada", 1);
                 
 

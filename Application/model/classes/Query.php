@@ -94,12 +94,12 @@
             }
         }
 
-        public function selectOneBy(string $table, string $field, string $value, object $dbcon): array|bool 
+        public function selectOneBy(string $table, string $field, string $value): array|bool 
         {
             $query = "SELECT * FROM $table WHERE $field = :val";                         
 
             try {
-                $stm = $dbcon->pdo->prepare($query);
+                $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":val", $value);                            
                 $stm->execute();       
                 $rows = $stm->fetch(PDO::FETCH_ASSOC);

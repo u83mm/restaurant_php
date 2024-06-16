@@ -402,7 +402,7 @@
         
             $id = $_POST['id'];
 
-            $result = $query->selectOneBy('orders', 'id', $id, $this->dbcon);                                                    
+            $result = $query->selectOneBy('orders', 'id', $id);                                                    
         
 
             /* We convert strings fields in arrays fields with their values */

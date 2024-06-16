@@ -73,7 +73,7 @@
                     ];
 
                     if($validate->validate_form($this->fields)) {
-                        $rows = $query->selectOneBy("user", "email", $this->fields['email'], $this->dbcon);                    
+                        $rows = $query->selectOneBy("user", "email", $this->fields['email']);                    
 
                         if($rows) {                                             
                             $this->message = "<p class='alert alert-danger text-center'>El email '{$this->fields['email']}' ya está registrado</p>";                                                 										
@@ -179,7 +179,7 @@
 
                 /** Fix warnings when show the alert message on updating the user and we change the language */                
                 if(empty($this->fields['id'])) {
-                    $user = $query->selectOneBy("user", "id", $id, $this->dbcon);                    
+                    $user = $query->selectOneBy("user", "id", $id);                    
                     
                     /** Setting properties */
                     $this->fields = [
