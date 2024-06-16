@@ -3,6 +3,7 @@
 
 	use Application\Core\Controller;
 	use model\classes\Language;
+	use model\classes\Query;
 	use model\classes\Validate;
 
     /**
@@ -17,7 +18,9 @@
 			private object $dbcon = DB_CON,
 			private array $language = [],
 			private string $message = "",
-			private array $fields = []
+			private array $fields = [],
+			private array $limited_access_data = [],
+			private int $remaining_time = 0
 		)
         {
 			$this->languageObject = new Language();  
@@ -37,71 +40,135 @@
 		 * submission, validates the form fields, queries the database
 		 */
 		public function index(array $language = null): void
-        {			
-			$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);
+        {	
+			try {
+				$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);
 						
-			$validate = new Validate;			            			
+				$validate = new Validate;
+				$query_object = new Query();			            			
 
-			if(!isset($_SESSION['id_user'])) {	
-				if($_SERVER['REQUEST_METHOD'] === 'POST') {
-					// get values from the form
-					$this->fields = [
-						'email'	=>	$validate->test_input($_REQUEST['email']),
-						'password'	=>	$validate->test_input($_REQUEST['password']),
-					];
+				if(!isset($_SESSION['id_user'])) {	
+					// Test for restrictions
+					$this->limited_access_data = $query_object->selectOneBy("limit_access", "ip", $_SERVER['REMOTE_ADDR']) ? 
+						$query_object->selectOneBy("limit_access", "ip", $_SERVER['REMOTE_ADDR']) : [];						
 
-					if($validate->validate_form($this->fields)) {
-						// hacemos la consulta a la DB				
-						$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
+					// If the IP is restricted, return the remaining time
+					if(count($this->limited_access_data) > 0) {						
+						if($this->limited_access_data['failed_tries'] >= 3) $this->remaining_time = $this->limited_access_data['restriction_time'] - time();
+					}	
+					
+					if($_SERVER['REQUEST_METHOD'] === 'POST') {
+						// get values from the form
+						$this->fields = [
+							'email'	=>	$validate->test_input($_REQUEST['email']),
+							'password'	=>	$validate->test_input($_REQUEST['password']),
+						];
 
-						try {
-							$stm = $this->dbcon->pdo->prepare($query);
-							$stm->bindValue(":val", $this->fields['email']);				
-							$stm->execute();					
+						// try to login
+						if($this->remaining_time <= 0) {
+							if($validate->validate_form($this->fields)) {
+								// hacemos la consulta a la DB				
+								$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
+	
+								try {
+									$stm = $this->dbcon->pdo->prepare($query);
+									$stm->bindValue(":val", $this->fields['email']);				
+									$stm->execute();					
+	
+									// si encuentra el usuario en la DB
+									if($stm->rowCount() == 1) {
+										$result = $stm->fetch(PDO::FETCH_ASSOC);					
+										
+										// comprueba que la contraseña introducida coincide con la de la DB
+										if(password_verify($this->fields['password'], $result['password'])) {												
+											$_SESSION['id_user'] = $result['id'];						
+											$_SESSION['user_name'] = $result['user_name'];
+											$_SESSION['role'] = $result['role'];												
+											$stm->closeCursor();
 
-							// si encuentra el usuario en la DB
-							if($stm->rowCount() == 1) {
-								$result = $stm->fetch(PDO::FETCH_ASSOC);					
-								
-								// comprueba que la contraseña introducida coincide con la de la DB
-								if(password_verify($this->fields['password'], $result['password'])) {												
-									$_SESSION['id_user'] = $result['id'];						
-									$_SESSION['user_name'] = $result['user_name'];
-									$_SESSION['role'] = $result['role'];												
-									$stm->closeCursor();
-																	
-									header("Location: /");							
+											// Delete the restriction time
+											if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);										
+																			
+											header("Location: /");							
+										}
+										else {
+											$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
+										}			
+									}
+									else {		
+										$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
+									}
+
+									// Search if there is a restriction time
+									if(isset($this->limited_access_data['id'])) {																																										
+										// Update the restriction time										
+										$this->limited_access_data['failed_tries'] += 1;
+										$this->limited_access_data['restriction_time'] = time() + (5 * 60 );											
+										$query_object->updateRow("limit_access", $this->limited_access_data, $this->limited_access_data['id']);
+									}
+									else {
+										$this->limited_access_data['failed_tries'] = 1;
+
+										// Insert into table limit_access
+										$data = [
+											'ip' => $_SERVER['REMOTE_ADDR'],
+											'restriction_time' => time() + (5 * 60),
+											'failed_tries' => $this->limited_access_data['failed_tries'],
+											'created_at' => date('Y-m-d H:i:s')
+										];
+
+										if($validate->validate_form($data)) {											
+											$query_object->insertInto("limit_access", $data);
+										}
+									}
+									
+								} catch (\Throwable $th) {					
+									$this->message = "<p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+									
+									$this->render("/view/database_error.php", [
+										'message'	=>	$this->message
+									]);				
 								}
-								else {
-									$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
-								}			
 							}
-							else {		
-								$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
+							else {
+								$this->message = $validate->get_msg();
 							}
-							
-						} catch (\Throwable $th) {					
-							$this->message = "<p>Hay problemas al conectar con la base de datos, revise la configuración 
-								de acceso.</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-							
-							$this->render("/view/database_error.php", [
-								'message'	=>	$this->message
-							]);				
 						}
+						else {
+							$this->limited_access_data['failed_tries'] = 0;
+
+							// Display message with remaining time (formatted)
+							$minutes = floor($this->remaining_time / 60);
+							$seconds = $this->remaining_time % 60;
+							
+							$this->message = "<p class='alert alert-danger text-center'>Please wait for " . $minutes . " minutes and " . $seconds . " seconds before trying again.</p>";							
+						}												
 					}
-					else {
-						$this->message = $validate->get_msg();
-					}						
-				}								
-			}
-			else {		
-				header("Location: /");
-			}			
-						
-			$this->render("/view/login_view.php", [
-				'message'	=>	$this->message,
-				'fields'	=>	$this->fields
-			]);
+					
+					$this->render("/view/login_view.php", [
+						'message'	=>	$this->message,
+						'fields'	=>	$this->fields
+					]);
+				}
+				else {		
+					header("Location: /");
+				}														
+
+			} catch (\Throwable $th) {
+				$this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                    $this->message = "<p class='alert alert-danger text-center'>
+                                    Message: {$th->getMessage()}<br>
+                                    Path: {$th->getFile()}<br>
+                                    Line: {$th->getLine()}
+                                </p>";
+                }
+
+                $this->render("/view/database_error.php", [
+                    'message' => $this->message
+                ]);	
+			}					
         }
 
         /* Unsetting the session variables and destroying the session. */

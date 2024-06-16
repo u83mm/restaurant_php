@@ -95,7 +95,7 @@ INSERT INTO `dishes` VALUES
 (18,'café cortado',4,8,'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682854551-coffee.jpg',1.30,'si'),
 (19,'creps de la casa',3,7,'sed sit amet est a lorem viverra convallis. praesent id lectus at felis cursus scelerisque. nunc luctus posuere diam, eget luctus nulla viverra at. nam euismod posuere feugiat. aliquam erat volutpat. cras vel gravida lectus, vel porta orci. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682856434-creps.jpg',4.80,'si'),
 (21,'anchoas de la casa',4,1,'vestibulum vitae auctor odio. vivamus sagittis eleifend fermentum. aliquam dictum lacinia lacinia. nulla commodo quam a convallis sollicitudin. sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. nullam vel eleifend enim, a varius lorem. mauris at mi sed velit faucibus rhoncus.','/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp',11.75,'no'),
-(26,'jarra de cerveza',4,14,'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.','/var/www/public/uploads/dishes_pics/1711814437-beer_jar.png',3.75,'si');
+(26,'jarra de cerveza',4,14,'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.','/var/www/public/uploads/dishes_pics/1713899758-beer_jar.png',3.75,'si');
 /*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -350,6 +350,33 @@ INSERT INTO `english_dict` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `limit_access`
+--
+
+DROP TABLE IF EXISTS `limit_access`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `limit_access` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(15) NOT NULL,
+  `restriction_time` int(11) NOT NULL,
+  `failed_tries` smallint(6) NOT NULL,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip` (`ip`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `limit_access`
+--
+
+LOCK TABLES `limit_access` WRITE;
+/*!40000 ALTER TABLE `limit_access` DISABLE KEYS */;
+/*!40000 ALTER TABLE `limit_access` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `menu_day_price`
 --
 
@@ -370,7 +397,7 @@ CREATE TABLE `menu_day_price` (
 LOCK TABLES `menu_day_price` WRITE;
 /*!40000 ALTER TABLE `menu_day_price` DISABLE KEYS */;
 INSERT INTO `menu_day_price` VALUES
-(1,12.70);
+(1,12.80);
 /*!40000 ALTER TABLE `menu_day_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,8 +442,8 @@ LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` VALUES
 (1,1,2,'patatas chips,anchoas de la casa','1,1','1,1','ensalada mixta,espaguetis a la carbonara','1,1','0,1','paella valenciana,salmón a la plancha','1,1','0,1','creps de la casa','2','0','agua mineral,refresco de cola','1,1','0,0','','',''),
-(2,2,1,'olivas rellenas','1','0','ensalada mixta','1','0','salmón a la plancha','1','0','creps de la casa','1','0','jarra de cerveza','1','0','','',''),
-(3,3,2,'olivas rellenas,patatas chips,anchoas de la casa','1,1,1','1,1,1','ensalada mixta','1','1','paella valenciana','1','1','creps de la casa,crema catalana','2,1','1,1','agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa','1,1,1,1,1','1,1,1,1,1','café solo,café cortado','1,1','1,1'),
+(2,2,1,'olivas rellenas,patatas chips','1,2','1,1','ensalada mixta,espaguetis a la carbonara','1,1','0','salmón a la plancha','1','0','creps de la casa','1','0','jarra de cerveza','1','0','','',''),
+(3,3,2,'olivas rellenas,patatas chips,anchoas de la casa','1,1,1','0,1,1','ensalada mixta','1','1','paella valenciana','1','1','creps de la casa,crema catalana','2,1','1,1','agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa','1,1,1,1,1','1,1,1,1,1','café solo,café cortado','1,1','1,1'),
 (4,4,1,'patatas chips','1','1','ensalada mixta','1','1','salmón a la plancha','1','1','crema catalana,crema catalana','1,0','1,1','jarra de cerveza','3','1','','',''),
 (5,5,1,'','','0','macarrones a la boloñesa','1','0','','','0','','','0','jarra de cerveza','1','0','','','0');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
@@ -438,7 +465,7 @@ CREATE TABLE `reservations` (
   `people_qty` int(11) NOT NULL,
   `comment` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -491,7 +518,11 @@ INSERT INTO `reservations` VALUES
 (52,'2023-12-28','13.00','Mario Moreno','cursotecnoweb@gmail.com',11,NULL),
 (53,'2023-12-29','12.30','Mario Moreno','cursotecnoweb@gmail.com',12,NULL),
 (54,'2024-01-14','14.00','Mario Moreno','cursotecnoweb@gmail.com',3,'Queremos una paella de pollo y conejo'),
-(55,'2024-03-29','13.30','Mario Moreno','cursotecnoweb@gmail.com',6,'Menú concertado');
+(55,'2024-03-29','13.30','Mario Moreno','cursotecnoweb@gmail.com',6,'Menú concertado'),
+(56,'2024-05-08','13.30','John','cursotecnoweb@gmail.com',3,NULL),
+(57,'2024-05-09','14.00','Mario Moreno','cursotecnoweb@gmail.com',4,NULL),
+(58,'2024-05-09','13.00','Arjona','cursotecnoweb@gmail.com',2,NULL),
+(59,'2024-05-10','14.00','Arjona','cursotecnoweb@gmail.com',6,NULL);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -744,7 +775,7 @@ LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES
 (1,'admin','$2y$10$UmlPg2q.E8FyQ/y8/zkcgu/OXaar1erO8gEldBqGI5BtB3vElwReq','admin@admin.com',1),
-(2,'pepe','$2y$10$k3bcWaW.XGUWTNNMn3SsQe.L1gfkT7nV3QVeDMpxZzSYp9/MjOVDW','pepe@pepe.com',3),
+(2,'pepe','$2y$10$hLcJzW2U4IV9URLYMUtNAeTNEmuex.qwuFM31wZOw8O268guUuhHG','pepe@pepe.com',3),
 (3,'luis','$2y$10$30PDCa6OsP4RetegiCIbYORAxooMOZ11p.A5HNbwp5LZHDEttpHwq','luis@luis.com',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -758,4 +789,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-01 20:59:45
+-- Dump completed on 2024-06-16  7:51:49
