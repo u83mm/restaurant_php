@@ -3,6 +3,7 @@
 
     use Application\Core\Controller;
     use model\classes\CommonTasks;
+    use model\classes\Dishe;
     use model\classes\Language;
     use model\classes\Query;
     use model\classes\QueryMenu;
@@ -179,15 +180,16 @@
                 
 
                 // Validate entries
-                $validate = new Validate();  
+                $validate = new Validate();                                  
                 
                 $this->fields = [
-                    "Name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
-                    "Description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
-                    "Category"      =>  $validate->test_input($_REQUEST['category'] ?? ""),
-                    "Dishe_type"    =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
-                    "Price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
-                ];                                                
+                    "name"          =>  $validate->test_input($_REQUEST['name'] ?? ""), 
+                    "description"   =>  $validate->test_input($_REQUEST['description'] ?? ""), 
+                    "category_id"   =>  $validate->test_input($_REQUEST['category'] ?? ""),
+                    "menu_id"       =>  $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "price"         =>  $validate->test_input($_REQUEST['price'] ?? 0),                    
+                ];  
+                
                 
                 /** Begin transaction */
                 $this->dbcon->pdo->beginTransaction();
@@ -251,26 +253,21 @@
             }
             	            
             try {
-                if($validate->validate_form($this->fields)) {
-                    $query = "INSERT INTO dishes (name, description, category_id, menu_id, picture, price) 
-                                VALUES (:name, :description, :category, :menu_id, :picture, :price)"; 
-                                
-                                        
+                if($validate->validate_form($this->fields)) {                                                                                             
                     /** Test price type, if isn't numeric delete picture from server and throw an exception*/
-                    if(!is_numeric($this->fields['Price'])){
+                    if(!is_numeric($this->fields['price'])){
                         $commonTask->deletePicture($upload_filename);                        
                         throw new Exception("El campo 'Precio' debe ser numérico.");
                     }
-    
-                    $stm = $this->dbcon->pdo->prepare($query); 
-                    $stm->bindValue(":name", strtolower($this->fields['Name']));
-                    $stm->bindValue(":description", $this->fields['Description']);
-                    $stm->bindValue(":category", $this->fields['Category']); 
-                    $stm->bindValue(":menu_id", $this->fields['Dishe_type']);
-                    $stm->bindValue(":picture", $upload_filename);
-                    $stm->bindValue(":price", $this->fields['Price']);             
-                    $stm->execute();       				
-                    $stm->closeCursor();                    
+
+                    /** Set picture path */
+                    $this->fields['picture'] = $upload_filename; 
+                    
+                    /** Create new dish object */
+                    $dishe = new Dishe($this->fields);
+                    
+                    /** Insert dish into database */
+                    $query->insertInto("dishes", $this->fields);
                     
                     $this->dbcon->pdo->commit();
 
