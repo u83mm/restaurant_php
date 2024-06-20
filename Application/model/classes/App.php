@@ -26,8 +26,7 @@
             return $uri;
         }
 
-        public function router() : void {                                     
-            global $id;
+        public function router() : void {                                                
             $this->uri = $this->getUrl();                    
                                                  
             try {
@@ -65,7 +64,7 @@
                     require_once($file_name);
 
                     $controller = new $this->controllerName;                  
-                    call_user_func_array([$controller, $this->method], []);
+                    call_user_func_array([$controller, $this->method], ['id' => $id]);
 
                 } 
                 else {                    
