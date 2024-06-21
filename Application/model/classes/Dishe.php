@@ -18,19 +18,20 @@
             private array $fields = []
         )
         {
-            
+            $this->setDishe($this->fields);  
         }
 
-        public function setDishe(array $fields)
-        {
-            if(!empty($fields)) {
-                foreach ($fields as $key => $value) {
-                    $method = "set" . ucfirst($key);
-                    if(method_exists($this, $method)) {
-                        $this->$method($value);
-                    }
+        public function setDishe(array $fields): self
+        {            
+            foreach ($fields as $key => $value) {
+                $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));                
+
+                if (method_exists($this, $method)) {
+                    $this->$method($value);
                 }
             }
+
+            return $this;
         }
 
         public function setDisheId(int $dishe_id): self
@@ -66,9 +67,9 @@
             return $this->description;
         }
 
-        public function setPrice(float $price): self
+        public function setPrice(string $price): self
         {
-            $this->price = $price;
+            $this->price = floatval($price);
             return $this;
         }
 
