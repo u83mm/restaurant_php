@@ -267,7 +267,7 @@
                     $dishe = new Dishe($this->fields);
                     
                     /** Insert dish into database */
-                    $query->insertInto("dishes", $this->fields);
+                    $query->insertInto("dishes", $dishe);
                     
                     $this->dbcon->pdo->commit();
 
@@ -312,9 +312,9 @@
         public function edit(): void
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
-
-            global $id;  
+            $this->testAccess(['ROLE_ADMIN']); 
+            
+            global $id;
 
             try {
                 // We obtain all registries in "dishes_day" and "dishes_menu" tables            
@@ -324,27 +324,27 @@
 
 
                 /** Get the id */
-                $dishe_id = $id;                
+                $dishe_id = $id;                                                                             
 
                 /** 
                  * We make inner joins to diferent tables to obtain the elements to show in "selects"
                  * elements in forms views 
                  * */ 
 
-                $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id, $this->dbcon);
-                $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id, $this->dbcon);
+                $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
                 /** Showing dishe_picture in show info */                
                 $commonTask = new CommonTasks();                
                 $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                                
 
                 $this->render("/view/admin/dishes/edit_view.php", [
-                    "message" => $this->message,
-                    "categoriesDishesDay" => $categoriesDishesDay,
+                    "message"              => $this->message,
+                    "categoriesDishesDay"  => $categoriesDishesDay,
                     "categoriesDishesMenu" => $categoriesDishesMenu,
-                    "dishe" => $dishe,
-                    "disheType" => $disheType,
-                    "dishePicture" => $dishePicture
+                    "dishe"                => $dishe,
+                    "disheType"            => $disheType,
+                    "dishePicture"         => $dishePicture
                 ]);
                 
             } catch (\PDOException $e) {

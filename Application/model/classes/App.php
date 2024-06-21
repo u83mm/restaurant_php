@@ -27,7 +27,9 @@
         }
 
         public function router() : void {                                                
-            $this->uri = $this->getUrl();                    
+            $this->uri = $this->getUrl();
+            
+            global $id;
                                                  
             try {
                 // Test diferent options to configure to Controller                         
@@ -64,7 +66,7 @@
                     require_once($file_name);
 
                     $controller = new $this->controllerName;                  
-                    call_user_func_array([$controller, $this->method], ['id' => $id]);
+                    call_user_func_array([$controller, $this->method], []);
 
                 } 
                 else {                    
