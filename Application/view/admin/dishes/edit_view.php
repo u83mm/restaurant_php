@@ -55,24 +55,24 @@
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label"><?php echo ucfirst($page->language['image']); ?>:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
                     <a href="/menu/showDisheInfo/<?php echo $dishe['dishe_id']; ?>">
-                        <img class="img-fluid w-50" src="<?php echo $dishePicture; ?>" alt="dishe_image"> 
+                        <img class="img-fluid w-50 bg-light" src="<?php echo $dishePicture; ?>" alt="dishe_image"> 
                     </a>                                    
                 </div>                
             </div>
             <div class="row mb-3">
                 <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />  
-                <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="dishe_img"><?php echo ucfirst($page->language['change_image']); ?>:</label>
+                <label class="col-12 col-md-3 text-center text-md-end col-form-label pt-0" for="dishe_img"><?php echo ucfirst($page->language['change_image']); ?>:</label>
                 <div class="col-12 col-md-8 input-group inputFile">
                     <input type="file" id="dishe_img" name="dishe_img" />
                 </div>                
             </div>
             <div class="row mb-3">
-                <label class="col-12 col-md-3 text-center text-md-end col-form-label"><?php echo ucfirst($page->language['available']); ?>:</label>
-                <div class="col-12 col-md-8 text-center text-md-start">
+                <label class="col-12 col-md-3 text-center text-md-end form-check-label pt-0" for="available"><?php echo ucfirst($page->language['available']); ?>:</label>
+                <div class="col-12 col-md-8 text-center text-md-start d-flex">
                     <?php if($dishe['available'] === 'si') {?>
-                        <input type="checkbox" name="available" id="available" value="no" checked> 
+                        <input class="form-check-input align-self-center m-0" type="checkbox" name="available" id="available" value="no" checked> 
                     <?php }else { ?>                    
-                        <input type="checkbox" name="available" id="available" value="si"> 
+                        <input class="form-check-input align-self-center m-0" type="checkbox" name="available" id="available" value="si"> 
                     <?php } ?>
                 </div>                
             </div>
