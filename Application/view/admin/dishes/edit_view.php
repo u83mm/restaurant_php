@@ -54,7 +54,7 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label"><?php echo ucfirst($page->language['image']); ?>:</label>
                 <div class="col-12 col-md-8 text-center text-md-start">
-                    <a href="/menu/info_dishe/show_info.php?id=<?php echo $dishe['dishe_id']; ?>">
+                    <a href="/menu/showDisheInfo/<?php echo $dishe['dishe_id']; ?>">
                         <img class="img-fluid w-50" src="<?php echo $dishePicture; ?>" alt="dishe_image"> 
                     </a>                                    
                 </div>                
