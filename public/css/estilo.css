@@ -350,6 +350,10 @@ textarea {
 		border: inherit;
 		color: var(--bs-navbar-active-color);
 	}
+
+	.inputFile {
+		font-size: x-small;
+	}
 }
 
 /************************************************************************
