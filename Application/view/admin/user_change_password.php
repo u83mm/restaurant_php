@@ -5,7 +5,7 @@
     $home->title = ucfirst($home->language['users']) . " | " . ucfirst($home->language['change_password']);			
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->nav_links, "administration");
+	$home->do_html_nav($home->nav_links, $home->language['nav_link_administration']);
 ?>
 	<h3 class="text-center"><?php echo mb_strtoupper($home->language['change_password']); ?></h3>
     <div class="col-6 mx-auto">

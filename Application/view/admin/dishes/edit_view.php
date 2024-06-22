@@ -5,7 +5,7 @@
     $page->title = ucfirst($page->language['dishes']) . " | " . ucfirst($page->language['edit']);
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
-	$page->do_html_nav($page->nav_links, "administration");
+	$page->do_html_nav($page->nav_links, $page->language['nav_link_administration']);
 ?>
 	<h3 class="text-center"><?php echo strtoupper($page->language['product_details']); ?></h3>
     <div class="col-12 col-md-11 col-lg-8 col-xl-6 mx-auto">

@@ -5,7 +5,7 @@
     $page->title = "My Restaurant | " . ucfirst($page->language['dishes']);
 
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
-	$page->do_html_nav($page->nav_links, "administration");
+	$page->do_html_nav($page->nav_links, $page->language['nav_link_administration']);
 ?>
 	<h4 class="text-center"><?php echo strtoupper($page->language['product_list']); ?></h4>
     <div class="container-fluid">        
