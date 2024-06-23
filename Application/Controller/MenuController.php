@@ -139,14 +139,17 @@
         public function menu(): void
         {               
             define('FPDF_FONTPATH', SITE_ROOT .'/../Application/model/fpdf/font');
-            define('EURO_SIMBOL', chr(128));                     
+            define('EURO_SIMBOL', chr(128));  
+                               
+
+            /** Create objects */
 
             $pdf = new MyPdf();
+            $menu = new QueryMenu(); 
 
                   
             /** We obtain Menu's categories */
 
-            $menu = new QueryMenu();  
             $menuCategories = $menu->selectAll("dishes_menu");    
             
 
@@ -163,8 +166,7 @@
 
             foreach ($menuCategories as $key => $category) {                
                 $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category['menu_category']])), 0, 0, '');
-                $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                
-                //$pdf->Line(10, $pdf->getY()+10, $pdf->getX() -3, $pdf->GetY() + 10);
+                $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                                
                 $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
                 $pdf->Ln(10);
 
@@ -173,11 +175,10 @@
 
                 $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
 
-                foreach ($rows as $key => $value) {
-                    //$pdf->SetFont('Arial','I',10);
+                foreach ($rows as $key => $value) {                    
                     $pdf->SetFont('GreatVibes','',14);
 
-                    if($value['available'] == true) {
+                    if($value['available'] === 'si') {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$value['name']])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
