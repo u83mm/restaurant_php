@@ -12,6 +12,7 @@ class SingleChar
 {
     const MARGIN     = 3;
     const DEFAULT_FG = [0x00, 0x00, 0x00];
+    const LIGHT_GRAY = [222, 222, 222]; // added for me
     const DEFAULT_BG = [0xFF, 0xFF, 0xFF];
     const DEFAULT_TX_X = 25;
     const DEFAULT_TX_Y = 75;
@@ -35,7 +36,8 @@ class SingleChar
         public int    $textY    = self::DEFAULT_TX_Y)
     {
         $this->image    = \imagecreate($width, $height);
-        $this->fgColor  = $this->colorAlloc(self::DEFAULT_FG);
+        //$this->fgColor  = $this->colorAlloc(self::DEFAULT_FG); // uncomment this line to use default black color
+        $this->fgColor  = $this->colorAlloc(self::LIGHT_GRAY); // comment this line to use default black color
         $this->bgColor  = $this->colorAlloc(self::DEFAULT_BG);
     }
 
