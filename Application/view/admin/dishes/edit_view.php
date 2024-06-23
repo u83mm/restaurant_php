@@ -53,7 +53,7 @@
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label"><?php echo ucfirst($page->language['image']); ?>:</label>
-                <div class="col-12 col-sm-8 text-center text-sm-start">
+                <div class="col-12 col-sm-5 text-center text-sm-start">
                     <a href="/menu/showDisheInfo/<?php echo $dishe['dishe_id']; ?>">
                         <img class="img-fluid w-50 bg-light" src="<?php echo $dishePicture; ?>" alt="dishe_image"> 
                     </a>                                    
