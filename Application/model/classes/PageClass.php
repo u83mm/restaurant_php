@@ -66,7 +66,8 @@
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
 				<script src="/js/bootstrap.bundle.min.js"></script>
 				<script src="/js/eventos.js"></script>
-				<script src="/js/ajax.js"></script>						
+				<script src="/js/ajax.js"></script>	
+				<script src="/js/cookies_consent.js"></script>					
 			</head>
 			<body class="ps-md-3 pe-md-3">
 				<header class="d-md-flex header">					
@@ -106,13 +107,9 @@
 							</button>
 							<div class="collapse navbar-collapse" id="my_nav">
 								<ul class="nav navbar-nav justify-content-center w-100">
-<?php
-							foreach($links as $name => $url) {								
-?>
+								<?php foreach($links as $name => $url) : ?>								
 									<li class="nav-item d-lg-inline-block"><a class="nav-link <?php if(isset($active_name) && strtolower($name) === strtolower($active_name)) echo "active"; ?>" href="<?php echo $url; ?>"><?php echo $name; ?></a></li>
-<?php
-							}
-?>										
+								<?php endforeach; ?>										
 								</ul>
 							</div>																					
 						</div>
@@ -132,6 +129,8 @@
 		 */
 		public function do_html_footer(): void
 		{
+			// Include cookie consent banner if it is enabled
+			include(SITE_ROOT . "/../Application/view/cookies_consent_banner_view.php");
 ?>					
 				</main>	
 				<footer class="container-fluid d-flex justify-content-center align-items-center">

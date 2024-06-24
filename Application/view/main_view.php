@@ -28,7 +28,7 @@
 		</div>
 	</section>
 								<!--- ASIDE SHOWING MENU'S DAY -->
-	<?php include(SITE_ROOT . "/../Application/view/menu/menu_day_view.php"); ?>
-<?php
-	$home->do_html_footer();
+<?php 
+	include(SITE_ROOT . "/../Application/view/menu/menu_day_view.php");									
+	$home->do_html_footer(); 
 ?>

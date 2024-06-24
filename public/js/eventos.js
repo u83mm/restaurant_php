@@ -84,6 +84,10 @@ function updateAddList() {
 
 
 window.onload = function() {
+    /* setTimeout(function() {
+        window.location.reload(true);
+    }, 10000); */
+    
     /** Test for striked dishes */
     testDishesStriked();
         
@@ -149,4 +153,24 @@ window.onload = function() {
 			});
 		});
 	}
+
+    /* let testCookies = function() {
+        //document.cookie = "test=1; expires=Thu, 23 Jun 2024 17:50:01 Europe/Madrid;";
+
+        let cookies = new Map();
+        let all = document.cookie;
+        let list = all.split('; ');
+
+        for(let cookie of list) {
+            let p = cookie.indexOf('=');
+            let name = cookie.substring(0, p);
+            let value = cookie.substring(p + 1);
+            value = decodeURIComponent(value);
+            cookies.set(name, value);
+        }
+
+        console.log(cookies);
+    }
+
+    testCookies(); */
 }
