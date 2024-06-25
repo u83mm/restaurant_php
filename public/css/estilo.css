@@ -19,7 +19,7 @@ src: url('../ttf/Ubuntu-I.ttf') format('truetype');
 }
 
 @font-face{
-font-family: Great Vibes;
+font-family: GreatVibes;
 src: url('../ttf/GreatVibes-Regular.ttf') format('truetype');
 }
 
@@ -57,7 +57,7 @@ body {
 h1 {
 	font-size: 2.5em;	
 	text-align: center;
-	font-family: Great Vibes, ubuntuRegular;		
+	font-family: GreatVibes, ubuntuBold;		
 }
 
 .header h1, .header h2 {
@@ -66,12 +66,13 @@ h1 {
 
 h2 {
 	font-size: 2em;
-	font-family: Great Vibes, ubuntuRegular;
+	font-family: GreatVibes, ubuntuBold;
 }
 
 h3 {
-	font-size: 1.17em;
+	font-size: 1.5em;
 	margin-left: 10px;
+	font-family: GreatVibes, ubuntuBold;
 }
 
 h4 {
@@ -97,7 +98,7 @@ nav li {
 }
 
 p{	
-	text-align: justify;	
+	/* text-align: justify; */	
 	margin-bottom: 1em;
 }
 
@@ -379,7 +380,7 @@ textarea {
 	background-color: #ffa000;
 }
 
-.cookies_config_modal {
+.cookies_config_modal, .cookies_policy_modal {
 	display: none;
 	position: fixed;
 	z-index: 1001;
@@ -392,27 +393,41 @@ textarea {
 	background-color: rgba(0,0,0,0.5);
 }
 
-.cookies_config_content {
-	background-color: rgb(193, 237, 233);	
-	padding: 2em;
+.cookies_config_consent {
+	background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	z-index: 1002;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.cookies_config_content, .cookies_policy_content {
+	background-color: rgb(235, 228, 208);	
+	padding: 2em 2em 0.7em;
 	border-radius: 0.5em;
 	-webkit-border-radius: 0.5em;
 	-moz-border-radius: 0.5em;
 	-ms-border-radius: 0.5em;
 	-o-border-radius: 0.5em;
-	width: 70%;	
+	width: 60%;
+	overflow-y: scroll;
+	max-height: 50%;
 }
 
 .cookies_config_content h3 {
 	margin-top: 0;
 }
 
-.cookies_config_buttons {
+.cookies_config_buttons, .cookies_policy_buttons {
 	text-align: right;
 	margin-top: 0.5em;
 }
 
-.cookies_config_buttons button {
+.cookies_config_buttons button, .cookies_policy_buttons button {
 	margin: 0 0.5em;
 	padding: 0.5em 0.8em;
 	border-radius: 0.5em;	
@@ -447,6 +462,20 @@ textarea {
 
 	.inputFile {
 		font-size: x-small;
+	}
+
+	.cookies_config_content, .cookies_policy_content {
+		width: 100%;
+		padding: 1em 1em 0.7em;
+		margin: 0 auto;
+	}
+
+	.cookies_config_buttons, .cookies_policy_buttons {
+		text-align: center;
+	}
+
+	.cookies_consent_buttons button {
+		margin: 0 0.2em;			
 	}
 }
 

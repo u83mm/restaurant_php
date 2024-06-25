@@ -1,6 +1,7 @@
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function() {
+  const bannerModal = document.getElementById('cookies_config_consent');
   const banner = document.getElementById('cookies_consent_banner');
   const modal = document.getElementById('cookies_config_modal');
   const acceptButton = document.getElementById('accept_cookies');
@@ -12,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const necessaryCookies = document.getElementById('necessary_cookies');
   const marketingCookies = document.getElementById('marketing_cookies');
   const stickyNav = document.getElementsByClassName('sticky-top')[0];
+  const policyLink = document.getElementById('cookies_policy');
+  const policyModal = document.getElementById('cookies_policy_modal');
+  const configurePolicyButton = document.getElementById('configure_cookies_policy');
+  const acceptPolicyButton = document.getElementById('accept_cookies_policy');
 
   /** Set a cookie with a specified name, value, and expiration time */
   function setCookie(cname, cvalue, days) {
@@ -40,11 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function hideBanner() {
+    bannerModal.style.display = 'none';
     banner.style.display = 'none';
   }
 
   function showBanner() {
+    if(stickyNav) stickyNav.classList.remove('sticky-top');
     banner.style.display = 'block';
+    bannerModal.style.display = 'block';
   }
 
   function hideConfigModal() {
@@ -52,12 +60,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function showConfigModal() {
-    stickyNav.classList.remove('sticky-top');
+    if(stickyNav) stickyNav.classList.remove('sticky-top');
     modal.style.display = 'flex';
   }
 
+  function showPolicyModal() {
+    if(stickyNav) stickyNav.classList.remove('sticky-top');
+    policyModal.style.display = 'flex';
+  }
+
+  function hidePolicyModal() {
+    policyModal.style.display = 'none';
+  }
+
   function checkCookieConsent() {
-    if (getCookie('cookies_consent') === 'accepted' || getCookie('cookies_consent') === 'custom') {
+    if (getCookie('cookies_consent') === 'accepted' || getCookie('cookies_consent') === 'custom' || getCookie('cookies_consent') === 'rejected') {
       hideBanner();
     } else {
       showBanner();
@@ -93,9 +110,24 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   cancelConfigButton.addEventListener('click', function() {
-    stickyNav.classList.add('sticky-top');
+    if(stickyNav) stickyNav.classList.add('sticky-top');
     hideConfigModal();   
     showBanner(); 
+  });
+
+  policyLink.addEventListener('click', function() {
+    hideBanner();
+    showPolicyModal();
+  });
+
+  configurePolicyButton.addEventListener('click', function() {
+    hidePolicyModal();
+    showConfigModal();
+  });
+
+  acceptPolicyButton.addEventListener('click', function() {
+    setCookie('cookies_consent', 'accepted', 365);
+    hidePolicyModal();
   });
 
   checkCookieConsent();  
