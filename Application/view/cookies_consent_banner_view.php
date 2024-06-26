@@ -1,3 +1,5 @@
+<!-- CONFIGURE COOKIES BANNER -->
+
 <section id="cookies_config_consent" class="cookies_config_consent">
     <div id="cookies_consent_banner" class="col-12 cookies_consent_banner">
         <p>
@@ -11,11 +13,14 @@
     </div>
 </section>
 
+
+<!-- CONFIGURE COOKIES MODAL -->
+
 <section id="cookies_config_modal" class="cookies_config_modal">
     <div class="cookies_config_content">
-        <h2><?php echo ucfirst($this->language['cookies_config']); ?></h2>
+        <h2><strong><?php echo ucfirst($this->language['cookies_config']); ?></strong></h2>
         <p><?php echo ucfirst($this->language['cookies_config_description']); ?></p>
-        <h3><?php echo ucfirst($this->language['cookies_config_options']); ?></h3>
+        <h3><strong><?php echo ucfirst($this->language['cookies_config_options']); ?></strong></h3>
         <div class="row shadow rounded bg-white p-2 mb-3">
             <p class="col-12 mb-3">
                 <strong><?php echo ucfirst($this->language['session']); ?>: PHPSESSID, phpMyAdmin, pma_lang, pmaAuth-1, pmaUser-1</strong>
@@ -49,9 +54,12 @@
     </div>
 </section>
 
+
+<!-- COOKIES POLICY MODAL -->
+
 <section id="cookies_policy_modal" class="cookies_policy_modal">
     <div class="cookies_policy_content">
-        <h2><?php echo ucfirst($this->language['cookies_policy']); ?></h2>
+        <h2><strong><?php echo ucfirst($this->language['cookies_policy']); ?></strong></h2>
         <p>Se informa que este sitio web usa cookies para:</p>
 
         <ol>
