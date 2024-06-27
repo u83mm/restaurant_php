@@ -93,9 +93,9 @@ INSERT INTO `dishes` VALUES
 (16,'agua mineral',4,14,'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682854251-water.jpg',1.10,'si'),
 (17,'café solo',4,8,'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682854429-coffee.jpg',1.20,'si'),
 (18,'café cortado',4,8,'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682854551-coffee.jpg',1.30,'si'),
-(19,'creps de la casa',3,7,'sed sit amet est a lorem viverra convallis. praesent id lectus at felis cursus scelerisque. nunc luctus posuere diam, eget luctus nulla viverra at. nam euismod posuere feugiat. aliquam erat volutpat. cras vel gravida lectus, vel porta orci. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682856434-creps.jpg',4.80,'si'),
+(19,'creps de la casa',3,7,'sed sit amet est a lorem viverra convallis. praesent id lectus at felis cursus scelerisque. nunc luctus posuere diam, eget luctus nulla viverra at. nam euismod posuere feugiat. aliquam erat volutpat. cras vel gravida lectus, vel porta orci. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;','/var/www/public/uploads/dishes_pics/1682856434-creps.jpg',4.80,'no'),
 (21,'anchoas de la casa',4,1,'vestibulum vitae auctor odio. vivamus sagittis eleifend fermentum. aliquam dictum lacinia lacinia. nulla commodo quam a convallis sollicitudin. sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. nullam vel eleifend enim, a varius lorem. mauris at mi sed velit faucibus rhoncus.','/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp',11.75,'no'),
-(26,'jarra de cerveza',4,14,'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.','/var/www/public/uploads/dishes_pics/1713899758-beer_jar.png',3.75,'si');
+(26,'jarra de cerveza',4,14,'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.','/var/www/public/uploads/dishes_pics/1718823551-beer_jar.png',3.75,'si');
 /*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +179,7 @@ CREATE TABLE `english_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +345,22 @@ INSERT INTO `english_dict` VALUES
 (168,'row_updated','changes updated successfully.'),
 (169,'created_user','user created successfully.'),
 (170,'delected_user','user delected.'),
-(172,'add_to_order','add to order');
+(172,'add_to_order','add to order'),
+(173,'cookies_consent','we use cookies to improve your experience. You can accept, decline or configure their use. For more information, you can consult our'),
+(174,'cookies policy','cookies Policy'),
+(175,'accept','accept'),
+(176,'reject','reject'),
+(177,'configure','configure'),
+(178,'cookies_config','cookies config'),
+(179,'necessary_cookies','necessary cookies'),
+(180,'analitics_cookies','analitics cookies'),
+(181,'marketing_cookies','marketing cookies'),
+(182,'save','save'),
+(183,'cancel','cancel'),
+(184,'cookies_config_options','technics and session cookies stricted necessary'),
+(185,'session','session'),
+(186,'cookies_config_notice','they allow you to maintain the coherence of navigation and optimize the performance of the website, they are essential'),
+(187,'cookies_policy','cookies policy');
 /*!40000 ALTER TABLE `english_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +379,7 @@ CREATE TABLE `limit_access` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip` (`ip`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,7 +412,7 @@ CREATE TABLE `menu_day_price` (
 LOCK TABLES `menu_day_price` WRITE;
 /*!40000 ALTER TABLE `menu_day_price` DISABLE KEYS */;
 INSERT INTO `menu_day_price` VALUES
-(1,12.80);
+(1,12.90);
 /*!40000 ALTER TABLE `menu_day_price` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -565,7 +580,7 @@ CREATE TABLE `spanish_dict` (
   `key_word` varchar(50) NOT NULL,
   `value` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -743,7 +758,23 @@ INSERT INTO `spanish_dict` VALUES
 (167,'row_updated','cambios actualizados correctamente.'),
 (168,'created_user','usuario creado correctamente.'),
 (169,'delected_user','se ha eliminado el usuario.'),
-(171,'add_to_order','añadir a pedido');
+(171,'add_to_order','añadir a pedido'),
+(172,'cookies_consent','Utilizamos cookies para mejorar su experiencia. Puede aceptar, rechazar o configurar su uso. Para más información, consulte nuestra'),
+(173,'cookies policy','política de Cookies'),
+(174,'accept','aceptar todas'),
+(175,'reject','rechazar'),
+(176,'configure','configurar'),
+(177,'cookies_config','configuración de cookies'),
+(178,'necessary_cookies','cookies necesarias'),
+(179,'analitics_cookies','cookies de análisis'),
+(180,'marketing_cookies','cookies de marketing'),
+(181,'save','guardar'),
+(182,'cancel','cancelar'),
+(183,'cookies_config_description','desde aquí puede activar o desactivar las cookies que utilizamos en este sitio web, a excepción de las de técnicas, que son imprescindibles.'),
+(184,'cookies_config_options','cookies técnicas y de sesión, estrictamente necesarias'),
+(185,'session','sesión'),
+(186,'cookies_config_notice','permiten mantener la coherencia de la navegación y optimizar el rendimiento del sitio web, son imprescindibles'),
+(187,'cookies_policy','política de cookies');
 /*!40000 ALTER TABLE `spanish_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -789,4 +820,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-16  7:51:49
+-- Dump completed on 2024-06-27  7:18:51
