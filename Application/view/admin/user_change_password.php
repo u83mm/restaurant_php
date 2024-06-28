@@ -23,7 +23,14 @@
                 <div class="col-sm-6">
                     <input class="form-control" type="password" name="new_password" id="new_password" value="<?php if(isset($fields['new_password'])) echo $fields['new_password']; ?>" required>
                 </div>                
-            </div>                       
+            </div>
+            <div class="row mb-3">
+                <label class="col-12 text-center col-form-label" for="strength">Strength Password:</label>
+                <div id="strength" class="col-12 strength">                                        
+                    <div class="strength_bar" id="strength_bar"></div>                                    
+                </div>
+                <p class="message" id="message"></p>
+            </div>                        
             <div class="row mb-3">
                 <label class="col-sm-4" for="none">&nbsp;</label>
                 <div class="col-12 col-sm-3 mb-2 mb-md-0">
@@ -34,7 +41,8 @@
                 </div>                
             </div>                                                              
         </form>        
-    </div>    
+    </div> 
+    <script src="/js/passwd_test_strength.js"></script>	    
 <?php
 	$home->do_html_footer();
 ?>
