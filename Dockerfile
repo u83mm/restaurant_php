@@ -15,8 +15,15 @@ RUN "date"
 # Change permission to public directory
 RUN chown www-data:www-data -R /var/www/public
 
+# Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
+RUN addgroup --gid ${GROUP_ID} mario
+RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} mario
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y git unzip zlib1g-dev libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev
+
+# Install Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Install PHP extensions Type docker-php-ext-install to see available extensions
 RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype && docker-php-ext-install pdo_mysql gd  
@@ -37,12 +44,7 @@ COPY /php_conf/php.ini-development /usr/local/etc/php/
 COPY /php_conf/php.ini-production /usr/local/etc/php/
 COPY /apache_conf/apache2.conf /etc/apache2
 
-# Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
-RUN addgroup --gid ${GROUP_ID} mario
-RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} mario
-
 USER 1000
-
 
 # Set working directory
 WORKDIR /var/www
