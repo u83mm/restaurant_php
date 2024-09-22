@@ -7,6 +7,8 @@
 	### API KEYS
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/api_keys.php");
 	
+	### Crons
 	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/Cron_jobs/clean_access_log.php");
-	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/Cron_jobs/clean_error_log.php");	
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/Cron_jobs/clean_error_log.php");
+	require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/Cron_jobs/clean_xdebug_log.php");
 ?>
