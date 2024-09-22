@@ -1,8 +1,7 @@
 
 services:
   db:    
-    build: ./MariaDB/
-    user: "1000"    
+    build: ./MariaDB/       
     container_name: db   
     environment:
       MYSQL_ROOT_PASSWORD: admin
@@ -10,12 +9,13 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     ports:
-      - "3306:3306"
+      - "3306:3306"    
     volumes: 
-      - "./db_vol:/var/lib/mysql"
-      - "./log/db:/var/log"
+      #- "./db_vol:/var/lib/mysql"
+      - db_vol:/var/lib/mysql
+      - "./log/db:/var/log"    
     networks:
-      front:
+      rest-network:
         ipv4_address: 172.16.202.2        
 
   phpmyadmin:    
@@ -26,10 +26,12 @@ services:
     environment:
       - PMA_ARBITRAY=1
     networks:
-      front:
+      rest-network:
         ipv4_address: 172.16.202.3
 
-  web:      
+  web:
+    depends_on:
+      - db
     build: .
     user: "1000"
     container_name: php
@@ -37,15 +39,15 @@ services:
       - "80:80"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    tty: true
+    tty: true    
     volumes: 
       - "./:/var/www"
       - ./docker-php-ext-xdebug.ini:/usr/local/etc/php/php.ini
       - ./docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - "./log/apache:/var/log/apache2"
-      - "./log/php:/var/log"
+      - "./log/php:/var/log"    
     networks:
-      front:
+      rest-network:
         ipv4_address: 172.16.202.4
       
   mailer:
@@ -55,13 +57,16 @@ services:
       - "1025:25"
       - "1080:1080"
     networks:
-      front:
+      rest-network:
         ipv4_address: 172.16.202.6
 
 networks:
-  front:
+  rest-network:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.16.202.0/24    
+        - subnet: 172.16.202.0/24
+
+volumes:
+  db_vol:
