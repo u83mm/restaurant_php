@@ -1,6 +1,8 @@
 <?php
     declare(strict_types=1);
 
+    namespace Application\Controller\reservations;
+
     use Application\Core\Controller;
     use model\classes\CommonTasks;
     use model\classes\Language;
@@ -10,7 +12,8 @@
     use model\classes\Validate;
    
     use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;    
+    use PHPMailer\PHPMailer\SMTP;
+    use Resend;
 
     class ReservationController extends Controller
     {
@@ -104,7 +107,7 @@
                     // Validate form                                             
                     if($validate->validate_form($this->fields)) {
                         // Send emails with Resend API to test functionality
-                        require_once SITE_ROOT . '/../vendor/autoload.php';                                       
+                        //require_once SITE_ROOT . '/../vendor/autoload.php';                                       
                         $resend = Resend::client(RESEND_API_KEY);
 
                         $resend->emails->send([

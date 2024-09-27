@@ -1,6 +1,9 @@
 <?php
     declare(strict_types=1);
 
+    namespace Application\Controller\orders;
+
+    use Application\Controller\Admin\ComandasController;
     use Application\Core\Controller;
     use model\classes\Language;
     use model\classes\Query;

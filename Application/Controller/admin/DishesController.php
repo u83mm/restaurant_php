@@ -1,6 +1,8 @@
 <?php   
     declare(strict_types=1);
 
+    namespace Application\Controller\admin;
+
     use Application\Core\Controller;
     use model\classes\CommonTasks;
     use model\classes\Dishe;
@@ -41,7 +43,7 @@
                 $total_rows = $query->selectCount('dishes', $this->dbcon);
                 $pagina = 1;
 
-                if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
+                if(!$total_rows) throw new \PDOException("No se han encontrado registros", 1);                
                 if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                 if($p && is_numeric($p)) $pagina = $p;                             
                 if($s && is_numeric($s)) $desde = $s;               
@@ -240,7 +242,7 @@
                     ImageDestroy($final_image);                	
                 }
                 else {
-                    throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
+                    throw new \Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
                 }
             } catch (\Exception $e) {
                 $this->message = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
@@ -257,7 +259,7 @@
                     /** Test price type, if isn't numeric delete picture from server and throw an exception*/
                     if(!is_numeric($this->fields['price'])){
                         $commonTask->deletePicture($upload_filename);                        
-                        throw new Exception("El campo 'Precio' debe ser numérico.");
+                        throw new \Exception("El campo 'Precio' debe ser numérico.");
                     }
 
                     /** Set picture path */
@@ -451,7 +453,7 @@
                         ImageDestroy($final_image);                	
                     }
                     else {
-                        throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
+                        throw new \Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
                     }
                 }                                                        
             } catch (\Exception $e) {
@@ -664,7 +666,7 @@
                         ]);                        
                     }
                     else {                        
-                        throw new Exception($validate->get_msg(), 1);                    
+                        throw new \Exception($validate->get_msg(), 1);                    
                     }
                 }
                 else {

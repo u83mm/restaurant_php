@@ -1,5 +1,7 @@
 <?php
-    declare(strict_types=1);        
+    declare(strict_types=1);   
+    
+    namespace Application\Controller\Admin;
 
     use Application\Core\Controller;
     use model\classes\Language;
