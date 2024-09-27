@@ -1,6 +1,8 @@
 <?php
     declare(strict_types=1);
 
+    namespace Application\Controller;
+
     use Application\Core\Controller;
     use model\captcha\SingleChar;
     use model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};

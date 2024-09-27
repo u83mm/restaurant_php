@@ -1,6 +1,8 @@
 <?php      
     declare(strict_types=1);
 
+    namespace Application\Controller\admin;
+
     use Application\Core\Controller;
     use model\classes\Query; 
 
@@ -23,7 +25,7 @@
 
                 /** Get the price from the form */
                 $price = $_REQUEST['price'] ?? "El precio del Menú del día debe de ser un dato numérico";                
-                if(!is_numeric($price)) throw new Exception($price);
+                if(!is_numeric($price)) throw new \Exception($price);
 
                 $fields = [
                     "price" => $price

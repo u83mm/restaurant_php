@@ -62,12 +62,12 @@
 
                 $file_name = $this->controllerRoute . $this->controllerName . ".php";
                 
-                if(file_exists($file_name)) {
-                    require_once($file_name);
+                if(file_exists($file_name)) {                    
+                    $controller_path = '\Application\Controller\\' . str_replace('/', '\\', $this->route) . $this->controllerName;                 
+                    
+                    $controller = new $controller_path;
 
-                    $controller = new $this->controllerName;                  
                     call_user_func_array([$controller, $this->method], []);
-
                 } 
                 else {                    
                     throw new \Exception("Page not found");
