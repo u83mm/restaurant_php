@@ -60,97 +60,104 @@
 						if($this->limited_access_data['failed_tries'] >= 3) $this->remaining_time = $this->limited_access_data['restriction_time'] - time();
 					}	
 					
-					if($_SERVER['REQUEST_METHOD'] === 'POST') {
-						// get values from the form
+					if($_SERVER['REQUEST_METHOD'] === 'POST') {						
+						// Get values from the form
 						$this->fields = [
 							'email'	=>	$validate->test_input($_REQUEST['email']),
 							'password'	=>	$validate->test_input($_REQUEST['password']),
 						];
 
-						// try to login
-						if($this->remaining_time <= 0) {
-							if($validate->validate_form($this->fields)) {
-								// hacemos la consulta a la DB				
-								$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
-	
-								try {
-									$stm = $this->dbcon->pdo->prepare($query);
-									$stm->bindValue(":val", $this->fields['email']);				
-									$stm->execute();					
-	
-									// si encuentra el usuario en la DB
-									if($stm->rowCount() == 1) {
-										$result = $stm->fetch(PDO::FETCH_ASSOC);					
-										
-										// comprueba que la contraseña introducida coincide con la de la DB
-										if(password_verify($this->fields['password'], $result['password'])) {												
-											$_SESSION['id_user'] = $result['id'];						
-											$_SESSION['user_name'] = $result['user_name'];
-											$_SESSION['role'] = $result['role'];												
-											$stm->closeCursor();
+						// Validate security csrf token
+						if(!$validate->validate_csrf_token()) {
+							$this->message = "<p class='alert alert-danger text-center'>Invalid CSRF token</p>";																					
+						}
+						else{
+							// Doing login
+							if($this->remaining_time <= 0) {							
+								// Validate form
+								if($validate->validate_form($this->fields)) {
+									// !TO DO: Improve this query											
+									$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
+		
+									try {
+										$stm = $this->dbcon->pdo->prepare($query);
+										$stm->bindValue(":val", $this->fields['email']);				
+										$stm->execute();					
+												
+										if($stm->rowCount() == 1) {
+											$result = $stm->fetch(PDO::FETCH_ASSOC);					
+											
+											// Test password
+											if(password_verify($this->fields['password'], $result['password'])) {												
+												$_SESSION['id_user'] = $result['id'];						
+												$_SESSION['user_name'] = $result['user_name'];
+												$_SESSION['role'] = $result['role'];												
+												$stm->closeCursor();
 
-											// Delete the restriction time
-											if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);										
-																			
-											header("Location: /");							
+												// Delete the restriction time
+												if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);										
+																				
+												header("Location: /");							
+											}
+											else {
+												$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
+											}			
+										}
+										else {		
+											$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
+										}
+
+										// Search if there is a restriction time
+										if(isset($this->limited_access_data['id'])) {																																										
+											// Update the restriction time										
+											$this->limited_access_data['failed_tries'] += 1;
+											$this->limited_access_data['restriction_time'] = time() + (5 * 60 );											
+											$query_object->updateRow("limit_access", $this->limited_access_data, $this->limited_access_data['id']);
 										}
 										else {
-											$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
-										}			
-									}
-									else {		
-										$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";																		
-									}
+											$this->limited_access_data['failed_tries'] = 1;
 
-									// Search if there is a restriction time
-									if(isset($this->limited_access_data['id'])) {																																										
-										// Update the restriction time										
-										$this->limited_access_data['failed_tries'] += 1;
-										$this->limited_access_data['restriction_time'] = time() + (5 * 60 );											
-										$query_object->updateRow("limit_access", $this->limited_access_data, $this->limited_access_data['id']);
-									}
-									else {
-										$this->limited_access_data['failed_tries'] = 1;
+											// Insert into table limit_access
+											$data = [
+												'ip' => $_SERVER['REMOTE_ADDR'],
+												'restriction_time' => time() + (5 * 60),
+												'failed_tries' => $this->limited_access_data['failed_tries'],
+												'created_at' => date('Y-m-d H:i:s')
+											];
 
-										// Insert into table limit_access
-										$data = [
-											'ip' => $_SERVER['REMOTE_ADDR'],
-											'restriction_time' => time() + (5 * 60),
-											'failed_tries' => $this->limited_access_data['failed_tries'],
-											'created_at' => date('Y-m-d H:i:s')
-										];
-
-										if($validate->validate_form($data)) {											
-											$query_object->insertInto("limit_access", $data);
+											if($validate->validate_form($data)) {											
+												$query_object->insertInto("limit_access", $data);
+											}
 										}
+										
+									} catch (\Throwable $th) {					
+										$this->message = "<p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+										
+										$this->render("/view/database_error.php", [
+											'message'	=>	$this->message
+										]);				
 									}
-									
-								} catch (\Throwable $th) {					
-									$this->message = "<p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
-									
-									$this->render("/view/database_error.php", [
-										'message'	=>	$this->message
-									]);				
+								}
+								else {
+									$this->message = $validate->get_msg();
 								}
 							}
 							else {
-								$this->message = $validate->get_msg();
-							}
-						}
-						else {
-							$this->limited_access_data['failed_tries'] = 0;
+								$this->limited_access_data['failed_tries'] = 0;
 
-							// Display message with remaining time (formatted)
-							$minutes = floor($this->remaining_time / 60);
-							$seconds = $this->remaining_time % 60;
-							
-							$this->message = "<p class='alert alert-danger text-center'>Please wait for " . $minutes . " minutes and " . $seconds . " seconds before trying again.</p>";							
-						}												
+								// Display message with remaining time (formatted)
+								$minutes = floor($this->remaining_time / 60);
+								$seconds = $this->remaining_time % 60;
+								
+								$this->message = "<p class='alert alert-danger text-center'>Please wait for " . $minutes . " minutes and " . $seconds . " seconds before trying again.</p>";							
+							}
+						}																		
 					}
 					
 					$this->render("/view/login_view.php", [
 						'message'	=>	$this->message,
-						'fields'	=>	$this->fields
+						'fields'	=>	$this->fields,
+						'csrf' 		=> 	$validate->csrf_token()
 					]);
 				}
 				else {		
