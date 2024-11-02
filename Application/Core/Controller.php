@@ -15,7 +15,7 @@
                 if($data) extract($data);
     
                 require_once(SITE_ROOT . "/../Application" . $path);
-                //die;
+                die;
     
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1); 
