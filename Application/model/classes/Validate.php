@@ -69,7 +69,7 @@
             return $this->msg;
         }
 
-         /**
+        /**
          * Generate and store a CSRF token in the session
          *
          * @return string The generated CSRF token
