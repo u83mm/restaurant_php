@@ -122,7 +122,7 @@
             $menuDaySections = $this->queryMenu->getMenuDayElements();
 
             /** We obtain the dishe info to show */           
-            $dishe = $this->queryMenu->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
+            $dishe = $this->queryMenu->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   
             

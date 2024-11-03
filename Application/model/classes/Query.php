@@ -194,28 +194,28 @@
 
 
         /**
-         * Select one registry by their "id" doing JOIN with another table by their foreign key
+         * Select one registry by their "fieldName" doing JOIN with another table by their foreign key
          */
-        public function selectOneByIdInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldId, string $id):array
+        public function selectOneByFieldNameInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldName, string $field) :array|bool
         {
             $query = "SELECT * FROM $table1 
                         INNER JOIN $table2
                         ON $table1.$foreignKeyField = $table2.$foreignKeyField
-                        WHERE $table1.$fieldId = :id";
+                        WHERE $table1.$fieldName = :field";
                     
             try {
                 $stm = $this->dbcon->pdo->prepare($query);
-                $stm->bindValue(":id", $id);                            
+                $stm->bindValue(":field", $field);                            
                 $stm->execute();       
                 $rows = $stm->fetch(PDO::FETCH_ASSOC);            
                 $stm->closeCursor();
 
-                return $rows;
+                return $rows ?? false;
 
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);                
             }
-        } 
+        }
 
 
         /**
