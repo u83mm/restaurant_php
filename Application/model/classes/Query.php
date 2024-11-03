@@ -199,8 +199,8 @@
         public function selectOneByFieldNameInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldName, string $field) :array|bool
         {
             $query = "SELECT * FROM $table1 
-                        INNER JOIN $table2
-                        ON $table1.$foreignKeyField = $table2.$foreignKeyField
+                        INNER JOIN $table2                        
+                        USING ($foreignKeyField)
                         WHERE $table1.$fieldName = :field";
                     
             try {
