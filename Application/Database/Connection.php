@@ -8,7 +8,7 @@
 	class Connection {
 		const ERROR_UNABLE = 'ERROR: Unable to create database connection';
 		
-		public $pdo;
+		public PDO $pdo;
 		
 		public function __construct(array $config) {
 			if(!isset($config['driver'])) {

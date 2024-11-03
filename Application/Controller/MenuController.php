@@ -13,7 +13,11 @@
     {
         private Language $languageObject;
 
-        public function __construct(private object $dbcon = DB_CON, private array $language = [])      
+        public function __construct(
+            private object $dbcon = DB_CON, 
+            private array $language = [],
+            private QueryMenu $queryMenu = new QueryMenu()
+        )      
         {
             $this->languageObject = new Language();
 
@@ -26,14 +30,12 @@
          * day price.
          */
         public function index(): void
-        {                                            
-            $menuDay = new QueryMenu(); 
-
+        {                                                        
             /** Get dishes, dessert and price to show in the Day's menu aside section */
-            $menuDaySections = $menuDay->getMenuDayElements();
+            $menuDaySections = $this->queryMenu->getMenuDayElements();
 
             /** Show Menu's categories */
-            $menuCategories = $menuDay->selectAll("dishes_menu");            
+            $menuCategories = $this->queryMenu->selectAll("dishes_menu");            
             $showResult = "";            
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
@@ -69,12 +71,10 @@
          */
         public function showDishesByTheirCategory(string $category = null): void
         { 
-            global $id;
-            
-            $menuDishes = new QueryMenu(); 
+            global $id;                        
 
             if(!isset($_REQUEST['category'])) {
-                $rows = $menuDishes->selectFieldsFromTableById(
+                $rows = $this->queryMenu->selectFieldsFromTableById(
                     ['menu_category'], 
                     'dishes_menu', 
                     'menu_id', 
@@ -92,11 +92,11 @@
             $category = $this->language[$category];
                                         
             /** Get dishes, dessert and price to show in the Day's menu aside section */
-            $menuDaySections = $menuDishes->getMenuDayElements();
+            $menuDaySections = $this->queryMenu->getMenuDayElements();
                        
             /** Show dishes */
-            $rows = $menuDishes->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
-            $showResult = $menuDishes->showMenuListByCategory($rows, $category);                          
+            $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
+            $showResult = $this->queryMenu->showMenuListByCategory($rows, $category);                          
                      
             $this->render("/view/menu/category_view.php", [
                 'menuDaySections'   =>  $menuDaySections,
@@ -115,15 +115,14 @@
         { 
             global $id;                       
             
-            $_SESSION['dishe_id'] = isset($id) ? $id : null;                           
-            $menuDishes = new QueryMenu();
+            $_SESSION['dishe_id'] = isset($id) ? $id : null;                                       
             $commonTask = new CommonTasks(); 
                       
             /** Get dishes, dessert and price to show in the Day's menu aside section */
-            $menuDaySections = $menuDishes->getMenuDayElements();
+            $menuDaySections = $this->queryMenu->getMenuDayElements();
 
             /** We obtain the dishe info to show */           
-            $dishe = $menuDishes->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
+            $dishe = $this->queryMenu->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   
             
@@ -145,18 +144,14 @@
                                
 
             /** Create objects */
-
-            $pdf = new MyPdf();
-            $menu = new QueryMenu(); 
+            $pdf = new MyPdf();            
 
                   
             /** We obtain Menu's categories */
-
-            $menuCategories = $menu->selectAll("dishes_menu");    
+            $menuCategories = $this->queryMenu->selectAll("dishes_menu");    
             
 
-            /** Start to build the menu */
-           
+            /** Start to build the menu */           
             $pdf->title = ucwords($this->language['our_menu']);           
             $pdf->SetFillColor(0, 54.5, 54.5);           
             $pdf->AddPage();
@@ -165,7 +160,6 @@
 
 
             /** Show all the categories and their dishes*/
-
             foreach ($menuCategories as $key => $category) {                
                 $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category['menu_category']])), 0, 0, '');
                 $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                                
@@ -174,8 +168,7 @@
 
 
                 /** Show dishes */
-
-                $rows = $menu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
+                $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
 
                 foreach ($rows as $key => $value) {                    
                     $pdf->SetFont('GreatVibes','',14);
@@ -195,6 +188,5 @@
             
             $pdf->Output('', 'Menu.pdf');            
         }
-    }
-    
+    }    
 ?>
