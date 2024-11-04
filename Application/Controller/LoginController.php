@@ -75,24 +75,22 @@
 							// Doing login
 							if($this->remaining_time <= 0) {							
 								// Validate form
-								if($validate->validate_form($this->fields)) {
-									// !TO DO: Improve this query											
-									$query = "SELECT * FROM user INNER JOIN roles ON user.id_role = roles.id_role WHERE email = :val";
-		
-									try {
-										$stm = $this->dbcon->pdo->prepare($query);
-										$stm->bindValue(":val", $this->fields['email']);				
-										$stm->execute();					
-												
-										if($stm->rowCount() == 1) {
-											$result = $stm->fetch(PDO::FETCH_ASSOC);					
-											
+								if($validate->validate_form($this->fields)) {											
+									try {										
+										if(
+											$result = $query_object->selectOneByFieldNameInnerjoinOnfield(
+												'user', 
+												'roles', 
+												'id_role', 
+												'email', 
+												$this->fields['email']
+											)
+										) {																									
 											// Test password
 											if(password_verify($this->fields['password'], $result['password'])) {												
 												$_SESSION['id_user'] = $result['id'];						
 												$_SESSION['user_name'] = $result['user_name'];
-												$_SESSION['role'] = $result['role'];												
-												$stm->closeCursor();
+												$_SESSION['role'] = $result['role'];																								
 
 												// Delete the restriction time
 												if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);										

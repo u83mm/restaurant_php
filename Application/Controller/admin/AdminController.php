@@ -125,7 +125,7 @@
             $query = new Query();
 
             try {                
-                $user = $query->selectOneByIdInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id, $this->dbcon);
+                $user = $query->selectOneByFieldNameInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id, $this->dbcon);
 
                 $this->fields = [
                     'user_name' => $user['user_name'],

@@ -333,8 +333,8 @@
                  * elements in forms views 
                  * */ 
 
-                $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
-                $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
+                $dishe = $query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                $disheType = $query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
                 /** Showing dishe_picture in show info */                
                 $commonTask = new CommonTasks();                
