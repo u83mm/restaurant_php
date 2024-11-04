@@ -41,7 +41,8 @@
         public function __construct(            
             private string $message = "",
             private array $fields = [],
-            private Query $query = new Query()
+            private Query $query = new Query(),
+            private OrderRepository $orderRepository = new OrderRepository()
         )
         {
             $this->languageObject = new Language();
@@ -299,8 +300,7 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);                        
             
-            $order = new Order();
-            $orderRepository = new OrderRepository();
+            $order = new Order();           
             
             $id = !empty($_POST['id']) ? intval($_POST['id']) : "";                                   
 
@@ -328,7 +328,7 @@
                     $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
                                        
                     /** Update the order */
-                    $orderRepository->updateOrder($order);                                        
+                    $this->orderRepository->updateOrder($order);                                        
                 }                           
                 
                 $_SESSION['message'] = "<p class='alert alert-success text-center'>Order update successfully</p>";                
@@ -361,12 +361,11 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
             
-            $id = isset($_POST['id']) ? $_POST['id'] : "";
-            $orderRepository = new OrderRepository();
+            $id = isset($_POST['id']) ? $_POST['id'] : "";            
             
             try {
                 if($id) {
-                    $orderRepository->deleteRegistry("orders", "id", $id);
+                    $this->orderRepository->deleteRegistry("orders", "id", $id);
                     $this->message = "<p class='alert alert-success text-center'>Order deleted!</p>";                    
                 } 
                 
@@ -393,8 +392,7 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
                         
-            $order = new Order();
-            $orderRepository = new OrderRepository();
+            $order = new Order();            
         
             $id = $_POST['id'];
 
@@ -475,7 +473,7 @@
             try {
                 /** Update the order */
 
-                $orderRepository->updateOrder($order);
+                $this->orderRepository->updateOrder($order);
                 $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
                 $this->resetOrder();
 
