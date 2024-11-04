@@ -10,7 +10,7 @@
     use model\repositories\OrderRepository;
 
     class ComandasController extends Controller
-    {
+    {        
         /** Create arrays for diferent sections to show */
 
         private array $aperitifs          = [];
@@ -38,10 +38,10 @@
         private array $language = [];
         private Language $languageObject;
 
-        public function __construct(
-            private object $dbcon = DB_CON, 
+        public function __construct(            
             private string $message = "",
-            private array $fields = []
+            private array $fields = [],
+            private Query $query = new Query()
         )
         {
             $this->languageObject = new Language();
@@ -64,12 +64,11 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
-            $_SESSION['action'] = "index";            
-
-            $query  = new Query();                        
+            $_SESSION['action'] = "index";
+            unset($_SESSION['message']);                                              
 
             try {                
-                $result = $query->selectAll('orders');
+                $result = $this->query->selectAll('orders');
                 
                 $this->render('/view/admin/comandas/index_view.php', [
                     'message' => $this->message,
@@ -101,12 +100,10 @@
             $this->testAccess(['ROLE_ADMIN']);            
             
             $_SESSION['action'] = "show";
-            $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];        
+            $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];                
 
-            try {
-                $query = new Query();
-
-                $result = $query->selectAllBy('orders', 'id', $_SESSION['id']);
+            try {                
+                $result = $this->query->selectAllBy('orders', 'id', $_SESSION['id']);
                 $row   = []; 
 
                 $id           = $result[0]['id'];
@@ -160,9 +157,7 @@
                     'message' => $this->message,
                     'fields' => $this->fields,
                     'row' => $row
-                ]);
-
-                unset($_SESSION['message']);                   
+                ]);                                   
                                 
             } catch (\Throwable $th) {
                 $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -333,7 +328,7 @@
                     $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
                                        
                     /** Update the order */
-                    $orderRepository->updateOrder($order, $this->dbcon);                                        
+                    $orderRepository->updateOrder($order);                                        
                 }                           
                 
                 $_SESSION['message'] = "<p class='alert alert-success text-center'>Order update successfully</p>";                
@@ -371,7 +366,7 @@
             
             try {
                 if($id) {
-                    $orderRepository->deleteRegistry("orders", "id", $id, $this->dbcon);
+                    $orderRepository->deleteRegistry("orders", "id", $id);
                     $this->message = "<p class='alert alert-success text-center'>Order deleted!</p>";                    
                 } 
                 
@@ -397,14 +392,13 @@
         {
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
-            
-            $query = new Query();
+                        
             $order = new Order();
             $orderRepository = new OrderRepository();
         
             $id = $_POST['id'];
 
-            $result = $query->selectOneBy('orders', 'id', $id);                                                    
+            $result = $this->query->selectOneBy('orders', 'id', $id);                                                    
         
 
             /* We convert strings fields in arrays fields with their values */
@@ -481,7 +475,7 @@
             try {
                 /** Update the order */
 
-                $orderRepository->updateOrder($order, $this->dbcon);
+                $orderRepository->updateOrder($order);
                 $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
                 $this->resetOrder();
 
