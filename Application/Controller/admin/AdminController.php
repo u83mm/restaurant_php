@@ -15,9 +15,10 @@
         private Language $languageObject;
 
         public function __construct(
-            private object $dbcon = DB_CON, 
+            
             private string $message = "",
-            private array $fields = []             
+            private array $fields = [],
+            private Query $query = new Query()            
         )
         {
             $this->languageObject = new Language(); 
@@ -47,9 +48,8 @@
         {    
             /** Check for user`s sessions */                        
             $this->testAccess(['ROLE_ADMIN']);
-
-            $query = new Query();
-            $rows = $query->selectAllInnerjoinByField('user', 'roles', 'id_role', $this->dbcon);				                                    
+           
+            $rows = $this->query->selectAllInnerjoinByField('user', 'roles', 'id_role');				                                    
             
             $this->render("/view/admin/index_view.php", [
                 'rows' => $rows,
@@ -63,8 +63,7 @@
             /** Check for user`s sessions */            
             $this->testAccess(['ROLE_ADMIN']);
             
-            $validate = new Validate();
-            $query = new Query();                                
+            $validate = new Validate();                                         
 
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -75,13 +74,13 @@
                     ];
 
                     if($validate->validate_form($this->fields)) {
-                        $rows = $query->selectOneBy("user", "email", $this->fields['email']);                    
+                        $rows = $this->query->selectOneBy("user", "email", $this->fields['email']);                    
 
                         if($rows) {                                             
                             $this->message = "<p class='alert alert-danger text-center'>El email '{$this->fields['email']}' ya está registrado</p>";                                                 										
                         }
                         else {                            
-                            $query->insertInto('user', $this->fields);                        
+                            $this->query->insertInto('user', $this->fields);                        
                                                                                                 
                             $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['created_user']) . "</p>";                        
                             $this->index();
@@ -120,19 +119,17 @@
             /** Check for user`s sessions */            
             $this->testAccess(['ROLE_ADMIN']);
 
-            global $id;                        
-	
-            $query = new Query();
+            global $id;                        	            
 
             try {                
-                $user = $query->selectOneByFieldNameInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id, $this->dbcon);
+                $user = $this->query->selectOneByFieldNameInnerjoinOnfield('user', 'roles', 'id_role', 'id', $id);
 
                 $this->fields = [
                     'user_name' => $user['user_name'],
                     'email'     => $user['email']
                 ];
                 
-                $roles = $query->selectAll('roles');
+                $roles = $this->query->selectAll('roles');
                 
                 $this->render("/view/admin/user_show_view.php", [
                     'message'   => $this->message,
@@ -168,8 +165,7 @@
 
             try {
                 /** We create the instances to objects */
-                $validate = new Validate();
-                $query = new Query();
+                $validate = new Validate();               
 
                 /** We get values from form */                
                 $this->fields = [
@@ -181,7 +177,7 @@
 
                 /** Fix warnings when show the alert message on updating the user and we change the language */                
                 if(empty($this->fields['id'])) {
-                    $user = $query->selectOneBy("user", "id", $id);                    
+                    $user = $this->query->selectOneBy("user", "id", $id);                    
                     
                     /** Setting properties */
                     $this->fields = [
@@ -199,7 +195,7 @@
                 }
                 
                 /** Save data */
-                $query->updateRegistry("user", $this->fields, 'id', $this->dbcon);
+                $this->query->updateRegistry("user", $this->fields, 'id');
                 $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['row_updated']) . "</p>";                                    
                 $this->index();
 
@@ -230,8 +226,7 @@
             global $id;            
 
             /** Build objects */
-            $validate = new Validate();
-            $query = new Query();            
+            $validate = new Validate();                   
                         
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -245,7 +240,7 @@
                         if ($this->fields['password'] !== $this->fields['new_password']) {
                             $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
                         } else {                        
-                            $query->updatePassword("user", $this->fields['new_password'], $id, $this->dbcon);
+                            $this->query->updatePassword("user", $this->fields['new_password'], $id);
     
                             $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
                         } 
@@ -288,9 +283,8 @@
 
             if(!isset($id_user)) $this->index();
 	
-            try {
-                $query = new Query();
-                $query->deleteRegistry("user", "id", $id_user, $this->dbcon);
+            try {               
+                $this->query->deleteRegistry("user", "id", $id_user);
                 $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['delected_user']) . "</p>";
                 $this->index();
 
