@@ -124,7 +124,7 @@
          * @param object dbcon  is an object representing the database connection. It is used to
          * prepare and execute the SQL query.
          */
-        public function updateRegistry(string $table, array $fields, string $primary_key_name, object $dbcon): void
+        public function updateRegistry(string $table, array $fields, string $primary_key_name): void
         {
             $query = "UPDATE $table SET";
             $params = [];
@@ -139,7 +139,7 @@
             $params[":$primary_key_name"] = $fields[$primary_key_name];                        
                                                   
             try {
-                $stm = $dbcon->pdo->prepare($query);                        
+                $stm = $this->dbcon->pdo->prepare($query);                        
                 $stm->execute($params);       				
                 $stm->closeCursor();
                 $dbcon = null;
@@ -158,17 +158,16 @@
          * @param string id_user The `id_user` parameter
          * @param object dbcon The `dbcon` parameter
          */
-        public function updatePassword(string $table, string $password, string $id_user, object $dbcon): void
+        public function updatePassword(string $table, string $password, string $id_user): void
         {
             $query = "UPDATE $table SET password = :password WHERE id = :id_user";                 
                         
             try {
-                $stm = $dbcon->pdo->prepare($query); 
+                $stm = $this->dbcon->pdo->prepare($query); 
                 $stm->bindValue(":password", password_hash($password, PASSWORD_DEFAULT));				            
                 $stm->bindValue(":id_user", $id_user);              
                 $stm->execute();       				
-                $stm->closeCursor();
-                $dbcon = null;
+                $stm->closeCursor();                
 
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);
