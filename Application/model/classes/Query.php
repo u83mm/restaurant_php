@@ -35,16 +35,15 @@
         /**
          * Select count from "table name"
          */
-        public function selectCount(string $table, object $dbcon): mixed     
+        public function selectCount(string $table): mixed     
         {
             $query = "SELECT COUNT(*) FROM $table";                 
 
             try {
-                $stm = $dbcon->pdo->prepare($query);               
+                $stm = $this->dbcon->pdo->prepare($query);               
                 $stm->execute();       
                 $rows = $stm->fetchColumn();
-                $stm->closeCursor();
-                $dbcon = null;
+                $stm->closeCursor();                
 
                 return $rows;
 

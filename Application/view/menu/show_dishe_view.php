@@ -56,7 +56,10 @@
 		</div>
 		<div class="row">
 			<form class="mb-3 text-center text-lg-start" action="/menu/showDishesByTheirCategory/<?php echo $dishe['menu_id']; ?>" method="post">
-				<button class="btn btn-primary" type="submit" name="category" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>			
+				<button class="btn btn-primary" type="submit" name="category" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>
+				<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
+				<a class="btn btn-outline-success" href="/admin/dishes/edit/<?php echo $dishe['dishe_id']; ?>"><?php echo ucfirst($home->language['edit']); ?></a>
+				<?php endif ?>
 			</form>			
 		</div>			
 	</section>
