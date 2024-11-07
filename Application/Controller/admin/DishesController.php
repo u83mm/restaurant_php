@@ -29,7 +29,7 @@
         public function index(): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            $this->testAccess(['ROLE_ADMIN']);                 
             
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
@@ -84,9 +84,7 @@
                     "total_rows"    => $total_rows,
                     "message"       => $this->message,
                     "commonTask"    => $commonTask
-                ]);
-
-                unset($_SESSION['message']);
+                ]);                
             }                      
             catch (\Throwable $th) {
                 $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -435,7 +433,7 @@
                                 "Posiblemente esté relacionado con los permisos en las carpetas " .
                                 "de destino {$upload_filename}", 1);
 
-                        /** Redimensionado de imágen */
+                        /** Redimensionado de imagen */
                         $file_name = $upload_filename; // ruta al archivo del servidor							
                         $w = 600; // ancho para la nueva imagen
                         $h = 400; // alto para la nueva imagen
@@ -510,7 +508,7 @@
                     
                     $_SESSION['message'] = $this->message;
                     
-                    header("Location: /admin/dishes/index");
+                    header("Location: /admin/dishes/index");                    
 
                 } else {
                     $this->message = $validate->get_msg();

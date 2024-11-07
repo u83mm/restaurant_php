@@ -15,6 +15,7 @@
                 if($data) extract($data);
     
                 require_once(SITE_ROOT . "/../Application" . $path);
+                unset($_SESSION['message']);
                 die;
     
             } catch (\Throwable $th) {
