@@ -10,17 +10,19 @@
     <div class="col-12 col-md-6 mx-auto credentials">
         <?php echo $message ?? ""; ?>
         <h3 class="text-center"><?php echo strtoupper($page->language['register_form']); ?></h3>
-        <form action="#" method="post">            
+        <form action="<?php echo PATH; ?>" method="post"> 
+            <input type="hidden" name="csrf_token" value="<?php if(isset($csrf)) echo $csrf; ?>">
+            <?php if(isset($fields)) extract($fields); ?>           
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="user_name">User:</label>
                 <div class="col-12 col-md-8">
-                    <input class="form-control" type="text" name="user_name" id="user_name" value="<?php if(isset($fields['user_name'])) echo $fields['user_name']; ?>" required>
+                    <input class="form-control" type="text" name="user_name" id="user_name" value="<?php if(isset($name)) echo $name; ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="password">Password:</label>
                 <div class="col-10 col-md-7 pe-0">
-                    <input class="form-control" type="password" name="password" id="password" value="<?php if(isset($fields['password'])) echo $fields['password']; ?>" required>
+                    <input class="form-control" type="password" name="password" id="password" value="<?php if(isset($password)) echo $password; ?>" required>
                 </div>
                 <div class="col-1 col-md-1 ms-2 me-2 m-md-0 d-flex p-0 justify-content-center align-items-center">
                     <img class="show_password" src="/images/eye.svg" alt="eye" height="20">
@@ -29,7 +31,7 @@
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end  col-form-label" for="email">Email:</label>
                 <div class="col-12 col-md-8">
-                    <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($fields['email'])) echo $fields['email']; ?>" required>
+                    <input class="form-control" type="email" name="email" id="email" value="<?php if(isset($email)) echo $email; ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">
