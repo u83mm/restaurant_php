@@ -1,7 +1,7 @@
 <?php    
     declare(strict_types=1);
 
-    namespace Application\Controller\Admin;
+    namespace Application\Controller\admin;
 
     use Application\Core\Controller;
     use model\classes\Language;
@@ -28,7 +28,7 @@
         }
 
         /** Show main menus views */
-        public function adminMenus(string $message = null):void
+        public function adminMenus(string $message = ""):void
         {
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);

@@ -3,14 +3,14 @@
 
     namespace Application\Controller\admin;
 
+    use Application\Controller\admin\AdminController;
     use Application\Core\Controller;
     use model\classes\Query; 
 
     class MenuDayController extends Controller
     {
-        public function __construct(
-            private object $dbcon = DB_CON,
-            private $message = ""
+        public function __construct(            
+            private string $message = ""
         )
         {
             
@@ -21,10 +21,10 @@
             try { 
                 /** Build the objects */
                 $query = new Query();
-                $adminController = new AdminController($this->dbcon);
+                $adminController = new AdminController();
 
                 /** Get the price from the form */
-                $price = $_REQUEST['price'] ?? "El precio del Menú del día debe de ser un dato numérico";                
+                $price = floatval($_REQUEST['price']) ?? "El precio del Menú del día debe de ser un dato numérico";                
                 if(!is_numeric($price)) throw new \Exception($price);
 
                 $fields = [
@@ -32,8 +32,8 @@
                 ];
                 
                 # Código para almacenar el dato en la tabla "menu_day_price"
-                $rows = $query->selectCount("menu_day_price", $this->dbcon);
-                if($rows) $query->truncateTable("menu_day_price", $this->dbcon);
+                $rows = $query->selectCount("menu_day_price");
+                if($rows) $query->truncateTable("menu_day_price");
 
                 $query->insertInto("menu_day_price",$fields);
                 $this->message = "<p class='alert alert-success text-center'>Precio actualizado</p>";
