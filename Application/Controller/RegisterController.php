@@ -35,47 +35,54 @@
 			/** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
+			$validate = new Validate;
+
 			try {
 				/** Test page language */
                 $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
 
-				if($_SERVER['REQUEST_METHOD'] === 'POST') {	
-					$validate = new Validate;					
-
+				if($_SERVER['REQUEST_METHOD'] === 'POST') {											
 					$this->fields = [
-						'name' =>	isset($_REQUEST) ? $validate->test_input($_REQUEST['user_name']) : "",
+						'name' 		=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['user_name']) : "",
 						'password'	=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['password']) : "",
-						'email'		=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['email']) : ""
+						'email'		=>	isset($_REQUEST) ? $validate->test_input($_REQUEST['email']) : "",						
 					];
 
-					if($validate->validate_form($this->fields)) {
-						$query = new Query();
-	
-						$rows = $query->selectAllBy("user", "email", $this->fields['email']);
-	
-						if($rows) {
-							$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
-						}
-						else {	
-							$user = new User($this->fields);						
-							$userRepository = new UserRepository(); 
-							
-							$userRepository->save($user);			
-							$this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>";
-
-							$this->render("/view/database_error.php", [
-								'message'	=>	$this->message
-							]);
-						}
+					// Validate security csrf token
+					if(!$validate->validate_csrf_token()) {
+						$this->message = "<p class='alert alert-danger text-center'>Invalid CSRF token</p>";												
 					}
 					else {
-						$this->message = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
-					}					
+						if($validate->validate_form($this->fields)) {
+							$query = new Query();
+		
+							$rows = $query->selectAllBy("user", "email", $this->fields['email']);
+		
+							if($rows) {
+								$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['email_registered']) . "</p>";																	
+							}
+							else {	
+								$user = new User($this->fields);						
+								$userRepository = new UserRepository(); 
+								
+								$userRepository->save($user);			
+								$this->message = "<p class='alert alert-success text-center'>El usuario se ha registrado correctamente</p>";
+	
+								$this->render("/view/database_error.php", [
+									'message'	=>	$this->message
+								]);
+							}
+						}
+						else {
+							$this->message = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
+						}
+					}										
 				}								
 				
 				$this->render("/view/register_view.php", [
 					'message'	=>	$this->message,
-					'fields'	=>	$this->fields
+					'fields'	=>	$this->fields,
+					'csrf' 		=> 	$validate->csrf_token()
 				]);
 
 			} catch (\Throwable $th) {			
