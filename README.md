@@ -35,7 +35,7 @@ http://localhost:8080/
 user: admin
 passwd: admin
 ```
-5.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "Restaurant" directory.
+5.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "MariaDB" directory.
 
 6.- Go to your localhost in the browser and you can do login.
 ```

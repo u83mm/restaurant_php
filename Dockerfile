@@ -37,8 +37,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configure virtual host
 RUN mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.old
 RUN mv /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.old
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+COPY /apache_conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY /apache_conf/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
 # Config files for php.ini and apache2.conf
 RUN mv /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini-development.old
