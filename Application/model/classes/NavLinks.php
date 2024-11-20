@@ -38,7 +38,7 @@
 				"Administration"	=>	"/admin/admin/adminMenus",
 				"Orders"			=>	"/orders/order/new",
                 "Reservations"		=> 	"/reservations/reservation/index",
-				"Login "			=> 	"/login",
+				"Login"			    => 	"/login",
             ];
 
             return $this->nav_links;
@@ -64,7 +64,7 @@
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu",								
 				"Orders"			=>	"/orders/order/new",
-				"Login "			=> 	"/login",
+				"Login"			    => 	"/login",
             ];
 
             return $this->nav_links;
@@ -90,7 +90,7 @@
                 "Home"				=>	"/",
 				"Menu"				=> 	"/menu",				
                 "Reservations"		=> 	"/reservations/reservation/index",			
-				"Login "			=> 	"/login",                
+				"Login"			    => 	"/login",                
             ];
 
             return $this->nav_links;

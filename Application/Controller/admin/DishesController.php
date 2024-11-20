@@ -1,11 +1,12 @@
 <?php   
     declare(strict_types=1);
 
+    namespace Application\Controller\admin;
+
     use Application\Core\Controller;
     use model\classes\CommonTasks;
     use model\classes\Dishe;
-    use model\classes\Language;
-    use model\classes\Query;
+    use model\classes\Language;    
     use model\classes\QueryMenu;
     use model\classes\Validate;        
 
@@ -17,7 +18,9 @@
             private object $dbcon = DB_CON, 
             private array $language = [],
             private string $message = "",
-            private array $fields = []
+            private array $fields = [],
+            private QueryMenu $query = new QueryMenu(),
+            private CommonTasks $commonTask = new CommonTasks()
         )      
         {
             $this->languageObject = new Language();
@@ -27,7 +30,7 @@
         public function index(): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            $this->testAccess(['ROLE_ADMIN']);                 
             
             $p = $_POST['p'] ?? $_GET['p'] ?? $p = null;
 	        $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;
@@ -35,13 +38,12 @@
             try {                                
                 /** Calculate necesary pages for pagination */ 
                 $pagerows = 6; // Number of rows for page.
-                $desde = 0;
-                $query = new Query();
+                $desde = 0;                
 
-                $total_rows = $query->selectCount('dishes', $this->dbcon);
+                $total_rows = $this->query->selectCount('dishes');
                 $pagina = 1;
 
-                if(!$total_rows) throw new PDOException("No se han encontrado registros", 1);                
+                if(!$total_rows) throw new \PDOException("No se han encontrado registros", 1);                
                 if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                 if($p && is_numeric($p)) $pagina = $p;                             
                 if($s && is_numeric($s)) $desde = $s;               
@@ -65,8 +67,7 @@
                 $stm->closeCursor();
 
                 /** Variables to manage in view file */                
-                $field = null;
-                $commonTask = new CommonTasks();
+                $field = null;                
                 $critery = "";                          
 
                 /** Render view file */
@@ -81,10 +82,8 @@
                     "last"          => $last,
                     "total_rows"    => $total_rows,
                     "message"       => $this->message,
-                    "commonTask"    => $commonTask
-                ]);
-
-                unset($_SESSION['message']);
+                    "commonTask"    => $this->commonTask
+                ]);                
             }                      
             catch (\Throwable $th) {
                 $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
@@ -111,10 +110,9 @@
             unset($_SESSION['action']);
 
             try {
-                // We obtain all registries in "dishes" tables          
-                $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day");
-                $categoriesDishesMenu = $query->selectAll("dishes_menu");
+                // We obtain all registries in "dishes" tables                          
+                $categoriesDishesDay = $this->query->selectAll("dishes_day");
+                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
                 
                 
                 $this->render("/view/admin/dishes/new_view.php", [
@@ -173,10 +171,9 @@
                 ;
 
 
-                // We obtain all registries in "dishes" tables           
-                $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day");
-                $categoriesDishesMenu = $query->selectAll("dishes_menu");
+                // We obtain all registries in "dishes" tables                           
+                $categoriesDishesDay = $this->query->selectAll("dishes_day");
+                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
                 
 
                 // Validate entries
@@ -225,13 +222,12 @@
                     $h = 400; // alto para la nueva imagen
 
                             
-                    // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
-                    $commonTask = new CommonTasks();
-                    $original = $commonTask->createImageFromSource($file_name, $type);
+                    // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)                   
+                    $original = $this->commonTask->createImageFromSource($file_name, $type);
 
         
                     // redimensiona la imagen
-                    $final_image = $commonTask->resizeImage($original, $w, $h);
+                    $final_image = $this->commonTask->resizeImage($original, $w, $h);
 
         
                     // reemplaza la imagen del servidor
@@ -240,7 +236,7 @@
                     ImageDestroy($final_image);                	
                 }
                 else {
-                    throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
+                    throw new \Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");                    	
                 }
             } catch (\Exception $e) {
                 $this->message = "<p>Descripción del error: <span class='error'>{$e->getMessage()}</span></p>";
@@ -256,8 +252,8 @@
                 if($validate->validate_form($this->fields)) {                                                                                             
                     /** Test price type, if isn't numeric delete picture from server and throw an exception*/
                     if(!is_numeric($this->fields['price'])){
-                        $commonTask->deletePicture($upload_filename);                        
-                        throw new Exception("El campo 'Precio' debe ser numérico.");
+                        $this->commonTask->deletePicture($upload_filename);                        
+                        throw new \Exception("El campo 'Precio' debe ser numérico.");
                     }
 
                     /** Set picture path */
@@ -267,7 +263,7 @@
                     $dishe = new Dishe($this->fields);
                     
                     /** Insert dish into database */
-                    $query->insertInto("dishes", $dishe);
+                    $this->query->insertInto("dishes", $dishe);
                     
                     $this->dbcon->pdo->commit();
 
@@ -317,10 +313,9 @@
             global $id;
 
             try {
-                // We obtain all registries in "dishes_day" and "dishes_menu" tables            
-                $query = new Query();
-                $categoriesDishesDay = $query->selectAll("dishes_day");
-                $categoriesDishesMenu = $query->selectAll("dishes_menu");
+                // We obtain all registries in "dishes_day" and "dishes_menu" tables                           
+                $categoriesDishesDay = $this->query->selectAll("dishes_day");
+                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
 
 
                 /** Get the id */
@@ -331,12 +326,11 @@
                  * elements in forms views 
                  * */ 
 
-                $dishe = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
-                $disheType = $query->selectOneByIdInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
+                $dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                $disheType = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
-                /** Showing dishe_picture in show info */                
-                $commonTask = new CommonTasks();                
-                $dishePicture = $commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                                
+                /** Showing dishe_picture in show info */                                                
+                $dishePicture = $this->commonTask->getWebPath($dishe['picture'] ?? $dishe['picture'] = "");                                
 
                 $this->render("/view/admin/dishes/edit_view.php", [
                     "message"              => $this->message,
@@ -433,17 +427,16 @@
                                 "Posiblemente esté relacionado con los permisos en las carpetas " .
                                 "de destino {$upload_filename}", 1);
 
-                        /** Redimensionado de imágen */
+                        /** Redimensionado de imagen */
                         $file_name = $upload_filename; // ruta al archivo del servidor							
                         $w = 600; // ancho para la nueva imagen
                         $h = 400; // alto para la nueva imagen
                                 
-                        // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)
-                        $commonTask = new CommonTasks();                        
-                        $original = $commonTask->createImageFromSource($file_name, $type);                        
+                        // crea la imagen dependiendo del tipo (jpeg, jpg, png o gif)                                           
+                        $original = $this->commonTask->createImageFromSource($file_name, $type);                        
                 
                         // redimensiona la imagen
-                        $final_image = $commonTask->resizeImage($original, $w, $h);
+                        $final_image = $this->commonTask->resizeImage($original, $w, $h);
                     
                         // reemplaza la imagen del servidor
                         ImagePNG($final_image, $file_name, 9);
@@ -451,7 +444,7 @@
                         ImageDestroy($final_image);                	
                     }
                     else {
-                        throw new Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
+                        throw new \Exception("El formato del archivo debe ser (jpeg, jpg, gif o png).");	
                     }
                 }                                                        
             } catch (\Exception $e) {
@@ -475,8 +468,7 @@
                 $this->language = $this->languageObject->spanish();               
 
                 // Validate entries
-                $validate = new Validate();
-                $commonTask = new CommonTasks();                               
+                $validate = new Validate();                                        
 
                 $this->fields = [
                     "id"            => $_REQUEST['dishe_id'] ?? $id ?? "",
@@ -488,27 +480,26 @@
                     "available"     => $validate->test_input($_REQUEST['available'] ?? 'no'),
                 ];                                                                   
 
-                if ($validate->validate_form($this->fields)) {                     
-                    $query = new QueryMenu();
+                if ($validate->validate_form($this->fields)) {                                         
 
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $query->selectOneBy("dishes", "dishe_id", $this->fields['id']);
+                    $dishe = $this->query->selectOneBy("dishes", "dishe_id", $this->fields['id']);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
-                        $commonTask->deletePicture($dishe['picture']);
+                        $this->commonTask->deletePicture($dishe['picture']);
                         $this->fields["picture"] = $file_name;
                     }
                     else {                        
                         $this->fields["picture"] = $dishe['picture'];
                     }
 
-                    $query->updateDishe($this->fields, $this->dbcon);
+                    $this->query->updateDishe($this->fields);
                     $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
                     
                     $_SESSION['message'] = $this->message;
                     
-                    header("Location: /admin/dishes/index");
+                    header("Location: /admin/dishes/index");                    
 
                 } else {
                     $this->message = $validate->get_msg();
@@ -536,17 +527,13 @@
 
             if(!isset($dishe)) $this->index();
 	
-            try {
-                /** Create objects */
-                $query = new Query();
-                $commonTask = new CommonTasks();
-
+            try {                                          
                 /** Obtain dishe to delete */
-                $dishe_to_delete = $query->selectOneBy("dishes", "dishe_id", $dishe);
+                $dishe_to_delete = $this->query->selectOneBy("dishes", "dishe_id", $dishe);
                 
                 if($dishe_to_delete) {
-                    $commonTask->deletePicture($dishe_to_delete['picture']);
-                    $query->deleteRegistry("dishes", "dishe_id", $dishe, $this->dbcon);
+                    $this->commonTask->deletePicture($dishe_to_delete['picture']);
+                    $this->query->deleteRegistry("dishes", "dishe_id", $dishe);
     
                     $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
                 }
@@ -639,8 +626,7 @@
                           
                         /** Variables to manage in view file */                       
                         $field = $this->fields['Campo'];
-                        $critery = $this->fields['Criterio'];
-                        $commonTask = new CommonTasks();                        
+                        $critery = $this->fields['Criterio'];                                        
 
                         /** Select method to do the search */
                         match($this->fields['Campo']) {
@@ -660,11 +646,11 @@
                             "last"                  => $last, 
                             "total_rows"            => $total_rows,                           
                             "message"               => $this->message,
-                            "commonTask"            => $commonTask,                           
+                            "commonTask"            => $this->commonTask,                           
                         ]);                        
                     }
                     else {                        
-                        throw new Exception($validate->get_msg(), 1);                    
+                        throw new \Exception($validate->get_msg(), 1);                    
                     }
                 }
                 else {
