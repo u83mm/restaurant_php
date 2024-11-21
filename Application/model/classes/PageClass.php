@@ -10,11 +10,11 @@
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
 			public array $nav_links = [],
-			public array $language = [],
+			public array $language = [],			
 		)
 		{				
 			$links = new NavLinks();
-			$language = new Language();
+			$language = new Language();			
 
 			/** Configure page language */
 			$this->language = $_SESSION['language'] == "spanish" ? $language->spanish() : $language->english();
@@ -76,6 +76,7 @@
 					</div>
 					<div class="col-12 col-md-2 col-xl-1 d-md-flex justify-content-center align-items-end pb-2 pe-1 text-end">
 						<form action="<?php echo PATH === "" ?  "/" : PATH; ?>" method="post">
+							<input type="hidden" name="csrf_token" value="<?php if(isset($_SESSION['csrf_token'])) echo $_SESSION['csrf_token']; ?>">
 							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">
 							<input type="hidden" name="date" value="<?php if(isset($_SESSION['date'])) echo $_SESSION['date']; ?>">													
 							<button id="language" class="btn btn-link" type="submit" name="language" value="<?php echo $this->language['flag']; ?>"><img class="me-xl-1 languageFlag" src="/images/<?php echo $this->language['flag'] ?>-flag.svg" alt="Language flag" /><?php echo ucfirst($this->language['flag_text']); ?></button>
