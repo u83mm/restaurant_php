@@ -11,7 +11,7 @@
         <?php echo $message ?? ""; ?>
         <h3 class="text-center"><?php echo strtoupper($page->language['register_form']); ?></h3>
         <form action="<?php echo PATH; ?>" method="post"> 
-            <input type="hidden" name="csrf_token" value="<?php if(isset($csrf)) echo $csrf; ?>">
+            <input type="hidden" name="csrf_token" value="<?php if(isset($csrf)) $csrf->csrf_token(); echo $_SESSION['csrf_token']; ?>">
             <?php if(isset($fields)) extract($fields); ?>           
             <div class="row mb-3">
                 <label class="col-12 col-md-3 text-center text-md-end col-form-label" for="user_name">User:</label>
