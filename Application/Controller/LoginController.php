@@ -45,11 +45,7 @@
 		public function index(array $language = null): void
         {	
 			try {
-				$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);	
-				/* $this->fields = [
-					'email'		=>	null,
-					'password'	=>	null
-				]; */			
+				$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);								
 						
 				$validate = new Validate;
 				$query_object = new Query();			            			
