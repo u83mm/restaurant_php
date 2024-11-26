@@ -1,7 +1,4 @@
-<?php	
-	session_start();
-	session_regenerate_id();
-	
+<?php			
 	/** Define el directorio raiz */
 	define("SITE_ROOT", $_SERVER['DOCUMENT_ROOT']);
 
@@ -18,4 +15,7 @@
 
 	/** Configure directories to load their classes */
 	model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
+
+	session_start();
+	session_regenerate_id();
 ?>
