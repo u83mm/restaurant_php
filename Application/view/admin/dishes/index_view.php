@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
             <?php echo $message = $_SESSION['message'] ?? $message ?? ""; ?>
-                <table class="table table-striped table-bordered">
+                <table id="disheIndex" class="table table-striped table-bordered">
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
@@ -40,7 +40,7 @@
                                 <td class="text-center">&#10060;</td>
                             <?php endif ?>                            
                             <td class="text-center">
-                                <a class="btn btn-outline-success w-45" href="/admin/dishes/edit/<?php echo $value['dishe_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
+                                <a class="btn btn-outline-success" href="/admin/dishes/edit/<?php echo $value['dishe_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
                                 <?php include(SITE_ROOT . "/../Application/view/admin/dishes/delete_form.php"); ?>
                             </td>
                         </tr>

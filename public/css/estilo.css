@@ -440,6 +440,10 @@ textarea {
 }
 /***************** End Cookies Consent style ***************/
 
+#disheIndex td {
+	vertical-align: middle;
+}
+
 
 /***************** Password strength style *****************/
 .strength {
@@ -537,13 +541,17 @@ textarea {
 	.cookies_consent_buttons button {
 		margin: 0 0.2em;			
 	}
+
+	#disheIndex form, #disheIndex .btn-outline-success {
+		width: 48%;
+	}
 }
 
 /************************************************************************
 *			iphone 6/7/8 horizontal														*
 ************************************************************************/
 @media (min-width:481px) and (max-width: 668px) {	
-
+	
 }
 
 /************************************************************************
@@ -575,6 +583,10 @@ textarea {
 		background-color: inherit;
 		border: inherit;
 		color: var(--bs-navbar-active-color);
+	}
+
+	#disheIndex form, #disheIndex .btn-outline-success {
+		width: 48%;
 	}
 }
 
