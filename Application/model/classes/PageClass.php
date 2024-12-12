@@ -65,7 +65,7 @@
 				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
 				<script src="/js/bootstrap.bundle.min.js"></script>
-				<script src="/js/eventos.js"></script>
+				<script type="module" src="/js/eventos.js"></script>
 				<script src="/js/ajax.js"></script>	
 				<script src="/js/cookies_consent.js"></script>					
 			</head>
