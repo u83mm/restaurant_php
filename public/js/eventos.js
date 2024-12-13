@@ -1,4 +1,4 @@
-import { testDishesStriked, finishDish, setFinishDishValue } from "./modules/dishesFunctions.js";
+import { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView } from "./modules/dishesFunctions.js";
 import { setDateMinAttributeOnForm } from "./modules/datePickerFunctions.js";
 import { updateAddList, resetOrder, saveNewOrder, changeActionShowOrderForm } from "./modules/orderFunctions.js";
 
@@ -69,5 +69,9 @@ window.onload = function() {
 				}
 			});
 		});
-	}    
+	}
+    
+    /** Set a dishe available when click checkbox on edit dishe view */
+    const checkboxAvailableDishe = document.querySelector('#available');
+    if(checkboxAvailableDishe) checkboxAvailableDishe.addEventListener('click', setAvailableDisheOnEditView);
 }
