@@ -69,11 +69,7 @@
             <div class="row mb-3 justify-content-center justify-content-sm-start">
                 <label class="col-3 text-end form-check-label pt-0" for="available"><?php echo ucfirst($page->language['available']); ?>:</label>
                 <div class=" col-2 text-sm-start d-flex">
-                    <?php if($dishe['available'] === 'si') {?>
-                        <input class="form-check-input align-self-center m-0" type="checkbox" name="available" id="available" value="no" checked> 
-                    <?php }else { ?>                    
-                        <input class="form-check-input align-self-center m-0" type="checkbox" name="available" id="available" value="si"> 
-                    <?php } ?>
+                    <input id="available" class="form-check-input align-self-center m-0" type="checkbox" name="available" value="si" <?php if($dishe['available'] === "si") echo "checked"; ?>>
                 </div>                
             </div>
                           

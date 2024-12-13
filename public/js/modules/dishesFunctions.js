@@ -30,4 +30,12 @@ function setFinishDishValue() {
     finishedValue.value = finishedValue.value == 1 ?  0 : 1;
 }
 
-export {testDishesStriked, resetOrder, changeActionShowOrderForm, finishDish, setFinishDishValue, saveNewOrder};
+/**
+ * Sets the value of an element to 'si' if it is checked,
+ * and 'no' if it is not checked.
+ */
+function setAvailableDisheOnEditView() {    
+    this.value = this.checked ? 'si' : 'no';   
+}
+
+export { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView };
