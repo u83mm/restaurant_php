@@ -30,4 +30,4 @@ function setFinishDishValue() {
     finishedValue.value = finishedValue.value == 1 ?  0 : 1;
 }
 
-export {testDishesStriked, resetOrder, changeActionShowOrderForm, finishDish, setFinishDishValue, saveNewOrder};
+export {testDishesStriked, finishDish, setFinishDishValue};
