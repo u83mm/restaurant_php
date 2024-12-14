@@ -48,7 +48,7 @@
             $this->languageObject = new Language();
 
             /** Test page language */
-            $language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();	
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();	
         }
 
        
@@ -501,7 +501,10 @@
         */
         public function resetOrder(): void {                   
             try {
-                unset($_SESSION['order']);                                       
+                unset($_SESSION['order']); 
+                
+                $_SESSION['table_number'] = ucfirst($this->language['selecciona']);
+                $_SESSION['people_qty']   = ucfirst($this->language['selecciona']);
     
                 $this->index($this->message);
 
