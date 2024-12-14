@@ -45,7 +45,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="aperitifs_finished[]" id="aperitifs_finished" class="item_finished" value="<?php echo $order['aperitifs_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="aperitifs_finished[]" id="aperitifs_finished" class="item_finished" value="<?php if(isset($order['aperitifs_finished'][$key_order][$key])) echo $order['aperitifs_finished'][$key_order][$key]; ?>">										
 										<div id="aperitifs_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
@@ -69,7 +69,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="firsts_finished[]" id="firsts_finished" class="item_finished" value="<?php echo $order['firsts_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="firsts_finished[]" id="firsts_finished" class="item_finished" value="<?php if(isset($order['firsts_finished'][$key_order][$key])) echo $order['firsts_finished'][$key_order][$key]; ?>">										
 										<div id="firsts_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
@@ -94,7 +94,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="seconds_finished[]" id="seconds_finished" class="item_finished" value="<?php echo $order['seconds_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="seconds_finished[]" id="seconds_finished" class="item_finished" value="<?php if(isset($order['seconds_finished'][$key_order][$key])) echo $order['seconds_finished'][$key_order][$key]; ?>">										
 										<div id="seconds_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
@@ -118,7 +118,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="desserts_finished[]" id="desserts_finished" class="item_finished" value="<?php echo $order['desserts_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="desserts_finished[]" id="desserts_finished" class="item_finished" value="<?php if(isset($order['desserts_finished'][$key_order][$key])) echo $order['desserts_finished'][$key_order][$key]; ?>">										
 										<div id="desserts_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
@@ -142,7 +142,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="drinks_name[]" id="drinks_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="drinks_finished[]" id="drinks_finished" class="item_finished" value="<?php echo $order['drinks_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="drinks_finished[]" id="drinks_finished" class="item_finished" value="<?php if(isset($order['drinks_finished'][$key_order][$key])) echo $order['drinks_finished'][$key_order][$key]; ?>">										
 										<div id="drinks_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
@@ -166,7 +166,7 @@
 								<li>
 									<div class="col-9 d-inline-block">
 										<input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="coffees_finished[]" id="coffees_finished" class="item_finished" value="<?php echo $order['coffees_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="coffees_finished[]" id="coffees_finished" class="item_finished" value="<?php if(isset($order['coffees_finished'][$key_order][$key])) echo $order['coffees_finished'][$key_order][$key]; ?>">										
 										<div id="coffees_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>										
