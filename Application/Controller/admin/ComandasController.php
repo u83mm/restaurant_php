@@ -396,14 +396,21 @@
         
             $id = $_POST['id'];
 
-            $result = $this->query->selectOneBy('orders', 'id', $id);                                                    
+            $result = $this->query->selectOneBy('orders', 'id', $id); 
+
+
+            /* Update the table_number and people_qty if they are different */
+            
+            if($_POST['table_number'] !== $result['table_number']) {
+                $this->query->updateRow('orders', ['table_number' => $_POST['table_number']], $id);
+            }
+
+            if($_POST['people_qty'] !== $result['people_qty']) {
+                $this->query->updateRow('orders', ['people_qty' => $_POST['people_qty']], $id);
+            }
         
 
-            /* We convert strings fields in arrays fields with their values */
-
-            $table_number = $result['table_number'];
-            $people_qty   = $result['people_qty'];
-                                  
+            /* We convert strings fields in arrays fields with their values */                                              
 
             $this->aperitifs          = (explode(",", $result['aperitifs']));
             $this->aperitifs_qty      = (explode(",", $result['aperitifs_qty']));
