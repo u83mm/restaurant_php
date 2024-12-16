@@ -300,7 +300,46 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);                        
             
-            $order = new Order();           
+            $order = new Order();
+
+
+            // Get values from the form
+            $aperitifs_name     = $_POST['aperitifs_name']     ?? [];
+            $aperitifs_finished = $_POST['aperitifs_finished'] ?? [];
+            $firsts_name        = $_POST['firsts_name']        ?? [];
+            $firsts_finished    = $_POST['firsts_finished']    ?? [];
+            $seconds_name       = $_POST['seconds_name']       ?? [];
+            $seconds_finished   = $_POST['seconds_finished']   ?? [];
+            $desserts_name      = $_POST['desserts_name']      ?? [];
+            $desserts_finished  = $_POST['desserts_finished']  ?? [];
+            $drinks_name        = $_POST['drinks_name']        ?? [];
+            $drinks_finished    = $_POST['drinks_finished']    ?? [];
+            $coffees_name       = $_POST['coffees_name']       ?? [];
+            $coffees_finished   = $_POST['coffees_finished']   ?? [];
+
+
+            $dish_qty_array = [
+                'aperitifs'     => $_POST['aperitifs_qty'] ?? [],
+                'firsts'        => $_POST['firsts_qty']    ?? [],
+                'seconds'       => $_POST['seconds_qty']   ?? [],
+                'desserts'      => $_POST['desserts_qty']  ?? [],
+                'drinks'        => $_POST['drinks_qty']    ?? [],
+                'coffees'       => $_POST['coffees_qty']   ?? [],
+            ];
+
+
+            /** Test if there are dishes with 0 quantity, if so, delete them from the order */
+            foreach ($dish_qty_array as $dishe_category => $element) {
+                if($element === null) continue;
+
+                foreach ($element as $key => $value) {
+                    if($value == 0) {
+                        unset(${$dishe_category . "_name"}[$key]);
+                        unset($dish_qty_array[$dishe_category][$key]);
+                        unset(${$dishe_category . "_finished"}[$key]);
+                    }
+                }
+            }            
             
             $id = !empty($_POST['id']) ? intval($_POST['id']) : "";                                   
 
@@ -308,24 +347,24 @@
                 if(!empty($id)) {                    
                     /** We set the order to update */
                     $order->setId($id);
-                    $order->setAperitif($_POST['aperitifs_name']             ?? []); 
-                    $order->setAperitifQty($_POST['aperitifs_qty']           ?? []);
-                    $order->setAperitifFinished($_POST['aperitifs_finished'] ?? []);               
-                    $order->setFirst($_POST['firsts_name']                   ?? []);
-                    $order->setFirstQty($_POST['firsts_qty']                 ?? []);
-                    $order->setFirstFinished($_POST['firsts_finished']       ?? []);                   
-                    $order->setSecond($_POST['seconds_name']                 ?? []);
-                    $order->setSecondQty($_POST['seconds_qty']               ?? []);
-                    $order->setSecondFinished($_POST['seconds_finished']     ?? []);   
-                    $order->setDessert($_POST['desserts_name']               ?? []); 
-                    $order->setDessertQty($_POST['desserts_qty']             ?? []);
-                    $order->setDessertFinished($_POST['desserts_finished']   ?? []);
-                    $order->setDrink($_POST['drinks_name']                   ?? []);
-                    $order->setDrinkQty($_POST['drinks_qty']                 ?? []); 
-                    $order->setDrinkFinished($_POST['drinks_finished']       ?? []); 
-                    $order->setCoffee($_POST['coffees_name']                 ?? []);
-                    $order->setCoffeeQty($_POST['coffees_qty']               ?? []);
-                    $order->setCoffeeFinished($_POST['coffees_finished']     ?? []);
+                    $order->setAperitif($aperitifs_name                 ?? []); 
+                    $order->setAperitifQty($dish_qty_array['aperitifs'] ?? []);
+                    $order->setAperitifFinished($aperitifs_finished     ?? []);               
+                    $order->setFirst($firsts_name                       ?? []);
+                    $order->setFirstQty($dish_qty_array['firsts']       ?? []);
+                    $order->setFirstFinished($firsts_finished           ?? []);                   
+                    $order->setSecond($seconds_name                     ?? []);
+                    $order->setSecondQty($dish_qty_array['seconds']     ?? []);
+                    $order->setSecondFinished($seconds_finished         ?? []);   
+                    $order->setDessert($desserts_name                   ?? []); 
+                    $order->setDessertQty($dish_qty_array['desserts']   ?? []);
+                    $order->setDessertFinished($desserts_finished       ?? []);
+                    $order->setDrink($drinks_name                       ?? []);
+                    $order->setDrinkQty($dish_qty_array['drinks']       ?? []); 
+                    $order->setDrinkFinished($drinks_finished           ?? []); 
+                    $order->setCoffee($coffees_name                     ?? []);
+                    $order->setCoffeeQty($dish_qty_array['coffees']     ?? []);
+                    $order->setCoffeeFinished($coffees_finished         ?? []);
                                        
                     /** Update the order */
                     $this->orderRepository->updateOrder($order);                                        
