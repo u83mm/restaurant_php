@@ -8,6 +8,7 @@
             else if(!in_array($_SESSION['role'], $roles)) {
                 $_SESSION['message'] = "<p class='alert alert-danger text-center'>You don't have priveleges to do that.</p>";
                 header("Location: /");
+                die;
             }
         }
     }    

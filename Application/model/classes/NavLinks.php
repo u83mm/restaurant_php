@@ -45,13 +45,19 @@
         }
 
 
+        /** 
+         * Waiter nav menu 
+         * 
+         * @return array
+         * */
         public function waiter(): array
         {
             // Spanish nav menu for ROLE waiter
             if($_SESSION['language'] == "spanish") {
                 $this->nav_links = [
                     "Inicio"			=>	"/",
-                    "Carta"				=> 	"/menu",                                 
+                    "Carta"				=> 	"/menu",
+                    "Comandas"          => 	"/admin/comandas/index",                                
                     "Pedidos"			=>	"/orders/order/new",
                     "Logeate"			=> 	"/login",
                 ];
@@ -62,7 +68,8 @@
             // English nav menu for ROLE waiter
             $this->nav_links = [
                 "Home"				=>	"/",
-				"Menu"				=> 	"/menu",								
+				"Menu"				=> 	"/menu",
+                "Orders List"       => 	"/admin/comandas/index", 								
 				"Orders"			=>	"/orders/order/new",
 				"Login"			    => 	"/login",
             ];
