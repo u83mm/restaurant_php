@@ -4,10 +4,12 @@
 	use model\classes\PageClass;
 
 	$home = new PageClass();
-	$home->title = "My Restaurant | " . ucfirst($home->language['orders']);			
+	$home->title = "My Restaurant | " . ucfirst($home->language['orders']);
+	
+	$active_nav_link = $_SESSION['role'] === 'ROLE_ADMIN' ? $home->language['nav_link_administration'] : $home->language['nav_link_orders_list'];
 
 	$home->do_html_header($home->title, $home->h1, $home->meta_name_description, $home->meta_name_keywords);
-	$home->do_html_nav($home->nav_links, $home->language['nav_link_administration']);
+	$home->do_html_nav($home->nav_links, $active_nav_link);
 ?>	
 												<!-- SECTION WITH INFO -->
 									
