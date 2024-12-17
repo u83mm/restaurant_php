@@ -63,10 +63,10 @@
         public function index(): void    
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
 
             $_SESSION['action'] = "index";
-            unset($_SESSION['message']);                                              
+            //unset($_SESSION['message']);                                              
 
             try {                
                 $result = $this->query->selectAll('orders');
@@ -98,7 +98,7 @@
         public function show(): void
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);            
+            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);            
             
             $_SESSION['action'] = "show";
             $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];                
@@ -188,7 +188,7 @@
         public function add(): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
                         
             /** Configure order options */
             if((isset($_SESSION['table_number']) || isset($_SESSION['people_qty'])) && (strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS && strlen($_SESSION['people_qty']) > MAX_DIGITS_TO_TABLE_NUMBERS)) {			                
@@ -298,7 +298,7 @@
         public function update(array $array = null): void
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);                        
+            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);                        
             
             $order = new Order();
 
@@ -429,7 +429,7 @@
         public function addToOrder(array $variables = []): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
                         
             $order = new Order();            
         
