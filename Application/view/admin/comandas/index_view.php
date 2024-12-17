@@ -37,7 +37,9 @@
 		</div>
 		<div class="row">
 			<div>
+				<?php if($_SESSION['role'] === "ROLE_ADMIN"): ?>
 				<a class="btn btn-primary" href="/admin/admin/adminMenus"><?php echo ucfirst($home->language['go_back']); ?></a>
+				<?php endif ?>
 			</div>			
 		</div>				
 	</section>			
