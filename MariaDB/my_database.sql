@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Dec 17, 2024 at 10:32 AM
+-- Generation Time: Dec 17, 2024 at 10:55 AM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -348,6 +348,13 @@ CREATE TABLE `limit_access` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `limit_access`
+--
+
+INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
+(462, '172.16.202.1', 1734432173, 1, '2024-12-17 11:37:53');
+
 -- --------------------------------------------------------
 
 --
@@ -395,57 +402,6 @@ CREATE TABLE `orders` (
   `coffees_qty` text DEFAULT NULL,
   `coffees_finished` text DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 3, 'patatas chips,anchoas de la casa', '1,1', '', 'espaguetis a la carbonara,ensalada mixta', '0,1', '<br />\r\n<font size=\'1\'><table class=\'xdebug-error xe-warning\' dir=\'ltr\' border=\'1\' cellspacing=\'0\' cellpadding=\'1\'>\r\n<tr><th align=\'left\' bgcolor=\'#f57900\' colspan=', 'paella valenciana,salmón a la plancha', '1,1', '0', 'creps de la casa,crema catalana', '1,1', '0', 'jarra de cerveza,refresco de cola', '1,1', '0', 'café solo,café cortado', '1,1', '0'),
-(2, 2, 2, '', '', '', 'ensalada mixta,espaguetis a la carbonara', '1,1', '0,', 'paella valenciana,salmón a la plancha,entrecot al gusto', '0,1,1', '0,', 'crema catalana,creps de la casa', '1,1', '0,', 'agua mineral,jarra de cerveza,refresco de cola', '1,1,1', '0,,', '', '', ''),
-(3, 3, 3, '', '', '', 'espaguetis a la carbonara,macarrones a la boloñesa,ensalada mixta', '1,1,1', '1,1', 'paella valenciana,salmón a la plancha', '1,2', '', 'creps de la casa,crema catalana', '1,2', '0,', 'jarra de cerveza,refresco de cola', '2,1', '0,', 'café solo,café cortado', '3,1', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders_backup`
---
-
-CREATE TABLE `orders_backup` (
-  `id` int(11) NOT NULL,
-  `table_number` tinyint(3) UNSIGNED NOT NULL,
-  `people_qty` tinyint(3) UNSIGNED NOT NULL,
-  `aperitifs` text DEFAULT NULL,
-  `aperitifs_qty` text DEFAULT NULL,
-  `aperitifs_finished` text DEFAULT '0',
-  `firsts` text DEFAULT NULL,
-  `firsts_qty` text DEFAULT NULL,
-  `firsts_finished` text DEFAULT '0',
-  `seconds` text DEFAULT NULL,
-  `seconds_qty` text DEFAULT NULL,
-  `seconds_finished` text DEFAULT '0',
-  `desserts` text DEFAULT NULL,
-  `desserts_qty` text DEFAULT NULL,
-  `desserts_finished` text DEFAULT '0',
-  `drinks` text DEFAULT NULL,
-  `drinks_qty` text DEFAULT NULL,
-  `drinks_finished` text DEFAULT '0',
-  `coffees` text DEFAULT NULL,
-  `coffees_qty` text DEFAULT NULL,
-  `coffees_finished` text DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders_backup`
---
-
-INSERT INTO `orders_backup` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 2, 'patatas chips,anchoas de la casa', '1,1', '1,1', 'ensalada mixta,espaguetis a la carbonara', '1,1', '1,1', 'paella valenciana,salmón a la plancha', '1,1', '0,1', 'creps de la casa', '2', '0', 'agua mineral,refresco de cola', '1,1', '0,0', '', '', ''),
-(2, 2, 1, 'olivas rellenas,patatas chips', '1,2', '1,1', 'ensalada mixta,espaguetis a la carbonara', '1,1', '0,<br />\r\n<font size=\'1\'><table class=\'xdebug-error xe-warning\' dir=\'ltr\' border=\'1\' cellspacing=\'0\' cellpadding=\'1\'>\r\n<tr><th align=\'left\' bgcolor=\'#f57900\' colspan=', 'salmón a la plancha', '1', '0', 'creps de la casa', '1', '0', 'jarra de cerveza', '1', '0', '', '', ''),
-(3, 3, 2, 'olivas rellenas,patatas chips,anchoas de la casa', '2,1,1', '1,0,1', 'ensalada mixta', '1', '1', 'paella valenciana', '1', '1', 'creps de la casa,crema catalana', '2,1', '1,1', 'agua mineral,jarra de cerveza,blanco de la casa,refresco de cola,blanco de la casa', '1,1,1,1,1', '1,1,1,1,1', 'café solo,café cortado', '1,1', '1,1'),
-(4, 4, 1, 'patatas chips', '1', '1', 'ensalada mixta', '1', '1', 'salmón a la plancha', '1', '1', 'crema catalana,crema catalana', '1,0', '1,1', 'jarra de cerveza', '3', '1', '', '', ''),
-(5, 5, 1, '', '', '', 'macarrones a la boloñesa', '1', '0', '', '', '', '', '', '', 'jarra de cerveza', '1', '0', '', '', ''),
-(6, 6, 1, 'patatas chips', '1', '0', 'ensalada mixta', '1', '0', 'salmón a la plancha', '1', '0', '', '', '', 'jarra de cerveza,agua mineral,refresco de cola', '1,1,0', '<br />\r\n<font size=\'1\'><table class=\'xdebug-error xe-warning\' dir=\'ltr\' border=\'1\' cellspacing=\'0\' cellpadding=\'1\'>\r\n<tr><th align=\'left\' bgcolor=\'#f57900\' colspan=,<br />\r\n<font size=\'1\'><table class=\'xdebug-error xe-warning\' dir=\'ltr\' border=\'1\' cellspacing=\'0\' cellpadding=\'1\'>\r\n<tr><th align=\'left\' bgcolor=\'#f57900\' colspan=,<br />\r\n<font size=\'1\'><table class=\'xdebug-error xe-warning\' dir=\'ltr\' border=\'1\' cellspacing=\'0\' cellpadding=\'1\'>\r\n<tr><th align=\'left\' bgcolor=\'#f57900\' colspan=', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -820,12 +776,6 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orders_backup`
---
-ALTER TABLE `orders_backup`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -890,7 +840,7 @@ ALTER TABLE `english_dict`
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=462;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=463;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -902,13 +852,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `orders_backup`
---
-ALTER TABLE `orders_backup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reservations`
