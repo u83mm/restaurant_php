@@ -25,7 +25,7 @@
 		</div>
 		<div class="row">
 			<div class="col-3 d-none d-xl-block"></div>
-			<div class="col-12 col-md-3 p-3 text-center">
+			<div class="col-12 col-md-3 p-3 ps-2 text-center text-md-start">
 				<h3><?php echo ucfirst($home->language['price']); ?>: <?php echo number_format(floatval($dishe['price']), 2, ",", ".") ; ?>€</h3>
 			</div>
 
