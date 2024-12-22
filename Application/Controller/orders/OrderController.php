@@ -31,8 +31,7 @@
         private array $language = [];
         private Language $languageObject;
 
-        public function __construct(
-            private object $dbcon = DB_CON, 
+        public function __construct(            
             private string $message = ""
         )
         {
@@ -73,25 +72,30 @@
                 if(!isset($_SESSION['people_qty']))   $_SESSION['people_qty']   = ucfirst($this->language['select']);                
 
                                                                                                 
-                /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */                
-                $_SESSION['order'][] = [
-                    'name'      =>  $_POST['name']  ?? "",
-                    'qty'       =>  $_POST['qty']   ?? 0,
-                    'position'  =>  $_POST['place'] ?? "", 
-                ];                
+                /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */
+                if(isset($_POST['name']) && isset($_POST['qty']) && isset($_POST['place'])) {
+                    $_SESSION['order'][] = [
+                        'name'      =>  $_POST['name']  ?? "",
+                        'qty'       =>  $_POST['qty']   ?? 0,
+                        'position'  =>  $_POST['place'] ?? "", 
+                    ];  
+                }               
+                               
 
-                foreach ($_SESSION['order'] as $item) { 
-                    if($item['position']) {
-                        match($item['position']) {
-                            'aperitifs'  =>  $this->aperitifs[] = $item,
-                            'firsts'     =>  $this->firsts[]    = $item,
-                            'seconds'    =>  $this->seconds[]   = $item,
-                            'desserts'   =>  $this->desserts[]  = $item,
-                            'drinks'     =>  $this->drinks[]    = $item,
-                            'coffees'    =>  $this->coffees[]   = $item,
-                        };
-                    }                                      
-                }                 
+                if(isset($_SESSION['order'])) {
+                    foreach ($_SESSION['order'] as $key => $item) {
+                        if($item['position']) {
+                            match($item['position']) {
+                                'aperitifs'  =>  $this->aperitifs[] = $item,
+                                'firsts'     =>  $this->firsts[]    = $item,
+                                'seconds'    =>  $this->seconds[]   = $item,
+                                'desserts'   =>  $this->desserts[]  = $item,
+                                'drinks'     =>  $this->drinks[]    = $item,
+                                'coffees'    =>  $this->coffees[]   = $item,
+                            };
+                        }                                                             
+                    }
+                }                
                                 
                 /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
                 $tables = $persones = [];
