@@ -13,18 +13,15 @@
         
                                             <!-- PLATOS -->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['products']); ?></h4>
             <div class="shadow rounded adminMenus">            
                 <div class="row">
-                    <div class="col-6 col-md-4">
-                        <a class="btn btn-primary mb-5" href="/admin/dishes/index"><?php echo ucfirst($page->language['show_list']); ?></a> 
-                    </div>
-                    <div class="col-6 col-md-3">
+                    <div class="col">
+                        <a class="btn btn-primary" href="/admin/dishes/index"><?php echo ucfirst($page->language['show_list']); ?></a>
                         <a class="btn btn-primary" href="/admin/dishes/search"><?php echo ucfirst($page->language['search']); ?></a>
-                    </div><div class="col-6 col-md-3">
                         <a class="btn btn-primary" href="/admin/dishes/showForm"><?php echo ucfirst($page->language['new']); ?></a>
-                    </div>                
+                    </div>                 
                 </div>            
                 <hr />
                 <h4 class="text-center"><?php echo mb_strtoupper($page->language['menu_day_price']); ?></h4>
@@ -37,49 +34,49 @@
                     </form>                                             
                 </div>            
             </div>
-        </div>
+        </section>
                                             <!-- USUARIOS -->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['users']); ?></h4>
             <div class="shadow rounded adminMenus">            
                 <form action="/admin/admin/index" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="listado"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
-        </div>
+        </section>
                                             <!-- CATEGORIAS -->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
             <div class="shadow rounded adminMenus">            
                 <a class="btn btn-primary mb-5" href="#"><?php echo ucfirst($page->language['show_list']); ?></a>
             </div> 
-        </div>                                                                                                                                                                                                                                           
+        </section>                                                                                                                                                                                                                                           
     </div>
         
     <div class="row mb-4">
                                             <!-- COMANDAS -->
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['orders']); ?></h4>
             <div class="shadow rounded adminMenus">
                 <form action="/admin/comandas/index" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="index"><?php echo ucfirst($page->language['show_list']); ?></button></form>
             </div>
-        </div>
+        </section>
                                             <!-- RESERVATIONS -->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo strtoupper($page->language['reservations']); ?></h4>
             <div class="shadow rounded adminMenus">
                 <form action="/reservations/reservation/showSearchPanel" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($page->language['search']); ?></button></form>
             </div>
-        </div>
+        </section>
                                             <!-- NEW SECTION -->
 
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center">&nbsp;</h4>
             <div class="shadow rounded adminMenus">
 
             </div>
-        </div>                                                                    
+        </section>                                                                    
     </div>
 <?php
 	$page->do_html_footer();
