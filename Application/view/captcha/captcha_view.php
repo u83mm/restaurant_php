@@ -25,13 +25,13 @@
 					
 		<div class="row">
 			<div class="col col-lg-8 mx-auto">
-				<form class="col col-md-6 mx-md-auto" method="post" action="/index/testCaptcha">
+				<form class="col col-sm-6 mx-sm-auto" method="post" action="/index/testCaptcha">
 					<div class="col">
 						<?php echo $message; ?>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_security_phrase']); ?></p>
 						<p class="text-center"><?php echo ucfirst($home->language['captcha_text']); ?>:</p>
 					</div>
-					<div class="col mb-3 mb-md-5">
+					<div class="col mb-3 mb-md-5 text-center">
 						<label class="form-label" for="captcha">CAPTCHA:</label>
 						<div class="col-4 d-inline-block">
 							<input type="hidden" name="phrase" value="<?php if(isset($phrase)) echo $phrase; ?>">
