@@ -190,7 +190,7 @@
 							<a class="btn btn-outline-success" href="/admin/comandas/index"><?php echo ucfirst($home->language['go_back']); ?></a>
 						</div>
 					</form>
-					<?php include("delete_form.php") ?>
+					<?php if ($_SESSION['role'] === "ROLE_ADMIN") include("delete_form.php");?>					
 				</div>
 			</div>
             <?php endforeach ?>							

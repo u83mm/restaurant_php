@@ -24,3 +24,4 @@
 /public/images/captcha/
 /public/uploads/
 ###< my files to ignore ###
+.codegpt
