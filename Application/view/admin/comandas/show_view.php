@@ -14,9 +14,7 @@
 												<!-- SECTION WITH INFO -->
 									
 	<section class="col-12 p-sm-0 pe-lg-3">		
-		<div class="col d-flex justify-content-center align-items-center mb-5">
-			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['orders']); ?></h2>			
-		</div>
+		
 
 		<div class="row">
 			<div class="col-12 col-md-8 mx-auto">
@@ -24,8 +22,9 @@
 			</div>
 		</div>
 		<div class="row d-flex justify-content-evenly">			
-			<?php foreach ($row as $key_order => $order): ?>
+			<?php foreach ($row as $key_order => $order): ?>				
                 <div class="col-12 col-md-6 col-xl-4 mb-5">
+				<h2 class="m-0 me-2 text-center mb-4"><?php echo ucfirst($home->language['table']); ?> <span><?php echo $order['table_number']; ?></span></h2>
 				<div class="w-100 menuDia">
 					<form id="show_order_form" action="/admin/comandas/add" method="post">							
 
@@ -35,7 +34,7 @@
 							<h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['table']); ?>:</strong> <?php echo $order['table_number']; ?></h4>
 							<h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['people']) ?>:</strong> <?php echo $order['people_qty']; ?></h4>
 						</div>				
-						<hr>
+						<hr/>
 
 														<!-- Aperitivos -->
 
@@ -46,20 +45,21 @@
 							<?php foreach ($order['aperitifs'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="aperitifs_finished[]" id="aperitifs_finished" class="item_finished" value="<?php if(isset($order['aperitifs_finished'][$key_order][$key])) echo $order['aperitifs_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="aperitifs_name[]" id="aperitifs_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="aperitifs_finished[]" id="aperitifs_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['aperitifs_finished'][$key_order][$key])) echo $order['aperitifs_finished'][$key_order][$key]; ?>">										
 										<div id="aperitifs_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="aperitifs_qty[]" id="aperitifs_qty" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="aperitifs_qty[]" id="aperitifs_qty<?php echo $key; ?>" value="<?php echo $order['aperitifs_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
 							</ul>
-							<?php endif ?>				
-						</div>
+							<hr/>
+							<?php endif ?>											
+						</div>						
 						
 														<!-- Primeros -->
 
@@ -70,20 +70,21 @@
 							<?php foreach ($order['firsts'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="firsts_finished[]" id="firsts_finished" class="item_finished" value="<?php if(isset($order['firsts_finished'][$key_order][$key])) echo $order['firsts_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="firsts_name[]" id="firsts_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="firsts_finished[]" id="firsts_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['firsts_finished'][$key_order][$key])) echo $order['firsts_finished'][$key_order][$key]; ?>">										
 										<div id="firsts_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="firsts_qty[]" id="firsts_qty" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="firsts_qty[]" id="firsts_qty<?php echo $key; ?>" value="<?php echo $order['firsts_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
 							</ul>
-							<?php endif ?>				
-						</div>
+							<hr/>
+							<?php endif ?>											
+						</div>						
 						
 														<!-- Segundos -->
 
@@ -95,20 +96,21 @@
 													
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="seconds_finished[]" id="seconds_finished" class="item_finished" value="<?php if(isset($order['seconds_finished'][$key_order][$key])) echo $order['seconds_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="seconds_name[]" id="seconds_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="seconds_finished[]" id="seconds_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['seconds_finished'][$key_order][$key])) echo $order['seconds_finished'][$key_order][$key]; ?>">										
 										<div id="seconds_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="seconds_qty[]" id="seconds_qty" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="seconds_qty[]" id="seconds_qty<?php echo $key; ?>" value="<?php echo $order['seconds_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>						
 							<?php endforeach ?>
 							</ul>
-							<?php endif ?>				
-						</div>
+							<hr/>
+							<?php endif ?>											
+						</div>						
 						
 														<!-- Postres -->
 
@@ -119,20 +121,21 @@
 							<?php foreach ($order['desserts'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="desserts_finished[]" id="desserts_finished" class="item_finished" value="<?php if(isset($order['desserts_finished'][$key_order][$key])) echo $order['desserts_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="desserts_name[]" id="desserts_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="desserts_finished[]" id="desserts_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['desserts_finished'][$key_order][$key])) echo $order['desserts_finished'][$key_order][$key]; ?>">										
 										<div id="desserts_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="desserts_qty[]" id="desserts_qty" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="desserts_qty[]" id="desserts_qty<?php echo $key; ?>" value="<?php echo $order['desserts_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
-							</ul>	
-							<?php endif ?>			
-						</div>
+							</ul>
+							<hr/>
+							<?php endif ?>										
+						</div>						
 
 														<!-- Bebidas -->
 
@@ -143,20 +146,21 @@
 							<?php foreach ($order['drinks'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="drinks_name[]" id="drinks_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="drinks_finished[]" id="drinks_finished" class="item_finished" value="<?php if(isset($order['drinks_finished'][$key_order][$key])) echo $order['drinks_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="drinks_name[]" id="drinks_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="drinks_finished[]" id="drinks_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['drinks_finished'][$key_order][$key])) echo $order['drinks_finished'][$key_order][$key]; ?>">										
 										<div id="drinks_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="drinks_qty[]" id="drinks_qty" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="drinks_qty[]" id="drinks_qty<?php echo $key; ?>" value="<?php echo $order['drinks_qty'][$key_order][$key]; ?>" min="0">
 									</div>							
 								</li>
 							<?php endforeach ?>
-							</ul>	
-							<?php endif ?>			
-						</div>
+							</ul>
+							<hr/>
+							<?php endif ?>										
+						</div>						
 
 														<!-- Cafés y licores -->
 
@@ -167,20 +171,21 @@
 							<?php foreach ($order['coffees'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
-										<input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo $value; ?>">
-										<input type="hidden" name="coffees_finished[]" id="coffees_finished" class="item_finished" value="<?php if(isset($order['coffees_finished'][$key_order][$key])) echo $order['coffees_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="coffees_name[]" id="coffees_name<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<input type="hidden" name="coffees_finished[]" id="coffees_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['coffees_finished'][$key_order][$key])) echo $order['coffees_finished'][$key_order][$key]; ?>">										
 										<div id="coffees_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($home->language[strtolower($value)]); ?>
 										</div>										
 									</div>
 									<div class="col-2 d-inline-block">
-										<input class="numberQty" type="number" name="coffees_qty[]" id="coffees_qty" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" min="0">
+										<input class="numberQty" type="number" name="coffees_qty[]" id="coffees_qty<?php echo $key; ?>" value="<?php echo $order['coffees_qty'][$key_order][$key]; ?>" min="0">
 									</div>															
 								</li>
 							<?php endforeach ?>
 							</ul>
-							<?php endif ?>				
-						</div>
+							<hr/>
+							<?php endif ?>											
+						</div>						
 						<div class="col-12 text-center">
 							<input type="hidden" name="id" value="<?php echo $order['id']; ?>">
 							<input type="hidden" name="table_number" value="<?php echo $order['table_number']; ?>"> 
