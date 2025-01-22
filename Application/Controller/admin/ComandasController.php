@@ -470,7 +470,7 @@
             $this->coffees_qty        = (explode(",", $result['coffees_qty']));
             $this->coffees_finished   = (explode(",", $result['coffees_finished']));             
 
-            $my_array = [
+            $dishes_to_add_or_update = [
                 'aperitifs'          =>  $_POST['aperitifs_name'] ?? [],
                 'aperitifs_qty'      =>  $_POST['aperitifs_qty'] ?? [],
                 'aperitifs_finished' =>  $_POST['aperitifs_finished'] ?? [],
@@ -491,9 +491,23 @@
                 'coffees_finished'   =>  $_POST['coffees_finished'] ?? [],
             ];
 
-            foreach ($my_array as $key => $value) {
-                if(empty($value)) continue;                                              
-                $this->$key = array_merge($this->$key, $value);               
+            // Update dish quantity and add new dishes
+            foreach ($dishes_to_add_or_update as $dish_add_key => $dish_add_value) {
+                if(empty($dish_add_value)) continue;
+                
+                foreach ($this->$dish_add_key as $dish_key => $dish_value) {
+                    if(str_contains($dish_add_key, "_qty")) continue;
+                    
+                    foreach ($dish_add_value as $my_value_key => $my_value) {                        
+                        if($dish_value === $my_value) {                                                       
+                            $key_qty = $dish_add_key . "_qty";                            
+                            $this->$key_qty[$dish_key] += $dishes_to_add_or_update[$key_qty][$my_value_key];
+                            continue;
+                            $this->$dish_add_key = array_merge($this->$dish_add_key, $dish_add_value);                            
+                        }                        
+                    }                                        
+                }
+                               
             }       
                      
             $order->setId(intval($id));

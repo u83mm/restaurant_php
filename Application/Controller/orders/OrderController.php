@@ -122,6 +122,8 @@
                 }                
                 else if(isset($_SESSION['order'])) {
                     foreach ($_SESSION['order'] as $item) {
+                        if(empty($item['position'])) continue;
+                        
                         match($item['position']) {
                             'aperitifs'  =>  $this->aperitifs[] = $item,
                             'firsts'     =>  $this->firsts[]    = $item,
