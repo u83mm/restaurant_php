@@ -9,7 +9,7 @@
             </div> 
         </div>
         <div class="col-12 col-md-6">
-            <label class="col-3 col-md-4  orm-label mb-2 mb-md-0" for="time"><?php echo ucfirst($home->language['hour']); ?>:</label>
+            <label class="col-3 col-md-4  form-label mb-2 mb-md-0" for="time"><?php echo ucfirst($home->language['hour']); ?>:</label>
             <div class="col-8 col-md-7 d-inline-block mb-2 mb-md-0">
                 <select name="time" id="time" required>
                     <option value=""> - <?php echo ucfirst($home->language['select']); ?> -</option>
