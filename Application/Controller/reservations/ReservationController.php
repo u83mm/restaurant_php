@@ -62,8 +62,7 @@
                     'hours' => $hours,
                     'people' => $people,
                     'menuDaySections' => $menuDaySections,
-                    'message' => $this->message,
-                    'fields' => $this->fields
+                    'message' => $this->message,                    
                 ]);
 
             } catch (\Throwable $th) {
