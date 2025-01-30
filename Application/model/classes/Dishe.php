@@ -121,5 +121,10 @@
         {
             return $this->available;
         }
+
+        public function getFields(): array
+        {
+            return $this->fields;
+        }
     }
 ?>

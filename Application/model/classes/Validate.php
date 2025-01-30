@@ -47,6 +47,8 @@
         public function validate_form(array $fields): bool
         {                 
             foreach ($fields as $key => $value) {
+                if($key === "available" || is_int($value)) continue;
+                
                 if (empty($value) || !isset($value)) {                                                              
                     $this->msg = "<p class='alert alert-danger text-center'>'" . ucfirst($key) . "' is a required field.</p>";  
                     return false;                                   				
