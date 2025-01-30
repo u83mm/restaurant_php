@@ -16,7 +16,7 @@
                     INNER JOIN dishes_day
                     ON dishes.category_id = dishes_day.category_id 
                     WHERE dishes_day.category_name = :field
-                    AND dishes.available = 'si'";
+                    AND dishes.available";
 
             $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":field", $field);                            
@@ -36,17 +36,16 @@
             $stm = $this->dbcon->pdo->prepare($query);
                       
             foreach ($fields as $key => $value) {
-                if(is_numeric($value)) {
-                    $stm->bindValue(":$key", $value);
+                if(is_int($value)) {
+                    $stm->bindValue(":$key", $value, PDO::PARAM_INT);
                     continue;       
                 }
 
                 $stm->bindValue(":$key", strtolower($value));                
             }
-
+            
             $stm->execute();       				
-            $stm->closeCursor();
-            $dbcon = null;            
+            $stm->closeCursor();                   
         }
 
         public function selectAllInnerjoinByMenuCategory(string $table1, string $table2, string $foreignKeyField, string $menuCategory): array
@@ -75,7 +74,7 @@
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
                 $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
                 
-                if($menuCategories[$i]['available'] === 'si') {
+                if($menuCategories[$i]['available']) {
                     $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                 }
 
@@ -109,21 +108,30 @@
             return $rows[0]['price'] ?? 0.00;
         }
 
-        public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string $value, object $dbcon)
+        public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
                     ON dishes.category_id = dishes_day.category_id
                     INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
-                    WHERE dishes.$field LIKE :value
-                    ORDER BY dishes.dishe_id
-                    LIMIT :desde, :pagerows";
+                    ON dishes.menu_id = dishes_menu.menu_id";
 
-            $stm = $dbcon->pdo->prepare($query);
+                    if($field === "available") {
+                        $query .= " WHERE dishes.$field = :value";
+                    }
+                    else {
+                        $query .= " WHERE dishes.$field LIKE :value";
+                    }
+
+                    $query .= " ORDER BY dishes.dishe_id
+                                LIMIT :desde, :pagerows";
+
+            $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":desde", $desde); 
             $stm->bindValue(":pagerows", $pagerows);
-            $value = "%{$value}%";
+
+            $value = is_int($value) ? $value : "%{$value}%";
+            
             $stm->bindValue(":value", $value);                                         
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -156,18 +164,22 @@
         }
 
 
-        public function selectDishesLikeCritery(string $field, string $value, object $dbcon)
+        public function selectDishesLikeCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
                     ON dishes.category_id = dishes_day.category_id
                     INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
-                    WHERE dishes.$field LIKE :value
-                    ORDER BY dishes.dishe_id";           
+                    ON dishes.menu_id = dishes_menu.menu_id";                                        
 
-            $stm = $dbcon->pdo->prepare($query);            
-            $value = "%{$value}%";
+                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dishes.$field LIKE :value";
+                   
+                    $query .= " ORDER BY dishes.dishe_id";          
+
+            $stm = $this->dbcon->pdo->prepare($query); 
+            
+            $field === "available" ? $value = $value : $value = "%{$value}%";
+            
             $stm->bindValue(":value", $value);                                                  
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
@@ -177,7 +189,7 @@
         }
 
 
-        public function selectDishesByCritery(string $field, string $value, object $dbcon)
+        public function selectDishesByCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
@@ -187,7 +199,7 @@
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id";           
 
-            $stm = $dbcon->pdo->prepare($query);                        
+            $stm = $this->dbcon->pdo->prepare($query);                        
             $stm->bindValue(":value", $value);                                                  
             $stm->execute();       
             $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         

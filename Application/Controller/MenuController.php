@@ -173,7 +173,7 @@
                 foreach ($rows as $key => $value) {                    
                     $pdf->SetFont('GreatVibes','',14);
 
-                    if($value['available'] === 'si') {
+                    if($value['available']) {
                         $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$value['name']])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
