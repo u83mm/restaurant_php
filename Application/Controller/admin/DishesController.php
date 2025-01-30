@@ -636,7 +636,7 @@
                             /** Select method to do the search */
                             match($this->fields['Campo']) {
                                 default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
-                                'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery, $this->dbcon),
+                                'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
                             };                                                                                             
     
                             /** Show dishes index */

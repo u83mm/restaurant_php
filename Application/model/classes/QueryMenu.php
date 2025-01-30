@@ -141,7 +141,7 @@
         }
 
 
-        public function selectDishesByPagination(int $desde, int $pagerows, string $field, string $value, object $dbcon)
+        public function selectDishesByPagination(int $desde, int $pagerows, string $field, string $value)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day 
@@ -152,7 +152,7 @@
                     ORDER BY dishes.dishe_id
                     LIMIT :desde, :pagerows";
 
-            $stm = $dbcon->pdo->prepare($query);
+            $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":desde", $desde); 
             $stm->bindValue(":pagerows", $pagerows);            
             $stm->bindValue(":value", $value);                                         
