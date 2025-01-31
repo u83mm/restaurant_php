@@ -31,11 +31,11 @@ function setFinishDishValue() {
 }
 
 /**
- * Sets the value of an element to 'si' if it is checked,
- * and 'no' if it is not checked.
+ * Sets the value of an element to 1 if it is checked,
+ * and 0 if it is not checked.
  */
 function setAvailableDisheOnEditView() {    
-    this.value = this.checked ? 'si' : 'no';   
+    this.value = this.checked ? 1 : 0;   
 }
 
 export { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView };
