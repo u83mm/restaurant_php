@@ -8,7 +8,8 @@
     use model\classes\Dishe;
     use model\classes\Language;    
     use model\classes\QueryMenu;
-    use model\classes\Validate;        
+    use model\classes\Validate;
+    use model\repositories\dishe\DishRepository;
 
     class DishesController extends Controller
     {        
@@ -21,7 +22,8 @@
             private array $fields = [],
             private QueryMenu $query = new QueryMenu(),
             private CommonTasks $commonTask = new CommonTasks(),
-            private Validate $validate = new Validate()
+            private Validate $validate = new Validate(),
+            private DishRepository $dishRepository = new DishRepository()
         )      
         {
             $this->languageObject = new Language();            
@@ -54,18 +56,7 @@
                 
                 
                 /** Select all dishes from DB */
-                $query = "SELECT * FROM dishes 
-                        INNER JOIN dishes_day USING(category_id)
-                        INNER JOIN dishes_menu USING(menu_id)
-                        ORDER BY dishes.dishe_id
-                        LIMIT :desde, :pagerows";
-                    
-                $stm = $this->dbcon->pdo->prepare($query);
-                $stm->bindValue(":desde", $desde); 
-                $stm->bindValue(":pagerows", $pagerows);                                        
-                $stm->execute();       
-                $rows = $stm->fetchAll();
-                $stm->closeCursor();
+                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);
 
                 /** Variables to manage in view file */                
                 $field = null;                
@@ -179,11 +170,11 @@
 
                 // Validate entries                                                            
                 $this->fields = [
-                    "name"          =>  $this->validate->test_input($_REQUEST['name'] ?? ""), 
-                    "description"   =>  $this->validate->test_input($_REQUEST['description'] ?? ""), 
-                    "category_id"   =>  $this->validate->test_input(intval($_REQUEST['category']) ?? ""),
-                    "menu_id"       =>  $this->validate->test_input(intval($_REQUEST['dishes_type']) ?? ""),
-                    "price"         =>  $this->validate->test_input($_REQUEST['price'] ?? 0),                    
+                    "name"        =>  $this->validate->test_input($_REQUEST['name'] ?? ""), 
+                    "description" =>  $this->validate->test_input($_REQUEST['description'] ?? ""), 
+                    "category_id" =>  $this->validate->test_input(intval($_REQUEST['category']) ?? ""),
+                    "menu_id"     =>  $this->validate->test_input(intval($_REQUEST['dishes_type']) ?? ""),
+                    "price"       =>  $this->validate->test_input($_REQUEST['price'] ?? 0),                    
                 ];  
                 
                 
@@ -275,10 +266,10 @@
                     $this->dbcon->pdo->rollBack();
                                 
                     $this->render("/view/admin/dishes/new_view.php", [
-                        "message" => $this->message,
-                        "categoriesDishesDay" => $categoriesDishesDay,
+                        "message"              => $this->message,
+                        "categoriesDishesDay"  => $categoriesDishesDay,
                         "categoriesDishesMenu" => $categoriesDishesMenu,
-                        "fields" => $this->fields
+                        "fields"               => $this->fields
                     ]);                   
                 }
 
@@ -287,10 +278,10 @@
                 $this->dbcon->pdo->rollBack();
                                  
                 $this->render("/view/admin/dishes/new_view.php", [
-                    "message" => $this->message,
-                    "categoriesDishesDay" => $categoriesDishesDay,
+                    "message"              => $this->message,
+                    "categoriesDishesDay"  => $categoriesDishesDay,
                     "categoriesDishesMenu" => $categoriesDishesMenu,
-                    "fields" => $this->fields
+                    "fields"               => $this->fields
                 ]);
 
             } catch (\Throwable $th) {			
@@ -470,13 +461,13 @@
                 $validate = new Validate();                                        
 
                 $this->fields = [
-                    "id"            => $_REQUEST['dishe_id'] ?? $id ?? "",
-                    "name"          => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
-                    "description"   => $validate->test_input($_REQUEST['description'] ?? ""),
-                    "category_id"   => $validate->test_input($_REQUEST['category'] ?? ""),
-                    "menu_id"       => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
-                    "price"         => $validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"     => isset($_REQUEST['available']) ? $validate->test_input(intval($_REQUEST['available'])) : 0
+                    "id"          => $_REQUEST['dishe_id'] ?? $id ?? "",
+                    "name"        => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
+                    "description" => $validate->test_input($_REQUEST['description'] ?? ""),
+                    "category_id" => $validate->test_input($_REQUEST['category'] ?? ""),
+                    "menu_id"     => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "price"       => $validate->test_input($_REQUEST['price'] ?? ""),
+                    "available"   => isset($_REQUEST['available']) ? $validate->test_input(intval($_REQUEST['available'])) : 0
                 ];                                                                   
 
                 if ($validate->validate_form($this->fields)) {                                         
@@ -584,8 +575,10 @@
                 /** Validate entries */                                                 
                 $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
 
-                if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if($_SERVER['REQUEST_METHOD'] === 'POST') {                    
                     // Manage form data
+                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery'])) header("Location: /admin/dishes/search");
+
                     match ($_REQUEST['field']) {
                         'available' => $critery = isset($_REQUEST['critery']) ? intval($_REQUEST['critery']) : 0,
                         'name'      => $critery = $this->validate->test_input($_REQUEST['critery'] ?? ""),
@@ -595,7 +588,7 @@
 
                     $this->fields = [
                         "Campo"     =>  $this->validate->test_input($_REQUEST['field'] ?? ""), 
-                        "Criterio"  =>  $critery,                                  
+                        "Criterio"  =>  $critery ?? "",                                  
                     ];                    
 
                     if($this->fields['Campo'] !== "" && $this->fields['Criterio'] !== "") {                    
@@ -617,8 +610,8 @@
                             if(!$total_rows) {
                                 $this->message = "<p class='alert alert-danger text-center'>No se han encontrado registros</p>";
                                 $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
-                                    "pagina"     => $pagina,                                                                                                                                                      
-                                    "message"    => $this->message,                                                                
+                                    "pagina"  => $pagina,                                                                                                                                                      
+                                    "message" => $this->message,                                                                
                                 ]);
                             }                                        
                             elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
@@ -641,17 +634,17 @@
     
                             /** Show dishes index */
                             $this->render("/view/admin/dishes/index_view.php", [
-                                "rows"                  => $rows,                                                        
-                                "field"                 => $field,
-                                "critery"               => $critery,
-                                "current_page"          => $current_page,                                                       
-                                "pagina"                => $pagina,
-                                "desde"                 => $desde,                                                                            
-                                "pagerows"              => $pagerows,                            
-                                "last"                  => $last, 
-                                "total_rows"            => $total_rows,                           
-                                "message"               => $this->message,
-                                "commonTask"            => $this->commonTask,                           
+                                "rows"         => $rows,                                                        
+                                "field"        => $field,
+                                "critery"      => $critery,
+                                "current_page" => $current_page,                                                       
+                                "pagina"       => $pagina,
+                                "desde"        => $desde,                                                                            
+                                "pagerows"     => $pagerows,                            
+                                "last"         => $last, 
+                                "total_rows"   => $total_rows,                           
+                                "message"      => $this->message,
+                                "commonTask"   => $this->commonTask,                           
                             ]);                        
                         }
                         else {                        
