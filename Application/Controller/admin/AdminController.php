@@ -14,11 +14,11 @@
         private array $language = [];
         private Language $languageObject;
 
-        public function __construct(
-            
+        public function __construct(            
             private string $message = "",
             private array $fields = [],
-            private Query $query = new Query()            
+            private Query $query = new Query(),
+            private Validate $validate = new Validate()            
         )
         {
             $this->languageObject = new Language(); 
@@ -61,19 +61,17 @@
         public function new(): void
         {              
             /** Check for user`s sessions */            
-            $this->testAccess(['ROLE_ADMIN']);
-            
-            $validate = new Validate();                                         
+            $this->testAccess(['ROLE_ADMIN']);                                                                 
 
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->fields = [
-                        'user_name' =>  $validate->test_input($_REQUEST['user_name']),
-                        'password'  =>  $validate->test_input($_REQUEST['password']),
-                        'email'     =>  $validate->test_input($_REQUEST['email'])
+                        'user_name' =>  $this->validate->test_input($_REQUEST['user_name']),
+                        'password'  =>  $this->validate->test_input($_REQUEST['password']),
+                        'email'     =>  $this->validate->test_input($_REQUEST['email'])
                     ];
 
-                    if($validate->validate_form($this->fields)) {
+                    if($this->validate->validate_form($this->fields)) {
                         $rows = $this->query->selectOneBy("user", "email", $this->fields['email']);                    
 
                         if($rows) {                                             
@@ -88,13 +86,13 @@
                         }
                     }
                     else {
-                        $this->message = $validate->get_msg();
+                        $this->message = $this->validate->get_msg();
                     }                                                                            										
                 }
                                 
                 $this->render("/view/admin/user_new_view.php", [
                     'message' => $this->message,
-                    'fields' => $this->fields
+                    'fields'  => $this->fields
                 ]);
                                 
             } catch (\Throwable $th) {			
@@ -132,10 +130,10 @@
                 $roles = $this->query->selectAll('roles');
                 
                 $this->render("/view/admin/user_show_view.php", [
-                    'message'   => $this->message,
-                    'fields'    => $this->fields,
-                    'roles'     => $roles,
-                    'user'      => $user
+                    'message' => $this->message,
+                    'fields'  => $this->fields,
+                    'roles'   => $roles,
+                    'user'    => $user
                 ]);
                 
             } catch (\Throwable $th) {
@@ -163,16 +161,13 @@
 
             global $id;
 
-            try {
-                /** We create the instances to objects */
-                $validate = new Validate();               
-
+            try {                             
                 /** We get values from form */                
                 $this->fields = [
-                    'id'        => $validate->test_input($_REQUEST['id_user']),
-                    'user_name' => $validate->test_input($_REQUEST['user_name']),                    
-                    'email'     => $validate->test_input($_REQUEST['email']),
-                    'id_role'   => $validate->test_input($_REQUEST['role']),
+                    'id'        => $this->validate->test_input($_REQUEST['id_user']),
+                    'user_name' => $this->validate->test_input($_REQUEST['user_name']),                    
+                    'email'     => $this->validate->test_input($_REQUEST['email']),
+                    'id_role'   => $this->validate->test_input($_REQUEST['role']),
                 ];
 
                 /** Fix warnings when show the alert message on updating the user and we change the language */                
@@ -188,8 +183,8 @@
                     ];
                 }                                
 
-                if(!$validate->validate_form($this->fields)) {
-                    $this->message = $validate->get_msg();
+                if(!$this->validate->validate_form($this->fields)) {
+                    $this->message = $this->validate->get_msg();
                     $this->show();
                     die;
                 }
@@ -223,30 +218,26 @@
             /** Check for user`s sessions */            
             $this->testAccess(['ROLE_ADMIN']);
 
-            global $id;            
-
-            /** Build objects */
-            $validate = new Validate();                   
+            global $id;                                         
                         
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->fields = [
-                        'password'  =>  $validate->test_input($_REQUEST['password']),
-                        'new_password'  =>  $validate->test_input($_REQUEST['new_password'])
+                        'password'      =>  $this->validate->test_input($_REQUEST['password']),
+                        'new_password'  =>  $this->validate->test_input($_REQUEST['new_password'])
                     ];
 
-                    if($validate->validate_form($this->fields)) {
-                        $id = $validate->test_input($_REQUEST['id_user'] ?? "");
+                    if($this->validate->validate_form($this->fields)) {
+                        $id = $this->validate->test_input($_REQUEST['id_user'] ?? "");
                         if ($this->fields['password'] !== $this->fields['new_password']) {
                             $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['password_not_equal']) . "</p>";
                         } else {                        
-                            $this->query->updatePassword("user", $this->fields['new_password'], $id);
-    
+                            $this->query->updatePassword("user", $this->fields['new_password'], $id);    
                             $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['password_updated']) . "</p>";
                         } 
                     }
                     else {
-                        $this->message = $validate->get_msg();
+                        $this->message = $this->validate->get_msg();
                     }                    
                 }
                                
@@ -268,8 +259,8 @@
             
             $this->render("/view/admin/user_change_password.php", [
                 'message' => $this->message,
-                'id' => $id,
-                'fields' => $this->fields
+                'id'      => $id,
+                'fields'  => $this->fields
             ]);
         }
 
