@@ -327,6 +327,10 @@ textarea {
 	width: 80%;
 }
 
+.credentials input[type="submit"]:focus {
+	background-color: rgb(180, 180, 180);	
+}
+
 .show_password {
 	cursor: pointer;		
 }
