@@ -24,7 +24,11 @@
         public function __construct(
             private object $dbcon = DB_CON, 
             private string $message = "",
-            private array $fields = []
+            private array $fields = [],
+            private CommonTasks $commonTasks = new CommonTasks(),
+            private Query $query = new Query(),
+            private QueryMenu $menuDayQuery = new QueryMenu(),
+            private QueryReservations $queryReservations = new QueryReservations()
         )
         {
             $this->languageObject = new Language(); 
@@ -36,15 +40,13 @@
         /** Show reservations form */
         public function index(): void
         {                                 
-            try {                
-                $menuDayQuery = new QueryMenu();
-                $query = new Query();          
+            try {                                                      
 
                 /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $menuDayQuery->getMenuDayElements();
+                $menuDaySections = $this->menuDayQuery->getMenuDayElements();
 
                 /** Hours to show in select element */
-                $rows = $query->selectAll('dinner_hours');                
+                $rows = $this->query->selectAll('dinner_hours');                
                 $hours = [];
 
                 foreach ($rows as $key => $value) {
@@ -85,8 +87,7 @@
         /** Save a reservation */
         public function save() : void 
         {
-            $validate = new Validate;
-            $commonTasks = new CommonTasks;
+            $validate = new Validate;            
                                   
             try {
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -106,8 +107,8 @@
                     // Validate form                                             
                     if($validate->validate_form($this->fields)) {
                         // Send emails with Resend API to test functionality
-                        //require_once SITE_ROOT . '/../vendor/autoload.php';                                       
-                        $resend = Resend::client(RESEND_API_KEY);
+                        require_once SITE_ROOT . '/../vendor/autoload.php';                                       
+                        /* $resend = Resend::client(RESEND_API_KEY);
 
                         $resend->emails->send([
                             'from'      =>  'Restaurant Your House <onboarding@resend.dev>',
@@ -125,7 +126,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style='text-align: right;'>" . ucfirst($this->language['date']) . ":</td>
-                                                    <td><strong>{$commonTasks->showDayMonthYear($this->fields['date'], $_SESSION['language'])}</strong></td>
+                                                    <td><strong>{$this->commonTasks->showDayMonthYear($this->fields['date'], $_SESSION['language'])}</strong></td>
                                                 </tr>
                                                 <tr>
                                                     <td style='text-align: right;'>" . ucfirst($this->language['time']) . ":</td>
@@ -150,7 +151,7 @@
                                             $this->language['reservation_mail_2th_paragraph'] . "\n\n" .
                                             ucfirst($this->language['thanks']) . "\n\n" . 
                                             "Restaurant Your House",   
-                        ]);
+                        ]); */
 
                         // Send confirmation email for a reservation using PHPMailer 
                         /* require_once SITE_ROOT . '/../vendor/autoload.php';
@@ -225,9 +226,8 @@
                     
                         if(!$mail->send()) throw new \Exception("{$mail->ErrorInfo}", 1);*/
                         
-                        // Save reservation in DB
-                        $query = new Query();
-                        $query->insertInto('reservations', $this->fields);
+                        // Save reservation in DB                        
+                        $this->query->insertInto('reservations', $this->fields);
                         $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";                                                
                         $this->index();
                     }
@@ -257,29 +257,25 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
-            try {
-                $menuDayQuery = new QueryMenu(); 
-                $commonTasks = new CommonTasks; 
-                $queryReservations = new QueryReservations();          
-
+            try {                                                    
                 /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $menuDayQuery->getMenuDayElements(); 
+                $menuDaySections = $this->menuDayQuery->getMenuDayElements(); 
 
 
                 /** Select all distint dates from current date */                            
-                $rows = $queryReservations->selectDistinctDatesFromCurrent('reservations', $this->dbcon);                                                                      
+                $rows = $this->queryReservations->selectDistinctDatesFromCurrent('reservations');                                                                      
                 
                 if(count($rows) > 0) {
                     foreach ($rows as $key => $value) {
-                        $date[] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                        $date[] = $this->commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
                     }
                 }
                 else {
-                    $date[] = $commonTasks->showDayMonthYear(date('Y-m-d'), $_SESSION['language']);
+                    $date[] = $this->commonTasks->showDayMonthYear(date('Y-m-d'), $_SESSION['language']);
                 }
                      
                 /** Get reservations */                
-                $rows = $queryReservations->selectFieldsFromTableOrderByField(
+                $rows = $this->queryReservations->selectFieldsFromTableOrderByField(
                     'reservations', 
                     [
                         'name', 
@@ -295,7 +291,7 @@
                 $total = 0;
                 
                 foreach ($rows as $key => $value) {
-                    $rows[$key]['date'] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                    $rows[$key]['date'] = $this->commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
                 }                                 
                                
                 $this->render('/view/reservations/reservations_index.php', [
@@ -328,11 +324,10 @@
             $this->testAccess(['ROLE_ADMIN']);
 
             $_SESSION['action'] = "search_panel";
-
-            $query = new Query();
+            
 
             /** Hours to show in select element */
-            $rows = $query->selectAll('dinner_hours');                
+            $rows = $this->query->selectAll('dinner_hours');                
             $hours = [];
 
             foreach ($rows as $key => $value) {
@@ -354,14 +349,9 @@
             $_SESSION['action'] = "search";
             $_SESSION['date'] = $_POST['date'] ?? date('Y-m-d');
 
-            try {
-                // Create objects
-                $queryReservation = new QueryReservations();
-                $menuDayQuery = new QueryMenu();
-                $commonTasks = new CommonTasks;            
-
+            try {                                                         
                 /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $menuDayQuery->getMenuDayElements(); 
+                $menuDaySections = $this->menuDayQuery->getMenuDayElements(); 
 
                 // Get date and time to make the query by date
                 $dates = [
@@ -370,18 +360,18 @@
                 
                 $time = isset($_POST['time']) ? $_POST['time'] : "";
 
-                $rows = $queryReservation->selectAllByDateAndTime('reservations', 'date', $dates['date'], $this->dbcon, $time, 'time');                                                        
+                $rows = $this->queryReservations->selectAllByDateAndTime('reservations', 'date', $dates['date'], $time, 'time');                                                        
                 
                 // Format the date to show in the view results
                 foreach ($dates as $key => $value) {
-                    $date[$key] = $commonTasks->showDayMonthYear($value, $_SESSION['language']); 
+                    $date[$key] = $this->commonTasks->showDayMonthYear($value, $_SESSION['language']); 
                 }                                 
                 
                 // Calculate total people
                 $total = 0;
 
                 foreach ($rows as $key => $value) {                   
-                    $rows[$key]['date'] = $commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
+                    $rows[$key]['date'] = $this->commonTasks->showDayMonthYear($value['date'], $_SESSION['language']);
                 }                                                   
 
                 $this->render('/view/reservations/reservations_index.php', [
