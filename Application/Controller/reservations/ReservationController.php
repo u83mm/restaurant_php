@@ -20,6 +20,7 @@
         /** Create array and object for diferent languages */
         private array $language = [];
         private Language $languageObject;
+        private array $menuDaySections = [];
 
         public function __construct(
             private object $dbcon = DB_CON, 
@@ -34,17 +35,16 @@
             $this->languageObject = new Language(); 
             
             /** Configure page language */
-            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
+            
+            /** Get dishes, dessert and price to show in the Day's menu aside section */
+            $this->menuDaySections = $this->menuDayQuery->getMenuDayElements();
         }
      
         /** Show reservations form */
         public function index(): void
         {                                 
-            try {                                                      
-
-                /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $this->menuDayQuery->getMenuDayElements();
-
+            try {                                                                      
                 /** Hours to show in select element */
                 $rows = $this->query->selectAll('dinner_hours');                
                 $hours = [];
@@ -58,13 +58,19 @@
 
                 for($i = 1; $i <= 20; $i++ ) {
                     array_push($people, $i);
-                }                                                
+                }
+
+                /** Fields to render */
+                $this->fields = [
+                    'date'            => date('Y-m-d'),
+                    'hours'           => $hours,
+                    'people'          => $people,
+                    'menuDaySections' => $this->menuDaySections,
+                    'message'         => $this->message,
+                ];                                               
 
                 $this->render('/view/reservations/reservation_view.php', [
-                    'hours' => $hours,
-                    'people' => $people,
-                    'menuDaySections' => $menuDaySections,
-                    'message' => $this->message,                    
+                    'fields' => $this->fields,
                 ]);
 
             } catch (\Throwable $th) {
@@ -231,9 +237,30 @@
                         $this->message = "<p class='alert alert-success text-center'>" . ucfirst($this->language['reservation_sent']) . "</p>";                                                
                         $this->index();
                     }
-                    else {
-                        $this->message = $validate->get_msg();
-                        $this->index();
+                    else {                        
+                        /** Hours to show in select element */
+                        $rows = $this->query->selectAll('dinner_hours');                
+                        $hours = [];
+
+                        foreach ($rows as $key => $value) {
+                            $hours[] = $value['hour'];
+                        }                
+
+                        /** Show people qty options in select element */
+                        $people = [];
+
+                        for($i = 1; $i <= 20; $i++ ) {
+                            array_push($people, $i);
+                        }
+
+                        $this->fields['hours']           = $hours;
+                        $this->fields['message']         = $validate->get_msg();
+                        $this->fields['people']          = $people;
+                        $this->fields['menuDaySections'] = $this->menuDaySections;
+
+                        $this->render('/view/reservations/reservation_view.php', [
+                            'fields' => $this->fields,
+                        ]);
                     }
                 }                                                
             } catch (\Throwable $th) {
@@ -257,11 +284,7 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
-            try {                                                    
-                /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $this->menuDayQuery->getMenuDayElements(); 
-
-
+            try {                                                                    
                 /** Select all distint dates from current date */                            
                 $rows = $this->queryReservations->selectDistinctDatesFromCurrent('reservations');                                                                      
                 
@@ -297,7 +320,7 @@
                 $this->render('/view/reservations/reservations_index.php', [
                     'date' => $date,
                     'rows' => $rows,
-                    'menuDaySections' => $menuDaySections,
+                    'menuDaySections' => $this->menuDaySections,
                     'message' => $this->message,
                     'total' => $total
                 ]);
@@ -334,9 +357,15 @@
                 $hours[] = $value['hour'];
             }              
             
+            /** Fields to render */
+            $this->fields = [
+                'hours'   => $hours,
+                'message' => $this->message,
+                'date'    => date('Y-m-d'),
+            ];
+
             $this->render('/view/admin/reservations/search_view.php', [
-                'hours' => $hours,
-                'message' => $this->message
+                'fields' => $this->fields,
             ]);
         }
 
@@ -349,10 +378,7 @@
             $_SESSION['action'] = "search";
             $_SESSION['date'] = $_POST['date'] ?? date('Y-m-d');
 
-            try {                                                         
-                /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $this->menuDayQuery->getMenuDayElements(); 
-
+            try {                                                                     
                 // Get date and time to make the query by date
                 $dates = [
                     'date' => $_POST['date'] ?? date('Y-m-d'),
@@ -377,7 +403,7 @@
                 $this->render('/view/reservations/reservations_index.php', [
                     'date' => $date,
                     'rows' => $rows,
-                    'menuDaySections' => $menuDaySections,
+                    'menuDaySections' => $this->menuDaySections,
                     'message' => $this->message,
                     'total' => $total
                 ]);

@@ -8,6 +8,7 @@
 	$home->do_html_nav($home->nav_links, $home->language['reservations']);
 ?>	
 								<!--- SECTION WITH INFO -->
+	<?php extract($fields); ?>
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
 		<div class="col mb-3 reservations"></div>
 		<div class="col d-flex justify-content-center align-items-center mb-3">
