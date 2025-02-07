@@ -8,6 +8,7 @@
 	$home->do_html_nav($home->nav_links, $home->language['nav_link_administration']);
 ?>	
     <div class="row justify-content-evenly">
+        <?php extract($fields); ?>
         <h3 class="text-center pb-2"><?php echo ucwords($home->language['search_reservations']); ?></h3>
         <?php echo $message ?? ""; ?> 
         <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
@@ -19,7 +20,7 @@
                 <h5 class="text-center"><?php echo ucfirst($home->language['date_hour-optional']); ?></h5> 
                 <form class="text-center mb-3" action="/reservations/reservation/searchReservationsByDateAndTime" method="post" class="mb-3">                                        
                     <div class="col col-lg-5 d-inline-block mb-2">
-                        <input class="form-control" type="date" name="date" id="date" required>                        
+                        <input class="form-control" type="date" name="date" id="date" value="<?php if(isset($date)) echo $date; ?>" required>                        
                     </div> 
                     <div class="col col-lg-4 d-inline-block">                        
                         <select name="time">

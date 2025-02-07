@@ -29,15 +29,20 @@ cd Restaurant
 docker compose build
 docker compose up -d
 ```
-4.- Access to phpMyAdmin.
+4.- Access to db container and install dependencies
+```
+docker exec -it db bash
+composer install
+```
+5.- Access to phpMyAdmin.
 ```
 http://localhost:8080/
 user: admin
 passwd: admin
 ```
-5.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "MariaDB" directory.
+6.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "MariaDB" directory.
 
-6.- Go to your localhost in the browser and you can do login.
+7.- Go to your localhost in the browser and you can do login.
 ```
 http://localhost/
 user: admin@admin.com
