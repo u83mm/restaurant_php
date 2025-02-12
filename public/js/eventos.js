@@ -1,10 +1,13 @@
-import { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView } from "./modules/dishesFunctions.js";
+import { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView, showEmoji } from "./modules/dishesFunctions.js";
 import { setDateMinAttributeOnForm } from "./modules/datePickerFunctions.js";
 import { updateAddList, resetOrder, saveNewOrder, changeActionShowOrderForm } from "./modules/orderFunctions.js";
 
 "use strict"; 
 
-window.onload = function() {        
+window.onload = function() { 
+    /** Function to manage emojis in dishes categories */
+	showEmoji();
+           
     /** Test for striked dishes */
     testDishesStriked();
         
