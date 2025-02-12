@@ -7,14 +7,12 @@
 	define("MAX_DIGITS_TO_PEOPLE_QTY", 2);	
 
 	/** Define connection */
+	define('DB_CONFIG_FILE', SITE_ROOT . '/../Application/db.config.php');
 	require_once(SITE_ROOT . "/../Application/connect.php");
-	define('DB_CON', $dbcon);
-
-	/** Define current URL */
-	define('PATH', rtrim($_SERVER['REQUEST_URI'], "/"));	
+	define('DB_CON', $dbcon);	
 
 	/** Configure directories to load their classes */
-	model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
+	//Application\model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
 
 	session_start();
 	session_regenerate_id();

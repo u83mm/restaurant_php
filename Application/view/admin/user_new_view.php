@@ -1,5 +1,5 @@
 <?php	
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$home = new PageClass();
 	$home->title = ucfirst($home->language['users']) . " | " . ucfirst($home->language['new']);			

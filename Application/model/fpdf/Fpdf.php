@@ -6,7 +6,7 @@
 * Date:    2023-06-25                                                          *
 * Author:  Olivier PLATHEY                                                     *
 *******************************************************************************/
-namespace model\fpdf;
+namespace Application\model\fpdf;
 
 class Fpdf
 {
@@ -265,7 +265,7 @@ function AliasNbPages($alias='{nb}')
 function Error($msg)
 {
 	// Fatal error
-	throw new Exception('FPDF error: '.$msg);
+	throw new \Exception('FPDF error: '.$msg);
 }
 
 function Close()

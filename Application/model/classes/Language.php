@@ -1,5 +1,5 @@
 <?php
-    namespace model\classes;
+    namespace Application\model\classes;
 
     require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");
 

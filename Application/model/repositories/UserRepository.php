@@ -1,10 +1,10 @@
 <?php
     declare(strict_types=1);
     
-    namespace model\repositories;
+    namespace Application\model\repositories;
 
-    use model\classes\Query;
-    use model\classes\User;
+    use Application\model\classes\Query;
+    use Application\model\classes\User;
 
     class UserRepository extends Query
     {

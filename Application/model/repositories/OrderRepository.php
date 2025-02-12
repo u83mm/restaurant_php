@@ -1,8 +1,8 @@
 <?php
-    namespace model\repositories;
+    namespace Application\model\repositories;
 
-    use model\classes\Query;
-    use model\orders\Order;
+    use Application\model\classes\Query;
+    use Application\model\orders\Order;
 
     class OrderRepository extends Query
     {

@@ -1,5 +1,5 @@
 <?php	
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$page = new PageClass();
     $page->title = ucfirst($page->language['dishes']) . " | " . ucfirst($page->language['edit']);

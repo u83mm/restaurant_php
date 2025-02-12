@@ -4,10 +4,10 @@
     namespace Application\Controller;
 
     use Application\Core\Controller;
-    use model\classes\CommonTasks;
-    use model\classes\Language;
-    use model\classes\QueryMenu;    
-    use model\fpdf\MyPdf;
+    use Application\model\classes\CommonTasks;
+    use Application\model\classes\Language;
+    use Application\model\classes\QueryMenu;    
+    use Application\model\fpdf\MyPdf;
 
     class MenuController extends Controller
     {

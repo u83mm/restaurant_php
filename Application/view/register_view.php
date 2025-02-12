@@ -1,5 +1,5 @@
 <?php	
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$page = new PageClass();
     $page->title = "My Restaurant | " . ucfirst($page->language['nav_link_sign_up']);
@@ -10,7 +10,7 @@
     <div class="col-12 col-md-6 mx-auto credentials">
         <?php echo $message ?? ""; ?>
         <h3 class="text-center"><?php echo strtoupper($page->language['register_form']); ?></h3>
-        <form action="<?php echo PATH; ?>" method="post"> 
+        <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/"); ?>" method="post"> 
             <input type="hidden" name="csrf_token" value="<?php if(isset($csrf)) $csrf->csrf_token(); echo $_SESSION['csrf_token']; ?>">
             <?php if(isset($fields)) extract($fields); ?>           
             <div class="row mb-3">
