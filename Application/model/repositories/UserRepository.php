@@ -12,9 +12,9 @@
         {
             $this->insertInto('user', [
                 'user_name' => $user->getName(),
-                'email' => $user->getEmail(),
-                'password' => $user->getPassword(),
-                'id_role' => $user->getRole() ?? 2
+                'email'     => $user->getEmail(),
+                'password'  => $user->getPassword(),
+                'id_role'   => $user->getRole() ?? 2
             ]);
         }
     }

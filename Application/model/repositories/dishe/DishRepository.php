@@ -33,4 +33,12 @@ final class DishRepository extends Query
 
         return $rows;
     }
+    
+    public function saveCategory(object $entity): void
+    {
+        $this->insertInto('dishes_menu', [
+            'menu_category' => $entity->getCategory(),
+            'menu_emoji'    => $entity->getEmoji()
+        ]);
+    }
 }

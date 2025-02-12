@@ -4,13 +4,19 @@ declare(strict_types=1);
 namespace Application\Controller\admin;
 
 use Application\Core\Controller;
+use Application\model\classes\DishCategory;
 use Application\model\classes\Query;
+use Application\model\classes\Validate;
+use Application\model\repositories\dishe\DishRepository;
 
 final class CategoriesController extends Controller
 {
     public function __construct(
         private string $message = "",
-        private Query $query = new Query()
+        private array $fields = [],
+        private Query $query = new Query(),
+        private Validate $validate = new Validate(),
+        private DishRepository $dishRepository = new DishRepository()
     ) 
     {       
     }
@@ -51,7 +57,43 @@ final class CategoriesController extends Controller
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
-            $this->render('/view/admin/categories/new_view.php', []);
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->fields = [
+                    'category' => $_POST['category'],
+                    'emoji'    => $_POST['emoji']
+                ];
+
+                if(!$this->validate->validate_form($this->fields)) {                    
+                    $_SESSION['message'] = $this->validate->get_msg();
+
+                    $this->render('/view/admin/categories/new_view.php', [
+                        'fields' => $this->fields
+                    ]);
+
+                }
+                else {
+                    // Test if category already exists
+                    if($this->query->selectOneBy('dishes_menu', 'menu_category', $this->fields['category'])) {
+                        $_SESSION['message'] = "<p class='alert alert-danger text-center'>Category already exists!</p>";
+
+                        $this->render('/view/admin/categories/new_view.php', [
+                            'fields' => $this->fields
+                        ]);                        
+                    }
+
+                    // Save category
+                    $this->dishRepository->saveCategory(new DishCategory($this->fields));
+                    $_SESSION['message'] = "<p class='alert alert-success text-center'>" . ucfirst($this->fields["category"]) .  " category was successfully added!</p>";
+                }                            
+
+                header('Location: /admin/categories/index');
+                die();
+
+            }
+
+            $this->render('/view/admin/categories/new_view.php', [
+                'fields' => $this->fields
+            ]);
 
         } catch (\Throwable $th) {
             $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

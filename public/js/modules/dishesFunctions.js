@@ -38,4 +38,27 @@ function setAvailableDisheOnEditView() {
     this.value = this.checked ? 1 : 0;   
 }
 
-export { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView };
+/**
+ * The function `showEmoji` populates an emoji container with emoji options that can be selected and
+ * displayed in an emoji field.
+ */
+function showEmoji() {
+    const emojis = ['🥗','🥘', '🍟', '🥩', '🍹', '🍦','🍝', '🐟', '🍺', '🍾', '🍷', '☕️', '🍮']; // Add more emojis as needed
+    const emojiContainer = document.getElementById('emoji-container');
+    const emojiField = document.getElementById('dish_menu_menuEmoji');
+
+    if(emojiContainer) {
+        // Populate the emoji container with emoji options
+        emojis.forEach(emoji => {
+            const emojiOption = document.createElement('span');
+            emojiOption.classList.add('emoji-option');
+            emojiOption.textContent = emoji;
+            emojiOption.addEventListener('click', () => {
+                emojiField.value = emoji;
+            });
+            emojiContainer.appendChild(emojiOption);
+        });
+    }
+}
+
+export { testDishesStriked, finishDish, setFinishDishValue, setAvailableDisheOnEditView, showEmoji };
