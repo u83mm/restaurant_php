@@ -1,5 +1,5 @@
 <?php	
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$home = new PageClass();
     $home->title = "My Restaurant | Search";			
@@ -17,7 +17,7 @@
                 <!-- By name -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h5> 
-                <form action="<?php echo PATH ?>" method="post" class="mb-3">
+                <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="name">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -30,7 +30,7 @@
                 <!-- By availability -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_availability']); ?></h5> 
-                <form action="<?php echo PATH ?>" method="post" class="mb-3">
+                <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -47,7 +47,7 @@
                 <!-- By category -->
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_category']); ?></h5>
-                <form action="<?php echo PATH ?>" method="post" class="mb-3">
+                <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-4 col-md-3 col-lg-8 text-center text-sm-start d-inline-block ms-2">

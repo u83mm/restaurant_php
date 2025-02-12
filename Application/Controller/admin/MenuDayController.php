@@ -5,7 +5,7 @@
 
     use Application\Controller\admin\AdminController;
     use Application\Core\Controller;
-    use model\classes\Query; 
+    use Application\model\classes\Query; 
 
     class MenuDayController extends Controller
     {

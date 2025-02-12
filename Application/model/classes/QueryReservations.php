@@ -1,10 +1,10 @@
 <?php
     declare(strict_types=1);
     
-    namespace model\classes;
+    namespace Application\model\classes;
 
-use Application\interfaces\QueryInterface;
-use model\classes\Query;
+    use Application\interfaces\QueryInterface;
+    use Application\model\classes\Query;
     use PDO;
 
     /* The QueryReservations class is a PHP class that extends the Query class and provides a method to

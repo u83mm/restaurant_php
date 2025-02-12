@@ -1,6 +1,7 @@
 <?php
-namespace model\captcha\Strategy;
-use model\captcha\SingleChar;
+namespace Application\model\captcha\Strategy;
+
+use Application\model\captcha\SingleChar;
 
 class PlainText
 {

@@ -4,10 +4,10 @@
     namespace Application\Controller\admin;
 
     use Application\Core\Controller;
-    use model\classes\Language;
-    use model\classes\Query;
-    use model\orders\Order;
-    use model\repositories\OrderRepository;
+    use Application\model\classes\Language;
+    use Application\model\classes\Query;
+    use Application\model\orders\Order;
+    use Application\model\repositories\OrderRepository;
 
     class ComandasController extends Controller
     {        

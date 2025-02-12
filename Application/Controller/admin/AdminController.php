@@ -4,9 +4,9 @@
     namespace Application\Controller\admin;
 
     use Application\Core\Controller;
-    use model\classes\Language;
-    use model\classes\Query;    
-    use model\classes\Validate;
+    use Application\model\classes\Language;
+    use Application\model\classes\Query;    
+    use Application\model\classes\Validate;
 
     class AdminController extends Controller
     {   

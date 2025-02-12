@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace model\captcha;
+namespace Application\model\captcha;
 
 use Attribute;
-use model\captcha\Strategy\ {PlainText,PlainFill};
+use Application\model\captcha\Strategy\ {PlainText,PlainFill};
 
 #[SingleChar]
 

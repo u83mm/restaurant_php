@@ -4,16 +4,18 @@
     namespace Application\Controller;
 
     use Application\Core\Controller;
-    use model\captcha\SingleChar;
-    use model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};
-    use model\classes\QueryMenu;
-    use model\classes\Validate;
+    use Application\model\captcha\SingleChar;
+    use Application\model\captcha\Strategy\{LineFill,DotFill,Shadow,RotateText};
+    use Application\model\classes\QueryMenu;
+    use Application\model\classes\Validate;
 
     class IndexController extends Controller
     {
-        public function __construct(private object $dbcon = DB_CON, private string $message = "")
-        {
-                        
+        public function __construct(
+            private string $message = "",
+            private QueryMenu $menuDayQuery = new QueryMenu()
+        )
+        {                        
         }
 
       /**
@@ -24,17 +26,13 @@
         {    
             if(!isset($_SESSION['role'])) header("Location: /index/showCaptcha");
 
-            try {                                                                                                          
-                $menuDayQuery = new QueryMenu();                            
-
+            try {                                                                                                                                                
                 /** Get dishes, dessert and price to show in the Day's menu aside section */
-                $menuDaySections = $menuDayQuery->getMenuDayElements();                                            
+                $menuDaySections = $this->menuDayQuery->getMenuDayElements();                                            
                                                                         
                 $this->render("/view/main_view.php", [
                     'menuDaySections'   =>  $menuDaySections
-                ]);
-
-                unset($_SESSION['message']);
+                ]);                
 
             } catch (\Throwable $th) {
                 $message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";

@@ -1,5 +1,5 @@
 <?php
-    namespace model\classes;
+    namespace Application\model\classes;
 
     use PDO;
 
@@ -332,7 +332,7 @@
         public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField): array
         {
             $fields = implode(", ", $fields);
-            $query = "SELECT $fields FROM $table ORDER BY $orderByField DESC";
+            $query = "SELECT $fields FROM $table ORDER BY $orderByField ASC";
 
             try {
                 $stm = $this->dbcon->pdo->prepare($query);                                                   

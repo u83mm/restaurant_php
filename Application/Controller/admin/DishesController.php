@@ -4,12 +4,12 @@
     namespace Application\Controller\admin;
 
     use Application\Core\Controller;
-    use model\classes\CommonTasks;
-    use model\classes\Dishe;
-    use model\classes\Language;    
-    use model\classes\QueryMenu;
-    use model\classes\Validate;
-    use model\repositories\dishe\DishRepository;
+    use Application\model\classes\CommonTasks;
+    use Application\model\classes\Dishe;
+    use Application\model\classes\Language;    
+    use Application\model\classes\QueryMenu;
+    use Application\model\classes\Validate;
+    use Application\model\repositories\dishe\DishRepository;
 
     class DishesController extends Controller
     {        

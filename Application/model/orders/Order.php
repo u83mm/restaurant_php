@@ -1,5 +1,5 @@
 <?php
-    namespace model\orders;
+    namespace Application\model\orders;
 
     class Order
     {

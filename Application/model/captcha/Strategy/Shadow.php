@@ -1,7 +1,7 @@
 <?php
-namespace model\captcha\Strategy;
+namespace Application\model\captcha\Strategy;
 
-use model\captcha\SingleChar;
+use Application\model\captcha\SingleChar;
 
 
 class Shadow

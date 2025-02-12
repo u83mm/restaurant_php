@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 	
-	namespace model\classes;	
+	namespace Application\model\classes;	
 
 	class PageClass {			
 		public function __construct(
@@ -75,7 +75,7 @@
 						<h2 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h2>
 					</div>
 					<div class="col-12 col-md-2 col-xl-1 d-md-flex justify-content-center align-items-end pb-2 pe-1 text-end">
-						<form action="<?php echo PATH === "" ?  "/" : PATH; ?>" method="post">
+						<form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") === "" ?  "/" : rtrim($_SERVER['REQUEST_URI'], "/"); ?>" method="post">
 							<input type="hidden" name="csrf_token" value="<?php if(isset($_SESSION['csrf_token'])) echo $_SESSION['csrf_token']; ?>">
 							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">
 							<input type="hidden" name="date" value="<?php if(isset($_SESSION['date'])) echo $_SESSION['date']; ?>">													

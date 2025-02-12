@@ -1,7 +1,7 @@
 <?php
 	declare(strict_types=1);
 		
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$home = new PageClass();
 	$home->title = "My Restaurant | " . ucfirst($home->language['orders']);
