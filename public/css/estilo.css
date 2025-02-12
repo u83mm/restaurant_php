@@ -510,6 +510,23 @@ textarea {
 	vertical-align: top;
 }
 
+#emoji-container {
+	display: inline-block;
+	border: 1px solid rgb(224, 223, 223);
+	border-radius: 0.3em;
+}
+
+#emoji-container span {
+	font-size: 1.7em;
+	padding: 0.1em;
+	cursor: pointer;
+}
+
+#dish_menu_menuEmoji {
+	border: none;
+	font-size: 1.7em;
+	width: 2em;
+}
 
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {

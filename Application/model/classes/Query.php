@@ -261,7 +261,7 @@
             $query = $values = "";
             $insert = "INSERT INTO $table (";            
 
-            if(is_object($fields)) $fields = $fields->getFields();
+            if(is_object($fields) && method_exists($fields, 'getFields')) $fields = $fields->getFields();
 
             foreach ($fields as $key => $value) {
                 $insert .= $key . ",";

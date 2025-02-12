@@ -10,6 +10,7 @@ $page->do_html_header($page->title, $page->h1, $page->meta_name_description, $pa
 $page->do_html_nav($page->nav_links, $page->language['nav_link_administration']);
 ?>
 <h3 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h3>
+<?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -26,11 +27,11 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
                     <?php foreach ($categories as $category): ; ?>                    
                     <tr>
                         <td class="text-center"><?php echo $category['menu_id']; ?></td>
-                        <td><?php echo $category['menu_category']; ?></td>
+                        <td><?php echo ucfirst($category['menu_category']); ?></td>
                         <td class="text-center"><?php echo $category['menu_emoji'] ?></td>
                         <td class="text-center options">
-                            <a class="btn btn-outline-success" href="#">Edit</a>
-                            <a class="btn btn-outline-danger" href="#">Delete</a>
+                            <a class="btn btn-outline-success" href="#"><?php echo ucfirst($page->language['edit']); ?></a>
+                            <a class="btn btn-outline-danger" href="#"><?php echo ucfirst($page->language['delete']); ?></a>
                         </td>                        
                     </tr>
                     <?php endforeach; ?>                    
