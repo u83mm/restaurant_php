@@ -1,5 +1,5 @@
 <?php	
-	use model\classes\PageClass;
+	use Application\model\classes\PageClass;
 
 	$page = new PageClass();
     $page->title = "My Restaurant | Admin";
@@ -48,7 +48,7 @@
         <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
             <div class="shadow rounded adminMenus">            
-                <a class="btn btn-primary mb-5" href="#"><?php echo ucfirst($page->language['show_list']); ?></a>
+                <a class="btn btn-primary mb-5" href="/admin/categories/index"><?php echo ucfirst($page->language['show_list']); ?></a>
             </div> 
         </section>                                                                                                                                                                                                                                           
     </div>
