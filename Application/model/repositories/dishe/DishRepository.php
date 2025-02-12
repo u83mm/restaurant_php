@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace model\repositories\dishe;
+namespace Application\model\repositories\dishe;
 
-use model\classes\Query;
+use Application\model\classes\Query;
 
 final class DishRepository extends Query
 {

@@ -4,12 +4,12 @@
     namespace Application\Controller\reservations;
 
     use Application\Core\Controller;
-    use model\classes\CommonTasks;
-    use model\classes\Language;
-    use model\classes\Query;
-    use model\classes\QueryMenu;
-    use model\classes\QueryReservations;
-    use model\classes\Validate;
+    use Application\model\classes\CommonTasks;
+    use Application\model\classes\Language;
+    use Application\model\classes\Query;
+    use Application\model\classes\QueryMenu;
+    use Application\model\classes\QueryReservations;
+    use Application\model\classes\Validate;
    
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;

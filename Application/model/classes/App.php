@@ -21,7 +21,7 @@
 
         /** Manage the URL */
         public function getUrl() : array|string {
-            $uri = explode("/", PATH);
+            $uri = explode("/", rtrim($_SERVER['REQUEST_URI'], "/"));
             array_shift($uri);
             return $uri;
         }
@@ -60,18 +60,16 @@
                 $this->controllerRoute = SITE_ROOT . "/../Application/Controller/" . $this->route;        
                 $this->controllerName = $this->controllerNamePrefix . "Controller";
 
-                $file_name = $this->controllerRoute . $this->controllerName . ".php";
+                $file_name = $this->controllerRoute . $this->controllerName . ".php";              
                 
-                if(file_exists($file_name)) {                    
-                    $controller_path = '\Application\Controller\\' . str_replace('/', '\\', $this->route) . $this->controllerName;                 
-                    
-                    $controller = new $controller_path;
+                if(!file_exists($file_name)) {                    
+                    throw new \Exception("Page not found", 1);  
+                }
+                
+                $controller_path = '\Application\Controller\\' . str_replace('/', '\\', $this->route) . $this->controllerName;                                     
+                $controller = new $controller_path();                    
 
-                    call_user_func_array([$controller, $this->method], []);
-                } 
-                else {                    
-                    throw new \Exception("Page not found");
-                }                                                  
+                call_user_func_array([$controller, $this->method], []);                                                                 
                                                                           
             } catch (\Throwable $th) {
                 $this->message = "<p class='alert alert-danger text-center'>Page not found</p>";

@@ -1,9 +1,7 @@
 <?php		
-	model\classes\Loader::init(__DIR__ . "/..");
+	Application\model\classes\Loader::init(__DIR__ . "/..");
 	
-	use Application\Database\Connection;
-	
-	define('DB_CONFIG_FILE', SITE_ROOT . '/../Application/db.config.php');		
+	use Application\Database\Connection;			
 	
 	try {
 		$dbcon = new Connection(include DB_CONFIG_FILE);

@@ -1,5 +1,5 @@
 <?php
-    namespace model\fpdf;
+    namespace Application\model\fpdf;
 
     class MyPdf extends Fpdf
     {

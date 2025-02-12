@@ -3,7 +3,7 @@
 
     namespace Application\Core;
 
-    use model\classes\AccessControl;
+    use Application\model\classes\AccessControl;
 
     class Controller
     {
