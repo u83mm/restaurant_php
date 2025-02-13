@@ -93,7 +93,7 @@
             }
         }
 
-        public function selectOneBy(string $table, string $field, string $value): array|bool 
+        public function selectOneBy(string $table, string $field, string $value): array|bool|object
         {
             $query = "SELECT * FROM $table WHERE $field = :val";                         
 
@@ -140,8 +140,7 @@
             try {
                 $stm = $this->dbcon->pdo->prepare($query);                        
                 $stm->execute($params);       				
-                $stm->closeCursor();
-                $dbcon = null;
+                $stm->closeCursor();               
 
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);

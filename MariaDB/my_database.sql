@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 12, 2025 at 12:37 PM
+-- Generation Time: Feb 13, 2025 at 12:51 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -127,21 +127,21 @@ CREATE TABLE `dishes_menu` (
 --
 
 INSERT INTO `dishes_menu` (`menu_id`, `menu_category`, `menu_emoji`) VALUES
-(1, 'aperitivos', '&#127839;'),
-(2, 'entrantes', '&#127836;'),
-(3, 'ensaladas', '&#129367;'),
-(4, 'carnes', '&#129385;'),
-(5, 'pescados', '&#128031;'),
-(6, 'arroces', '&#129368;'),
-(7, 'postres', '&#129473;'),
-(8, 'cafés', '&#9749;'),
-(9, 'tintos', '&#127863;'),
-(10, 'blancos', '&#127863;'),
-(11, 'rosados', '&#127863;'),
-(12, 'cavas', '&#127870;'),
-(13, 'champagne', '&#127870;'),
-(14, 'bebidas', '&#127866;'),
-(15, 'licores', '&#127865;');
+(1, 'aperitivos', '🍟'),
+(2, 'entrantes', '🍜'),
+(3, 'salads', '🥗'),
+(4, 'carnes', '🥩'),
+(5, 'fishes', '🐟'),
+(6, 'rices', '🥘'),
+(7, 'postres', '🧁'),
+(8, 'coffees', '☕️'),
+(9, 'red wines', '🍷'),
+(10, 'white wines', '🍷'),
+(11, 'pink wines', '🍷'),
+(12, 'sparking wine', '🍾'),
+(13, 'champagne', '🍾'),
+(14, 'drinks', '🍺'),
+(15, 'liquors', '🍹');
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (20, 'entrantes', 'starters'),
 (22, 'ensaladas', 'salads'),
 (24, 'carnes', 'meats'),
-(25, 'meats', 'carnes'),
+(25, 'meats', 'meats'),
 (26, 'pescados', 'fishes'),
 (28, 'arroces', 'rices'),
 (30, 'postres', 'desserts'),
@@ -335,7 +335,18 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (188, 'nav_link_orders_list', 'orders list'),
 (189, 'macaroni bolognese', 'macaroni bolognese'),
 (190, 'new_category', 'new category'),
-(191, 'select_emoji', 'select emoji');
+(191, 'select_emoji', 'select emoji'),
+(192, 'aperitifs', 'aperitifs'),
+(193, 'starters', 'starters'),
+(194, 'salads', 'salads'),
+(195, 'fishes', 'fishes'),
+(196, 'rices', 'rices'),
+(197, 'coffees', 'coffees'),
+(198, 'red wines', 'red wines'),
+(199, 'white wines', 'white wines'),
+(200, 'pink wines', 'pink wines'),
+(201, 'sparking wine', 'sparking wine'),
+(202, 'liquors', 'liquors');
 
 -- --------------------------------------------------------
 
@@ -356,7 +367,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(491, '172.16.202.1', 1739348987, 1, '2025-02-12 09:24:47');
+(493, '172.16.202.1', 1739436841, 1, '2025-02-13 09:49:01');
 
 -- --------------------------------------------------------
 
@@ -901,19 +912,19 @@ ALTER TABLE `dishes_day`
 -- AUTO_INCREMENT for table `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
