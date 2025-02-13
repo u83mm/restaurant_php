@@ -43,7 +43,7 @@ function setAvailableDisheOnEditView() {
  * displayed in an emoji field.
  */
 function showEmoji() {
-    const emojis = ['🥗','🥘', '🍟', '🥩', '🍹', '🍦','🍝', '🐟', '🍺', '🍾', '🍷', '☕️', '🍮']; // Add more emojis as needed
+    const emojis = ['🥗','🥘', '🍟', '🥩', '🍹', '🍦','🍝', '🐟', '🍺', '🍾', '🍷', '☕️', '🍮', '🍜', '🧁']; // Add more emojis as needed
     const emojiContainer = document.getElementById('emoji-container');
     const emojiField = document.getElementById('dish_menu_menuEmoji');
 

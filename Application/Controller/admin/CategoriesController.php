@@ -7,7 +7,7 @@ use Application\Core\Controller;
 use Application\model\classes\DishCategory;
 use Application\model\classes\Query;
 use Application\model\classes\Validate;
-use Application\model\repositories\dishe\DishRepository;
+use Application\model\repositories\dishe\CategoryRepository;
 
 final class CategoriesController extends Controller
 {
@@ -16,7 +16,7 @@ final class CategoriesController extends Controller
         private array $fields = [],
         private Query $query = new Query(),
         private Validate $validate = new Validate(),
-        private DishRepository $dishRepository = new DishRepository()
+        private CategoryRepository $categoryRepository = new CategoryRepository()
     ) 
     {       
     }
@@ -82,7 +82,7 @@ final class CategoriesController extends Controller
                     }
 
                     // Save category
-                    $this->dishRepository->saveCategory(new DishCategory($this->fields));
+                    $this->categoryRepository->saveCategory(new DishCategory($this->fields));
                     $_SESSION['message'] = "<p class='alert alert-success text-center'>" . ucfirst($this->fields["category"]) .  " category was successfully added!</p>";
                 }                            
 
@@ -93,6 +93,66 @@ final class CategoriesController extends Controller
 
             $this->render('/view/admin/categories/new_view.php', [
                 'fields' => $this->fields
+            ]);
+
+        } catch (\Throwable $th) {
+            $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                $this->message = "<p class='alert alert-danger text-center'>
+                                Message: {$th->getMessage()}<br>
+                                Path: {$th->getFile()}<br>
+                                Line: {$th->getLine()}
+                            </p>";
+            }
+
+            $this->render('/view/database_error.php', [
+                'message' => $this->message
+            ]);
+        }
+    }
+
+    public function edit(): void
+    {
+        try {
+            /** Check for user`s sessions */
+            $this->testAccess(['ROLE_ADMIN']);
+
+            global $id;
+            $category = $this->categoryRepository->selectOneBy('dishes_menu', 'menu_id', $id);
+
+            $this->fields = [
+                'category' => $category->getCategory(),
+                'emoji'    => $category->getEmoji()
+            ];
+
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->fields = [
+                    'menu_id'       => $id,
+                    'menu_category' => $_POST['category'],
+                    'menu_emoji'    => $_POST['emoji']
+                ];
+
+                if(!$this->validate->validate_form($this->fields)) {
+                    $_SESSION['message'] = $this->validate->get_msg();
+
+                    $this->render('/view/admin/categories/edit_view.php', [
+                        'fields' => $this->fields
+                    ]);
+                }
+                else {                    
+                    // Update category
+                    $this->categoryRepository->updateRegistry('dishes_menu', $this->fields, 'menu_id');
+
+                    $_SESSION['message'] = "<p class='alert alert-success text-center'>" . ucfirst($this->fields["menu_category"]) .  " category was successfully updated!</p>";
+                }
+
+                header('Location: /admin/categories/index');
+                die();
+            }
+            
+            $this->render('/view/admin/categories/edit_view.php', [
+                'fields'    => $this->fields,
             ]);
 
         } catch (\Throwable $th) {

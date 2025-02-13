@@ -27,10 +27,10 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
                     <?php foreach ($categories as $category): ; ?>                    
                     <tr>
                         <td class="text-center"><?php echo $category['menu_id']; ?></td>
-                        <td><?php echo ucfirst($category['menu_category']); ?></td>
+                        <td><?php echo ucfirst($page->language[$category['menu_category']]); ?></td>
                         <td class="text-center"><?php echo $category['menu_emoji'] ?></td>
                         <td class="text-center options">
-                            <a class="btn btn-outline-success" href="#"><?php echo ucfirst($page->language['edit']); ?></a>
+                            <a class="btn btn-outline-success" href="/admin/categories/edit/<?php echo $category['menu_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
                             <a class="btn btn-outline-danger" href="#"><?php echo ucfirst($page->language['delete']); ?></a>
                         </td>                        
                     </tr>
