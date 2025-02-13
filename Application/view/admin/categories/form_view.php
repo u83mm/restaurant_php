@@ -1,9 +1,9 @@
-<form id="categories-form" action="/admin/categories/new" method="post">
+<form id="categories-form" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
     <?php extract($fields); ?>
     <div class="mb-3">
         <label for="category" class="form-label col-md-3"><?php echo ucfirst($page->language['category']); ?>:</label>
         <div class="col-md-7 d-inline-block">
-            <input type="text" class="form-control" id="category" name="category" value="<?php if(isset($category)) echo $category; ?>" required>
+            <input type="text" class="form-control" id="category" name="category" value="<?php if(isset($category)) echo $page->language[$category]; ?>" required>
         </div>                
     </div>
     <div class="mb-3">

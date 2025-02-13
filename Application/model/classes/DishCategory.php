@@ -8,6 +8,7 @@ class DishCategory
 {
     private string $category = "";
     private string $emoji = "";
+    private int $id = 0;
 
     public function __construct(
         private array $fields = []
@@ -27,6 +28,19 @@ class DishCategory
         }
 
         return $this;
+    }
+
+    // Set an id
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    // Get an id
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     // Set a category
