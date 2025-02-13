@@ -37,17 +37,17 @@ final class CategoriesController extends Controller
         } catch (\Throwable $th) {
             $$this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
-                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $$this->message = "<p class='alert alert-danger text-center'>
-                                    Message: {$th->getMessage()}<br>
-                                    Path: {$th->getFile()}<br>
-                                    Line: {$th->getLine()}
-                                </p>";
-                }                
+            if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                $$this->message = "<p class='alert alert-danger text-center'>
+                                Message: {$th->getMessage()}<br>
+                                Path: {$th->getFile()}<br>
+                                Line: {$th->getLine()}
+                            </p>";
+            }                
 
-                $this->render('/view/database_error.php', [
-                    'message' => $this->message
-                ]);
+            $this->render('/view/database_error.php', [
+                'message' => $this->message
+            ]);
         }
     }
 
