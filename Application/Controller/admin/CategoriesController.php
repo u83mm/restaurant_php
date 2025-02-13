@@ -171,5 +171,37 @@ final class CategoriesController extends Controller
             ]);
         }
     }
+
+    public function delete(): void
+    {
+        try {
+            /** Check for user`s sessions */
+            $this->testAccess(['ROLE_ADMIN']);
+
+            $id = $this->validate->test_input($_POST['id']);
+
+            if($id) {
+                $this->categoryRepository->deleteRegistry('dishes_menu', 'menu_id', $id);
+                $_SESSION['message'] = "<p class='alert alert-success text-center'>Category was successfully deleted!</p>";
+            }
+
+            header('Location: /admin/categories/index');
+
+        } catch (\Throwable $th) {
+            $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                $this->message = "<p class='alert alert-danger text-center'>
+                                Message: {$th->getMessage()}<br>
+                                Path: {$th->getFile()}<br>
+                                Line: {$th->getLine()}
+                            </p>";
+            }
+
+            $this->render('/view/database_error.php', [
+                'message' => $this->message
+            ]);
+        }
+    }
 }
 ?>

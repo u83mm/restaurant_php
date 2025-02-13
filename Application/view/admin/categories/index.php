@@ -31,7 +31,7 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
                         <td class="text-center"><?php echo $category['menu_emoji'] ?></td>
                         <td class="text-center options">
                             <a class="btn btn-outline-success" href="/admin/categories/edit/<?php echo $category['menu_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
-                            <a class="btn btn-outline-danger" href="#"><?php echo ucfirst($page->language['delete']); ?></a>
+                            <?php include(SITE_ROOT . '/../Application/view/admin/categories/delete_form.php'); ?>
                         </td>                        
                     </tr>
                     <?php endforeach; ?>                    
