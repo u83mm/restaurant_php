@@ -59,8 +59,8 @@ final class CategoriesController extends Controller
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->fields = [
-                    'category' => $_POST['category'],
-                    'emoji'    => $_POST['emoji']
+                    'category' => $_POST['category'] ?? "",
+                    'emoji'    => $_POST['emoji'] ?? ""
                 ];
 
                 if(!$this->validate->validate_form($this->fields)) {                    
@@ -92,7 +92,7 @@ final class CategoriesController extends Controller
             }
 
             $this->render('/view/admin/categories/new_view.php', [
-                'fields' => $this->fields
+                'fields' => ['category' => '', 'emoji' => '']
             ]);
 
         } catch (\Throwable $th) {
