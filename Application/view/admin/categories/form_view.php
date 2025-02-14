@@ -3,13 +3,13 @@
     <div class="mb-3">
         <label for="category" class="form-label col-md-3"><?php echo ucfirst($page->language['category']); ?>:</label>
         <div class="col-md-7 d-inline-block">
-            <input type="text" class="form-control" id="category" name="category" value="<?php if(isset($category)) echo $page->language[$category]; ?>" required>
+            <input type="text" class="form-control" id="category" name="category" value="<?php echo $page->language[$category] ?? $category ?>" required>
         </div>                
     </div>
     <div class="mb-3">
         <label for="dish_menu_menuEmoji" class="form-label col-md-3">Emoji:</label>
         <div class="col-md-7 d-inline-block">
-            <input type="text" class="form-control" id="dish_menu_menuEmoji" name="emoji" value="<?php echo $emoji ?? '' ?>" readonly>
+            <input type="text" class="form-control" id="dish_menu_menuEmoji" name="emoji" value="<?php echo $emoji ?>" readonly>
         </div>                
     </div>
     <div class="mb-3 d-md-flex">

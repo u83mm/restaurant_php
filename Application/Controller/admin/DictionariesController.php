@@ -58,6 +58,7 @@ final class DictionariesController extends Controller
                 'value'    => $this->validate->test_input($_POST['value'])
             ];
 
+            /** Validate form */
             if(!$this->validate->validate_form($this->fields)) {
                 $this->message = $this->validate->get_msg();
                 $this->render('/view/admin/dictionaries/index.php', [
@@ -70,6 +71,20 @@ final class DictionariesController extends Controller
                 ]);
             }
 
+            /** Check if word already exists */
+            if($this->query->selectOneBy('spanish_dict', 'key_word', $this->fields['key_word'])) {
+                $this->message = "<p class='alert alert-danger text-center'>This word already exists in the dictionary!</p>";
+                $this->render('/view/admin/dictionaries/index.php', [
+                    'active'          => 'administration',
+                    'sp_dict_message' => $this->message,
+                    'fields'          => [
+                        'sp_key'   => $this->fields['key_word'], 
+                        'sp_value' => $this->fields['value']
+                    ]
+                ]);
+            }
+
+            /** Insert into database */
             $this->query->insertInto('spanish_dict', $this->fields);
             $this->message = "<p class='alert alert-success text-center'>Saved in dictionary successfully!</p>";
             $this->render('/view/admin/dictionaries/index.php', [
@@ -107,6 +122,7 @@ final class DictionariesController extends Controller
                 'value'    => $this->validate->test_input($_POST['value'] ?? "")
             ];
 
+            /** Validate form */
             if(!$this->validate->validate_form($this->fields)) {
                 $this->message = $this->validate->get_msg();
                 $this->render('/view/admin/dictionaries/index.php', [
@@ -119,6 +135,20 @@ final class DictionariesController extends Controller
                 ]);
             }
 
+            /** Check if word already exists */
+            if($this->query->selectOneBy('english_dict', 'key_word', $this->fields['key_word'])) {
+                $this->message = "<p class='alert alert-danger text-center'>This word already exists in the dictionary!</p>";
+                $this->render('/view/admin/dictionaries/index.php', [
+                    'active'          => 'administration',
+                    'en_dict_message' => $this->message,
+                    'fields'          => [
+                        'en_key'   => $this->fields['key_word'], 
+                        'en_value' => $this->fields['value']
+                    ]
+                ]);
+            }
+
+            /** Insert into database */
             $this->query->insertInto('english_dict', $this->fields);
             $this->message = "<p class='alert alert-success text-center'>Saved in dictionary successfully!</p>";
             $this->render('/view/admin/dictionaries/index.php', [
