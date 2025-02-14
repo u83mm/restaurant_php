@@ -45,7 +45,8 @@
                 </form>
             </div>
         </section>
-    </div>   
+    </div>
+    <a class="btn btn-outline-primary" href="/admin/admin/adminMenus"><?php echo ucfirst($page->language['go_back']); ?></a>   
 <?php
 	$page->do_html_footer();
 ?>

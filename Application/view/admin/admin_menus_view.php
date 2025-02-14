@@ -29,7 +29,7 @@
                     <form action="/admin/menuDay/index" method="post">
                         <button class="btn btn-primary" name="action" value="index"><?php echo ucfirst($page->language['send']); ?></button>
                         <div class="col-4 col-md-3 col-lg-4 text-center text-sm-start d-inline-block ms-2">
-                            <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" value="<?php //if(isset($fields)) echo $fields['Price']; ?>" required>
+                            <input class="form-control" type="number" step="0.01" min="0" max="5000" name="price" id="price" required>
                         </div>                  
                     </form>                                             
                 </div>            
@@ -49,7 +49,7 @@
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
             <div class="shadow rounded adminMenus">            
                 <a class="btn btn-primary" href="/admin/categories/index"><?php echo ucfirst($page->language['show_list']); ?></a> 
-                <hr \>
+                <hr />
                 <a href="/admin/dictionaries/index">Dictionaries</a>                           
             </div>            
         </section>                                                                                                                                                                                                                                           
