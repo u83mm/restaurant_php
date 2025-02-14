@@ -528,6 +528,11 @@ textarea {
 	width: 2em;
 }
 
+.dictionary-flag {
+	width: 2em;
+	margin-left: 0.5em;
+}
+
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {
 	.mainLogo {

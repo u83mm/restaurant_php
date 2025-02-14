@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 13, 2025 at 12:51 PM
+-- Generation Time: Feb 13, 2025 at 09:33 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -346,7 +346,10 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (199, 'white wines', 'white wines'),
 (200, 'pink wines', 'pink wines'),
 (201, 'sparking wine', 'sparking wine'),
-(202, 'liquors', 'liquors');
+(202, 'liquors', 'liquors'),
+(203, 'dictionaries', 'dictionaries'),
+(205, 'spanish', 'spanish'),
+(206, 'english', 'english');
 
 -- --------------------------------------------------------
 
@@ -367,7 +370,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(493, '172.16.202.1', 1739436841, 1, '2025-02-13 09:49:01');
+(494, '172.16.202.1', 1739464097, 1, '2025-02-13 17:23:17');
 
 -- --------------------------------------------------------
 
@@ -773,7 +776,10 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (190, 'macaroni bolognese', 'macarrones a la boloñesa'),
 (191, 'beer jar', 'jarra de cerveza'),
 (192, 'new_category', 'nueva categoría'),
-(193, 'select_emoji', 'selecciona un emoji');
+(193, 'select_emoji', 'selecciona un emoji'),
+(194, 'dictionaries', 'diccionarios'),
+(198, 'spanish', 'español'),
+(199, 'english', 'inglés');
 
 -- --------------------------------------------------------
 
@@ -918,13 +924,13 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=495;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -960,7 +966,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 
 --
 -- AUTO_INCREMENT for table `user`
