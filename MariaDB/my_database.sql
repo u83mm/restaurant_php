@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 15, 2025 at 10:26 AM
+-- Generation Time: Feb 15, 2025 at 11:16 AM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -350,7 +350,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (203, 'dictionaries', 'dictionaries'),
 (205, 'spanish', 'spanish'),
 (206, 'english', 'english'),
-(208, 'alert_rows_not_found', 'there are not any result'),
+(208, 'rows_not_found', 'there aren´t result'),
 (209, 'first', 'first'),
 (210, 'second', 'main course'),
 (211, 'dessert', 'dessert'),
@@ -783,7 +783,7 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (194, 'dictionaries', 'diccionarios'),
 (198, 'spanish', 'español'),
 (199, 'english', 'inglés'),
-(202, 'alert_rows_not_found', 'no se han encontrado resultados'),
+(202, 'rows_not_found', 'no se han encontrado resultados'),
 (203, 'first', 'primero'),
 (204, 'second', 'segundo'),
 (205, 'dessert', 'postre'),
