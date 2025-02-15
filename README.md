@@ -24,25 +24,30 @@ git clone https://github.com/u83mm/restaurant_php.git Restaurant
 ```
 cd Restaurant
 ```
-3.- Build the project and stands up the containers
+
+3.- Create log directory and subdirectories.
+```
+mkdir log log/apache log/db log/php
+```
+4.- Build the project and stands up the containers
 ```
 docker compose build
 docker compose up -d
 ```
-4.- Access to db container and install dependencies
+5.- Access to db container and install dependencies
 ```
 docker exec -it db bash
 composer install
 ```
-5.- Access to phpMyAdmin.
+6.- Access to phpMyAdmin.
 ```
 http://localhost:8080/
 user: admin
 passwd: admin
 ```
-6.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "MariaDB" directory.
+7.- Select "my_database" and go to the "import" menu and search my_database.sql file in your "MariaDB" directory.
 
-7.- Go to your localhost in the browser and you can do login.
+8.- Go to your localhost in the browser and you can do login.
 ```
 http://localhost/
 user: admin@admin.com
