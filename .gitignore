@@ -22,7 +22,6 @@
 /log/
 /db_vol/
 /public/images/captcha/
-/public/uploads/
 .phpunit.cache
 ###< my files to ignore ###
 .codegpt

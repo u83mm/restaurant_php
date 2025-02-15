@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 13, 2025 at 09:33 PM
+-- Generation Time: Feb 15, 2025 at 10:26 AM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -67,7 +67,7 @@ CREATE TABLE `dishes` (
 --
 
 INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description`, `picture`, `price`, `available`) VALUES
-(1, 'macarrones a la boloñesa', 4, 2, 'mauris eu mattis neque. sed aliquet maximus rutrum. praesent auctor enim felis, vitae molestie elit aliquam id. donec et justo orci. orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. duis auctor arcu libero, ut tempor nunc eleifend vel. aliquam ullamcorper non augue eu porttitor. phasellus at est vel sem placerat finibus sit amet a nibh. proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. duis tincidunt dui nec mauris egestas finibus. morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. phasellus ornare arcu metus, vitae feugiat neque rutrum sed. donec maximus felis nunc, vel elementum orci viverra sit amet. curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058366-macarrones_bolognesa.jpg', 9.50, b'0'),
+(1, 'macarrones a la boloñesa', 4, 2, 'mauris eu mattis neque. sed aliquet maximus rutrum. praesent auctor enim felis, vitae molestie elit aliquam id. donec et justo orci. orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. duis auctor arcu libero, ut tempor nunc eleifend vel. aliquam ullamcorper non augue eu porttitor. phasellus at est vel sem placerat finibus sit amet a nibh. proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. duis tincidunt dui nec mauris egestas finibus. morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. phasellus ornare arcu metus, vitae feugiat neque rutrum sed. donec maximus felis nunc, vel elementum orci viverra sit amet. curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058366-macarrones_bolognesa.jpg', 9.50, b'1'),
 (2, 'ensalada catalana', 4, 3, 'mauris eu mattis neque. sed aliquet maximus rutrum. praesent auctor enim felis, vitae molestie elit aliquam id. donec et justo orci. \r\n\r\norci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. duis auctor arcu libero, ut tempor nunc eleifend vel. aliquam ullamcorper non augue eu porttitor. phasellus at est vel sem placerat finibus sit amet a nibh. proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. \r\n\r\nduis tincidunt dui nec mauris egestas finibus. morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. phasellus ornare arcu metus, vitae feugiat neque rutrum sed. donec maximus felis nunc, vel elementum orci viverra sit amet. curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058472-ensalada_catalana.jpeg', 7.65, b'0'),
 (3, 'ensalada mixta', 1, 3, 'mauris eu mattis neque. sed aliquet maximus rutrum. praesent auctor enim felis, vitae molestie elit aliquam id. donec et justo orci. orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. duis auctor arcu libero, ut tempor nunc eleifend vel. aliquam ullamcorper non augue eu porttitor. \r\n\r\nphasellus at est vel sem placerat finibus sit amet a nibh. proin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. duis tincidunt dui nec mauris egestas finibus. morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. phasellus ornare arcu metus, vitae feugiat neque rutrum sed. donec maximus felis nunc, vel elementum orci viverra sit amet. curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1683464202-ensalada_mixta.png', 7.50, b'1'),
 (4, 'paella valenciana', 2, 6, 'Mauris eu mattis neque. Sed aliquet maximus rutrum. Praesent auctor enim felis, vitae molestie elit aliquam id. Donec et justo orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis auctor arcu libero, ut tempor nunc eleifend vel. Aliquam ullamcorper non augue eu porttitor. Phasellus at est vel sem placerat finibus sit amet a nibh. \r\nProin metus ligula, scelerisque id eleifend sit amet, vestibulum sit amet justo. Duis tincidunt dui nec mauris egestas finibus. Morbi purus nulla, scelerisque sagittis consequat quis, pretium at sem. Phasellus ornare arcu metus, vitae feugiat neque rutrum sed. Donec maximus felis nunc, vel elementum orci viverra sit amet. Curabitur at odio sit amet nisi consequat commodo.', '/var/www/public/uploads/dishes_pics/1674058720-paella-valenciana-jpg.jpeg', 11.25, b'1'),
@@ -87,7 +87,7 @@ INSERT INTO `dishes` (`dishe_id`, `name`, `category_id`, `menu_id`, `description
 (18, 'café cortado', 4, 8, 'Sed sit amet est a lorem viverra convallis. Praesent id lectus at felis cursus scelerisque. Nunc luctus posuere diam, eget luctus nulla viverra at. Nam euismod posuere feugiat. Aliquam erat volutpat. Cras vel gravida lectus, vel porta orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682854551-coffee.jpg', 1.30, b'1'),
 (19, 'creps de la casa', 3, 7, 'sed sit amet est a lorem viverra convallis. praesent id lectus at felis cursus scelerisque. nunc luctus posuere diam, eget luctus nulla viverra at. nam euismod posuere feugiat. aliquam erat volutpat. cras vel gravida lectus, vel porta orci. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;', '/var/www/public/uploads/dishes_pics/1682856434-creps.jpg', 4.80, b'1'),
 (21, 'anchoas de la casa', 4, 1, 'vestibulum vitae auctor odio. vivamus sagittis eleifend fermentum. aliquam dictum lacinia lacinia. nulla commodo quam a convallis sollicitudin. sed ipsum orci, tincidunt quis laoreet id, blandit vel neque. nullam vel eleifend enim, a varius lorem. mauris at mi sed velit faucibus rhoncus.', '/var/www/public/uploads/dishes_pics/1683462317-anchoas.webp', 11.75, b'1'),
-(26, 'jarra de cerveza', 4, 14, 'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.', '/var/www/public/uploads/dishes_pics/1730636114-beer.webp', 3.76, b'1');
+(26, 'jarra de cerveza', 4, 14, 'duis quis nulla vitae odio feugiat vehicula a id felis. phasellus in ultrices ipsum. nunc et efficitur metus, et lacinia ex. duis sit amet nunc blandit, euismod mi eu, vehicula risus. fusce eu felis sem. morbi faucibus euismod malesuada. morbi dapibus diam eu erat sagittis semper. vestibulum tristique a orci ac semper. nam orci enim, egestas eget semper eget, volutpat eget lacus. fusce dignissim quam eu convallis molestie. aliquam at nulla maximus, venenatis nisi quis, molestie lectus.', '/var/www/public/uploads/dishes_pics/1739615120-beer.webp', 3.76, b'0');
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (3, 'welcome', 'welcome'),
 (4, 'day_menu', 'day\'s menu'),
 (5, 'first_plates', 'starters'),
-(6, 'seconds', 'main dishes'),
+(6, 'seconds', 'main courses'),
 (7, 'desserts', 'desserts'),
 (8, 'price', 'price'),
 (9, 'menu_day_footer', 'water, wine or refresh drink'),
@@ -349,7 +349,12 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (202, 'liquors', 'liquors'),
 (203, 'dictionaries', 'dictionaries'),
 (205, 'spanish', 'spanish'),
-(206, 'english', 'english');
+(206, 'english', 'english'),
+(208, 'alert_rows_not_found', 'there are not any result'),
+(209, 'first', 'first'),
+(210, 'second', 'main course'),
+(211, 'dessert', 'dessert'),
+(212, 'menu', 'menu');
 
 -- --------------------------------------------------------
 
@@ -370,7 +375,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(494, '172.16.202.1', 1739464097, 1, '2025-02-13 17:23:17');
+(495, '172.16.202.1', 1739613389, 1, '2025-02-15 10:51:29');
 
 -- --------------------------------------------------------
 
@@ -616,7 +621,6 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (28, 'arroces', 'arroces'),
 (29, 'rices', 'arroces'),
 (30, 'postres', 'postres'),
-(31, 'desserts', 'postres'),
 (32, 'cafés', 'cafés'),
 (33, 'coffees', 'cafés'),
 (34, 'tintos', 'tintos'),
@@ -772,14 +776,18 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (186, 'cookies_config_notice', 'permiten mantener la coherencia de la navegación y optimizar el rendimiento del sitio web, son imprescindibles'),
 (187, 'cookies_policy', 'política de cookies'),
 (188, 'nav_link_orders_list', 'comandas'),
-(189, 'macarrones a la boloñesa', 'macarrones a la boloñesa'),
 (190, 'macaroni bolognese', 'macarrones a la boloñesa'),
 (191, 'beer jar', 'jarra de cerveza'),
 (192, 'new_category', 'nueva categoría'),
 (193, 'select_emoji', 'selecciona un emoji'),
 (194, 'dictionaries', 'diccionarios'),
 (198, 'spanish', 'español'),
-(199, 'english', 'inglés');
+(199, 'english', 'inglés'),
+(202, 'alert_rows_not_found', 'no se han encontrado resultados'),
+(203, 'first', 'primero'),
+(204, 'second', 'segundo'),
+(205, 'dessert', 'postre'),
+(206, 'menu', 'carta');
 
 -- --------------------------------------------------------
 
@@ -924,13 +932,13 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=495;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=496;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -966,7 +974,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=207;
 
 --
 -- AUTO_INCREMENT for table `user`
