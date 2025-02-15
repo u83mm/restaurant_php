@@ -12,25 +12,25 @@
         private ?string $picture     = null;
         private ?int    $category_id = null;
         private ?int    $menu_id     = null;
-        private ?int    $available   = null;
+        private ?int    $available   = null; 
+        private array   $fields = [] ;      
         
         public function __construct(
-            private array $fields = []
+            private array $externalFields = []
         )
         {
-            $this->setDishe($this->fields);  
+            $this->setDishe($externalFields);  
         }
 
-        public function setDishe(array $fields): self
+        public function setDishe(array $externalFields): self
         {            
-            foreach ($fields as $key => $value) {
-                if(!empty($fields)) {
-                    foreach($fields as $key => $value) {
-                        $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
-                        
-                        if(method_exists($this, $method)) {
-                            $this->$method($value);
-                        }
+            if(!empty($externalFields)) {
+                foreach($externalFields as $key => $value) {
+                    $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+                    
+                    if(method_exists($this, $method)) {
+                        $this->$method($value);
+                        $this->fields[$key] = $value;
                     }
                 }
             }
@@ -49,7 +49,7 @@
             return $this->dishe_id;
         }
 
-        public function setName(string $name): self
+        /* public function setName(string $name): self
         {
             $this->name = $name;
             return $this;
@@ -69,7 +69,7 @@
         public function getDescription(): string
         {
             return $this->description;
-        }
+        } */
 
         public function setPrice(string $price): self
         {

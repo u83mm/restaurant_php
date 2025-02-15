@@ -248,14 +248,22 @@
                         throw new \Exception("El campo 'Precio' debe ser numérico.");
                     }
 
-                    /** Set picture path */
-                    $this->fields['picture'] = $upload_filename; 
+                    /** Set picture path and dish id */
+                    $this->fields['picture'] = $upload_filename;
+                    $this->fields['dishe_id'] = $this->query->selectCount("dishes") + 1;
                     
                     /** Create new dish object */
-                    $dishe = new Dishe($this->fields);
+                    $dishe = new Dishe($this->fields);                    
                     
                     /** Insert dish into database */
                     $this->query->insertInto("dishes", $dishe);
+
+                    //! Insert into spanish_dict_din table
+                    $this->query->insertInto("spanish_dict_din", [
+                        "dishe_id"    => $dishe->getDisheId(),
+                        "name"        => $this->fields['name'],
+                        "description" => $this->fields['description']
+                    ]);
                     
                     $this->dbcon->pdo->commit();
 
@@ -318,7 +326,8 @@
                  * elements in forms views 
                  * */ 
 
-                $dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                //$dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);
+                $dishe = $this->dishRepository->selectDisheById($dishe_id);                
                 $disheType = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
                 /** Showing dishe_picture in show info */                                                
@@ -461,7 +470,7 @@
 
                 // Validate entries                                                    
                 $this->fields = [
-                    "id"          => $_REQUEST['dishe_id'] ?? $id ?? "",
+                    "dishe_id"    => $_REQUEST['dishe_id'] ?? $id ?? "",
                     "name"        => $this->validate->test_input($_REQUEST['name'] ?? ""),
                     "description" => $this->validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id" => $this->validate->test_input($_REQUEST['category'] ?? ""),
@@ -472,7 +481,7 @@
 
                 if ($this->validate->validate_form($this->fields)) {                                         
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $this->dishRepository->selectOneBy("dishes", "dishe_id", $id);
+                    $dishe = $this->dishRepository->selectDisheById($id);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -480,10 +489,10 @@
                         $this->fields["picture"] = $file_name;
                     }
                     else {                        
-                        $this->fields["picture"] = $dishe->getPicture();
+                        $this->fields["picture"] = $dishe['picture'];
                     }
 
-                    $this->query->updateDishe($this->fields);
+                    $this->dishRepository->updateDishe($this->fields);
                     $this->message = "<p class='container alert alert-success text-center'>" . $this->language['row_updated'] . "</p>";
                     
                     $_SESSION['message'] = $this->message;
