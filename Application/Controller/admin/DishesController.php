@@ -49,7 +49,7 @@
                 if(!$total_rows) throw new \PDOException("No se han encontrado registros", 1);                
                 if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
                 if($p && is_numeric($p)) $pagina = $p;                             
-                if($s && is_numeric($s)) $desde = $s;               
+                if($s && is_numeric($s)) $desde = (int) $s;               
 
                 $last = ($pagina * $pagerows) - $pagerows;
 	            $current_page = ($desde/$pagerows) + 1;
@@ -88,7 +88,7 @@
                                 </p>";
                 } 
                 
-                $this->render("/view/database_error", [
+                $this->render("/view/database_error.php", [
                     "message" => $this->message
                 ]);
             }            
