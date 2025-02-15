@@ -25,8 +25,10 @@
             private Validate $validate = new Validate(),
             private DishRepository $dishRepository = new DishRepository()
         )      
-        {
-            $this->languageObject = new Language();            
+        {            
+            /** Configure page language */
+            $this->languageObject = new Language();
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();             
         }    
 
         /** Show dishes index */
@@ -46,10 +48,10 @@
                 $total_rows = $this->query->selectCount('dishes');
                 $pagina = 1;
 
-                if(!$total_rows) throw new \PDOException("No se han encontrado registros", 1);                
+                if(!$total_rows) $this->message = "<p class='alert alert-warning text-center'>" . ucfirst($this->language['rows_not_found']) . "</p>";    
                 if($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows);                 
-                if($p && is_numeric($p)) $pagina = $p;                             
-                if($s && is_numeric($s)) $desde = $s;               
+                if($p && is_numeric($p)) $pagina = (int) $p;                             
+                if($s && is_numeric($s)) $desde = (int) $s;               
 
                 $last = ($pagina * $pagerows) - $pagerows;
 	            $current_page = ($desde/$pagerows) + 1;
@@ -88,7 +90,7 @@
                                 </p>";
                 } 
                 
-                $this->render("/view/database_error", [
+                $this->render("/view/database_error.php", [
                     "message" => $this->message
                 ]);
             }            
