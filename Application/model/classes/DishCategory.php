@@ -20,10 +20,14 @@ class DishCategory
     private function setEntity(array $fields): self
     {            
         foreach ($fields as $key => $value) {
-            $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));                
-
-            if (method_exists($this, $method)) {
-                $this->$method($value);
+            if(!empty($fields)) {
+                foreach($fields as $key => $value) {
+                    $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+                    
+                    if(method_exists($this, $method)) {
+                        $this->$method($value);
+                    }
+                }
             }
         }
 

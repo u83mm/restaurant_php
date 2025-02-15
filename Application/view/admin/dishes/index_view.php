@@ -31,14 +31,10 @@
                             <td class="align-middle col-1">                                                               
                                 <a href="/menu/showDisheInfo/<?php echo $value['dishe_id']; ?>"><img class="img-fluid" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe"></a>
                             </td>
-                            <td><?php echo ucfirst($page->language[$value['name']]); ?></td>                                                
+                            <td><?php echo ucfirst($value['name']); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
-                            <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>
-                            <?php if($value['available']): ?>
-                                <td class="text-center">&#9989;</td>
-                            <?php else: ?>
-                                <td class="text-center">&#10060;</td>
-                            <?php endif ?>                            
+                            <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>                            
+                                <td class="text-center"><?php $value['available'] ?  printf("✅️") : printf("❌️") ?></td>                                                     
                             <td class="text-center">
                                 <a class="btn btn-outline-success" href="/admin/dishes/edit/<?php echo $value['dishe_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
                                 <?php include(SITE_ROOT . "/../Application/view/admin/dishes/delete_form.php"); ?>

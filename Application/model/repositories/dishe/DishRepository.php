@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\model\repositories\dishe;
 
+use Application\model\classes\Dishe;
 use Application\model\classes\Query;
 
 final class DishRepository extends Query
@@ -11,8 +12,7 @@ final class DishRepository extends Query
     public function __construct(
         protected object $dbcon = DB_CON,        
     ) 
-    {
-        
+    {        
     }
 
     public function selectAllDishes(int $desde, int $pagerows): array
@@ -32,5 +32,23 @@ final class DishRepository extends Query
         $stm->closeCursor();
 
         return $rows;
-    }    
+    }
+
+    public function selectOneBy(string $table, string $field, string $value): Dishe 
+    {
+        $query = "SELECT * FROM $table WHERE $field = :val";                         
+
+        try {
+            $stm = $this->dbcon->pdo->prepare($query);
+            $stm->bindValue(":val", $value);                            
+            $stm->execute();       
+            $rows = $stm->fetch(\PDO::FETCH_ASSOC);
+            $stm->closeCursor();
+
+            return new Dishe($rows);
+
+        } catch (\Throwable $th) {
+            throw new \Exception("{$th->getMessage()}", 1);
+        }
+    }   
 }

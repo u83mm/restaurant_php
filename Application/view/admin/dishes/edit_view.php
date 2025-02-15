@@ -14,7 +14,7 @@
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="name"><?php echo ucfirst($page->language['name']); ?>:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" name="name" id="name" value="<?php echo ucfirst($page->language[$dishe['name']]); ?>" required>
+                    <input class="form-control" type="text" name="name" id="name" value="<?php echo ucfirst($dishe['name']); ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">

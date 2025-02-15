@@ -12,7 +12,7 @@
         private ?string $picture     = null;
         private ?int    $category_id = null;
         private ?int    $menu_id     = null;
-        private ?string $available   = null;
+        private ?int    $available   = null;
         
         public function __construct(
             private array $fields = []
@@ -24,10 +24,14 @@
         public function setDishe(array $fields): self
         {            
             foreach ($fields as $key => $value) {
-                $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));                
-
-                if (method_exists($this, $method)) {
-                    $this->$method($value);
+                if(!empty($fields)) {
+                    foreach($fields as $key => $value) {
+                        $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+                        
+                        if(method_exists($this, $method)) {
+                            $this->$method($value);
+                        }
+                    }
                 }
             }
 
@@ -111,13 +115,13 @@
             return $this->menu_id;
         }
 
-        public function setAvailable(string $available): self
+        public function setAvailable(int $available): self
         {
             $this->available = $available;
             return $this;
         }
 
-        public function getAvailable(): string
+        public function getAvailable(): int
         {
             return $this->available;
         }

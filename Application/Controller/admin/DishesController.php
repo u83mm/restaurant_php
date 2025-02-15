@@ -459,23 +459,20 @@
                 // Change category's language to spanish to do the query to the DB
                 $this->language = $this->languageObject->spanish();               
 
-                // Validate entries
-                $validate = new Validate();                                        
-
+                // Validate entries                                                    
                 $this->fields = [
                     "id"          => $_REQUEST['dishe_id'] ?? $id ?? "",
-                    "name"        => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
-                    "description" => $validate->test_input($_REQUEST['description'] ?? ""),
-                    "category_id" => $validate->test_input($_REQUEST['category'] ?? ""),
-                    "menu_id"     => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
-                    "price"       => $validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"   => isset($_REQUEST['available']) ? $validate->test_input(intval($_REQUEST['available'])) : 0
+                    "name"        => $this->validate->test_input($_REQUEST['name'] ?? ""),
+                    "description" => $this->validate->test_input($_REQUEST['description'] ?? ""),
+                    "category_id" => $this->validate->test_input($_REQUEST['category'] ?? ""),
+                    "menu_id"     => $this->validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "price"       => $this->validate->test_input($_REQUEST['price'] ?? ""),
+                    "available"   => isset($_REQUEST['available']) ? $this->validate->test_input(intval($_REQUEST['available'])) : 0
                 ];                                                                   
 
-                if ($validate->validate_form($this->fields)) {                                         
-
+                if ($this->validate->validate_form($this->fields)) {                                         
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $this->query->selectOneBy("dishes", "dishe_id", $this->fields['id']);
+                    $dishe = $this->dishRepository->selectOneBy("dishes", "dishe_id", $id);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -483,25 +480,27 @@
                         $this->fields["picture"] = $file_name;
                     }
                     else {                        
-                        $this->fields["picture"] = $dishe['picture'];
+                        $this->fields["picture"] = $dishe->getPicture();
                     }
 
                     $this->query->updateDishe($this->fields);
-                    $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    $this->message = "<p class='container alert alert-success text-center'>" . $this->language['row_updated'] . "</p>";
                     
                     $_SESSION['message'] = $this->message;
                     
                     header("Location: /admin/dishes/index");                    
 
                 } else {
-                    $this->message = $validate->get_msg();
+                    $this->message = $this->validate->get_msg();
                     
                     $this->render("/view/admin/dishes/edit_view.php", [
                         "message" => $this->message
                     ]);
                 }                                
             } catch (\Throwable $th) {			
-                $this->message = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $this->message = "<p>{$this->language['file']}: {$th->getFile()}</p>
+                                  <p>{$this->language['line']}: {$th->getLine()}</p>
+                                  <p>{$this->language['error_description']}: <span class='error'>{$th->getMessage()}</span></p>";
                 
                 $this->render("/view/database_error.php", [
                     "message" => $this->message
@@ -610,7 +609,7 @@
                             $pagina = 1;                        
     
                             if(!$total_rows) {
-                                $this->message = "<p class='alert alert-danger text-center'>No se han encontrado registros</p>";
+                                $this->message = "<p class='alert alert-warning text-center'>" . ucfirst($this->language['rows_not_found']) . "</p>";
                                 $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
                                     "pagina"  => $pagina,                                                                                                                                                      
                                     "message" => $this->message,                                                                
