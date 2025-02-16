@@ -23,12 +23,12 @@
             private QueryMenu $query = new QueryMenu(),
             private CommonTasks $commonTask = new CommonTasks(),
             private Validate $validate = new Validate(),
-            private DishRepository $dishRepository = new DishRepository()
+            private DishRepository $dishRepository = new DishRepository(),            
         )      
         {            
             /** Configure page language */
             $this->languageObject = new Language();
-            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();             
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                        
         }    
 
         /** Show dishes index */
@@ -58,7 +58,7 @@
                 
                 
                 /** Select all dishes from DB */
-                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);
+                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);                                
 
                 /** Variables to manage in view file */                
                 $field = null;                
@@ -248,14 +248,21 @@
                         throw new \Exception("El campo 'Precio' debe ser numérico.");
                     }
 
-                    /** Set picture path */
-                    $this->fields['picture'] = $upload_filename; 
+                    /** Set picture path and dish id */
+                    $this->fields['picture'] = $upload_filename;
+                    $this->fields['dishe_id'] = $this->query->selectCount("dishes") + 1;
                     
                     /** Create new dish object */
-                    $dishe = new Dishe($this->fields);
+                    $dishe = new Dishe($this->fields);                    
                     
                     /** Insert dish into database */
-                    $this->query->insertInto("dishes", $dishe);
+                    $this->query->insertInto("dishes", $dishe);                                        
+
+                    $this->query->insertInto("dinamic_data", [
+                        "dishe_id"                            => $dishe->getDisheId(),
+                        "{$_SESSION['language']}_name"        => $this->fields['name'],
+                        "{$_SESSION['language']}_description" => $this->fields['description']
+                    ]);
                     
                     $this->dbcon->pdo->commit();
 
@@ -318,7 +325,8 @@
                  * elements in forms views 
                  * */ 
 
-                $dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                //$dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);
+                $dishe = $this->dishRepository->selectDisheById($dishe_id);                
                 $disheType = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
                 /** Showing dishe_picture in show info */                                                
@@ -461,7 +469,7 @@
 
                 // Validate entries                                                    
                 $this->fields = [
-                    "id"          => $_REQUEST['dishe_id'] ?? $id ?? "",
+                    "dishe_id"    => $_REQUEST['dishe_id'] ?? $id ?? "",
                     "name"        => $this->validate->test_input($_REQUEST['name'] ?? ""),
                     "description" => $this->validate->test_input($_REQUEST['description'] ?? ""),
                     "category_id" => $this->validate->test_input($_REQUEST['category'] ?? ""),
@@ -472,7 +480,7 @@
 
                 if ($this->validate->validate_form($this->fields)) {                                         
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $this->dishRepository->selectOneBy("dishes", "dishe_id", $id);
+                    $dishe = $this->dishRepository->selectDisheById($id);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -480,10 +488,10 @@
                         $this->fields["picture"] = $file_name;
                     }
                     else {                        
-                        $this->fields["picture"] = $dishe->getPicture();
+                        $this->fields["picture"] = $dishe['picture'];
                     }
 
-                    $this->query->updateDishe($this->fields);
+                    $this->dishRepository->updateDishe($this->fields);
                     $this->message = "<p class='container alert alert-success text-center'>" . $this->language['row_updated'] . "</p>";
                     
                     $_SESSION['message'] = $this->message;
@@ -511,6 +519,8 @@
         /** Deleting a dish from the database. */
         public function delete(): void
         {
+            global $id;
+
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
@@ -523,8 +533,11 @@
                 $dishe_to_delete = $this->query->selectOneBy("dishes", "dishe_id", $dishe);
                 
                 if($dishe_to_delete) {
+                    $this->dbcon->pdo->beginTransaction();
                     $this->commonTask->deletePicture($dishe_to_delete['picture']);
                     $this->query->deleteRegistry("dishes", "dishe_id", $dishe);
+                    $this->query->deleteRegistry("dinamic_data", "dishe_id", $dishe);
+                    $this->dbcon->pdo->commit();
     
                     $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
                 }

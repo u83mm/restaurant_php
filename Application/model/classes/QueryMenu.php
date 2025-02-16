@@ -11,10 +11,11 @@
         }
 
         public function selectDishesOfDay(string $field):array
-        {
+        {           
             $query = "SELECT * FROM dishes 
-                    INNER JOIN dishes_day
-                    ON dishes.category_id = dishes_day.category_id 
+                    INNER JOIN dishes_day USING(category_id)
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING (dishe_id) 
                     WHERE dishes_day.category_name = :field
                     AND dishes.available";
 
@@ -24,6 +25,19 @@
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();
+
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
 
                 return $rows;
 
@@ -88,7 +102,7 @@
                 $showResult = "";             
 
                 for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
-                    $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
+                    $menuCategory = ucfirst($menuCategories[$i]['name']);
                     
                     if($menuCategories[$i]['available']) {
                         $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
@@ -131,17 +145,11 @@
         public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id)";                  
 
-                    if($field === "available") {
-                        $query .= " WHERE dishes.$field = :value";
-                    }
-                    else {
-                        $query .= " WHERE dishes.$field LIKE :value";
-                    }
+                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
 
                     $query .= " ORDER BY dishes.dishe_id
                                 LIMIT :desde, :pagerows";
@@ -156,7 +164,20 @@
                 $stm->bindValue(":value", $value);                                         
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 
@@ -169,10 +190,9 @@
         public function selectDishesByPagination(int $desde, int $pagerows, string $field, string $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id) 
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id
                     LIMIT :desde, :pagerows";
@@ -184,7 +204,20 @@
                 $stm->bindValue(":value", $value);                                         
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 
@@ -193,26 +226,39 @@
             }            
         }
 
+       
         public function selectDishesLikeCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";                                        
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id)";                                    
 
-                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dishes.$field LIKE :value";
+                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
                    
                     $query .= " ORDER BY dishes.dishe_id";          
             try {
                 $stm = $this->dbcon->pdo->prepare($query); 
             
-                $field === "available" ? $value = $value : $value = "%{$value}%";
+                $value = $field === "available" ? $value : "%$value%";
                 
                 $stm->bindValue(":value", $value);                                                  
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 
@@ -225,10 +271,8 @@
         public function selectDishesByCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)                    
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id";           
             try {

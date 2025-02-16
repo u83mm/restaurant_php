@@ -31,7 +31,7 @@
                             <td class="align-middle col-1">                                                               
                                 <a href="/menu/showDisheInfo/<?php echo $value['dishe_id']; ?>"><img class="img-fluid" src="<?php echo $commonTask->getWebPath($value['picture']); ?>" alt="img_dishe"></a>
                             </td>
-                            <td><?php echo ucfirst($value['name']); ?></td>                                                
+                            <td><?php if(isset($value['name'])) echo ucfirst($value['name']); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
                             <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>                            
                                 <td class="text-center"><?php $value['available'] ?  printf("✅️") : printf("❌️") ?></td>                                                     

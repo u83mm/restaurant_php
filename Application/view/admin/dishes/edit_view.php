@@ -14,13 +14,13 @@
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="name"><?php echo ucfirst($page->language['name']); ?>:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" name="name" id="name" value="<?php echo ucfirst($dishe['name']); ?>" required>
+                    <input class="form-control" type="text" name="name" id="name" value="<?php $dishe["name"] ? printf(ucfirst($dishe["name"])) : ""; ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="description"><?php echo ucfirst($page->language['description']); ?>:</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php echo $dishe['description']; ?></textarea>                    
+                    <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php $dishe["description"] ? printf($dishe["description"]) : ""; ?></textarea>                    
                 </div>                
             </div>
             <div class="row mb-3 justify-content-center justify-content-sm-start">
