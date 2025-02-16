@@ -11,12 +11,11 @@
         }
 
         public function selectDishesOfDay(string $field):array
-        {
-            //! Refator to use the correct dictinary
+        {           
             $query = "SELECT * FROM dishes 
                     INNER JOIN dishes_day USING(category_id)
                     INNER JOIN dishes_menu USING(menu_id)
-                    INNER JOIN spanish_dict_din USING (dishe_id) 
+                    INNER JOIN dinamic_data USING (dishe_id) 
                     WHERE dishes_day.category_name = :field
                     AND dishes.available";
 
@@ -26,6 +25,19 @@
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();
+
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
 
                 return $rows;
 
@@ -135,9 +147,9 @@
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day USING(category_id)                    
                     INNER JOIN dishes_menu USING(menu_id)
-                    INNER JOIN spanish_dict_din USING(dishe_id)"; //! Refator to use the correct dictinary                    
+                    INNER JOIN dinamic_data USING(dishe_id)";                  
 
-                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE $field LIKE :value";
+                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
 
                     $query .= " ORDER BY dishes.dishe_id
                                 LIMIT :desde, :pagerows";
@@ -152,7 +164,20 @@
                 $stm->bindValue(":value", $value);                                         
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 
@@ -167,10 +192,10 @@
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day USING(category_id)                    
                     INNER JOIN dishes_menu USING(menu_id)
-                    INNER JOIN spanish_dict_din USING(dishe_id) 
+                    INNER JOIN dinamic_data USING(dishe_id) 
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id
-                    LIMIT :desde, :pagerows"; //! Refactor to use correct dictionary
+                    LIMIT :desde, :pagerows";
 
             try {
                 $stm = $this->dbcon->pdo->prepare($query);
@@ -179,7 +204,20 @@
                 $stm->bindValue(":value", $value);                                         
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 
@@ -188,15 +226,15 @@
             }            
         }
 
-        //! Refator to use the correct dictinary
+       
         public function selectDishesLikeCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
                     INNER JOIN dishes_day USING(category_id)                    
                     INNER JOIN dishes_menu USING(menu_id)
-                    INNER JOIN spanish_dict_din USING(dishe_id)";                                    
+                    INNER JOIN dinamic_data USING(dishe_id)";                                    
 
-                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE spanish_dict_din.$field LIKE :value";
+                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
                    
                     $query .= " ORDER BY dishes.dishe_id";          
             try {
@@ -207,7 +245,20 @@
                 $stm->bindValue(":value", $value);                                                  
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
-                $stm->closeCursor();                                                                           
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
     
                 return $rows;
 

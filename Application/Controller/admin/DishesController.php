@@ -23,12 +23,12 @@
             private QueryMenu $query = new QueryMenu(),
             private CommonTasks $commonTask = new CommonTasks(),
             private Validate $validate = new Validate(),
-            private DishRepository $dishRepository = new DishRepository()
+            private DishRepository $dishRepository = new DishRepository(),            
         )      
         {            
             /** Configure page language */
             $this->languageObject = new Language();
-            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();             
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                        
         }    
 
         /** Show dishes index */
@@ -58,7 +58,7 @@
                 
                 
                 /** Select all dishes from DB */
-                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);
+                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);                                
 
                 /** Variables to manage in view file */                
                 $field = null;                
@@ -256,13 +256,12 @@
                     $dishe = new Dishe($this->fields);                    
                     
                     /** Insert dish into database */
-                    $this->query->insertInto("dishes", $dishe);
+                    $this->query->insertInto("dishes", $dishe);                                        
 
-                    //! Refactor tu insert in the correct dict_din table
-                    $this->query->insertInto("spanish_dict_din", [
-                        "dishe_id"    => $dishe->getDisheId(),
-                        "name"        => $this->fields['name'],
-                        "description" => $this->fields['description']
+                    $this->query->insertInto("dinamic_data", [
+                        "dishe_id"                            => $dishe->getDisheId(),
+                        "{$_SESSION['language']}_name"        => $this->fields['name'],
+                        "{$_SESSION['language']}_description" => $this->fields['description']
                     ]);
                     
                     $this->dbcon->pdo->commit();
@@ -537,7 +536,7 @@
                     $this->dbcon->pdo->beginTransaction();
                     $this->commonTask->deletePicture($dishe_to_delete['picture']);
                     $this->query->deleteRegistry("dishes", "dishe_id", $dishe);
-                    $this->query->deleteRegistry("spanish_dict_din", "dishe_id", $dishe); //! Refactor to correct dictionary
+                    $this->query->deleteRegistry("dinamic_data", "dishe_id", $dishe);
                     $this->dbcon->pdo->commit();
     
                     $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         

@@ -5,9 +5,7 @@
 
     class Dishe
     {
-        private ?int    $dishe_id    = null;
-        private ?string $name        = null;
-        private ?string $description = null;
+        private ?int    $dishe_id    = null;       
         private ?float  $price       = null;
         private ?string $picture     = null;
         private ?int    $category_id = null;
@@ -47,29 +45,7 @@
         public function getDisheId(): int
         {
             return $this->dishe_id;
-        }
-
-        /* public function setName(string $name): self
-        {
-            $this->name = $name;
-            return $this;
-        }
-
-        public function getName(): string
-        {
-            return $this->name;
-        }
-
-        public function setDescription(string $description): self
-        {
-            $this->description = $description;
-            return $this;
-        }
-
-        public function getDescription(): string
-        {
-            return $this->description;
-        } */
+        }        
 
         public function setPrice(string $price): self
         {

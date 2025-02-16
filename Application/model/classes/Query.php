@@ -290,6 +290,7 @@
                 $stm->closeCursor();
                 
             } catch (\Throwable $th) {
+                $this->dbcon->pdo->rollBack();
                 throw new \Exception("{$th->getMessage()}", 1);             
             }
         }
