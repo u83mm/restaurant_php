@@ -181,10 +181,10 @@
                 $stm = $this->dbcon->pdo->prepare($query);             			            
                 $stm->bindValue(":id", $id);              
                 $stm->execute();       				
-                $stm->closeCursor();
-                $dbcon = null;
+                $stm->closeCursor();               
 
             } catch (\Throwable $th) {
+                $this->dbcon->pdo->rollBack();
                 throw new \Exception("{$th->getMessage()}", 1); 
             }            
         }

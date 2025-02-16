@@ -23,7 +23,7 @@ final class DishRepository extends Query
         INNER JOIN dishes_menu USING(menu_id)
         INNER JOIN spanish_dict_din USING (dishe_id)
         ORDER BY dishes.dishe_id
-        LIMIT :desde, :pagerows";
+        LIMIT :desde, :pagerows"; //! Refator to use the correct dictinary
     
         $stm = $this->dbcon->pdo->prepare($query);
         $stm->bindValue(":desde", $desde); 
@@ -40,14 +40,36 @@ final class DishRepository extends Query
         $query = "SELECT * FROM dishes 
                 INNER JOIN dishes_day USING(category_id)
                 INNER JOIN dishes_menu USING(menu_id)
-                INNER JOIN spanish_dict_din USING (dishe_id) 
-                WHERE dishes.dishe_id = :id";                       
+                INNER JOIN spanish_dict_din USING (dishe_id)
+                WHERE dishes.dishe_id = :id"; //! Refator to use the correct dictinary                 
 
         try {
             $stm = $this->dbcon->pdo->prepare($query);
             $stm->bindValue(":id", $id);                            
             $stm->execute();       
             $rows = $stm->fetch(\PDO::FETCH_ASSOC);
+            $stm->closeCursor();
+
+            return $rows;
+
+        } catch (\Throwable $th) {
+            throw new \Exception("{$th->getMessage()}", 1);
+        }
+    }
+
+    public function selectDishesByCategory(string $category): array 
+    {
+        $query = "SELECT * FROM dishes 
+                INNER JOIN dishes_day USING(category_id)
+                INNER JOIN dishes_menu USING(menu_id)
+                INNER JOIN spanish_dict_din USING (dishe_id)
+                WHERE dishes_menu.menu_category = :category"; //! Refator to use the correct dictinary                    
+
+        try {
+            $stm = $this->dbcon->pdo->prepare($query);
+            $stm->bindValue(":category", $category);                            
+            $stm->execute();       
+            $rows = $stm->fetchAll(\PDO::FETCH_ASSOC);
             $stm->closeCursor();
 
             return $rows;
@@ -85,7 +107,7 @@ final class DishRepository extends Query
             throw new \Exception("{$th->getMessage()}", 1);
         }
 
-        $query = "UPDATE spanish_dict_din 
+        $query = "UPDATE spanish_dict_din
                 SET name = :name, 
                 description = :description 
                 WHERE dishe_id = :dishe_id";
@@ -96,7 +118,7 @@ final class DishRepository extends Query
             $stm->bindValue(":description", $fields['description']);
             $stm->bindValue(":dishe_id", $fields['dishe_id']);
             $stm->execute();           
-            $stm->closeCursor();
+            $stm->closeCursor(); //! Refator to use the correct dictinary
 
         } catch (\Throwable $th) {
             $this->dbcon->pdo->rollBack();

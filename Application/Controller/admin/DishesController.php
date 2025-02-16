@@ -258,7 +258,7 @@
                     /** Insert dish into database */
                     $this->query->insertInto("dishes", $dishe);
 
-                    //! Insert into spanish_dict_din table
+                    //! Refactor tu insert in the correct dict_din table
                     $this->query->insertInto("spanish_dict_din", [
                         "dishe_id"    => $dishe->getDisheId(),
                         "name"        => $this->fields['name'],
@@ -520,6 +520,8 @@
         /** Deleting a dish from the database. */
         public function delete(): void
         {
+            global $id;
+
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
@@ -532,8 +534,11 @@
                 $dishe_to_delete = $this->query->selectOneBy("dishes", "dishe_id", $dishe);
                 
                 if($dishe_to_delete) {
+                    $this->dbcon->pdo->beginTransaction();
                     $this->commonTask->deletePicture($dishe_to_delete['picture']);
                     $this->query->deleteRegistry("dishes", "dishe_id", $dishe);
+                    $this->query->deleteRegistry("spanish_dict_din", "dishe_id", $dishe); //! Refactor to correct dictionary
+                    $this->dbcon->pdo->commit();
     
                     $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
                 }

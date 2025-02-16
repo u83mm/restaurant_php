@@ -12,9 +12,11 @@
 
         public function selectDishesOfDay(string $field):array
         {
+            //! Refator to use the correct dictinary
             $query = "SELECT * FROM dishes 
-                    INNER JOIN dishes_day
-                    ON dishes.category_id = dishes_day.category_id 
+                    INNER JOIN dishes_day USING(category_id)
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN spanish_dict_din USING (dishe_id) 
                     WHERE dishes_day.category_name = :field
                     AND dishes.available";
 
@@ -88,7 +90,7 @@
                 $showResult = "";             
 
                 for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
-                    $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
+                    $menuCategory = ucfirst($menuCategories[$i]['name']);
                     
                     if($menuCategories[$i]['available']) {
                         $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
@@ -131,17 +133,11 @@
         public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN spanish_dict_din USING(dishe_id)"; //! Refator to use the correct dictinary                    
 
-                    if($field === "available") {
-                        $query .= " WHERE dishes.$field = :value";
-                    }
-                    else {
-                        $query .= " WHERE dishes.$field LIKE :value";
-                    }
+                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE $field LIKE :value";
 
                     $query .= " ORDER BY dishes.dishe_id
                                 LIMIT :desde, :pagerows";
@@ -169,13 +165,12 @@
         public function selectDishesByPagination(int $desde, int $pagerows, string $field, string $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN spanish_dict_din USING(dishe_id) 
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id
-                    LIMIT :desde, :pagerows";
+                    LIMIT :desde, :pagerows"; //! Refactor to use correct dictionary
 
             try {
                 $stm = $this->dbcon->pdo->prepare($query);
@@ -193,21 +188,21 @@
             }            
         }
 
+        //! Refator to use the correct dictinary
         public function selectDishesLikeCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";                                        
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN spanish_dict_din USING(dishe_id)";                                    
 
-                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dishes.$field LIKE :value";
+                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE spanish_dict_din.$field LIKE :value";
                    
                     $query .= " ORDER BY dishes.dishe_id";          
             try {
                 $stm = $this->dbcon->pdo->prepare($query); 
             
-                $field === "available" ? $value = $value : $value = "%{$value}%";
+                $value = $field === "available" ? $value : "%$value%";
                 
                 $stm->bindValue(":value", $value);                                                  
                 $stm->execute();       
@@ -225,10 +220,8 @@
         public function selectDishesByCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)                    
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id";           
             try {
