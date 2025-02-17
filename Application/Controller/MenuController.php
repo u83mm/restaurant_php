@@ -88,10 +88,8 @@ use Application\model\repositories\dishe\DishRepository;
             else {
                 $category = strtolower($_REQUEST['category']) ?? ""; 
             }                                                        
-
-            // Change category's language to spanish to do the query to the DB
-            $this->language = $this->languageObject->spanish();
-            $category = $this->language[$category];
+            
+            //$category = $this->language[$category];
                                         
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $this->queryMenu->getMenuDayElements();
@@ -163,7 +161,7 @@ use Application\model\repositories\dishe\DishRepository;
 
             /** Show all the categories and their dishes*/
             foreach ($menuCategories as $key => $category) {                
-                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category["{$_SESSION['language']}_menu_category"]])), 0, 0, '');
+                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($category["{$_SESSION['language']}_menu_category"])), 0, 0, '');
                 $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                                
                 $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
                 $pdf->Ln(10);
@@ -176,7 +174,7 @@ use Application\model\repositories\dishe\DishRepository;
                     $pdf->SetFont('GreatVibes','',14);
 
                     if($value['available']) {
-                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$value['name']])), 0, 0, 'L');
+                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value["{$_SESSION['language']}_name"])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
                         $pdf->Ln(5);                                                                                        

@@ -75,8 +75,8 @@
         public function selectAllInnerjoinByMenuCategory(string $table1, string $table2, string $foreignKeyField, string $menuCategory): array
         {
             $query = "SELECT * FROM $table1 
-                        INNER JOIN $table2 
-                        ON $table1.$foreignKeyField = $table2.$foreignKeyField
+                        INNER JOIN $table2 USING($foreignKeyField)
+                        INNER JOIN dinamic_data USING(dishe_id)
                         WHERE $table2.$_SESSION[language]_menu_category = :menu_category";
 
             try {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 17, 2025 at 01:31 PM
+-- Generation Time: Feb 17, 2025 at 02:22 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -174,11 +174,11 @@ INSERT INTO `dishes_menu` (`menu_id`, `spanish_menu_category`, `menu_emoji`, `en
 (5, 'pescados', '🐟', 'fishes'),
 (6, 'arroces', '🥘', 'rices'),
 (7, 'postres', '🧁', 'desserts'),
-(8, 'cafés', '☕️', 'coffes'),
+(8, 'cafés', '☕️', 'coffees'),
 (9, 'tintos', '🍷', 'reds'),
 (10, 'blancos', '🍷', 'whites'),
-(11, 'rosados', '🍷', 'rosé wine'),
-(12, 'cavas', '🍾', 'sparking wines'),
+(11, 'rosados', '🍷', 'rosés'),
+(12, 'cavas', '🍾', 'sparkings'),
 (13, 'champagne', '🍾', 'champagne'),
 (14, 'bebidas', '🍺', 'drinks'),
 (15, 'licores', '🍹', 'liquors');
