@@ -8,6 +8,7 @@
     use Application\model\classes\Language;
     use Application\model\classes\QueryMenu;    
     use Application\model\fpdf\MyPdf;
+use Application\model\repositories\dishe\DishRepository;
 
     class MenuController extends Controller
     {
@@ -16,7 +17,8 @@
         public function __construct(
             private object $dbcon = DB_CON, 
             private array $language = [],
-            private QueryMenu $queryMenu = new QueryMenu()
+            private QueryMenu $queryMenu = new QueryMenu(),
+            private DishRepository $dishRepository = new DishRepository()
         )      
         {
             $this->languageObject = new Language();
@@ -39,7 +41,7 @@
             $showResult = "";            
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
-                $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);                
+                $category = ucfirst($menuCategories[$i]["{$_SESSION['language']}_menu_category"]);                
                 $emoji = $menuCategories[$i]['menu_emoji'];
                 
                 $showResult .= "<li class='showMenuCategories'>
@@ -75,27 +77,25 @@
 
             if(!isset($_REQUEST['category'])) {
                 $rows = $this->queryMenu->selectFieldsFromTableById(
-                    ['menu_category'], 
+                    ["{$_SESSION['language']}_menu_category"], 
                     'dishes_menu', 
                     'menu_id', 
                     $id
                 );
                  
-                $category =  $rows['menu_category'];             
+                $category =  $rows["{$_SESSION['language']}_menu_category"];             
             }
             else {
                 $category = strtolower($_REQUEST['category']) ?? ""; 
             }                                                        
-
-            // Change category's language to spanish to do the query to the DB
-            $this->language = $this->languageObject->spanish();
-            $category = $this->language[$category];
+            
+            //$category = $this->language[$category];
                                         
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $this->queryMenu->getMenuDayElements();
                        
-            /** Show dishes */
-            $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category);                   
+            /** Show dishes */            
+            $rows = $this->dishRepository->selectDishesByCategory($category);                   
             $showResult = $this->queryMenu->showMenuListByCategory($rows, $category);                          
                      
             $this->render("/view/menu/category_view.php", [
@@ -121,8 +121,8 @@
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $this->queryMenu->getMenuDayElements();
 
-            /** We obtain the dishe info to show */           
-            $dishe = $this->queryMenu->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu","menu_id", "dishe_id", $_SESSION['dishe_id']);
+            /** We obtain the dishe info to show */                       
+            $dishe = $this->dishRepository->selectDisheById($id);
             $description = $commonTask->divideTextInParagrahs($dishe['description']);
             $dishe_picture = $commonTask->getWebPath($dishe['picture']) ?? $dishe['picture'] = "";                                   
             
@@ -161,20 +161,20 @@
 
             /** Show all the categories and their dishes*/
             foreach ($menuCategories as $key => $category) {                
-                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category['menu_category']])), 0, 0, '');
+                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($category["{$_SESSION['language']}_menu_category"])), 0, 0, '');
                 $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                                
                 $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
                 $pdf->Ln(10);
 
 
                 /** Show dishes */
-                $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
+                $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category["{$_SESSION['language']}_menu_category"]);                               
 
                 foreach ($rows as $key => $value) {                    
                     $pdf->SetFont('GreatVibes','',14);
 
                     if($value['available']) {
-                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$value['name']])), 0, 0, 'L');
+                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value["{$_SESSION['language']}_name"])), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
                         $pdf->Ln(5);                                                                                        

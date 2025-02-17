@@ -11,77 +11,77 @@
 	background-position: center;
 }
 
-.aperitivos {
+.aperitivos, .aperitifs {
 	background-image: url("/images/aperitivos-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.entrantes {
+.entrantes, .starters {
 	background-image: url("/images/entrantes-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.ensaladas {
+.ensaladas, .salads {
 	background-image: url("/images/ensaladas-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.carnes {
+.carnes, .meats {
 	background-image: url("/images/carnes-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.pescados {
+.pescados, .fishes {
 	background-image: url("/images/pescados-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.arroces {
+.arroces, .rices {
 	background-image: url("/images/arroces-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.postres {
+.postres, .desserts {
 	background-image: url("/images/postres-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.cafés {
+.cafés, .coffees {
 	background-image: url("/images/coffe-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.tintos {
+.tintos, .reds {
 	background-image: url("/images/tintos-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.blancos {
+.blancos, .whites {
 	background-image: url("/images/blancos-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.rosados {
+.rosados, .rosés {
 	background-image: url("/images/rosados-page-img.webp");
 	background-size: cover;
 	height: 11em;
@@ -95,21 +95,21 @@
 	background-position: center;
 }
 
-.cavas {
+.cavas, .sparkings {
 	background-image: url("/images/cavas-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.licores {
+.licores, .liquors {
 	background-image: url("/images/licores-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.bebidas {
+.bebidas, .drinks {
 	background-image: url("/images/bebidas-page-img.webp");
 	background-size: cover;
 	height: 11em;

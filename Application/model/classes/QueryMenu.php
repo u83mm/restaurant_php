@@ -11,20 +11,39 @@
         }
 
         public function selectDishesOfDay(string $field):array
-        {
+        {           
             $query = "SELECT * FROM dishes 
-                    INNER JOIN dishes_day
-                    ON dishes.category_id = dishes_day.category_id 
+                    INNER JOIN dishes_day USING(category_id)
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING (dishe_id) 
                     WHERE dishes_day.category_name = :field
                     AND dishes.available";
 
-            $stm = $this->dbcon->pdo->prepare($query);
-            $stm->bindValue(":field", $field);                            
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-            $stm->closeCursor();
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":field", $field);                            
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
 
-            return $rows;
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
+
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
+
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         } 
         
         public function updateDishe(array $fields): void
@@ -33,62 +52,77 @@
                     menu_id = :menu_id, picture = :picture, price = :price, available = :available
                     WHERE dishe_id = :id";                 
 
-            $stm = $this->dbcon->pdo->prepare($query);
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
                       
-            foreach ($fields as $key => $value) {
-                if(is_int($value)) {
-                    $stm->bindValue(":$key", $value, PDO::PARAM_INT);
-                    continue;       
-                }
+                foreach ($fields as $key => $value) {
+                    if(is_int($value)) {
+                        $stm->bindValue(":$key", $value, PDO::PARAM_INT);
+                        continue;       
+                    }
 
-                $stm->bindValue(":$key", strtolower($value));                
-            }
-            
-            $stm->execute();       				
-            $stm->closeCursor();                   
+                    $stm->bindValue(":$key", strtolower($value));                
+                }
+                
+                $stm->execute();       				
+                $stm->closeCursor();
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }                        
         }
 
         public function selectAllInnerjoinByMenuCategory(string $table1, string $table2, string $foreignKeyField, string $menuCategory): array
         {
             $query = "SELECT * FROM $table1 
-                        INNER JOIN $table2 
-                        ON $table1.$foreignKeyField = $table2.$foreignKeyField
-                        WHERE $table2.menu_category = :menu_category";
+                        INNER JOIN $table2 USING($foreignKeyField)
+                        INNER JOIN dinamic_data USING(dishe_id)
+                        WHERE $table2.$_SESSION[language]_menu_category = :menu_category";
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":menu_category", $menuCategory);                                         
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
                 
-            $stm = $this->dbcon->pdo->prepare($query);
-            $stm->bindValue(":menu_category", $menuCategory);                                         
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-            $stm->closeCursor();
-            
-            return $rows;
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
         public function showMenuListByCategory(array $menuCategories, string $category)
-        {             
-            /** Configure page language */           
-			$this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
-            
-            $showResult = "";             
-
-            for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
-                $menuCategory = ucfirst($this->language["{$menuCategories[$i]['name']}"]);
+        {
+            try {
+                /** Configure page language */           
+                $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
                 
-                if($menuCategories[$i]['available']) {
-                    $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
-                }
+                $showResult = "";             
 
-                if($i == $y || $i == count($menuCategories)-1) {
-                    $showResult .= "</ul></div>";
-                    if($y < count($menuCategories)) {
-                        $showResult .= '<div class="col-12 col-sm-6 col-md-4 col-lg-3"><ul class="ps-0">';
+                for($i = 0, $y = 3; $i < count($menuCategories); $i++) {                
+                    $menuCategory = ucfirst($menuCategories[$i]['name']);
+                    
+                    if($menuCategories[$i]['available']) {
+                        $showResult .= "<li class='showMenuCategories'><a class='btn btn-outline-secondary' href='/menu/showDisheInfo/{$menuCategories[$i]['dishe_id']}'>{$menuCategory}</a></li>";
                     }
 
-                    $y += 4; 
-                }               
-            }            
+                    if($i == $y || $i == count($menuCategories)-1) {
+                        $showResult .= "</ul></div>";
+                        if($y < count($menuCategories)) {
+                            $showResult .= '<div class="col-12 col-sm-6 col-md-4 col-lg-3"><ul class="ps-0">';
+                        }
 
-            return $showResult;
+                        $y += 4; 
+                    }               
+                }            
+
+                return $showResult;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
         /**
@@ -111,113 +145,165 @@
         public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id)";                  
 
-                    if($field === "available") {
-                        $query .= " WHERE dishes.$field = :value";
-                    }
-                    else {
-                        $query .= " WHERE dishes.$field LIKE :value";
-                    }
+                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
 
                     $query .= " ORDER BY dishes.dishe_id
                                 LIMIT :desde, :pagerows";
-
-            $stm = $this->dbcon->pdo->prepare($query);
-            $stm->bindValue(":desde", $desde); 
-            $stm->bindValue(":pagerows", $pagerows);
-
-            $value = is_int($value) ? $value : "%{$value}%";
             
-            $stm->bindValue(":value", $value);                                         
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-            $stm->closeCursor();                                                                           
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":desde", $desde); 
+                $stm->bindValue(":pagerows", $pagerows);
+    
+                $value = is_int($value) ? $value : "%{$value}%";
+                
+                $stm->bindValue(":value", $value);                                         
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
 
-            return $rows;
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
+    
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
 
         public function selectDishesByPagination(int $desde, int $pagerows, string $field, string $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id) 
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id
                     LIMIT :desde, :pagerows";
 
-            $stm = $this->dbcon->pdo->prepare($query);
-            $stm->bindValue(":desde", $desde); 
-            $stm->bindValue(":pagerows", $pagerows);            
-            $stm->bindValue(":value", $value);                                         
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-            $stm->closeCursor();                                                                           
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":desde", $desde); 
+                $stm->bindValue(":pagerows", $pagerows);            
+                $stm->bindValue(":value", $value);                                         
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
 
-            return $rows;
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
+    
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
-
+       
         public function selectDishesLikeCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id";                                        
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)
+                    INNER JOIN dinamic_data USING(dishe_id)";                                    
 
-                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dishes.$field LIKE :value";
+                    $query .= is_int($value) ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
                    
                     $query .= " ORDER BY dishes.dishe_id";          
-
-            $stm = $this->dbcon->pdo->prepare($query); 
+            try {
+                $stm = $this->dbcon->pdo->prepare($query); 
             
-            $field === "available" ? $value = $value : $value = "%{$value}%";
-            
-            $stm->bindValue(":value", $value);                                                  
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
-            $stm->closeCursor();                                                                           
+                $value = $field === "available" ? $value : "%$value%";
+                
+                $stm->bindValue(":value", $value);                                                  
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
+                $stm->closeCursor();
+                
+                /** Set name and description to render */
+                foreach ($rows as $key_row => $row) {
+                    foreach ($row as $key => $value) {
+                        if($key === "{$_SESSION['language']}_name") {
+                            $rows[$key_row]['name'] = $value;
+                        }
 
-            return $rows;
+                        if($key == "$_SESSION[language]_description") {
+                            $rows[$key_row]['description'] = $value;
+                        }
+                    }                    
+                }
+    
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
 
         public function selectDishesByCritery(string $field, string|int $value)
         {           
             $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day 
-                    ON dishes.category_id = dishes_day.category_id
-                    INNER JOIN dishes_menu
-                    ON dishes.menu_id = dishes_menu.menu_id
+                    INNER JOIN dishes_day USING(category_id)                    
+                    INNER JOIN dishes_menu USING(menu_id)                    
                     WHERE dishes.$field = :value
                     ORDER BY dishes.dishe_id";           
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);                        
+                $stm->bindValue(":value", $value);                                                  
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
+                $stm->closeCursor();                                                                           
+    
+                return $rows;
 
-            $stm = $this->dbcon->pdo->prepare($query);                        
-            $stm->bindValue(":value", $value);                                                  
-            $stm->execute();       
-            $rows = $stm->fetchAll(PDO::FETCH_ASSOC);         
-            $stm->closeCursor();                                                                           
-
-            return $rows;
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
 
         /** Return an array with the elements to show in the Day's menu aside section */
         public function getMenuDayElements() : array {
-            $menuDayInfo = [
-                'main'    =>  $this->selectDishesOfDay('primero'),
-                'second'  =>  $this->selectDishesOfDay('segundo'),
-                'dessert' =>  $this->selectDishesOfDay('postre'),
-                'price'   =>  $this->getMenuDayPrice(),
-            ];
-
-            return $menuDayInfo;
+            try {
+                $menuDayInfo = [
+                    'main'    =>  $this->selectDishesOfDay('primero'),
+                    'second'  =>  $this->selectDishesOfDay('segundo'),
+                    'dessert' =>  $this->selectDishesOfDay('postre'),
+                    'price'   =>  $this->getMenuDayPrice(),
+                ];
+    
+                return $menuDayInfo;
+                
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }            
         }
     }
     

@@ -14,13 +14,13 @@
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="name"><?php echo ucfirst($page->language['name']); ?>:</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="text" name="name" id="name" value="<?php echo ucfirst($page->language[$dishe['name']]); ?>" required>
+                    <input class="form-control" type="text" name="name" id="name" value="<?php $dishe["name"] ? printf(ucfirst($dishe["name"])) : ""; ?>" required>
                 </div>                
             </div>
             <div class="row mb-3">
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="description"><?php echo ucfirst($page->language['description']); ?>:</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php echo $dishe['description']; ?></textarea>                    
+                    <textarea class="form-control"name="description" id="description" cols="30" rows="10" required><?php $dishe["description"] ? printf($dishe["description"]) : ""; ?></textarea>                    
                 </div>                
             </div>
             <div class="row mb-3 justify-content-center justify-content-sm-start">
@@ -44,9 +44,9 @@
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="dishes_type"><?php echo ucfirst($page->language['dish_type']); ?>:</label>
                 <div class="col-12 col-sm-8 text-center text-sm-start">
                     <select name="dishes_type" id="dishes_type">
-                        <option value="<?php echo $disheType['menu_id']; ?>"><?php echo ucfirst($page->language[$disheType['menu_category']]); ?></option>
+                        <option value="<?php echo $disheType['menu_id']; ?>"><?php if(isset($disheType["{$_SESSION['language']}_menu_category"])) echo ucfirst($disheType["{$_SESSION['language']}_menu_category"]); ?></option>
                     <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($page->language[$category["menu_category"]]); ?></option>
+                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($category["{$_SESSION['language']}_menu_category"]); ?></option>
                     <?php } ?>
                     </select>                   
                 </div>                
@@ -69,7 +69,7 @@
             <div class="row mb-3 justify-content-center justify-content-sm-start">
                 <label class="col-3 text-end form-check-label pt-0" for="available"><?php echo ucfirst($page->language['available']); ?>:</label>
                 <div class=" col-2 text-sm-start d-flex">
-                    <input id="available" class="form-check-input align-self-center m-0" type="checkbox" name="available" value="true" <?php if($dishe['available']) echo "checked"; ?>>
+                    <input id="available" class="form-check-input align-self-center m-0" type="checkbox" name="available" value="<?php if(isset($dishe['available'])) echo $dishe['available']; ?>" <?php if($dishe['available']) echo "checked"; ?>>
                 </div>                
             </div>
                           

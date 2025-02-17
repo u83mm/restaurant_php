@@ -11,10 +11,10 @@
 ?>	
 								<!-- SECTION WITH INFO -->
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
-		<div class="col mb-5 <?php echo $dishe['menu_category']; ?>"></div>
+		<div class="col mb-5 <?php echo $dishe["{$_SESSION['language']}_menu_category"]; ?>"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
-				<h2 class="m-0 me-2"><?php echo ucwords($home->language[$dishe['name']]); ?></h2>				
+				<h2 class="m-0 me-2"><?php echo ucwords($dishe['name']); ?></h2>				
 			</div>
 		</div>		
 		<div class="row">
@@ -56,7 +56,7 @@
 		</div>
 		<div class="row">
 			<form class="mb-3 text-center text-lg-start" action="/menu/showDishesByTheirCategory/<?php echo $dishe['menu_id']; ?>" method="post">
-				<button class="btn btn-primary" type="submit" name="category" value="<?php echo $dishe['menu_category']; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>
+				<button class="btn btn-primary" type="submit" name="category" value="<?php echo $dishe["{$_SESSION['language']}_menu_category"]; ?>"><?php echo ucfirst($home->language['go_back']); ?></button>
 				<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
 				<a class="btn btn-outline-success" href="/admin/dishes/edit/<?php echo $dishe['dishe_id']; ?>"><?php echo ucfirst($home->language['edit']); ?></a>
 				<?php endif ?>
