@@ -34,7 +34,7 @@
             <select name="dishes_type" id="dishes_type" required>
                 <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
             <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                <option value="<?php echo $category["menu_id"]; ?>"><?php if(isset($category)) echo ucfirst($home->language[$category["menu_category"]]); ?></option>
+                <option value="<?php echo $category["menu_id"]; ?>"><?php if(isset($category["{$_SESSION['language']}_menu_category"])) echo ucfirst($category["{$_SESSION['language']}_menu_category"]); ?></option>
             <?php } ?>
             </select>
         </div>                

@@ -33,8 +33,8 @@
                             </td>
                             <td><?php if(isset($value['name'])) echo ucfirst($value['name']); ?></td>                                                
                             <td><?php echo ucfirst($page->language[$value['category_name']]); ?></td>
-                            <td><?php echo ucfirst($page->language[$value['menu_category']]); ?></td>                            
-                                <td class="text-center"><?php $value['available'] ?  printf("✅️") : printf("❌️") ?></td>                                                     
+                            <td><?php if(isset($value["{$_SESSION['language']}_menu_category"])) echo ucfirst($value["{$_SESSION['language']}_menu_category"]); ?></td>                            
+                            <td class="text-center"><?php $value['available'] ?  printf("✅️") : printf("❌️") ?></td>                                                     
                             <td class="text-center">
                                 <a class="btn btn-outline-success" href="/admin/dishes/edit/<?php echo $value['dishe_id']; ?>"><?php echo ucfirst($page->language['edit']); ?></a>
                                 <?php include(SITE_ROOT . "/../Application/view/admin/dishes/delete_form.php"); ?>

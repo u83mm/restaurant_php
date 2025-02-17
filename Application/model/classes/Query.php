@@ -434,5 +434,42 @@
                 throw new \Exception("{$th->getMessage()}", 1);             
             }
         }
+
+        /**
+         * Select all from "table name"
+         */
+        public function selectAllOrderByFieldWhereFieldIsNotNull(string $table, string $field): array     
+        {
+            $query = "SELECT * FROM $table WHERE $field IS NOT NULL ORDER BY $field ASC";                 
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);                                             
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();                
+
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
+        }
+
+        public function selectAllOrderByField(string $table, string $field): array     
+        {
+            $query = "SELECT * FROM $table ORDER BY $field ASC";                 
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);                                             
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();                
+
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
+        }
     }    
 ?>

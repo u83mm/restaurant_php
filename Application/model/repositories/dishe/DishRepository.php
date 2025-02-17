@@ -87,7 +87,7 @@ final class DishRepository extends Query
                 INNER JOIN dishes_day USING(category_id)
                 INNER JOIN dishes_menu USING(menu_id)
                 INNER JOIN dinamic_data USING (dishe_id)
-                WHERE dishes_menu.menu_category = :category";                    
+                WHERE dishes_menu.{$_SESSION['language']}_menu_category = :category";                    
 
         try {
             $stm = $this->dbcon->pdo->prepare($query);

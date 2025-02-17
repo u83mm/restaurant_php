@@ -44,9 +44,9 @@
                 <label class="col-12 col-sm-3 text-center text-sm-end col-form-label" for="dishes_type"><?php echo ucfirst($page->language['dish_type']); ?>:</label>
                 <div class="col-12 col-sm-8 text-center text-sm-start">
                     <select name="dishes_type" id="dishes_type">
-                        <option value="<?php echo $disheType['menu_id']; ?>"><?php echo ucfirst($page->language[$disheType['menu_category']]); ?></option>
+                        <option value="<?php echo $disheType['menu_id']; ?>"><?php if(isset($disheType["{$_SESSION['language']}_menu_category"])) echo ucfirst($disheType["{$_SESSION['language']}_menu_category"]); ?></option>
                     <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($page->language[$category["menu_category"]]); ?></option>
+                        <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($category["{$_SESSION['language']}_menu_category"]); ?></option>
                     <?php } ?>
                     </select>                   
                 </div>                

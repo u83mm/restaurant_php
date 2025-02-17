@@ -314,7 +314,7 @@
             try {
                 // We obtain all registries in "dishes_day" and "dishes_menu" tables                           
                 $categoriesDishesDay = $this->query->selectAll("dishes_day");
-                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
+                $categoriesDishesMenu = $this->query->selectAllOrderByFieldWhereFieldIsNotNull("dishes_menu", "{$_SESSION['language']}_menu_category");
 
 
                 /** Get the id */
@@ -587,7 +587,7 @@
 	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;                
 
                 /** Validate entries */                                                 
-                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
+                $categoriesDishesMenu = $this->query->selectAllOrderByFieldWhereFieldIsNotNull("dishes_menu", "{$_SESSION['language']}_menu_category");
 
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {                    
                     // Manage form data

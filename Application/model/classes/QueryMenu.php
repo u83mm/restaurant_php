@@ -77,8 +77,8 @@
             $query = "SELECT * FROM $table1 
                         INNER JOIN $table2 
                         ON $table1.$foreignKeyField = $table2.$foreignKeyField
-                        WHERE $table2.menu_category = :menu_category";
-            
+                        WHERE $table2.$_SESSION[language]_menu_category = :menu_category";
+
             try {
                 $stm = $this->dbcon->pdo->prepare($query);
                 $stm->bindValue(":menu_category", $menuCategory);                                         

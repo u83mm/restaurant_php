@@ -41,7 +41,7 @@ use Application\model\repositories\dishe\DishRepository;
             $showResult = "";            
 
             for($i = 0, $y = 3; $i < count($menuCategories); $i++) {
-                $category = ucfirst($this->language["{$menuCategories[$i]['menu_category']}"]);                
+                $category = ucfirst($menuCategories[$i]["{$_SESSION['language']}_menu_category"]);                
                 $emoji = $menuCategories[$i]['menu_emoji'];
                 
                 $showResult .= "<li class='showMenuCategories'>
@@ -77,13 +77,13 @@ use Application\model\repositories\dishe\DishRepository;
 
             if(!isset($_REQUEST['category'])) {
                 $rows = $this->queryMenu->selectFieldsFromTableById(
-                    ['menu_category'], 
+                    ["{$_SESSION['language']}_menu_category"], 
                     'dishes_menu', 
                     'menu_id', 
                     $id
                 );
                  
-                $category =  $rows['menu_category'];             
+                $category =  $rows["{$_SESSION['language']}_menu_category"];             
             }
             else {
                 $category = strtolower($_REQUEST['category']) ?? ""; 
@@ -163,14 +163,14 @@ use Application\model\repositories\dishe\DishRepository;
 
             /** Show all the categories and their dishes*/
             foreach ($menuCategories as $key => $category) {                
-                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category['menu_category']])), 0, 0, '');
+                $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($this->language[$category["{$_SESSION['language']}_menu_category"]])), 0, 0, '');
                 $pdf->Cell(0, 10, ucfirst($this->language['price']), 0, 0, "");                                
                 $pdf->Rect(10, $pdf->getY()+10, 170, 2, "F");                                               
                 $pdf->Ln(10);
 
 
                 /** Show dishes */
-                $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category['menu_category']);                               
+                $rows = $this->queryMenu->selectAllInnerjoinByMenuCategory("dishes", "dishes_menu", "menu_id", $category["{$_SESSION['language']}_menu_category"]);                               
 
                 foreach ($rows as $key => $value) {                    
                     $pdf->SetFont('GreatVibes','',14);

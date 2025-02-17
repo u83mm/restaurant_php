@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 16, 2025 at 09:01 PM
+-- Generation Time: Feb 17, 2025 at 01:31 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -30,10 +30,37 @@ SET time_zone = "+00:00";
 CREATE TABLE `dinamic_data` (
   `dishe_id` int(11) NOT NULL,
   `spanish_name` varchar(100) DEFAULT NULL,
-  `spanish_description` varchar(100) DEFAULT NULL,
+  `spanish_description` text DEFAULT NULL,
   `english_name` varchar(100) DEFAULT NULL,
   `english_description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dinamic_data`
+--
+
+INSERT INTO `dinamic_data` (`dishe_id`, `spanish_name`, `spanish_description`, `english_name`, `english_description`) VALUES
+(1, 'Macarrones a la boloñesa', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor.', 'macaroni bolognese', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor.'),
+(2, 'Ensalada mixta', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor. \r\n Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'mixed salad', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor. \r\n Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(3, 'Ensalada catalana', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'catalan salad', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(4, 'Paella valenciana', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'Valencian paella', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(5, 'Jarra de cerveza', 'Jarra de 1/2 litro.', 'large beer', 'Half liter beer.'),
+(6, 'Bistec con patatas y verduras', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'steak with potatoes and vegetables', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(7, 'Anchoas', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'anchovies', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(8, 'Arroz con setas', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'rice with mushrooms', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(9, 'Espaguetis carbonara', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor.', 'spaghetti carbonara', 'Vestibulum ac varius urna. Maecenas diam lorem, pulvinar sed laoreet quis, vulputate ut leo. Sed et arcu vehicula, vulputate dui ut, egestas libero. Nullam ligula mauris, feugiat vitae enim ut, condimentum consectetur lorem. Aenean enim sapien, laoreet in tristique et, pharetra eu nunc. Sed efficitur hendrerit eros, non cursus magna maximus id. Sed vel nisl ipsum. Sed dignissim posuere eros vel aliquet. Sed congue euismod viverra. Phasellus gravida suscipit lectus, id dapibus odio laoreet sed. Fusce facilisis vel eros et rutrum. Nunc sit amet mollis est. Nam fringilla dictum enim vel porttitor.'),
+(10, 'Crema catalana', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'Catalan cream', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(11, 'Entrecot a la pimienta', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'pepper entrecote', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(12, 'Olivas rellenas', 'Olivas rellenas de anchoas', 'Stuffed olives', 'stuffed olives of anchovies'),
+(13, 'Patatas chips', 'Patatas de aperitivo', 'potato chips', 'potato chips for take an aperitifs'),
+(14, 'Salmón plancha', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'grilled salmon', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(15, 'Vino tinto', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'red wine', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(16, 'Vino blanco', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'White wine', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(17, 'Refresco de cola', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.', 'cola soda', 'Vestibulum quis feugiat nibh. Fusce non arcu egestas, sodales orci et, tempor dolor. Maecenas viverra viverra posuere. Nullam egestas enim vitae magna interdum sodales. Etiam varius, libero at fringilla fermentum, arcu massa dignissim ante, quis viverra elit sapien ac mi. Nam ante mauris, eleifend eu ipsum a, varius sagittis ex. Nullam mollis lacus et volutpat viverra. Nam eu sollicitudin nisi, eu fringilla nisl. Donec justo tortor, rhoncus vel laoreet ornare, vulputate vel neque. Nullam sed congue eros. Ut dignissim tellus dolor, sed congue libero scelerisque a. Fusce blandit, lectus lacinia scelerisque cursus, diam erat lacinia libero, id venenatis sapien est placerat metus.'),
+(18, 'Agua mineral 1.5l', 'Agua mineral de la sierra.', 'mineral water 1.5l', 'Half liter of mineral water'),
+(19, 'Café solo', 'Café de Colombia extra', 'black coffe', 'coffe from Colombia'),
+(20, 'Café cortado', 'Café cortado de máquina.', 'small white coffee', 'small white coffee'),
+(21, 'Creps de la casa', 'Creps con chocolate casero.', 'crepes with chocolate', 'crepes with chocolate');
 
 -- --------------------------------------------------------
 
@@ -74,6 +101,33 @@ CREATE TABLE `dishes` (
   `available` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `dishes`
+--
+
+INSERT INTO `dishes` (`dishe_id`, `category_id`, `menu_id`, `picture`, `price`, `available`) VALUES
+(1, 1, 2, '/var/www/public/uploads/dishes_pics/1739741596-macarrones_bolognesa.webp', 13.50, b'1'),
+(2, 1, 3, '/var/www/public/uploads/dishes_pics/1739741693-ensalada_mixta.webp', 7.50, b'1'),
+(3, 4, 3, '/var/www/public/uploads/dishes_pics/1739741727-ensalada_catalana.webp', 9.75, b'0'),
+(4, 2, 6, '/var/www/public/uploads/dishes_pics/1739742146-paella-valenciana.webp', 11.50, b'1'),
+(5, 4, 14, '/var/www/public/uploads/dishes_pics/1739742221-beer.webp', 3.25, b'1'),
+(6, 2, 4, '/var/www/public/uploads/dishes_pics/1739742286-bistec_patatas.webp', 12.15, b'1'),
+(7, 4, 1, '/var/www/public/uploads/dishes_pics/1739742748-anchoas.webp', 11.25, b'1'),
+(8, 4, 6, '/var/www/public/uploads/dishes_pics/1739743037-arroz_setas.webp', 9.25, b'1'),
+(9, 4, 2, '/var/www/public/uploads/dishes_pics/1739743180-espaguetis_carbo.webp', 7.80, b'1'),
+(10, 4, 7, '/var/www/public/uploads/dishes_pics/1739743276-crema_catalana.webp', 11.00, b'1'),
+(11, 4, 4, '/var/www/public/uploads/dishes_pics/1739743377-entrecote.webp', 13.50, b'1'),
+(12, 4, 1, '/var/www/public/uploads/dishes_pics/1739743471-olivas_rellenas.webp', 3.25, b'1'),
+(13, 4, 1, '/var/www/public/uploads/dishes_pics/1739743562-patatas_chips.webp', 1.75, b'1'),
+(14, 4, 5, '/var/www/public/uploads/dishes_pics/1739743661-salmon.webp', 13.10, b'1'),
+(15, 4, 9, '/var/www/public/uploads/dishes_pics/1739744054-red-wine.webp', 15.80, b'1'),
+(16, 4, 10, '/var/www/public/uploads/dishes_pics/1739743943-white-wine.webp', 13.75, b'1'),
+(17, 4, 14, '/var/www/public/uploads/dishes_pics/1739744161-cola.webp', 2.50, b'1'),
+(18, 4, 14, '/var/www/public/uploads/dishes_pics/1739744266-water.webp', 2.00, b'1'),
+(19, 4, 8, '/var/www/public/uploads/dishes_pics/1739744434-coffee.webp', 1.50, b'1'),
+(20, 4, 8, '/var/www/public/uploads/dishes_pics/1739744480-coffee.webp', 1.10, b'1'),
+(21, 3, 7, '/var/www/public/uploads/dishes_pics/1739744566-creps.webp', 4.50, b'1');
+
 -- --------------------------------------------------------
 
 --
@@ -103,30 +157,31 @@ INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
 
 CREATE TABLE `dishes_menu` (
   `menu_id` int(11) NOT NULL,
-  `menu_category` varchar(50) NOT NULL,
-  `menu_emoji` varchar(25) NOT NULL
+  `spanish_menu_category` varchar(50) DEFAULT NULL,
+  `menu_emoji` varchar(25) NOT NULL,
+  `english_menu_category` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dishes_menu`
 --
 
-INSERT INTO `dishes_menu` (`menu_id`, `menu_category`, `menu_emoji`) VALUES
-(1, 'aperitivos', '🍟'),
-(2, 'entrantes', '🍜'),
-(3, 'salads', '🥗'),
-(4, 'carnes', '🥩'),
-(5, 'fishes', '🐟'),
-(6, 'rices', '🥘'),
-(7, 'postres', '🧁'),
-(8, 'coffees', '☕️'),
-(9, 'red wines', '🍷'),
-(10, 'white wines', '🍷'),
-(11, 'pink wines', '🍷'),
-(12, 'sparking wine', '🍾'),
-(13, 'champagne', '🍾'),
-(14, 'drinks', '🍺'),
-(15, 'liquors', '🍹');
+INSERT INTO `dishes_menu` (`menu_id`, `spanish_menu_category`, `menu_emoji`, `english_menu_category`) VALUES
+(1, 'aperitivos', '🍟', 'aperitifs'),
+(2, 'entrantes', '🍜', 'starters'),
+(3, 'ensaladas', '🥗', 'salads'),
+(4, 'carnes', '🥩', 'meats'),
+(5, 'pescados', '🐟', 'fishes'),
+(6, 'arroces', '🥘', 'rices'),
+(7, 'postres', '🧁', 'desserts'),
+(8, 'cafés', '☕️', 'coffes'),
+(9, 'tintos', '🍷', 'reds'),
+(10, 'blancos', '🍷', 'whites'),
+(11, 'rosados', '🍷', 'rosé wine'),
+(12, 'cavas', '🍾', 'sparking wines'),
+(13, 'champagne', '🍾', 'champagne'),
+(14, 'bebidas', '🍺', 'drinks'),
+(15, 'licores', '🍹', 'liquors');
 
 -- --------------------------------------------------------
 
@@ -357,13 +412,6 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `limit_access`
---
-
-INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(497, '172.16.202.1', 1739738885, 1, '2025-02-16 21:43:05');
 
 -- --------------------------------------------------------
 
@@ -917,7 +965,7 @@ ALTER TABLE `dishes_day`
 -- AUTO_INCREMENT for table `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `english_dict`
