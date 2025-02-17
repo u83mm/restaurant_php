@@ -475,7 +475,7 @@
                     "category_id" => $this->validate->test_input($_REQUEST['category'] ?? ""),
                     "menu_id"     => $this->validate->test_input($_REQUEST['dishes_type'] ?? ""),
                     "price"       => $this->validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"   => isset($_REQUEST['available']) ? $this->validate->test_input(intval($_REQUEST['available'])) : 0
+                    "available"   => isset($_REQUEST['available']) ? intval($_REQUEST['available']) : 0
                 ];                                                                   
 
                 if ($this->validate->validate_form($this->fields)) {                                         
