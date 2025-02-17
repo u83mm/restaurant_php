@@ -591,7 +591,7 @@
 
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {                    
                     // Manage form data
-                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery'])) header("Location: /admin/dishes/search");
+                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery']) || empty($_REQUEST['critery'])) header("Location: /admin/dishes/search");
 
                     match ($_REQUEST['field']) {
                         'available' => $critery = isset($_REQUEST['critery']) ? intval($_REQUEST['critery']) : 0,
@@ -605,66 +605,71 @@
                         "Criterio"  =>  $critery ?? "",                                  
                     ];                    
 
-                    if($this->fields['Campo'] !== "" && $this->fields['Criterio'] !== "") {                    
-                        /** Test validation */                                                                             
-                        if($this->validate->validate_form($this->fields)) {
-                            /** Calculate necesary pages for pagination */ 
-                            $pagerows = 6; // Number of rows for page.
-                            $desde = 0;                        
-    
-                            /** Select method to do the search */
-                            match($this->fields['Campo']) {
-                                default   => $rows = $this->query->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio']),
-                                'menu_id' =>  $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
-                            };                                                 
-                                                  
-                            $total_rows = count($rows);                        
-                            $pagina = 1;                        
-    
-                            if(!$total_rows) {
-                                $this->message = "<p class='alert alert-warning text-center'>" . ucfirst($this->language['rows_not_found']) . "</p>";
-                                $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
-                                    "pagina"  => $pagina,                                                                                                                                                      
-                                    "message" => $this->message,                                                                
-                                ]);
-                            }                                        
-                            elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
-                                            
-                            if($p && is_numeric($p)) $pagina = $p;                             
-                            if($s && is_numeric($s)) $desde = $s;                                                
-    
-                            $last = ($pagina * $pagerows) - $pagerows;
-                            $current_page = ($desde/$pagerows) + 1;                                             
-                              
-                            /** Variables to manage in view file */                       
-                            $field = $this->fields['Campo'];
-                            $critery = $this->fields['Criterio'];                                        
-    
-                            /** Select method to do the search */
-                            match($this->fields['Campo']) {
-                                default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
-                                'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
-                            };                                                                                             
-    
-                            /** Show dishes index */
-                            $this->render("/view/admin/dishes/index_view.php", [
-                                "rows"         => $rows,                                                        
-                                "field"        => $field,
-                                "critery"      => $critery,
-                                "current_page" => $current_page,                                                       
-                                "pagina"       => $pagina,
-                                "desde"        => $desde,                                                                            
-                                "pagerows"     => $pagerows,                            
-                                "last"         => $last, 
-                                "total_rows"   => $total_rows,                           
-                                "message"      => $this->message,
-                                "commonTask"   => $this->commonTask,                           
-                            ]);                        
-                        }
-                        else {                        
-                            throw new \Exception($this->validate->get_msg(), 1);                    
-                        }
+                    if(!$this->validate->validate_form($this->fields)) {
+                        $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['enter_valid_data']) .  "</p>";
+                        $this->render("/view/admin/dishes/search_view.php", [
+                            "error_by_name" => $this->message
+                        ]);
+                    } 
+
+                    /** Test validation */                                                                             
+                    if($this->validate->validate_form($this->fields)) {
+                        /** Calculate necesary pages for pagination */ 
+                        $pagerows = 6; // Number of rows for page.
+                        $desde = 0;                        
+
+                        /** Select method to do the search */
+                        match($this->fields['Campo']) {
+                            default   => $rows = $this->query->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio']),
+                            'menu_id' =>  $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
+                        };                                                 
+                                                
+                        $total_rows = count($rows);                        
+                        $pagina = 1;                        
+
+                        if(!$total_rows) {
+                            $this->message = "<p class='alert alert-warning text-center'>" . ucfirst($this->language['rows_not_found']) . "</p>";
+                            $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
+                                "pagina"  => $pagina,                                                                                                                                                      
+                                "message" => $this->message,                                                                
+                            ]);
+                        }                                        
+                        elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
+                                        
+                        if($p && is_numeric($p)) $pagina = $p;                             
+                        if($s && is_numeric($s)) $desde = $s;                                                
+
+                        $last = ($pagina * $pagerows) - $pagerows;
+                        $current_page = ($desde/$pagerows) + 1;                                             
+                            
+                        /** Variables to manage in view file */                       
+                        $field = $this->fields['Campo'];
+                        $critery = $this->fields['Criterio'];                                        
+
+                        /** Select method to do the search */
+                        match($this->fields['Campo']) {
+                            default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
+                            'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
+                        };                                                                                             
+
+                        /** Show dishes index */
+                        $this->render("/view/admin/dishes/index_view.php", [
+                            "rows"         => $rows,                                                        
+                            "field"        => $field,
+                            "critery"      => $critery,
+                            "current_page" => $current_page,                                                       
+                            "pagina"       => $pagina,
+                            "desde"        => $desde,                                                                            
+                            "pagerows"     => $pagerows,                            
+                            "last"         => $last, 
+                            "total_rows"   => $total_rows,                           
+                            "message"      => $this->message,
+                            "commonTask"   => $this->commonTask,                           
+                        ]);                        
                     }
+                    else {                        
+                        throw new \Exception($this->validate->get_msg(), 1);                    
+                    }                    
                 }                
                 else {
                     /** Show search form */                    
