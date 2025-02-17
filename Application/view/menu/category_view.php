@@ -18,7 +18,7 @@
 				</figure>
 			</div>
 			<div class="col-12 col-md-6 col-lg-10 col-xl-11 d-flex justify-content-center align-items-center">
-				<h2 class="m-0 me-3"><?php echo ucwords($home->language[$category]); ?></h2>	
+				<h2 class="m-0 me-3"><?php echo ucwords($category); ?></h2>	
 			</div>
 		</div>		
 		<div class="row">

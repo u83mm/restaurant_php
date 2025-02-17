@@ -18,6 +18,7 @@
 
                 <h5 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h5> 
                 <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
+                    <?php echo $error_by_name ?? ''; ?>
                     <input type="hidden" name="field" value="name">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
                     <div class="col-7 col-lg-8 text-center text-sm-start d-inline-block ms-2">
@@ -54,7 +55,7 @@
                         <select name="critery" id="category" required>
                             <option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
                         <?php foreach ($categoriesDishesMenu as $key => $category) { ?>
-                            <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($home->language[$category["menu_category"]]); ?></option>
+                            <option value="<?php echo $category["menu_id"]; ?>"><?php echo ucfirst($category["{$_SESSION['language']}_menu_category"]); ?></option>
                         <?php } ?>                          
                         </select> 
                     </div>                  

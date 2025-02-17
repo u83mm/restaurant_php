@@ -28,7 +28,7 @@ final class CategoriesController extends Controller
             $this->testAccess(['ROLE_ADMIN']);
 
             /** Get all categories */
-            $categories = $this->query->selectAll('dishes_menu');
+            $categories = $this->query->selectAllOrderByField('dishes_menu', "{$_SESSION['language']}_menu_category");
 
             $this->render('/view/admin/categories/index.php', [
                 'categories' => $categories
@@ -73,7 +73,7 @@ final class CategoriesController extends Controller
                 }
                 else {
                     // Test if category already exists
-                    if($this->query->selectOneBy('dishes_menu', 'menu_category', $this->fields['category'])) {
+                    if($this->query->selectOneBy('dishes_menu', "{$_SESSION['language']}_menu_category", $this->fields['category'])) {
                         $_SESSION['message'] = "<p class='alert alert-danger text-center'>Category already exists!</p>";
 
                         $this->render('/view/admin/categories/new_view.php', [
@@ -127,12 +127,28 @@ final class CategoriesController extends Controller
             ];
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $this->fields = [
-                    'menu_id'       => $id,
-                    'menu_category' => $_POST['category'],
-                    'menu_emoji'    => $_POST['emoji']
-                ];
+                if(isset($_POST['language'])) {
+                    $this->render('/view/admin/categories/edit_view.php', [
+                        'fields' => $this->fields,
+                    ]);
+                }
 
+                if(!isset($_POST['category']) || !isset($_POST['emoji'])) {
+                    $this->fields = [
+                        'category' => $category->getCategory(),
+                        'emoji'    => $category->getEmoji()
+                    ];                 
+                }
+                else {
+                     // The keys must labeled as the same as in the database table
+                    $this->fields = [
+                        'menu_id'                               => $id,
+                        "{$_SESSION['language']}_menu_category" => $_POST['category'] ?? $this->fields['category'],
+                        'menu_emoji'                            => $_POST['emoji'] ?? $this->fields['emoji']
+                    ];
+                }
+
+                /** Validate form */
                 if(!$this->validate->validate_form($this->fields)) {
                     $_SESSION['message'] = $this->validate->get_msg();
 
@@ -144,7 +160,7 @@ final class CategoriesController extends Controller
                     // Update category
                     $this->categoryRepository->updateRegistry('dishes_menu', $this->fields, 'menu_id');
 
-                    $_SESSION['message'] = "<p class='alert alert-success text-center'>" . ucfirst($this->fields["menu_category"]) .  " category was successfully updated!</p>";
+                    $_SESSION['message'] = "<p class='alert alert-success text-center'>" . ucfirst($this->fields["{$_SESSION['language']}_menu_category"]) .  " category was successfully updated!</p>";
                 }
 
                 header('Location: /admin/categories/index');

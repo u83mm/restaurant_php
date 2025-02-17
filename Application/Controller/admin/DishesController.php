@@ -23,12 +23,12 @@
             private QueryMenu $query = new QueryMenu(),
             private CommonTasks $commonTask = new CommonTasks(),
             private Validate $validate = new Validate(),
-            private DishRepository $dishRepository = new DishRepository()
+            private DishRepository $dishRepository = new DishRepository(),            
         )      
         {            
             /** Configure page language */
             $this->languageObject = new Language();
-            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();             
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                        
         }    
 
         /** Show dishes index */
@@ -58,7 +58,7 @@
                 
                 
                 /** Select all dishes from DB */
-                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);
+                $rows = $this->dishRepository->selectAllDishes($desde, $pagerows);                                
 
                 /** Variables to manage in view file */                
                 $field = null;                
@@ -248,14 +248,21 @@
                         throw new \Exception("El campo 'Precio' debe ser numérico.");
                     }
 
-                    /** Set picture path */
-                    $this->fields['picture'] = $upload_filename; 
+                    /** Set picture path and dish id */
+                    $this->fields['picture'] = $upload_filename;
+                    $this->fields['dishe_id'] = $this->query->selectCount("dishes") + 1;
                     
                     /** Create new dish object */
-                    $dishe = new Dishe($this->fields);
+                    $dishe = new Dishe($this->fields);                    
                     
                     /** Insert dish into database */
-                    $this->query->insertInto("dishes", $dishe);
+                    $this->query->insertInto("dishes", $dishe);                                        
+
+                    $this->query->insertInto("dinamic_data", [
+                        "dishe_id"                            => $dishe->getDisheId(),
+                        "{$_SESSION['language']}_name"        => $this->fields['name'],
+                        "{$_SESSION['language']}_description" => $this->fields['description']
+                    ]);
                     
                     $this->dbcon->pdo->commit();
 
@@ -307,7 +314,7 @@
             try {
                 // We obtain all registries in "dishes_day" and "dishes_menu" tables                           
                 $categoriesDishesDay = $this->query->selectAll("dishes_day");
-                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
+                $categoriesDishesMenu = $this->query->selectAllOrderByFieldWhereFieldIsNotNull("dishes_menu", "{$_SESSION['language']}_menu_category");
 
 
                 /** Get the id */
@@ -318,7 +325,8 @@
                  * elements in forms views 
                  * */ 
 
-                $dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);                
+                //$dishe = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_day", "category_id", "dishe_id", $dishe_id);
+                $dishe = $this->dishRepository->selectDisheById($dishe_id);                
                 $disheType = $this->query->selectOneByFieldNameInnerjoinOnfield("dishes", "dishes_menu", "menu_id", "dishe_id", $dishe_id);
                 
                 /** Showing dishe_picture in show info */                                                
@@ -459,23 +467,20 @@
                 // Change category's language to spanish to do the query to the DB
                 $this->language = $this->languageObject->spanish();               
 
-                // Validate entries
-                $validate = new Validate();                                        
-
+                // Validate entries                                                    
                 $this->fields = [
-                    "id"          => $_REQUEST['dishe_id'] ?? $id ?? "",
-                    "name"        => $validate->test_input($this->language[strtolower($_REQUEST['name'])] ?? ""),
-                    "description" => $validate->test_input($_REQUEST['description'] ?? ""),
-                    "category_id" => $validate->test_input($_REQUEST['category'] ?? ""),
-                    "menu_id"     => $validate->test_input($_REQUEST['dishes_type'] ?? ""),
-                    "price"       => $validate->test_input($_REQUEST['price'] ?? ""),
-                    "available"   => isset($_REQUEST['available']) ? $validate->test_input(intval($_REQUEST['available'])) : 0
+                    "dishe_id"    => $_REQUEST['dishe_id'] ?? $id ?? "",
+                    "name"        => $this->validate->test_input($_REQUEST['name'] ?? ""),
+                    "description" => $this->validate->test_input($_REQUEST['description'] ?? ""),
+                    "category_id" => $this->validate->test_input($_REQUEST['category'] ?? ""),
+                    "menu_id"     => $this->validate->test_input($_REQUEST['dishes_type'] ?? ""),
+                    "price"       => $this->validate->test_input($_REQUEST['price'] ?? ""),
+                    "available"   => isset($_REQUEST['available']) ? intval($_REQUEST['available']) : 0
                 ];                                                                   
 
-                if ($validate->validate_form($this->fields)) {                                         
-
+                if ($this->validate->validate_form($this->fields)) {                                         
                     /** Get the object to manage the picture in the DB  */
-                    $dishe = $this->query->selectOneBy("dishes", "dishe_id", $this->fields['id']);
+                    $dishe = $this->dishRepository->selectDisheById($id);
 
                     /** If there is a new image to upload, we add it to fields array and delete the old one*/
                     if(isset($final_image)) {
@@ -486,22 +491,24 @@
                         $this->fields["picture"] = $dishe['picture'];
                     }
 
-                    $this->query->updateDishe($this->fields);
-                    $this->message = "<p class='container alert alert-success text-center'>Registro actualizado correctamente</p>";
+                    $this->dishRepository->updateDishe($this->fields);
+                    $this->message = "<p class='container alert alert-success text-center'>" . $this->language['row_updated'] . "</p>";
                     
                     $_SESSION['message'] = $this->message;
                     
                     header("Location: /admin/dishes/index");                    
 
                 } else {
-                    $this->message = $validate->get_msg();
+                    $this->message = $this->validate->get_msg();
                     
                     $this->render("/view/admin/dishes/edit_view.php", [
                         "message" => $this->message
                     ]);
                 }                                
             } catch (\Throwable $th) {			
-                $this->message = "<p>Archivo: {$th->getFile()}</p><p>Línea: {$th->getLine()}</p><p>Descripción del error: <span class='error'>{$th->getMessage()}</span></p>";
+                $this->message = "<p>{$this->language['file']}: {$th->getFile()}</p>
+                                  <p>{$this->language['line']}: {$th->getLine()}</p>
+                                  <p>{$this->language['error_description']}: <span class='error'>{$th->getMessage()}</span></p>";
                 
                 $this->render("/view/database_error.php", [
                     "message" => $this->message
@@ -512,6 +519,8 @@
         /** Deleting a dish from the database. */
         public function delete(): void
         {
+            global $id;
+
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
@@ -524,8 +533,11 @@
                 $dishe_to_delete = $this->query->selectOneBy("dishes", "dishe_id", $dishe);
                 
                 if($dishe_to_delete) {
+                    $this->dbcon->pdo->beginTransaction();
                     $this->commonTask->deletePicture($dishe_to_delete['picture']);
                     $this->query->deleteRegistry("dishes", "dishe_id", $dishe);
+                    $this->query->deleteRegistry("dinamic_data", "dishe_id", $dishe);
+                    $this->dbcon->pdo->commit();
     
                     $this->message = "<p class='alert alert-success text-center'>Se ha eliminado el registro</p>";                                         
                 }
@@ -575,11 +587,11 @@
 	            $s = $_POST['s'] ?? $_GET['s'] ?? $s = null;                
 
                 /** Validate entries */                                                 
-                $categoriesDishesMenu = $this->query->selectAll("dishes_menu");
+                $categoriesDishesMenu = $this->query->selectAllOrderByFieldWhereFieldIsNotNull("dishes_menu", "{$_SESSION['language']}_menu_category");
 
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {                    
                     // Manage form data
-                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery'])) header("Location: /admin/dishes/search");
+                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery']) || empty($_REQUEST['critery'])) header("Location: /admin/dishes/search");
 
                     match ($_REQUEST['field']) {
                         'available' => $critery = isset($_REQUEST['critery']) ? intval($_REQUEST['critery']) : 0,
@@ -593,66 +605,72 @@
                         "Criterio"  =>  $critery ?? "",                                  
                     ];                    
 
-                    if($this->fields['Campo'] !== "" && $this->fields['Criterio'] !== "") {                    
-                        /** Test validation */                                                                             
-                        if($this->validate->validate_form($this->fields)) {
-                            /** Calculate necesary pages for pagination */ 
-                            $pagerows = 6; // Number of rows for page.
-                            $desde = 0;                        
-    
-                            /** Select method to do the search */
-                            match($this->fields['Campo']) {
-                                default   => $rows = $this->query->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio']),
-                                'menu_id' =>  $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
-                            };                                                 
-                                                  
-                            $total_rows = count($rows);                        
-                            $pagina = 1;                        
-    
-                            if(!$total_rows) {
-                                $this->message = "<p class='alert alert-danger text-center'>No se han encontrado registros</p>";
-                                $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
-                                    "pagina"  => $pagina,                                                                                                                                                      
-                                    "message" => $this->message,                                                                
-                                ]);
-                            }                                        
-                            elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
-                                            
-                            if($p && is_numeric($p)) $pagina = $p;                             
-                            if($s && is_numeric($s)) $desde = $s;                                                
-    
-                            $last = ($pagina * $pagerows) - $pagerows;
-                            $current_page = ($desde/$pagerows) + 1;                                             
-                              
-                            /** Variables to manage in view file */                       
-                            $field = $this->fields['Campo'];
-                            $critery = $this->fields['Criterio'];                                        
-    
-                            /** Select method to do the search */
-                            match($this->fields['Campo']) {
-                                default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
-                                'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
-                            };                                                                                             
-    
-                            /** Show dishes index */
-                            $this->render("/view/admin/dishes/index_view.php", [
-                                "rows"         => $rows,                                                        
-                                "field"        => $field,
-                                "critery"      => $critery,
-                                "current_page" => $current_page,                                                       
-                                "pagina"       => $pagina,
-                                "desde"        => $desde,                                                                            
-                                "pagerows"     => $pagerows,                            
-                                "last"         => $last, 
-                                "total_rows"   => $total_rows,                           
-                                "message"      => $this->message,
-                                "commonTask"   => $this->commonTask,                           
-                            ]);                        
-                        }
-                        else {                        
-                            throw new \Exception($this->validate->get_msg(), 1);                    
-                        }
+                    /** Test validation search form by name*/
+                    if(!$this->validate->validate_form($this->fields) && $this->fields['Campo'] === 'name') {
+                        $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['enter_valid_data']) .  "</p>";
+                        $this->render("/view/admin/dishes/search_view.php", [
+                            "error_by_name" => $this->message
+                        ]);
+                    }                                                                                                
+                    
+                    /** Validate form */
+                    if($this->validate->validate_form($this->fields)) {                                                
+                        /** Calculate necesary pages for pagination */ 
+                        $pagerows = 6; // Number of rows for page.
+                        $desde = 0;                        
+
+                        /** Select method to do the search */
+                        match($this->fields['Campo']) {
+                            default   => $rows = $this->query->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio']),
+                            'menu_id' =>  $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
+                        };                                                 
+                                                
+                        $total_rows = count($rows);                        
+                        $pagina = 1;                        
+
+                        if(!$total_rows) {
+                            $this->message = "<p class='alert alert-warning text-center'>" . ucfirst($this->language['rows_not_found']) . "</p>";
+                            $this->render("/view/admin/dishes/index_view.php", [                                                                                                                                                                             
+                                "pagina"  => $pagina,                                                                                                                                                      
+                                "message" => $this->message,                                                                
+                            ]);
+                        }                                        
+                        elseif($total_rows > $pagerows) $pagina = ceil($total_rows / $pagerows); 
+                                        
+                        if($p && is_numeric($p)) $pagina = $p;                             
+                        if($s && is_numeric($s)) $desde = $s;                                                
+
+                        $last = ($pagina * $pagerows) - $pagerows;
+                        $current_page = ($desde/$pagerows) + 1;                                             
+                            
+                        /** Variables to manage in view file */                       
+                        $field = $this->fields['Campo'];
+                        $critery = $this->fields['Criterio'];                                        
+
+                        /** Select method to do the search */
+                        match($this->fields['Campo']) {
+                            default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
+                            'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
+                        };                                                                                             
+
+                        /** Show dishes index */
+                        $this->render("/view/admin/dishes/index_view.php", [
+                            "rows"         => $rows,                                                        
+                            "field"        => $field,
+                            "critery"      => $critery,
+                            "current_page" => $current_page,                                                       
+                            "pagina"       => $pagina,
+                            "desde"        => $desde,                                                                            
+                            "pagerows"     => $pagerows,                            
+                            "last"         => $last, 
+                            "total_rows"   => $total_rows,                           
+                            "message"      => $this->message,
+                            "commonTask"   => $this->commonTask,                           
+                        ]);                        
                     }
+                    else {                        
+                        throw new \Exception($this->validate->get_msg(), 1);                    
+                    }                    
                 }                
                 else {
                     /** Show search form */                    
@@ -662,7 +680,7 @@
                 }
                                 
             } catch (\Exception $e) {
-                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
                     $this->message = "<p class='alert alert-danger text-center'>

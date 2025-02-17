@@ -19,8 +19,8 @@ final class CategoryRepository extends Query
     public function saveCategory(object $entity): void
     {
         $this->insertInto('dishes_menu', [
-            'menu_category' => $entity->getCategory(),
-            'menu_emoji'    => $entity->getEmoji()
+            "{$_SESSION['language']}_menu_category" => $entity->getCategory(),
+            'menu_emoji'                            => $entity->getEmoji()
         ]);
     }
 
@@ -37,7 +37,7 @@ final class CategoryRepository extends Query
 
             return new DishCategory([
                 'id'       => $rows['menu_id'],
-                'category' => $rows['menu_category'],
+                'category' => $rows["{$_SESSION['language']}_menu_category"] == null ? "" : $rows["{$_SESSION['language']}_menu_category"],
                 'emoji'    => $rows['menu_emoji']
             ]);
 
@@ -45,4 +45,64 @@ final class CategoryRepository extends Query
             throw new \Exception("{$th->getMessage()}", 1);
         }
     }
+
+    public function updateRegistry(string $table, array $fields, string $primary_key_name): void
+    {
+        $query = "UPDATE $table SET";
+        $params = [];
+        
+        foreach ($fields as $key => $value) {
+            if($key !== $primary_key_name)  $query .= " $key = :$key,";
+            $params[":$key"] = strtolower($value);
+        }
+        
+        $query = rtrim($query, ",");
+        $query .= " WHERE $primary_key_name = :$primary_key_name";
+        $params[":$primary_key_name"] = $fields[$primary_key_name];                        
+                                                
+        try {
+            $stm = $this->dbcon->pdo->prepare($query);                        
+            $stm->execute($params);       				
+            $stm->closeCursor();
+
+        } catch (\Throwable $th) {
+            throw new \Exception("{$th->getMessage()}", 1);
+        }            
+    }
+
+    public function insertInto(string $table, array|object $fields): void
+        {
+            /** Initialice variables */
+            $query = $values = "";
+            $insert = "INSERT INTO $table (";            
+
+            if(is_object($fields) && method_exists($fields, 'getFields')) $fields = $fields->getFields();
+
+            foreach ($fields as $key => $value) {
+                $insert .= $key . ",";
+                $values .= ":$key,";
+            }
+
+            /** Prepare variables for make the query */
+            $insert_size = strlen($insert);
+            $insert = substr($insert, 0, $insert_size-1) . ") VALUES (";          
+            $value_size = strlen($values);
+            $values = substr($values, 0, $value_size-1) . ")";
+
+            /** Make the query */
+            $query = strtolower($insert) . strtolower($values);            
+                                                    
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                foreach ($fields as $key => $value) {                    
+                    $stm->bindValue(":$key", strtolower($value));
+                }                   
+                $stm->execute();       				
+                $stm->closeCursor();
+                
+            } catch (\Throwable $th) {
+                $this->dbcon->pdo->rollBack();
+                throw new \Exception("{$th->getMessage()}", 1);             
+            }
+        }
 }

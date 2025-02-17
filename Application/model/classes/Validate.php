@@ -18,9 +18,9 @@
          */
         public function test_input(int|string|float|null $data): int|string|float|null
         {
-            if(is_null($data)) return null;
+            if(is_null($data) || ctype_space($data)) return null;            
 
-            if(!is_int($data)) {
+            if(!is_int($data) && !is_float($data)) {
                 $data = htmlspecialchars($data);
                 $data = trim($data);
                 $data = stripslashes($data);
@@ -50,12 +50,12 @@
                 if($key === "available" || is_int($value)) continue;
                 
                 if (empty($value) || !isset($value)) {                                                              
-                    $this->msg = "<p class='alert alert-danger text-center'>'" . ucfirst($key) . "' is a required field.</p>";  
+                    $this->msg = ucfirst($key) . " is a required field.";  
                     return false;                                   				
                 }                
 
                 if($key === "email" && !$this->validate_email($value)) {
-                    $this->msg = "<p class='alert alert-danger text-center'>Insert a valid e-mail.</p>";
+                    $this->msg = "Insert a valid e-mail.";
                     return false;
                 }                
             }

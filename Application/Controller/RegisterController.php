@@ -75,7 +75,7 @@
 								}
 							}
 							else {
-								$this->message = "<p class'error text-center'>" . $validate->get_msg() . "</p>";
+								$this->message = $validate->get_msg();
 							}
 						}
 					}																									

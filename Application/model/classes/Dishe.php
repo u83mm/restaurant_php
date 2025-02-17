@@ -5,29 +5,31 @@
 
     class Dishe
     {
-        private ?int    $dishe_id    = null;
-        private ?string $name        = null;
-        private ?string $description = null;
+        private ?int    $dishe_id    = null;       
         private ?float  $price       = null;
         private ?string $picture     = null;
         private ?int    $category_id = null;
         private ?int    $menu_id     = null;
-        private ?string $available   = null;
+        private ?int    $available   = null; 
+        private array   $fields = [] ;      
         
         public function __construct(
-            private array $fields = []
+            private array $externalFields = []
         )
         {
-            $this->setDishe($this->fields);  
+            $this->setDishe($externalFields);  
         }
 
-        public function setDishe(array $fields): self
+        public function setDishe(array $externalFields): self
         {            
-            foreach ($fields as $key => $value) {
-                $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));                
-
-                if (method_exists($this, $method)) {
-                    $this->$method($value);
+            if(!empty($externalFields)) {
+                foreach($externalFields as $key => $value) {
+                    $method = 'set' . str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+                    
+                    if(method_exists($this, $method)) {
+                        $this->$method($value);
+                        $this->fields[$key] = $value;
+                    }
                 }
             }
 
@@ -43,29 +45,7 @@
         public function getDisheId(): int
         {
             return $this->dishe_id;
-        }
-
-        public function setName(string $name): self
-        {
-            $this->name = $name;
-            return $this;
-        }
-
-        public function getName(): string
-        {
-            return $this->name;
-        }
-
-        public function setDescription(string $description): self
-        {
-            $this->description = $description;
-            return $this;
-        }
-
-        public function getDescription(): string
-        {
-            return $this->description;
-        }
+        }        
 
         public function setPrice(string $price): self
         {
@@ -111,13 +91,13 @@
             return $this->menu_id;
         }
 
-        public function setAvailable(string $available): self
+        public function setAvailable(int $available): self
         {
             $this->available = $available;
             return $this;
         }
 
-        public function getAvailable(): string
+        public function getAvailable(): int
         {
             return $this->available;
         }

@@ -5,28 +5,33 @@
             <img class="col-3 img-fluid" src="/images/menu_dia_logo.png" alt="menu-logo">            
         </div>        				
     </div>
-    <hr>		
+    <hr>
+    <!-- Primeros -->
     <div class="row mb-3">
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['first_plates']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($menuDaySections['main'] as $key => $plato) { ?>                
-                <li><em><a href="/menu/showDisheInfo/<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($home->language[$plato['name']]); ?></a></em></li>
+                <li><em><a href="/menu/showDisheInfo/<?php echo $plato['dishe_id']; ?>"><?php if(isset($plato['name'])) echo ucfirst($plato['name']); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
+
+    <!-- Segundos -->
     <div class="row mb-3">
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['seconds']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($menuDaySections['second'] as $key => $plato) { ?>
-                <li><em><a href="/menu/showDisheInfo/<?php echo $plato['dishe_id']; ?>"><?php echo ucfirst($home->language[$plato['name']]); ?></a></em></li>
+                <li><em><a href="/menu/showDisheInfo/<?php echo $plato['dishe_id']; ?>"><?php if(isset($plato['name'])) echo ucfirst($plato['name']); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>
+
+    <!-- Postres -->
     <div class="row mb-3">
         <h4 class="text-center"><strong><?php echo strtoupper($home->language['desserts']); ?></strong></h4>
         <ul class="ps-4">
             <?php foreach ($menuDaySections['dessert'] as $key => $postre) { ?>
-                <li><em><a href="/menu/showDisheInfo/<?php echo $postre['dishe_id']; ?>"><?php echo ucfirst($home->language[$postre['name']]); ?></a></em></li>
+                <li><em><a href="/menu/showDisheInfo/<?php echo $postre['dishe_id']; ?>"><?php if(isset($postre['name'])) echo ucfirst($postre['name']); ?></a></em></li>
             <?php } ?>
         </ul>
     </div>

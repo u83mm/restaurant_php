@@ -20,10 +20,9 @@
             private Query $query = new Query(),
             private Validate $validate = new Validate()            
         )
-        {
-            $this->languageObject = new Language(); 
-            
+        {                        
             /** Configure page language */
+            $this->languageObject = new Language(); 
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
         }
 
