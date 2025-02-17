@@ -605,15 +605,16 @@
                         "Criterio"  =>  $critery ?? "",                                  
                     ];                    
 
-                    if(!$this->validate->validate_form($this->fields)) {
+                    /** Test validation search form by name*/
+                    if(!$this->validate->validate_form($this->fields) && $this->fields['Campo'] === 'name') {
                         $this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['enter_valid_data']) .  "</p>";
                         $this->render("/view/admin/dishes/search_view.php", [
                             "error_by_name" => $this->message
                         ]);
-                    } 
-
-                    /** Test validation */                                                                             
-                    if($this->validate->validate_form($this->fields)) {
+                    }                                                                                                
+                    
+                    /** Validate form */
+                    if($this->validate->validate_form($this->fields)) {                                                
                         /** Calculate necesary pages for pagination */ 
                         $pagerows = 6; // Number of rows for page.
                         $desde = 0;                        
@@ -679,7 +680,7 @@
                 }
                                 
             } catch (\Exception $e) {
-                $this->message = "<p class='alert alert-danger text-center'>{$e->getMessage()}</p>";
+                $this->message = "<p class='alert alert-danger text-center'>{}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
                     $this->message = "<p class='alert alert-danger text-center'>

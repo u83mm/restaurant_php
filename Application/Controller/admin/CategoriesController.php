@@ -127,6 +127,12 @@ final class CategoriesController extends Controller
             ];
 
             if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if(isset($_POST['language'])) {
+                    $this->render('/view/admin/categories/edit_view.php', [
+                        'fields' => $this->fields,
+                    ]);
+                }
+
                 if(!isset($_POST['category']) || !isset($_POST['emoji'])) {
                     $this->fields = [
                         'category' => $category->getCategory(),
@@ -142,6 +148,7 @@ final class CategoriesController extends Controller
                     ];
                 }
 
+                /** Validate form */
                 if(!$this->validate->validate_form($this->fields)) {
                     $_SESSION['message'] = $this->validate->get_msg();
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 17, 2025 at 02:22 PM
+-- Generation Time: Feb 17, 2025 at 06:56 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -397,7 +397,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (212, 'menu', 'menu'),
 (213, 'error_description', 'error description'),
 (214, 'line', 'line'),
-(215, 'file', 'file');
+(215, 'file', 'file'),
+(216, 'enter_valid_data', 'enter valid data');
 
 -- --------------------------------------------------------
 
@@ -412,6 +413,13 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `limit_access`
+--
+
+INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
+(498, '172.16.202.1', 1739813753, 1, '2025-02-17 18:30:53');
 
 -- --------------------------------------------------------
 
@@ -826,7 +834,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (206, 'menu', 'carta'),
 (207, 'error_description', 'descripción del error'),
 (208, 'line', 'línea'),
-(209, 'file', 'archivo');
+(209, 'file', 'archivo'),
+(210, 'enter_valid_data', 'introduzca un valor válido');
 
 -- --------------------------------------------------------
 
@@ -971,13 +980,13 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=498;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=499;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1013,7 +1022,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `user`
