@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\model\repositories\dishe;
 
+use Application\interfaces\QueryInterface;
 use Application\model\classes\DishCategory;
 use Application\model\classes\Query;
 

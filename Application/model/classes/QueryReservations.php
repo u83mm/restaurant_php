@@ -9,7 +9,7 @@
 
     /* The QueryReservations class is a PHP class that extends the Query class and provides a method to
     select all records from a table based on a given date and time. */
-    class QueryReservations extends Query implements QueryInterface
+    class QueryReservations extends Query
     {    
         public function selectAllByDateAndTime(
             string $table, 
