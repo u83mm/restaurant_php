@@ -1,9 +1,10 @@
 <?php
     namespace Application\model\classes;
 
+    use Application\interfaces\QueryInterface;
     use PDO;
 
-    class Query 
+    class Query implements QueryInterface
     {
         public Language $languageObject;
         
