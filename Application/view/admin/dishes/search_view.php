@@ -10,13 +10,12 @@
     <div class="row justify-content-evenly">
         <h3 class="text-center pb-2"><?php echo strtoupper($home->language['search_product']); ?></h3>
         <?php echo $message ?? ""; ?> 
-        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
-            <h4 class="text-center"><?php echo ucfirst($home->language['search_criteria']); ?></h4>                                    
+        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">                                               
             <div class="row mb-3">
 
                 <!-- By name -->
 
-                <h5 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h5> 
+                <h4 class="text-center"><?php echo ucfirst($home->language['by_name']); ?></h4> 
                 <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <?php echo $error_by_name ?? ''; ?>
                     <input type="hidden" name="field" value="name">
@@ -30,7 +29,7 @@
 
                 <!-- By availability -->
 
-                <h5 class="text-center"><?php echo ucfirst($home->language['by_availability']); ?></h5> 
+                <h4 class="text-center"><?php echo ucfirst($home->language['by_availability']); ?></h4> 
                 <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="available">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
@@ -47,7 +46,7 @@
 
                 <!-- By category -->
 
-                <h5 class="text-center"><?php echo ucfirst($home->language['by_category']); ?></h5>
+                <h4 class="text-center"><?php echo ucfirst($home->language['by_category']); ?></h4>
                 <form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") ?>" method="post" class="mb-3">
                     <input type="hidden" name="field" value="menu_id">
                     <button class="btn btn-primary" name="action" value="search"><?php echo ucfirst($home->language['search']); ?></button>
@@ -61,13 +60,7 @@
                     </div>                  
                 </form>                                        
             </div>            
-        </div>
-        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
-            <h4 class="text-center">TEXTO</h4>            
-        </div> 
-        <div class="col-12 col-md-5 mb-4 shadow rounded adminMenus">
-            <h4 class="text-center">TEXTO</h4>            
-        </div>                                                                                   
+        </div>                                                                                           
     </div>  
     <div class="col-12 col-lg-6 mx-auto">                
         <a class="btn btn-primary mb-5" href="/admin/admin/adminMenus"><?php echo ucfirst($home->language['go_back']); ?></a>

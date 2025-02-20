@@ -10,7 +10,8 @@
 			public string $meta_name_description = "Aquí va una descripción del sitio",
 			public string $meta_name_keywords = "Restaurant Menu take away food",
 			public array $nav_links = [],
-			public array $language = [],			
+			public array $language = [],
+			public string $path = ""			
 		)
 		{				
 			$links = new NavLinks();
@@ -31,6 +32,9 @@
 				$logout = ucfirst($this->language['nav_link_logout']);
 				$this->nav_links[$logout] = "/login/logout"; 
 			}
+
+			/** Define path */
+			$this->path = rtrim($_SERVER['REQUEST_URI'], "/") === "" ?  "/" : rtrim($_SERVER['REQUEST_URI'], "/");			
 		}
 
 		/**
@@ -75,7 +79,7 @@
 						<h2 class="pt-5 p-xl-0"><?php echo $this->h1; ?></h2>
 					</div>
 					<div class="col-12 col-md-2 col-xl-1 d-md-flex justify-content-center align-items-end pb-2 pe-1 text-end">
-						<form action="<?php echo rtrim($_SERVER['REQUEST_URI'], "/") === "" ?  "/" : rtrim($_SERVER['REQUEST_URI'], "/"); ?>" method="post">
+						<form action="<?php echo $this->path; ?>" method="post">
 							<input type="hidden" name="csrf_token" value="<?php if(isset($_SESSION['csrf_token'])) echo $_SESSION['csrf_token']; ?>">
 							<input type="hidden" name="action" value="<?php if(isset($_SESSION['action'])) echo $_SESSION['action']; ?>">
 							<input type="hidden" name="date" value="<?php if(isset($_SESSION['date'])) echo $_SESSION['date']; ?>">													
