@@ -472,5 +472,35 @@
                 throw new \Exception("{$th->getMessage()}", 1);
             }
         }
+
+        /**
+         * Selects all rows from a specified table where a specified field matches a
+         * given value using a LIKE comparison.
+         * 
+         * @param string table The name of the database table from which you want to retrieve data.
+         * @param string field The column in the database table that you want to search for a value
+         * @param string value The given value using the `LIKE` operator in SQL.
+         * 
+         * @return array An array of rows fetched from the database table where the specified field
+         * matches the provided value using the LIKE operator.
+         */
+        public function selectAllFromTableWhereFieldLike(string $table, string $field, string $value): array     
+        {
+            $query = "SELECT * FROM $table WHERE $field LIKE :value";                 
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $value = "%$value%";
+                $stm->bindValue(":value", $value);                                             
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor();                
+
+                return $rows;
+
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
+        }
     }    
 ?>

@@ -48,9 +48,10 @@
         <section class="col-12 col-md-6 col-lg-4 mb-4">
             <h4 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h4>
             <div class="shadow rounded adminMenus">            
-                <a class="btn btn-primary" href="/admin/categories/index"><?php echo ucfirst($page->language['show_list']); ?></a> 
+                <a class="btn btn-primary" href="/admin/categories/index"><?php echo ucfirst($page->language['show_list']); ?></a>
+                <a class="btn btn-primary" href="/admin/categories/new"><?php echo ucfirst($page->language['new_category']); ?></a> 
                 <hr />
-                <a href="/admin/dictionaries/index">Dictionaries</a>                           
+                <a href="/admin/dictionaries/index"><?php echo ucfirst($page->language['dictionaries']); ?></a> | <a href="/admin/categories/search"><?php echo ucfirst($page->language['search']); ?></a>                          
             </div>            
         </section>                                                                                                                                                                                                                                           
     </div>
