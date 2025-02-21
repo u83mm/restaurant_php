@@ -44,10 +44,9 @@
             private Query $query = new Query(),
             private OrderRepository $orderRepository = new OrderRepository()
         )
-        {
-            $this->languageObject = new Language();
-
+        {            
             /** Test page language */
+            $this->languageObject = new Language();
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();	
         }
 

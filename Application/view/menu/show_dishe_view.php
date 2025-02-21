@@ -11,6 +11,7 @@
 ?>	
 								<!-- SECTION WITH INFO -->
 	<section class="col-12 col-lg-9 p-sm-0 pe-lg-4">
+		<?php echo $_SESSION['message'] ?? ""; ?>
 		<div class="col mb-5 <?php echo $dishe["{$_SESSION['language']}_menu_category"]; ?>"></div>
 		<div class="row mb-3">
 			<div class="col d-flex justify-content-center align-items-center mb-3">
@@ -35,9 +36,10 @@
 			<div class="col-12 col-md-7 col-xl-5 text-md-end ps-4 pe-4 pb-4">
 			<?php if(isset($_SESSION['role']) && ($_SESSION['role'] === "ROLE_WAITER" || $_SESSION['role'] === "ROLE_ADMIN")): ?>
 				<form action="/orders/order/new" method="post">
+					<?php isset($_SESSION['variables']) ? extract($_SESSION['variables']) : ""; ?>
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
 					<label class="col-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
-					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="0">
+					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="<?php isset($qty) ?  printf('%s', $qty) : printf('%s','0'); ?>">
 					<select class="align-middle" name="place" id="place">
 						<option value="">- <?php echo ucfirst($home->language['select']); ?> -</option>
 						<option value="aperitifs"><?php echo ucfirst($home->language['aperitif']); ?></option>
