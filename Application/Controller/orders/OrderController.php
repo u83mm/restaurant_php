@@ -7,6 +7,7 @@
     use Application\Core\Controller;
     use Application\model\classes\Language;
     use Application\model\classes\Query;
+    use Application\model\classes\Validate;
     use Application\model\orders\Order;
     use Application\model\repositories\OrderRepository;
 
@@ -32,10 +33,15 @@
         private Language $languageObject;
 
         public function __construct(            
-            private string $message = ""
+            private string $message = "",
+            private array $fields = [],
+            private Validate $validate = new Validate(),
+            private Query $query = new Query(),
         )
         {
-            $this->languageObject = new Language();             
+            /** Configure page language */
+            $this->languageObject = new Language();
+            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();            
         }
       
         /**
@@ -54,11 +60,7 @@
                         
             try {
                 /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
-
-                /** Configure page language */
-			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
-
+                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                                                                                        
 
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
@@ -69,11 +71,11 @@
                 if(isset($variables['table_number'])) $_SESSION['table_number'] = $variables['table_number'];
                 if(isset($variables['people_qty']))   $_SESSION['people_qty']   = $variables['people_qty'];
                 if(!isset($_SESSION['table_number'])) $_SESSION['table_number'] = ucfirst($this->language['select']);
-                if(!isset($_SESSION['people_qty']))   $_SESSION['people_qty']   = ucfirst($this->language['select']);                
+                if(!isset($_SESSION['people_qty']))   $_SESSION['people_qty']   = ucfirst($this->language['select']);                                              
 
-                                                                                                
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */
-                if(isset($_POST['name']) && isset($_POST['qty']) && isset($_POST['place'])) {                    
+                if(!empty($_POST['name']) && !empty($_POST['qty']) && !empty($_POST['place'])) { 
+                    if(isset($_SESSION['variables'])) unset($_SESSION['variables']);                   
                     if(isset($_SESSION['order'])) {
                         foreach ($_SESSION['order'] as $key => $item) {
                             if($item['position'] == $_POST['place'] && $item['name'] == $_POST['name']) {
@@ -102,6 +104,7 @@
                         }                        
                     }
                     else {
+                        //$name = $this->query->selectFieldsFromTableById(["{$_SESSION['language']}_name"], "dinamic_data", "dishe_id", $_SESSION['dishe_id']);
                         $_SESSION['order'][] = [
                             'name'      =>  $_POST['name']  ?? "",
                             'qty'       =>  $_POST['qty']   ?? 0,
@@ -133,7 +136,7 @@
                             'coffees'    =>  $this->coffees[]   = $item,
                         }; 
                     }
-                }                                                                                        
+                }                                                                                                       
                                 
                 /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
                 $tables = $persones = [];
@@ -409,4 +412,4 @@
             }                  							  			                       
         }
     }    
-?>  
+?>
