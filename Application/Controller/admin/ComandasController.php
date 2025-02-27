@@ -456,7 +456,7 @@
             $this->firsts             = (explode(",", $result['firsts']));
             $this->firsts_qty         = (explode(",", $result['firsts_qty']));
             $this->firsts_finished    = (explode(",", $result['firsts_finished']));
-            $this->seconds            = (explode(",", $result['seconds']));
+            $this->seconds            = $result['seconds'] !== "" ? (explode(",", $result['seconds'])) : [];
             $this->seconds_qty        = (explode(",", $result['seconds_qty']));
             $this->seconds_finished   = (explode(",", $result['seconds_finished']));
             $this->desserts           = (explode(",", $result['desserts']));
@@ -491,22 +491,26 @@
             ];
 
             // Update dish quantity and add new dishes
-            foreach ($dishes_to_add_or_update as $dish_add_key => $dish_add_value) {
-                if(empty($dish_add_value)) continue;
-                
-                foreach ($this->$dish_add_key as $dish_key => $dish_value) {
-                    if(str_contains($dish_add_key, "_qty")) continue;
-                    
-                    foreach ($dish_add_value as $my_value_key => $my_value) {                        
-                        if($dish_value === $my_value) {                                                       
-                            $key_qty = $dish_add_key . "_qty";                            
-                            $this->$key_qty[$dish_key] += $dishes_to_add_or_update[$key_qty][$my_value_key];
-                            continue;
-                            $this->$dish_add_key = array_merge($this->$dish_add_key, $dish_add_value);                            
-                        }                        
-                    }                                        
+            foreach ($dishes_to_add_or_update as $dish_add_key => $dish_add_value) {                
+                if(count($dish_add_value) <= 0 || str_contains($dish_add_key, "_qty")) continue;
+
+                $key_qty = $dish_add_key . "_qty";
+
+                if($this->$dish_add_key === []) {
+                    foreach ($dish_add_value as $key => $value) {
+                        $this->$dish_add_key[] = $value;
+                        $this->$key_qty[] = $dishes_to_add_or_update[$key_qty][$key]; 
+                    }
                 }
-                               
+                else {
+                    foreach ($this->$dish_add_key as $add_key => $add_value) {
+                        foreach ($dish_add_value as $key => $value) {
+                            if($add_value === $value) {                            
+                                $this->$key_qty[$add_key] += $dishes_to_add_or_update[$key_qty][$key];                                
+                            }
+                        }                                                
+                    } 
+                }                                                              
             }       
                      
             $order->setId(intval($id));
