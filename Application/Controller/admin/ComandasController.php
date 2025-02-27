@@ -450,24 +450,24 @@
 
             /* We convert strings fields in arrays fields with their values */                                              
 
-            $this->aperitifs          = (explode(",", $result['aperitifs']));
-            $this->aperitifs_qty      = (explode(",", $result['aperitifs_qty']));
-            $this->aperitifs_finished = (explode(",", $result['aperitifs_finished']));
-            $this->firsts             = (explode(",", $result['firsts']));
-            $this->firsts_qty         = (explode(",", $result['firsts_qty']));
-            $this->firsts_finished    = (explode(",", $result['firsts_finished']));
-            $this->seconds            = $result['seconds'] !== "" ? (explode(",", $result['seconds'])) : [];
-            $this->seconds_qty        = (explode(",", $result['seconds_qty']));
-            $this->seconds_finished   = (explode(",", $result['seconds_finished']));
-            $this->desserts           = (explode(",", $result['desserts']));
-            $this->desserts_qty       = (explode(",", $result['desserts_qty']));
-            $this->desserts_finished  = (explode(",", $result['desserts_finished']));
-            $this->drinks             = (explode(",", $result['drinks']));
-            $this->drinks_qty         = (explode(",", $result['drinks_qty']));
-            $this->drinks_finished    = (explode(",", $result['drinks_finished']));
-            $this->coffees            = (explode(",", $result['coffees']));
-            $this->coffees_qty        = (explode(",", $result['coffees_qty']));
-            $this->coffees_finished   = (explode(",", $result['coffees_finished']));             
+            $this->aperitifs          = $result['aperitifs']          !== "" ? (explode(",", $result['aperitifs'])) : [];
+            $this->aperitifs_qty      = $result['aperitifs_qty']      !== "" ? (explode(",", $result['aperitifs_qty'])) : [];
+            $this->aperitifs_finished = $result['aperitifs_finished'] !== "" ? (explode(",", $result['aperitifs_finished'])) : [];
+            $this->firsts             = $result['firsts']             !== "" ? (explode(",", $result['firsts'])) : [];
+            $this->firsts_qty         = $result['firsts_qty']         !== "" ? (explode(",", $result['firsts_qty'])) : [];
+            $this->firsts_finished    = $result['firsts_finished']    !== "" ? (explode(",", $result['firsts_finished'])) : [];
+            $this->seconds            = $result['seconds']            !== "" ? (explode(",", $result['seconds'])) : [];
+            $this->seconds_qty        = $result['seconds_qty']        !== "" ? (explode(",", $result['seconds_qty'])) : [];
+            $this->seconds_finished   = $result['seconds_finished']   !== "" ? (explode(",", $result['seconds_finished'])) : [];
+            $this->desserts           = $result['desserts']           !== "" ? (explode(",", $result['desserts'])) : [];
+            $this->desserts_qty       = $result['desserts_qty']       !== "" ? (explode(",", $result['desserts_qty'])) : [];
+            $this->desserts_finished  = $result['desserts_finished']  !== "" ? (explode(",", $result['desserts_finished'])) : [];
+            $this->drinks             = $result['drinks']             !== "" ? (explode(",", $result['drinks'])) : [];
+            $this->drinks_qty         = $result['drinks_qty']         !== "" ? (explode(",", $result['drinks_qty'])) : [];
+            $this->drinks_finished    = $result['drinks_finished']    !== "" ? (explode(",", $result['drinks_finished'])) : [];
+            $this->coffees            = $result['coffees']            !== "" ? (explode(",", $result['coffees'])) : [];
+            $this->coffees_qty        = $result['coffees_qty']        !== "" ? (explode(",", $result['coffees_qty'])) : [];
+            $this->coffees_finished   = $result['coffees_finished']   !== "" ? (explode(",", $result['coffees_finished'])) : [];             
 
             $dishes_to_add_or_update = [
                 'aperitifs'          =>  $_POST['aperitifs_name'] ?? [],
