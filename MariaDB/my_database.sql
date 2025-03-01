@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 20, 2025 at 06:07 PM
+-- Generation Time: Mar 01, 2025 at 01:17 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -402,7 +402,8 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (217, 'place_holder_category', 'category&#039;s name'),
 (218, 'search_category', 'search category'),
 (219, 'invalid_token', 'invalid token!'),
-(220, 'category_note', 'When you create a new category, you must edit it in all the languages.');
+(220, 'category_note', 'When you create a new category, you must edit it in all the languages.'),
+(221, 'alert_table_busy', 'busy table');
 
 -- --------------------------------------------------------
 
@@ -423,7 +424,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(500, '172.16.202.1', 1740067699, 1, '2025-02-20 17:03:19');
+(503, '172.16.202.1', 1740829553, 1, '2025-03-01 12:40:53');
 
 -- --------------------------------------------------------
 
@@ -478,8 +479,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 2, '', '', '', 'espaguetis a la carbonara,ensalada mixta', '2,3', '1,1', 'paella valenciana', '3', '1', 'crema catalana,creps de la casa', '2,1', '0,', 'jarra de cerveza,refresco de cola', '1,1', '0,', '', '', ''),
-(2, 2, 2, '', '', '', 'espaguetis a la carbonara,espaguetis a la carbonara', '1,2', '', 'salmón a la plancha', '2', '1', 'crema catalana,creps de la casa', '1,1', '0,', 'jarra de cerveza,agua mineral', '1,1', '0,', 'café solo,café cortado', '1,1', '');
+(3, 1, 2, '', '', '', 'macarrones a la boloñesa,ensalada mixta', '2,1', '0,', 'paella valenciana,bistec con patatas y verduras', '2,1', '', '', '', '', '', '', '', '', '', ''),
+(4, 2, 1, '', '', '', 'mixed salad', '2', '1', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, 3, 2, '', '', '0', 'macarrones a la boloñesa', '2', '0', 'paella valenciana,bistec con patatas y verduras', '1,1', '0', 'creps de la casa', '2', '0', '', '', '0', 'café solo,café cortado', '1,1', '0');
 
 -- --------------------------------------------------------
 
@@ -516,8 +518,8 @@ CREATE TABLE `orders_backup` (
 --
 
 INSERT INTO `orders_backup` (`id`, `table_number`, `people_qty`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 2, '', '', '', 'espaguetis a la carbonara,ensalada mixta', '1,1', '1,1', 'paella valenciana', '2', '0', 'crema catalana,creps de la casa', '1,1', '0,', 'jarra de cerveza,refresco de cola', '1,1', '0,', '', '', ''),
-(2, 2, 2, '', '', '', 'espaguetis a la carbonara', '2', '0', 'salmón a la plancha', '2', '1', 'crema catalana,creps de la casa', '1,1', '0,', 'jarra de cerveza,agua mineral', '1,1', '0,', 'café solo,café cortado', '1,1', '');
+(1, 1, 2, '', '', '', 'espaguetis a la carbonara,ensalada mixta', '2,3', '1,1', 'paella valenciana', '3', '1', 'crema catalana,creps de la casa', '2,1', '0,', 'jarra de cerveza,refresco de cola', '1,1', '0,', '', '', ''),
+(2, 2, 2, '', '', '', 'espaguetis a la carbonara,espaguetis a la carbonara', '1,2', '', 'salmón a la plancha', '2', '1', 'crema catalana,creps de la casa', '1,1', '0,', 'jarra de cerveza,agua mineral', '1,1', '0,', 'café solo,café cortado', '1,1', '');
 
 -- --------------------------------------------------------
 
@@ -843,7 +845,8 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (211, 'place_holder_category', 'nombre'),
 (212, 'search_category', 'buscar categoría'),
 (213, 'invalid_token', 'token no válido!'),
-(214, 'category_note', 'cuando se crea una nueva categoría, se debe editar en todos los lenguajes.');
+(214, 'category_note', 'cuando se crea una nueva categoría, se debe editar en todos los lenguajes.'),
+(215, 'alert_table_busy', 'mesa ocupada');
 
 -- --------------------------------------------------------
 
@@ -988,13 +991,13 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=504;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1006,7 +1009,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders_backup`
@@ -1030,7 +1033,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `user`
