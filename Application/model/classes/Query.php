@@ -502,5 +502,27 @@
                 throw new \Exception("{$th->getMessage()}", 1);
             }
         }
+
+        public function testIfTableIsBussy(string $table_number): bool
+        {
+            $query = "SELECT table_number FROM orders WHERE table_number = :table_number";
+
+            try {
+                $stm = $this->dbcon->pdo->prepare($query);
+                $stm->bindValue(":table_number", $table_number);
+                $stm->execute();       
+                $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+                $stm->closeCursor(); 
+
+                if(count($rows) > 0) return true;
+
+                return false;
+                
+            } catch (\Throwable $th) {
+                throw new \Exception("{$th->getMessage()}", 1);
+            }
+
+            return false;
+        }
     }    
 ?>

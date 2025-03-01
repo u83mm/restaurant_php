@@ -44,7 +44,10 @@
             private Query $query = new Query(),
             private OrderRepository $orderRepository = new OrderRepository()
         )
-        {            
+        { 
+            /** Test page language */
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];
+
             /** Test page language */
             $this->languageObject = new Language();
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();	
@@ -64,8 +67,7 @@
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
 
-            $_SESSION['action'] = "index";
-            //unset($_SESSION['message']);                                              
+            $_SESSION['action'] = "index";                                                       
 
             try {                
                 $result = $this->query->selectAll('orders');
@@ -213,14 +215,6 @@
             if(isset($variables['action'])) $_SESSION['action'] = $variables['action'];                        
                         
             try {
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
-
-
-                /** Configure page language */
-			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
-
-
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
                     $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
@@ -301,7 +295,6 @@
             
             $order = new Order();
 
-
             // Get values from the form
             $aperitifs_name     = $_POST['aperitifs_name']     ?? [];
             $aperitifs_finished = $_POST['aperitifs_finished'] ?? [];
@@ -316,7 +309,6 @@
             $coffees_name       = $_POST['coffees_name']       ?? [];
             $coffees_finished   = $_POST['coffees_finished']   ?? [];
 
-
             $dish_qty_array = [
                 'aperitifs'     => $_POST['aperitifs_qty'] ?? [],
                 'firsts'        => $_POST['firsts_qty']    ?? [],
@@ -325,7 +317,6 @@
                 'drinks'        => $_POST['drinks_qty']    ?? [],
                 'coffees'       => $_POST['coffees_qty']   ?? [],
             ];
-
 
             /** Test if there are dishes with 0 quantity, if so, delete them from the order */
             foreach ($dish_qty_array as $dishe_category => $element) {
@@ -432,24 +423,30 @@
                         
             $order = new Order();            
         
-            $id = $_POST['id'];
+            $id = isset($_POST['id']) ? $_POST['id'] : "";
 
             $result = $this->query->selectOneBy('orders', 'id', $id); 
+            if(!$result) $this->add();
 
 
             /* Update the table_number and people_qty if they are different */
+            $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : null;
             
-            if($_POST['table_number'] !== $result['table_number']) {
+            if(intval($table_number) !== $result['table_number'] && $result) {
+                // Test if table number already exist
+                if($this->query->testIfTableIsBussy($_POST['table_number'])) {
+                    $_SESSION['message'] = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_table_busy']) . "</p>";
+                    $this->add();
+                }
+
                 $this->query->updateRow('orders', ['table_number' => $_POST['table_number']], $id);
             }
 
-            if($_POST['people_qty'] !== $result['people_qty']) {
+            if(intval($_POST['people_qty']) !== $result['people_qty']) {
                 $this->query->updateRow('orders', ['people_qty' => $_POST['people_qty']], $id);
             }
         
-
             /* We convert strings fields in arrays fields with their values */                                              
-
             $this->aperitifs          = $result['aperitifs']          !== "" ? (explode(",", $result['aperitifs'])) : [];
             $this->aperitifs_qty      = $result['aperitifs_qty']      !== "" ? (explode(",", $result['aperitifs_qty'])) : [];
             $this->aperitifs_finished = $result['aperitifs_finished'] !== "" ? (explode(",", $result['aperitifs_finished'])) : [];
@@ -535,7 +532,6 @@
             
             try {
                 /** Update the order */
-
                 $this->orderRepository->updateOrder($order);
                 $this->message = "<p class='alert alert-success text-center'>Order update successfully</p>";                
                 $this->resetOrder();
@@ -599,7 +595,6 @@
             $_SESSION['action'] = "new";
 
             /** Get table number, people qty and different products */ 
-
             $_SESSION['table_number'] = isset($_POST['table_number']) ? $_POST['table_number'] : $_SESSION['table_number'];
             $_SESSION['people_qty'] = isset($_POST['people_qty']) ? $_POST['people_qty'] : $_SESSION['people_qty'];
             
@@ -626,15 +621,7 @@
             ];                                               
             
 
-            try { 
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
-
-
-                /** Configure page language */
-			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
-
-
+            try {                                                                      
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
                     $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
@@ -680,7 +667,6 @@
                  
 
                 /** Create arrays for table`s numbers and people quantity to show in 'Select' elements in order view*/ 
-
                 $tables = $persones = [];
 
                 for($i = 1; $i <= 20; $i++) $tables[] = $i;

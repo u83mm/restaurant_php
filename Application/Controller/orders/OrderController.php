@@ -39,6 +39,9 @@
             private Query $query = new Query(),
         )
         {
+            /** Test page language */
+            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language']; 
+
             /** Configure page language */
             $this->languageObject = new Language();
             $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();            
@@ -58,10 +61,7 @@
 
             if(isset($variables['action'])) $_SESSION['action'] = $variables['action'];                        
                         
-            try {
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                                                                                        
-
+            try {                                                                                                     
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
                     $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
@@ -103,8 +103,7 @@
                             }                                              
                         }                        
                     }
-                    else {
-                        //$name = $this->query->selectFieldsFromTableById(["{$_SESSION['language']}_name"], "dinamic_data", "dishe_id", $_SESSION['dishe_id']);
+                    else {                        
                         $_SESSION['order'][] = [
                             'name'      =>  $_POST['name']  ?? "",
                             'qty'       =>  $_POST['qty']   ?? 0,
@@ -179,15 +178,7 @@
         * order repository.
         */
         public function save(): void
-        {                         
-            /** Test page language */
-            $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                    
-
-
-            /** Configure page language */
-            $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();
-
-        
+        {                                                                           
             /** Get table number, people qty and different products */
             $_SESSION['table_number'] = $_POST['table_number'] >= 1 ? $_POST['table_number'] : ucfirst($this->language[strtolower($_POST['table_number'])]);
             $_SESSION['people_qty']   = $_POST['people_qty']   >= 1 ? $_POST['people_qty']   : ucfirst($this->language[$_POST['people_qty']]);         
@@ -288,15 +279,7 @@
             ];                                               
             
 
-            try { 
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
-
-
-                /** Configure page language */
-			    $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
-
-
+            try {                                                                       
                 /** Show text in 'Select' elements, table number or people quantity */ 
                 if(isset($_POST['language'])) {                                                          
                     $_SESSION['table_number'] = strlen($_SESSION['table_number']) > MAX_DIGITS_TO_TABLE_NUMBERS ? ucfirst($this->language['select']) : $_SESSION['table_number'] ;
@@ -382,14 +365,7 @@
         */
         public function resetOrder(): void {  
             try {                                
-                unset($_SESSION['order']);                
-
-                /** Test page language */
-                $_SESSION['language'] = isset($_POST['language']) ? $_POST['language'] : $_SESSION['language'];                
-
-
-                /** Configure page language */
-                $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english();                                                        
+                unset($_SESSION['order']);                                                                                                                     
 
                 $_SESSION['table_number'] = ucfirst($this->language['selecciona']);
                 $_SESSION['people_qty']   = ucfirst($this->language['selecciona']);

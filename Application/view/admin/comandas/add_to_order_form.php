@@ -159,7 +159,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo strtolower($item['name']); ?>">
-                            <?php echo ucfirst($home->language[$item['name']]); ?>
+                            <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
                             <input class="numberQty" type="number" name="coffees_qty[]" id="qty" value="<?php echo $item['qty'] ?>" size="3">

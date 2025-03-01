@@ -18,6 +18,7 @@ interface QueryInterface {
     public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField);
     public function selectOneBy(string $table, string $field, string $value): array|bool|object;
     public function selectOneByFieldNameInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldName, string $field): array|bool;
+    public function testIfTableIsBussy(string $table_number): bool;
     public function truncateTable(string $table);
     public function updatePassword(string $table, string $password, string $id_user);
     public function updateRegistry(string $table, array $fields, string $primary_key_name);

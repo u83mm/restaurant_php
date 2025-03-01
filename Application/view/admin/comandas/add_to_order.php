@@ -10,7 +10,7 @@
 								<!--- SECTION WITH INFO -->
 	<h3 class="text-center"><?php echo mb_strtoupper($home->language['add_to_order']); ?></h3>
     <div class="col-12 mx-auto">
-        <?php echo $message ?? ""; ?>
+        <?php echo $_SESSION['message'] ?? $message ?? ""; ?>
         <?php include(SITE_ROOT . "/../Application/view/admin/comandas/add_to_order_form.php"); ?>    
     </div>  		
 <?php
