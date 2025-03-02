@@ -1,5 +1,5 @@
 <?php
-	Application\model\classes\Loader::init(__DIR__ . "/..");
+	//Application\model\classes\Loader::init(__DIR__ . "/..");
 
 	$page_error = new Application\model\classes\PageClass;	
 	$page_error->title = "My Restaurant | Error";	
