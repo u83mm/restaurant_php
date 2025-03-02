@@ -74,7 +74,7 @@
          * @return array an array of rows fetched from the database table that match the specified
          * field and value.
          */
-        public function selectAllBy(string $table, string $field, string|float $value, string $orderBy = null): array  
+        public function selectAllBy(string $table, string $field, string|float $value, ?string $orderBy = null): array  
         {
             $query = "SELECT * FROM $table WHERE $field = :val";
             

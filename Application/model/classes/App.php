@@ -75,11 +75,10 @@
                 $this->message = "<p class='alert alert-danger text-center'>Page not found</p>";
         
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $this->message = "<p class='alert alert-danger text-center'>
-                                    Message: {$th->getMessage()}<br>
-                                    Path: {$th->getFile()}<br>
-                                    Line: {$th->getLine()}
-                                </p>";
+                    $this->message = "<p class='alert alert-danger text-center'>" .
+                                    "Message: {$th->getMessage()}<br>" .
+                                    "Path: {$th->getFile()}<br>" .
+                                    "Line: {$th->getLine()}</p>";
                 }
         
                 $this->render("/view/database_error.php", [
