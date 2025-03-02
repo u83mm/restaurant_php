@@ -8,7 +8,7 @@
     use Application\model\classes\Language;
     use Application\model\classes\QueryMenu;    
     use Application\model\fpdf\MyPdf;
-use Application\model\repositories\dishe\DishRepository;
+    use Application\model\repositories\dishe\DishRepository;
 
     class MenuController extends Controller
     {
@@ -71,7 +71,7 @@ use Application\model\repositories\dishe\DishRepository;
          * 
          * @param string category The category of dishes to be shown.
          */
-        public function showDishesByTheirCategory(string $category = null): void
+        public function showDishesByTheirCategory(?string $category = null): void
         { 
             global $id;                        
 
@@ -174,7 +174,7 @@ use Application\model\repositories\dishe\DishRepository;
                     $pdf->SetFont('GreatVibes','',14);
 
                     if($value['available']) {
-                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value["{$_SESSION['language']}_name"])), 0, 0, 'L');
+                        $pdf->Cell(150, 10, iconv('UTF-8', 'ISO-8859-15', ucfirst(htmlspecialchars_decode($value["{$_SESSION['language']}_name"]))), 0, 0, 'L');
                         $pdf->SetFont('GreatVibes','',11);
                         $pdf->Cell(20, 10, $value['price'] . " " . EURO_SIMBOL, 0, 0, 'R');
                         $pdf->Ln(5);                                                                                        
