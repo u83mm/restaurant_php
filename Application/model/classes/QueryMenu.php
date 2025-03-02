@@ -143,16 +143,16 @@
         }
 
         public function selectDishesLikePagination(int $desde, int $pagerows, string $field, string|int $value)
-        {           
-            $query = "SELECT * FROM dishes
-                    INNER JOIN dishes_day USING(category_id)                    
-                    INNER JOIN dishes_menu USING(menu_id)
-                    INNER JOIN dinamic_data USING(dishe_id)";                  
+        {                 
+            $query = "SELECT * FROM dishes 
+                INNER JOIN dishes_day USING(category_id) 
+                INNER JOIN dishes_menu USING(menu_id) 
+                INNER JOIN dinamic_data USING(dishe_id)";                  
 
-                    $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
+                $query .= $field === "available" ? " WHERE dishes.$field = :value" : " WHERE dinamic_data.{$_SESSION['language']}_{$field} LIKE :value";
 
-                    $query .= " ORDER BY dishes.dishe_id
-                                LIMIT :desde, :pagerows";
+                $query .= " ORDER BY dishes.dishe_id
+                            LIMIT :desde, :pagerows";
             
             try {
                 $stm = $this->dbcon->pdo->prepare($query);
@@ -161,8 +161,8 @@
     
                 $value = is_int($value) ? $value : "%{$value}%";
                 
-                $stm->bindValue(":value", $value);                                         
-                $stm->execute();       
+                $stm->bindValue(":value", $value);                                                                   
+                $stm->execute();                      
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();
                 
@@ -250,13 +250,10 @@
                 /** Set name and description to render */
                 foreach ($rows as $key_row => $row) {
                     foreach ($row as $key => $value) {
-                        if($key === "{$_SESSION['language']}_name") {
-                            $rows[$key_row]['name'] = $value;
-                        }
+                        if($key !== "{$_SESSION['language']}_name") continue;
 
-                        if($key == "$_SESSION[language]_description") {
-                            $rows[$key_row]['description'] = $value;
-                        }
+                        $rows[$key_row]['name'] = $value;
+                        $rows[$key_row]['description'] = $value;
                     }                    
                 }
     

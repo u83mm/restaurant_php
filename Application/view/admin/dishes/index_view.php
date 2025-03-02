@@ -56,7 +56,7 @@
 			if($current_page != 1) {
 ?>
 				<li class="page-item">
-                    <form action="" method="POST">
+                    <form action="#" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde - $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -65,7 +65,7 @@
                     </form>                    
                 </li>
 				<li class="page-item">
-                     <form action="" method="POST">
+                     <form action="#" method="POST">
                         <input type="hidden" name="s" value="0">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -81,7 +81,7 @@
 			if($current_page != $pagina) {
 ?>
 				<li class="page-item">
-                    <form action="" method="POST">
+                    <form action="#" method="POST">
                         <input type="hidden" name="s" value="<?php echo $last; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">
@@ -90,7 +90,7 @@
                     </form>                   
                 </li>
 				<li class="page-item">
-                    <form action="" method="POST">
+                    <form action="#" method="POST">
                         <input type="hidden" name="s" value="<?php echo $desde + $pagerows; ?>">
                         <input type="hidden" name="p" value="<?php echo $pagina; ?>">
                         <input type="hidden" name="field" value="<?php echo $field; ?>">

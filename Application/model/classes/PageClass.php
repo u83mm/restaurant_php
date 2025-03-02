@@ -99,7 +99,7 @@
 		 * array represent the name of the link, and the values represent the URL of the link. If no links
 		 * are provided, the navigation bar will still be displayed, but with no links.
 		 */
-		public function do_html_nav(array $links=NULL, string $active_name=NULL): void
+		public function do_html_nav(?array $links=NULL, ?string $active_name=NULL): void
 		{
 ?>
 					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">

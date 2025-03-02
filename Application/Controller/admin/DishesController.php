@@ -42,7 +42,7 @@
 
             try {                                
                 /** Calculate necesary pages for pagination */ 
-                $pagerows = 6; // Number of rows for page.
+                $pagerows = RECORDS_PER_PAGE; // Number of rows per page.
                 $desde = 0;                
 
                 $total_rows = $this->query->selectCount('dishes');
@@ -577,7 +577,7 @@
         }
 
         /** Show search form */
-        public function search(string $message = null, string $p = null, string $s = null): void
+        public function search(string $message = null, ?string $p = null, ?string $s = null): void
         {            
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);            
@@ -591,7 +591,7 @@
 
                 if($_SERVER['REQUEST_METHOD'] === 'POST') {                    
                     // Manage form data
-                    if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery']) || empty($_REQUEST['critery'])) header("Location: /admin/dishes/search");
+                    //if(!isset($_REQUEST['field']) || !isset($_REQUEST['critery']) || empty($_REQUEST['critery'])) header("Location: /admin/dishes/search");
 
                     match ($_REQUEST['field']) {
                         'available' => $critery = isset($_REQUEST['critery']) ? intval($_REQUEST['critery']) : 0,
@@ -616,13 +616,13 @@
                     /** Validate form */
                     if($this->validate->validate_form($this->fields)) {                                                
                         /** Calculate necesary pages for pagination */ 
-                        $pagerows = 6; // Number of rows for page.
+                        $pagerows = RECORDS_PER_PAGE; // Number of rows for page.
                         $desde = 0;                        
 
                         /** Select method to do the search */
                         match($this->fields['Campo']) {
                             default   => $rows = $this->query->selectDishesLikeCritery($this->fields['Campo'], $this->fields['Criterio']),
-                            'menu_id' =>  $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
+                            'menu_id' => $rows = $this->query->selectDishesByCritery($this->fields['Campo'], $this->fields['Criterio']),  
                         };                                                 
                                                 
                         $total_rows = count($rows);                        
@@ -647,11 +647,13 @@
                         $field = $this->fields['Campo'];
                         $critery = $this->fields['Criterio'];                                        
 
-                        /** Select method to do the search */
-                        match($this->fields['Campo']) {
-                            default     =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
-                            'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
-                        };                                                                                             
+                        if($total_rows >= 6) {
+                            /** Select method to do the search */
+                            match($this->fields['Campo']) {
+                                'available' =>  $rows = $this->query->selectDishesLikePagination(intval($desde), $pagerows, $field, $critery),
+                                'menu_id'   =>  $rows = $this->query->selectDishesByPagination(intval($desde), $pagerows, $field, $critery),
+                            };
+                        }                                                                                            
 
                         /** Show dishes index */
                         $this->render("/view/admin/dishes/index_view.php", [
@@ -666,18 +668,17 @@
                             "total_rows"   => $total_rows,                           
                             "message"      => $this->message,
                             "commonTask"   => $this->commonTask,                           
-                        ]);                        
+                        ]);                                                 
                     }
                     else {                        
                         throw new \Exception($this->validate->get_msg(), 1);                    
                     }                    
                 }                
-                else {
-                    /** Show search form */                    
-                    $this->render("/view/admin/dishes/search_view.php", [
-                        "categoriesDishesMenu"  => $categoriesDishesMenu,
-                    ]);
-                }
+                
+                /** Show search form */                    
+                $this->render("/view/admin/dishes/search_view.php", [
+                    "categoriesDishesMenu"  => $categoriesDishesMenu,
+                ]);
                                 
             } catch (\Exception $e) {
                 $this->message = "<p class='alert alert-danger text-center'>{}</p>";

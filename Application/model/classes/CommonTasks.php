@@ -5,7 +5,7 @@
     {
         // Da formato a fechas que son Strings para que las muestre en formato ('dd-mm-YYYY')
         
-        public function showDayMonthYear(string $date, string $language = null): string
+        public function showDayMonthYear(string $date, ?string $language = null): string
         {
             $year = substr($date, 0, 4);
             $month = substr($date, 5, 2);
@@ -19,7 +19,7 @@
 
         // Calcula el valor de x para usarlo en la función pagination1
 
-        private function return_x_value($pagina, $current_page) { 
+        private function return_x_value(float $pagina, int $current_page) { 
             if($current_page == 1) {
                 $x = $current_page;
             }
@@ -38,7 +38,7 @@
 
         // Muestra paginación 
 
-        public function pagination1($pagina, $pagerows, $current_page, $critery, $field = null) {
+        public function pagination1(float $pagina, int $pagerows, int $current_page, int|string $critery, ?string $field = null) {
             $x = $this->return_x_value($pagina, $current_page);
                 
             for($i = 1; $i <= 5; $i++) {
@@ -48,7 +48,7 @@
                 else if($x == $current_page) {
                     $s =($pagerows * $x) - $pagerows; ?>
                     <li class='page-item'>                        
-                        <form class="active" action="" method="POST">
+                        <form class="active" action="#" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">                            
                             <input type="hidden" name="critery" value="<?php echo $critery; ?>"> 
@@ -60,7 +60,7 @@
                 else {
                     $s = ($pagerows * $x) - $pagerows; ?>
                     <li class='page-item'>
-                        <form action="" method="POST">
+                        <form action="#" method="POST">
                             <input type="hidden" name="s" value="<?php echo $s; ?>">
                             <input type="hidden" name="p" value="<?php echo $pagina; ?>">                            
                             <input type="hidden" name="critery" value="<?php echo $critery; ?>"> 
@@ -135,7 +135,7 @@
 
 
         // Delete picture from server
-        public function deletePicture(string $cadena = null): void
+        public function deletePicture(?string $cadena = null): void
         {
             if($cadena) unlink($cadena);
         }
