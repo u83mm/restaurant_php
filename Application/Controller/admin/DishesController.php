@@ -463,10 +463,7 @@
                 ]);
             }            
            
-            try {
-                // Change category's language to spanish to do the query to the DB
-                $this->language = $this->languageObject->spanish();               
-
+            try {                              
                 // Validate entries                                                    
                 $this->fields = [
                     "dishe_id"    => $_REQUEST['dishe_id'] ?? $id ?? "",
@@ -492,7 +489,7 @@
                     }
 
                     $this->dishRepository->updateDishe($this->fields);
-                    $this->message = "<p class='container alert alert-success text-center'>" . $this->language['row_updated'] . "</p>";
+                    $this->message = "<p class='container alert alert-success text-center'>" . ucfirst($this->language['row_updated']) . "</p>";
                     
                     $_SESSION['message'] = $this->message;
                     
