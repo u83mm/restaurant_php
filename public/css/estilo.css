@@ -1,26 +1,26 @@
 @font-face{
 font-family: ubuntuRegular;
-src: url('../ttf/Ubuntu-R.ttf') format('truetype');
+src: url('../ttf/Ubuntu-R.woff2') format('truetype');
 }
 
 @font-face{
 font-family: ubuntuBold;
-src: url('../ttf/Ubuntu-B.ttf') format('truetype');
+src: url('../ttf/Ubuntu-B.woff2') format('truetype');
 }
 
 @font-face{
 font-family: ubuntuBoldItalic;
-src: url('../ttf/Ubuntu-BI.ttf') format('truetype');
+src: url('../ttf/Ubuntu-BI.woff2') format('truetype');
 }
 
 @font-face{
 font-family: ubuntuItalic;
-src: url('../ttf/Ubuntu-I.ttf') format('truetype');
+src: url('../ttf/Ubuntu-I.woff2') format('truetype');
 }
 
 @font-face{
 font-family: GreatVibes;
-src: url('../ttf/GreatVibes-Regular.ttf') format('truetype');
+src: url('../ttf/GreatVibes-Regular.woff2') format('truetype');
 }
 
 

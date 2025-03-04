@@ -67,14 +67,14 @@
 	background-position: center;
 }
 
-.tintos, .reds {
+.tintos, .red {
 	background-image: url("/images/tintos-page-img.webp");
 	background-size: cover;
 	height: 11em;
 	background-position: center;
 }
 
-.blancos, .whites {
+.blancos, .white {
 	background-image: url("/images/blancos-page-img.webp");
 	background-size: cover;
 	height: 11em;
