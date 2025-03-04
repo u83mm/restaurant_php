@@ -87,9 +87,7 @@
             }
             else {
                 $category = strtolower($_REQUEST['category']) ?? ""; 
-            }                                                        
-            
-            //$category = $this->language[$category];
+            }                        
                                         
             /** Get dishes, dessert and price to show in the Day's menu aside section */
             $menuDaySections = $this->queryMenu->getMenuDayElements();
