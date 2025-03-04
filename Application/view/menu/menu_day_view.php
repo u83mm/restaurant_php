@@ -2,7 +2,7 @@
     <div class="row text-center mb-3">
         <div class="col d-flex justify-content-center align-items-center">
             <h2 class="col-8"><?php echo ucfirst($home->language['day_menu']); ?></h2>
-            <img class="col-3 img-fluid" src="/images/menu_dia_logo.png" alt="menu-logo">            
+            <img class="col-3 img-fluid" src="/images/menu_dia_logo.webp" alt="menu-logo">            
         </div>        				
     </div>
     <hr>

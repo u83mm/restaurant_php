@@ -58,7 +58,7 @@
             $_SESSION['user_name'] = "";
 
             define('NUM_BYTES', 3);
-            define('FONT_FILE', SITE_ROOT . '/ttf/FreeSansBold.ttf');
+            define('FONT_FILE', SITE_ROOT . '/ttf/FreeSansBold.woff2');
             define('IMG_DIR', SITE_ROOT . '/images/captcha');
 
             $strategies = ['rotate', 'line', 'line','dot', 'dot', 'shadow']; 
