@@ -339,6 +339,7 @@ textarea {
 /******* Cookies Consent style ********/
 
 .cookies_consent_banner {
+	display: none;
 	position: fixed;
 	bottom: 0;
 	background-color: black;
@@ -405,6 +406,7 @@ textarea {
 }
 
 .cookies_config_consent {
+	display: none;
 	background-color: rgba(0,0,0,0.5);
 	position: fixed;
 	z-index: 1002;
