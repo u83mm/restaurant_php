@@ -74,9 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function checkCookieConsent() {
-    if (getCookie('cookies_consent') === 'accepted' || getCookie('cookies_consent') === 'custom' || getCookie('cookies_consent') === 'rejected') {
-      hideBanner();
-    } else {
+    if (getCookie('cookies_consent') !== 'accepted' && getCookie('cookies_consent') !== 'custom' && getCookie('cookies_consent') !== 'rejected') {      
       showBanner();
     }
   }

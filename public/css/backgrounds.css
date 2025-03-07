@@ -95,7 +95,7 @@
 	background-position: center;
 }
 
-.cavas, .sparkings {
+.cavas, .sparking {
 	background-image: url("/images/cavas-page-img.webp");
 	background-size: cover;
 	height: 11em;
