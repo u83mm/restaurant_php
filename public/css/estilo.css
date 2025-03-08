@@ -155,7 +155,17 @@ pre {
 }
 
 table {
-	margin-top: 2em;
+	margin: 2em auto;
+	border: 1px solid rgb(207, 207, 207);	
+}
+
+tbody > tr:nth-of-type(odd) {
+	background-color: rgb(237 238 242);
+}
+
+th, td {
+	border: 1px solid rgb(207, 207, 207);
+	padding: 0.5em;
 }
 
 sup {
@@ -550,8 +560,9 @@ textarea {
 	}
 
 	.options {
-		width: 10em;
-		display: block;
+		width: 11em;
+		display: inline-block;
+		border: inherit;
 	}
 	
 	.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
@@ -576,9 +587,9 @@ textarea {
 
 	.cookies_consent_buttons button {
 		margin: 0 0.2em;			
-	}
+	}	
 
-	#disheIndex form, #disheIndex .btn-outline-success {
+	table .btn-outline-success, table form {
 		width: 48%;
 	}
 }

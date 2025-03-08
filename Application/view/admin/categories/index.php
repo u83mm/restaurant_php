@@ -11,16 +11,16 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
 ?>
 <h3 class="text-center"><?php echo mb_strtoupper($page->language['categories']); ?></h3>
 <?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped table-bordered">
+        <div class="col-12 col-xl-9 mx-auto table-responsive">
+            <table class="col-12">
                 <thead class="text-center">
                     <tr>
                         <th>Id</th>
-                        <th><?php echo mb_strtoupper($page->language['category']); ?></th>
+                        <th><?php echo ucfirst($page->language['category']); ?></th>
                         <th>Emoji</th>
-                        <th><?php echo mb_strtoupper($page->language['options']); ?></th>                                                
+                        <th><?php echo ucfirst($page->language['options']); ?></th>                                                
                     </tr>
                 </thead>
                 <tbody>

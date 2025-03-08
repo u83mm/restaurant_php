@@ -7,21 +7,21 @@
 	$page->do_html_header($page->title, $page->h1, $page->meta_name_description, $page->meta_name_keywords);
 	$page->do_html_nav($page->nav_links, $page->language['nav_link_administration']);
 ?>
-	<h3 class="text-center"><?php echo strtoupper($page->language['user_list']); ?></h3>
-    <div class="col mx-auto">
-        <div class="col-12 col-md-6 mx-auto">
-            <?php echo $message ?? ""; ?>
-        </div>
+	<h4 class="text-center"><?php echo strtoupper($page->language['user_list']); ?></h4>
+    <div class="container-fluid">        
         <div class="row">
-            <div class="col-12 col-lg-8 mx-auto table-responsive">
-                <table class="table table-striped table-bordered">
+            <div class="col-12 col-xl-9 mx-auto table-responsive">
+                <div class="col-12 col-md-6 mx-auto">
+                    <?php echo $message ?? ""; ?>
+                </div>
+                <table class="col-12">
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
                             <th>User Name</th>                        
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Options</th>
+                            <th class="options">Options</th>
                         </tr>
                     </thead>
                     <tbody>
