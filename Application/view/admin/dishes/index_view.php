@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto table-responsive">
             <?php echo $message = $_SESSION['message'] ?? $message ?? ""; ?>
-                <table id="disheIndex" class="table table-striped table-bordered">
+                <table id="disheIndex">
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
