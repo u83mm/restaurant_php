@@ -43,10 +43,10 @@ final class CategoriesController extends Controller
             ]);
 
         } catch (\Throwable $th) {
-            $$this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+            $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
             if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                $$this->message = "<p class='alert alert-danger text-center'>
+                $this->message = "<p class='alert alert-danger text-center'>
                                 Message: {$th->getMessage()}<br>
                                 Path: {$th->getFile()}<br>
                                 Line: {$th->getLine()}
