@@ -45,6 +45,7 @@
 							<?php foreach ($order['aperitifs'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="aperitifs_id[]" id="aperitifs_id<?php echo $key; ?>" value="<?php if(isset($order['aperitifs_id'][$key_order][$key])) echo $order['aperitifs_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="aperitifs_name[]" id="aperitifs_name<?php echo $key; ?>" value="<?php echo $value; ?>">
 										<input type="hidden" name="aperitifs_finished[]" id="aperitifs_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['aperitifs_finished'][$key_order][$key])) echo $order['aperitifs_finished'][$key_order][$key]; ?>">										
 										<div id="aperitifs_check<?php echo $key; ?>" class="finished">
@@ -70,6 +71,7 @@
 							<?php foreach ($order['firsts'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="firsts_id[]" id="firsts_id<?php echo $key; ?>" value="<?php if(isset($order['firsts_id'][$key_order][$key])) echo $order['firsts_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="firsts_name[]" id="firsts_name<?php echo $key; ?>" value="<?php echo $value; ?>">
 										<input type="hidden" name="firsts_finished[]" id="firsts_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['firsts_finished'][$key_order][$key])) echo $order['firsts_finished'][$key_order][$key]; ?>">										
 										<div id="firsts_check<?php echo $key; ?>" class="finished">
@@ -96,8 +98,9 @@
 													
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="seconds_id[]" id="seconds_id<?php echo $key; ?>" value="<?php if(isset($order['seconds_id'][$key_order][$key])) echo $order['seconds_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="seconds_name[]" id="seconds_name<?php echo $key; ?>" value="<?php echo $value; ?>">
-										<input type="hidden" name="seconds_finished[]" id="seconds_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['seconds_finished'][$key_order][$key])) echo $order['seconds_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="seconds_finished[]" id="seconds_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['seconds_finished'][$key_order][$key])) echo $order['seconds_finished'][$key_order][$key]; ?>">																				
 										<div id="seconds_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($value); ?>
 										</div>
@@ -121,8 +124,9 @@
 							<?php foreach ($order['desserts'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="desserts_id[]" id="desserts_id<?php echo $key; ?>" value="<?php if(isset($order['desserts_id'][$key_order][$key])) echo $order['desserts_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="desserts_name[]" id="desserts_name<?php echo $key; ?>" value="<?php echo $value; ?>">
-										<input type="hidden" name="desserts_finished[]" id="desserts_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['desserts_finished'][$key_order][$key])) echo $order['desserts_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="desserts_finished[]" id="desserts_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['desserts_finished'][$key_order][$key])) echo $order['desserts_finished'][$key_order][$key]; ?>">																				
 										<div id="desserts_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($value); ?>
 										</div>
@@ -146,8 +150,9 @@
 							<?php foreach ($order['drinks'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="drinks_id[]" id="drinks_id<?php echo $key; ?>" value="<?php if(isset($order['drinks_id'][$key_order][$key])) echo $order['drinks_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="drinks_name[]" id="drinks_name<?php echo $key; ?>" value="<?php echo $value; ?>">
-										<input type="hidden" name="drinks_finished[]" id="drinks_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['drinks_finished'][$key_order][$key])) echo $order['drinks_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="drinks_finished[]" id="drinks_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['drinks_finished'][$key_order][$key])) echo $order['drinks_finished'][$key_order][$key]; ?>">																				
 										<div id="drinks_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($value); ?>
 										</div>
@@ -171,8 +176,9 @@
 							<?php foreach ($order['coffees'][$key_order] as $key => $value): ?>						
 								<li>
 									<div class="col-9 d-inline-block">
+										<input type="hidden" name="coffees_id[]" id="coffees_id<?php echo $key; ?>" value="<?php echo $order['coffees_id'][$key_order][$key]; ?>">
 										<input type="hidden" name="coffees_name[]" id="coffees_name<?php echo $key; ?>" value="<?php echo $value; ?>">
-										<input type="hidden" name="coffees_finished[]" id="coffees_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['coffees_finished'][$key_order][$key])) echo $order['coffees_finished'][$key_order][$key]; ?>">										
+										<input type="hidden" name="coffees_finished[]" id="coffees_finished<?php echo $key; ?>" class="item_finished" value="<?php if(isset($order['coffees_finished'][$key_order][$key])) echo $order['coffees_finished'][$key_order][$key]; ?>">																				
 										<div id="coffees_check<?php echo $key; ?>" class="finished">
 											<?php echo ucfirst($value); ?>
 										</div>										
@@ -195,7 +201,8 @@
 							<a class="btn btn-outline-success" href="/admin/comandas/index"><?php echo ucfirst($home->language['go_back']); ?></a>
 						</div>
 					</form>
-					<?php if ($_SESSION['role'] === "ROLE_ADMIN") include("delete_form.php");?>					
+					<?php if ($_SESSION['role'] === "ROLE_ADMIN") include("delete_form.php");?>
+					<a class="btn btn-outline-success" target="_blank" href="/admin/printBill/print/<?php echo $order['id']; ?>"><?php echo ucwords($home->language['print_bill']); ?></a>
 				</div>
 			</div>
             <?php endforeach ?>							
