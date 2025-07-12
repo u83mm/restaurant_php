@@ -38,6 +38,7 @@
 				<form action="/orders/order/new" method="post">
 					<?php isset($_SESSION['variables']) ? extract($_SESSION['variables']) : ""; ?>
 					<input type="hidden" name="name" value="<?php echo $dishe['name']; ?>">
+					<input type="hidden" name="dishe_id" value="<?php echo $dishe['dishe_id']; ?>">
 					<label class="col-2 col-form-label" for="qty"><?php echo ucfirst($home->language['qty']); ?></label>
 					<input class="numberQty" type="number" name="qty" id="qty" min="0" value="<?php isset($qty) ?  printf('%s', $qty) : printf('%s','0'); ?>">
 					<select class="align-middle" name="place" id="place">

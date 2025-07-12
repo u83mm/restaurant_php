@@ -54,7 +54,7 @@
          * @param array variables An optional array of variables that can be passed to the function. It
          * is not used in this function.
          */
-        public function new(array $variables = null): void
+        public function new(?array $variables = null): void
         {            
             $_SESSION['id'] = $variables['id'] ?? "";
             $_SESSION['action'] = "new";
@@ -74,7 +74,7 @@
                 if(!isset($_SESSION['people_qty']))   $_SESSION['people_qty']   = ucfirst($this->language['select']);                                              
 
                 /** Get dish`s name, qty and position and save them into $_SESSION['order'] array */
-                if(!empty($_POST['name']) && !empty($_POST['qty']) && !empty($_POST['place'])) { 
+                if(!empty($_POST['name']) && !empty($_POST['qty']) && !empty($_POST['place']) && !empty($_POST['dishe_id'])) { 
                     if(isset($_SESSION['variables'])) unset($_SESSION['variables']);                   
                     if(isset($_SESSION['order'])) {
                         foreach ($_SESSION['order'] as $key => $item) {
@@ -85,6 +85,7 @@
                             }                            
                             else if($item['position'] == $_POST['place'] && $key == count($_SESSION['order']) - 1) {
                                 $_SESSION['order'][] = [
+                                    'dishe_id'  =>  $_POST['dishe_id'],
                                     'name'      =>  $_POST['name'],
                                     'qty'       =>  $_POST['qty'],
                                     'position'  =>  $_POST['place'], 
@@ -95,6 +96,7 @@
                             else {
                                 if($key == count($_SESSION['order']) - 1) {
                                     $_SESSION['order'][] = [
+                                        'dishe_id'  =>  $_POST['dishe_id'],
                                         'name'      =>  $_POST['name'],
                                         'qty'       =>  $_POST['qty'],
                                         'position'  =>  $_POST['place'], 
@@ -105,6 +107,7 @@
                     }
                     else {                        
                         $_SESSION['order'][] = [
+                            'dishe_id'  =>  $_POST['dishe_id'] ?? "",
                             'name'      =>  $_POST['name']  ?? "",
                             'qty'       =>  $_POST['qty']   ?? 0,
                             'position'  =>  $_POST['place'] ?? "", 
@@ -201,17 +204,23 @@
                 $orderRepository = new OrderRepository();                
 
                 $order->setTable(intval($_SESSION['table_number']));
-                $order->setPeople(intval($_SESSION['people_qty'])); 
+                $order->setPeople(intval($_SESSION['people_qty']));
+                $order->setAperitifId($_POST['aperitifs_id'] ?? []); 
                 $order->setAperitif($_POST['aperitifs_name'] ?? []); 
-                $order->setAperitifQty($_POST['aperitifs_qty'] ?? []);              
+                $order->setAperitifQty($_POST['aperitifs_qty'] ?? []);
+                $order->setFirstId($_POST['firsts_id'] ?? []);              
                 $order->setFirst($_POST['firsts_name'] ?? []);
-                $order->setFirstQty($_POST['firsts_qty'] ?? []);                   
+                $order->setFirstQty($_POST['firsts_qty'] ?? []); 
+                $order->setSecondId($_POST['seconds_id'] ?? []);                  
                 $order->setSecond($_POST['seconds_name'] ?? []);
                 $order->setSecondQty($_POST['seconds_qty'] ?? []);
+                $order->setDessertId($_POST['desserts_id'] ?? []);
                 $order->setDessert($_POST['desserts_name'] ?? []); 
                 $order->setDessertQty($_POST['desserts_qty'] ?? []);
+                $order->setDrinkId($_POST['drinks_id'] ?? []);
                 $order->setDrink($_POST['drinks_name'] ?? []);
-                $order->setDrinkQty($_POST['drinks_qty'] ?? []); 
+                $order->setDrinkQty($_POST['drinks_qty'] ?? []);
+                $order->setCoffeeId($_POST['coffees_id'] ?? []); 
                 $order->setCoffee($_POST['coffees_name'] ?? []);
                 $order->setCoffeeQty($_POST['coffees_qty'] ?? []);                                            
 

@@ -16,7 +16,7 @@
     
                 require_once(SITE_ROOT . "/../Application" . $path);
                 unset($_SESSION['message']);
-                die;
+                //die;
     
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1); 
