@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 12, 2025 at 04:57 PM
+-- Generation Time: Jul 13, 2025 at 12:01 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -124,8 +124,8 @@ INSERT INTO `dishes` (`dishe_id`, `category_id`, `menu_id`, `picture`, `price`, 
 (16, 4, 10, '/var/www/public/uploads/dishes_pics/1739743943-white-wine.webp', 13.75, b'1'),
 (17, 4, 14, '/var/www/public/uploads/dishes_pics/1739744161-cola.webp', 2.50, b'0'),
 (18, 4, 14, '/var/www/public/uploads/dishes_pics/1739744266-water.webp', 2.00, b'1'),
-(19, 4, 8, '/var/www/public/uploads/dishes_pics/1739744434-coffee.webp', 1.50, b'1'),
-(20, 4, 8, '/var/www/public/uploads/dishes_pics/1739744480-coffee.webp', 1.10, b'1'),
+(19, 4, 8, '/var/www/public/uploads/dishes_pics/1739744434-coffee.webp', 1.10, b'1'),
+(20, 4, 8, '/var/www/public/uploads/dishes_pics/1739744480-coffee.webp', 1.25, b'1'),
 (21, 3, 7, '/var/www/public/uploads/dishes_pics/1739744566-creps.webp', 4.50, b'1');
 
 -- --------------------------------------------------------
@@ -411,7 +411,12 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (226, '', ''),
 (227, 'invoice_number', 'invoice number'),
 (228, '', ''),
-(229, 'alert_order_not_found', 'Order not found');
+(229, 'alert_order_not_found', 'Order not found'),
+(230, 'before_taxes', 'Before Taxes'),
+(231, '', ''),
+(232, 'taxes', 'taxes'),
+(233, '', ''),
+(234, '', '');
 
 -- --------------------------------------------------------
 
@@ -426,6 +431,13 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `limit_access`
+--
+
+INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
+(518, '172.16.202.1', 1752397402, 1, '2025-07-13 10:58:22');
 
 -- --------------------------------------------------------
 
@@ -486,7 +498,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 1, '13', 'patatas chips', '1', '', '2,1', 'ensalada mixta,macarrones a la boloñesa', '1,1', '0,', '6', 'bistec con patatas y verduras', '1', '0', '21', 'creps de la casa', '1', '0', '5', 'jarra de cerveza', '1', '0', '20', 'café cortado', '2', '');
+(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', ''),
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '0', '21', 'creps de la casa', '2', '0', '18', 'agua mineral 1.5l', '1', '0', '19,20', 'café solo,café cortado', '1,1', '');
 
 -- --------------------------------------------------------
 
@@ -529,7 +542,7 @@ CREATE TABLE `orders_backup` (
 --
 
 INSERT INTO `orders_backup` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 1, '', '', '', '0', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '21', 'creps de la casa', '1', '0', '5', 'jarra de cerveza', '1', '0', '', '', '', '0');
+(1, 1, 1, '', '', '', '', '2,1', 'ensalada mixta,macarrones a la boloñesa', '2,2', '0,', '6', 'bistec con patatas y verduras', '1', '0', '21', 'creps de la casa', '1', '0', '1', 'jarra de cerveza', '1', '0', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -861,7 +874,9 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (217, 'print_bill', 'imprimir factura'),
 (218, 'bill', 'Factura'),
 (219, 'invoice_number', 'número de factura'),
-(220, 'alert_order_not_found', 'No se ha encontrado el pedido');
+(220, 'alert_order_not_found', 'No se ha encontrado el pedido'),
+(221, 'before_taxes', 'Neto'),
+(222, 'taxes', 'i.v.a');
 
 -- --------------------------------------------------------
 
@@ -1006,13 +1021,13 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=519;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1024,7 +1039,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orders_backup`
@@ -1048,7 +1063,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
 
 --
 -- AUTO_INCREMENT for table `user`

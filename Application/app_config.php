@@ -17,6 +17,9 @@
 	/** Configure directories to load their classes */
 	//Application\model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
 
+	/** Define the IVA */
+	define('IVA', 0.21);
+
 	session_start();
 	session_regenerate_id();
 ?>
