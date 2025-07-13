@@ -8,6 +8,7 @@ use Application\Core\Controller;
 use Application\model\classes\Language;
 use Application\model\classes\Query;
 use Application\model\fpdf\FacturaPdf;
+use Application\model\invoice\Invoice;
 
 final class PrintBillController extends Controller 
 {
@@ -17,6 +18,7 @@ final class PrintBillController extends Controller
         private array $language = [],
         private string $message = "",
         private Query $query = new Query(),
+        private Invoice $invoice = new Invoice(),
     )
     {
         /** Configure page language */           
@@ -68,7 +70,9 @@ final class PrintBillController extends Controller
             $pdf->SetFont('GreatVibes','',14);
 
             global $total;
+            global $neto;
             $total = 0; // Initialize total amount
+            $neto = 0; // Initialize neto amount
 
             // Show the order items
             foreach ($order as $key => $value) {
@@ -92,23 +96,24 @@ final class PrintBillController extends Controller
                             $pdf->Cell(30, 10, $dishQtyArray[$dish_key], 0, 0, 'C', false);
                             $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $price['price']), 0, 0, 'L', false);
                             $pdf->Cell(65, 10, number_format(floatval($dishQtyArray[$dish_key]) * floatval($price['price']), 2, ',', '.') . " " . EURO_SIMBOL, 0, 1, 'R', false);
-
-                            $total += floatval($order[$key . '_qty']) * floatval($price['price']);                            
-                        }
+                            
+                            $neto += $this->invoice->getNeto(floatval($dishQtyArray[$dish_key]), floatval($price['price'])); // Calculate neto for each item                           
+                        }                        
                         
                         continue;
-                    }
-
-                    // Show the order item if it's not an array
-                    $price = $this->query->selectFieldsFromTableById(['price'], 'dishes', 'dishe_id', $order[$key . '_id']);
-
-                    $pdf->Cell(60, 10, iconv('UTF-8', 'ISO-8859-1', ucfirst($value)), 0, 0, 'L', false);
-                    $pdf->Cell(30, 10, $order[$key . '_qty'], 0, 0, 'C', false);                    
-                    $pdf->Cell(30, 10, iconv('UTF-8', 'ISO-8859-1', $price['price']), 0, 0, 'L', false);
-                    $pdf->Cell(65, 10, number_format(floatval($order[$key . '_qty'])  * floatval($price['price']), 2, ',', '.') . " " . EURO_SIMBOL, 0, 1, 'R', false);
-                    $total += floatval($order[$key . '_qty']) * floatval($price['price']);
-                }
-            }            
+                    }                    
+                }                
+            }                        
+            
+            // Show totals                        
+            $total += $this->invoice->getTotal(IVA, $neto); // Calculate total for each item
+            $pdf->Cell(0, 1, "", 1, 1, 'C', true);
+            $pdf->SetFont('DancingScript','B',15);
+            $pdf->Cell(160, 10, iconv('UTF-8', 'ISO-8859-1', $this->language['before_taxes']), 0, 0, 'R', false);
+            $pdf->SetFont('DancingScript','B',12);
+            $pdf->Cell(25, 10, number_format($neto, 2, ',', '.') . " " . EURO_SIMBOL, 0, 1, 'R', false);                   
+            $pdf->Cell(160, 10, iconv('UTF-8', 'ISO-8859-1', strtoupper($this->language['taxes'])), 0, 0, 'R', false);            
+            $pdf->Cell(25, 10, number_format($neto * IVA, 2, ',', '.') . " " . EURO_SIMBOL, 0, 0, 'R', false);            
             
             $pdf->Output('', 'Factura.pdf', true);            
             

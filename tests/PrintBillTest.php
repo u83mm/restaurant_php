@@ -8,6 +8,7 @@ use Application\model\classes\App;
 use Application\model\classes\Language;
 use Application\model\classes\Query;
 use Application\model\classes\Validate;
+use Application\model\invoice\Invoice;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -26,6 +27,7 @@ final class PrintBillTest extends TestCase
     protected ?Query $query             = null;
     protected ?Language $languageObject = null;
     protected ?array $language          = null;
+    protected ?Invoice $invoice         = null;
 
     // This method is called before each test. It contains the code necessary to set up the test environment.
     protected function setUp(): void
@@ -34,6 +36,7 @@ final class PrintBillTest extends TestCase
         define('DB_CONFIG_FILE', SITE_ROOT . '/../Application/db.config.php');                      	
         require_once(SITE_ROOT . "/../Application/connect.php");                               
         define('DB_CON', $dbcon);
+        define('IVA', 0.21);
 
         $this->app            = new App();
         $this->validate       = new Validate();
@@ -41,6 +44,7 @@ final class PrintBillTest extends TestCase
         $this->query          = new Query();
         $this->languageObject = new Language();
         $this->language       = $this->languageObject->spanish(); // Load the Spanish language dictionary
+        $this->invoice        = new Invoice();
     }
 
     public function testPrintBill(): void
@@ -74,10 +78,23 @@ final class PrintBillTest extends TestCase
         $pdfOutput = ob_get_contents();
         ob_end_clean();
 
+        // Get total invoice
+        $neto = $this->invoice->getNeto(10, 35.00); // Example quantity and price
+        $total = $this->invoice->getTotal(IVA, $neto); // Example neto value
+
+        # Clean up the environment after the test
+        unset($_SESSION['user_name']);
+        unset($_SESSION['role']);
+        unset($_SERVER['REQUEST_METHOD']);
+        unset($_SERVER['REQUEST_URI']);
+        unset($_SESSION['id']);
+        unset($_SESSION['language']);
+
         # Assertions to verify the expected outcome
         $this->assertFileExists('Application/view/admin/comandas/show_view.php');
         $this->assertStringContainsString('Imprimir Factura', $html);        
         $this->assertStringContainsString('Restaurant', $pdfOutput);
         $this->assertStringContainsString('Factura', $pdfOutput);
+        $this->assertEquals(423.50, $total); // Example order array
     }
 }
