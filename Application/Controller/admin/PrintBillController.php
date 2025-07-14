@@ -29,6 +29,8 @@ final class PrintBillController extends Controller
     {                
         try {
             global $id;
+            global $total;
+            global $neto;
 
             // Check if the user is logged in and has the correct role
             $this->testAccess(['ROLE_ADMIN', 'ROLE_USER']);
@@ -68,9 +70,7 @@ final class PrintBillController extends Controller
             $pdf->Ln(10); 
             $pdf->Cell(0, 1, "", 0, 1, 'C', true);
             $pdf->SetFont('GreatVibes','',14);
-
-            global $total;
-            global $neto;
+            
             $total = 0; // Initialize total amount
             $neto = 0; // Initialize neto amount
 
@@ -106,7 +106,7 @@ final class PrintBillController extends Controller
             }                        
             
             // Show totals                        
-            $total += $this->invoice->getTotal(IVA, $neto); // Calculate total for each item
+            $total += $this->invoice->getTotal($neto); // Calculate total for each item
             $pdf->Cell(0, 1, "", 1, 1, 'C', true);
             $pdf->SetFont('DancingScript','B',15);
             $pdf->Cell(160, 10, iconv('UTF-8', 'ISO-8859-1', $this->language['before_taxes']), 0, 0, 'R', false);

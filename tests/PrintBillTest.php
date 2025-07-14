@@ -80,7 +80,7 @@ final class PrintBillTest extends TestCase
 
         // Get total invoice
         $neto = $this->invoice->getNeto(10, 35.00); // Example quantity and price
-        $total = $this->invoice->getTotal(IVA, $neto); // Example neto value
+        $total = $this->invoice->getTotal($neto); // Example neto value
 
         # Clean up the environment after the test
         unset($_SESSION['user_name']);
