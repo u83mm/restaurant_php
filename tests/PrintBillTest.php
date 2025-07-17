@@ -33,7 +33,7 @@ final class PrintBillTest extends TestCase
     protected function setUp(): void
     {                
         define('SITE_ROOT', '/var/www/public');        
-        define('DB_CONFIG_FILE', SITE_ROOT . '/../Application/db.config.php');                      	
+        define('DB_CONFIG_FILE', SITE_ROOT . '/../Application/db_test.config.php');                      	
         require_once(SITE_ROOT . "/../Application/connect.php");                               
         define('DB_CON', $dbcon);
         define('IVA', 0.21);
@@ -58,14 +58,16 @@ final class PrintBillTest extends TestCase
         $_SESSION['language'] = 'spanish'; // Set the language to Spanish
 
         global $id;
+        global $saved;
         $id = $_SESSION['id'];
+        $saved = false;
       
         # Run the logic to be tested
         // Load the Order view
         ob_start();
         $this->app->router();
         $html = ob_get_contents();
-        ob_end_clean();
+        ob_end_clean();        
 
         // Call the printBill method to generate the PDF        
         $_SERVER['REQUEST_METHOD'] = 'GET';
@@ -80,7 +82,7 @@ final class PrintBillTest extends TestCase
 
         // Get total invoice
         $neto = $this->invoice->getNeto(10, 35.00); // Example quantity and price
-        $total = $this->invoice->getTotal($neto); // Example neto value
+        $total = $this->invoice->getTotal($neto); // Example neto value                      
 
         # Clean up the environment after the test
         unset($_SESSION['user_name']);
@@ -96,5 +98,27 @@ final class PrintBillTest extends TestCase
         $this->assertStringContainsString('Restaurant', $pdfOutput);
         $this->assertStringContainsString('Factura', $pdfOutput);
         $this->assertEquals(423.50, $total); // Example order array
+        $this->assertTrue($saved, 'Invoice should be saved successfully');
+    }
+
+    public function testSaveInvoice(): void
+    {
+        # Setup the environment for the test
+        $_SESSION['user_name'] = "admin";
+        $_SESSION['role'] = "ROLE_ADMIN";
+        $_SESSION['language'] = 'spanish'; // Set the language to Spanish
+
+        global $id;
+        global $saved;
+
+        $this->app = new App();
+        $id = 1; // Simulate an order ID
+
+        // Call the saveInvoice method to save the invoice
+        $controller = new PrintBillController();
+        $controller->saveInvoice();
+
+        // Assert that the invoice was saved successfully
+        $this->assertTrue($saved, 'Invoice should be saved successfully');
     }
 }

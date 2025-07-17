@@ -255,7 +255,7 @@
          * @param string table The table name
          * @param object dbcon The database connection object.
          */
-        public function insertInto(string $table, array|object $fields): void
+        public function insertInto(string $table, array|object $fields): bool
         {
             /** Initialice variables */
             $query = $values = "";
@@ -289,9 +289,10 @@
                 }                   
                 $stm->execute();       				
                 $stm->closeCursor();
+
+                return true; // Return true if the insert was successful
                 
-            } catch (\Throwable $th) {
-                $this->dbcon->pdo->rollBack();
+            } catch (\Throwable $th) {                
                 throw new \Exception("{$th->getMessage()}", 1);             
             }
         }
