@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 15, 2025 at 08:20 AM
+-- Generation Time: Jul 16, 2025 at 04:19 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -434,6 +434,13 @@ CREATE TABLE `invoices` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method`, `created_at`, `updated_at`) VALUES
+(1, '25/1', 1, '2025-07-16 18:14:24', 'paid', 'cash', '2025-07-16 18:14:24', '2025-07-16 18:14:24');
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1007,7 @@ ALTER TABLE `english_dict`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `limit_access`

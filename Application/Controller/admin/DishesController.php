@@ -256,16 +256,20 @@
                     $dishe = new Dishe($this->fields);                    
                     
                     /** Insert dish into database */
-                    $this->query->insertInto("dishes", $dishe);                                        
+                    $saved = $this->query->insertInto("dishes", $dishe);                    
 
-                    $this->query->insertInto("dinamic_data", [
+                    $saved2 = $this->query->insertInto("dinamic_data", [
                         "dishe_id"                            => $dishe->getDisheId(),
                         "{$_SESSION['language']}_name"        => $this->fields['name'],
                         "{$_SESSION['language']}_description" => $this->fields['description']
                     ]);
                     
-                    $this->dbcon->pdo->commit();
-
+                    if (!$saved && $saved2) {
+                        $this->dbcon->pdo->rollBack();
+                        throw new \Exception("Error al guardar el plato en la base de datos.");
+                    }
+                    $this->dbcon->pdo->commit(); // Commit the transaction
+                    
                     $this->message = "<p class='alert alert-success text-center'>El nuevo plato se ha registrado correctamente</p>";
                     $_SESSION['action'] = "skip_method";                
                     $this->index();                   								

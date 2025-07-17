@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 13, 2025 at 12:01 PM
+-- Generation Time: Jul 16, 2025 at 04:19 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -421,6 +421,30 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `invoice_id` int(10) UNSIGNED NOT NULL,
+  `invoice_number` varchar(20) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `invoice_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `invoice_status` enum('pending','paid','cancelled','refunded') NOT NULL DEFAULT 'pending',
+  `payment_method` enum('cash','credit_card','debit_card','mobile_payment','other') DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method`, `created_at`, `updated_at`) VALUES
+(1, '25/2', 2, '2025-07-16 10:15:50', 'paid', 'cash', '2025-07-16 10:15:50', '2025-07-16 10:15:50');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `limit_access`
 --
 
@@ -431,13 +455,6 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `limit_access`
---
-
-INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(518, '172.16.202.1', 1752397402, 1, '2025-07-13 10:58:22');
 
 -- --------------------------------------------------------
 
@@ -499,7 +516,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
 (1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', ''),
-(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '0', '21', 'creps de la casa', '2', '0', '18', 'agua mineral 1.5l', '1', '0', '19,20', 'café solo,café cortado', '1,1', '');
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1');
 
 -- --------------------------------------------------------
 
@@ -944,6 +961,17 @@ ALTER TABLE `english_dict`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`invoice_id`),
+  ADD UNIQUE KEY `invoice_number` (`invoice_number`),
+  ADD KEY `invoice_number_2` (`invoice_number`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `invoice_date` (`invoice_date`),
+  ADD KEY `invoice_status` (`invoice_status`);
+
+--
 -- Indexes for table `limit_access`
 --
 ALTER TABLE `limit_access`
@@ -1024,10 +1052,16 @@ ALTER TABLE `english_dict`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=519;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=521;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`

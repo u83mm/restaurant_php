@@ -29,8 +29,8 @@ final class PrintBillController extends Controller
     {                
         try {
             global $id;
-            global $total;
-            global $neto;
+            global $total;           
+            global $saved;
 
             // Check if the user is logged in and has the correct role
             $this->testAccess(['ROLE_ADMIN', 'ROLE_USER']);
@@ -47,7 +47,21 @@ final class PrintBillController extends Controller
             if (!$order) {
                 throw new \Exception("Order not found.");
             }
-
+            
+            // Save the invoice
+            if(!$this->query->selectOneBy('invoices', 'order_id', $id)) {
+                $date = date('d-m-Y');
+                $time = date('H:i');
+                $this->saveInvoice(); // Save the invoice if it doesn't exist                
+            } else {                
+                // Manage data saved previously
+                $savedInvoice = $this->query->selectOneBy('invoices', 'order_id', $id);
+                $date = date('d-m-Y', strtotime($savedInvoice['created_at']));
+                $time = date('H:i', strtotime($savedInvoice['created_at']));              
+                
+                $saved = true; // Set saved to true if the invoice already exists
+            } 
+                        
             // Set the PDF properties
             $pdf->title = ucwords($this->language['bill']);
             $pdf->SetAuthor("Restaurant");
@@ -65,9 +79,9 @@ final class PrintBillController extends Controller
             $pdf->Cell(20, 8, ucfirst($this->language['table']) . " " . $order['table_number'], 0, 0, '', false);
             $pdf->Cell(30, 8, ucfirst($this->language['people']) . " " . $order['people_qty'], 0, 0, 'C', false);
             $pdf->Cell(70, 8, "", 0, 0, 'C', false);
-            $pdf->Cell(40, 8, ucfirst($this->language['date']) . " " . date('d-m-Y'), 0, 0, 'C', false);
-            $pdf->Cell(30, 8, ucfirst($this->language['time']) . " " . date('H:i'), 0, 0, 'C', false);
-            $pdf->Ln(10); 
+            $pdf->Cell(40, 8, ucfirst($this->language['date']) . " " . $date, 0, 0, 'C', false);
+            $pdf->Cell(30, 8, ucfirst($this->language['time']) . " " . $time, 0, 0, 'C', false);
+            $pdf->Ln(10);
             $pdf->Cell(0, 1, "", 0, 1, 'C', true);
             $pdf->SetFont('GreatVibes','',14);
             
@@ -115,8 +129,8 @@ final class PrintBillController extends Controller
             $pdf->Cell(160, 10, iconv('UTF-8', 'ISO-8859-1', strtoupper($this->language['taxes'])), 0, 0, 'R', false);            
             $pdf->Cell(25, 10, number_format($neto * IVA, 2, ',', '.') . " " . EURO_SIMBOL, 0, 0, 'R', false);            
             
-            $pdf->Output('', 'Factura.pdf', true);            
-            
+            $pdf->Output('', 'Factura.pdf', true);                                    
+
         } catch (\Throwable $th) {
             $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
@@ -132,5 +146,22 @@ final class PrintBillController extends Controller
                     'message' => $this->message
                 ]);
         }
+    }
+
+    public function saveInvoice(): void
+    {
+        global $id;
+        global $saved;
+
+        // Prepare fields for the invoice
+        $fields = [
+            'order_id'       => $id,
+            'invoice_number' => date('y') . "/{$id}",
+            'invoice_status' => 'paid',
+            'payment_method' => 'cash'
+        ];
+
+        // Attempt to save the invoice        
+        $saved = $this->query->insertInto('invoices', $fields);        
     }
 }
