@@ -20,12 +20,13 @@
 
 		<div class="row">
 			<div class="col-12 col-md-8 mx-auto">
-				<?php echo $message ?? ''; ?>
+				<?php echo $_SESSION['message'] ?? $message ?? ''; ?>
 			</div>
 		</div>
 		<div class="row d-flex justify-content-evenly">			
 			<?php foreach ($result as $key => $value): ?>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-5 text-center">
+                <?php if($value['finished'] == 0): ?>
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-5 text-center">
                     <div class="w-100 menuDia">
                         <h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['table']); ?>:</strong> <?php echo $value['table_number']; ?></h4>
                         <h4 class="col-5 d-inline-block"><strong><?php echo strtoupper($home->language['people_qty']); ?>:</strong> <?php echo $value['people_qty']; ?></h4>
@@ -35,6 +36,7 @@
 						</form>
                     </div>                    
                 </div>
+				<?php endif ?>
             <?php endforeach ?>										
 		</div>
 		<div class="row">

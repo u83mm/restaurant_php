@@ -32,6 +32,9 @@ final class PrintBillController extends Controller
             global $total;           
             global $saved;
 
+            $total = 0; // Initialize total amount
+            $neto = 0; // Initialize neto amount
+
             // Check if the user is logged in and has the correct role
             $this->testAccess(['ROLE_ADMIN', 'ROLE_USER']);
 
@@ -83,10 +86,7 @@ final class PrintBillController extends Controller
             $pdf->Cell(30, 8, ucfirst($this->language['time']) . " " . $time, 0, 0, 'C', false);
             $pdf->Ln(10);
             $pdf->Cell(0, 1, "", 0, 1, 'C', true);
-            $pdf->SetFont('GreatVibes','',14);
-            
-            $total = 0; // Initialize total amount
-            $neto = 0; // Initialize neto amount
+            $pdf->SetFont('GreatVibes','',14);                        
 
             // Show the order items
             foreach ($order as $key => $value) {
@@ -121,6 +121,16 @@ final class PrintBillController extends Controller
             
             // Show totals                        
             $total += $this->invoice->getTotal($neto); // Calculate total for each item
+
+            $this->query->updateRegistry(
+                'invoices', 
+                [
+                    'total_amount' => $total,
+                    'order_id'     => $id,                    
+                ],
+                'order_id',
+            ); // Update the invoice total in the database
+
             $pdf->Cell(0, 1, "", 1, 1, 'C', true);
             $pdf->SetFont('DancingScript','B',15);
             $pdf->Cell(160, 10, iconv('UTF-8', 'ISO-8859-1', $this->language['before_taxes']), 0, 0, 'R', false);
@@ -134,31 +144,36 @@ final class PrintBillController extends Controller
         } catch (\Throwable $th) {
             $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
-                if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
-                    $this->message = "<p class='alert alert-danger text-center'>
-                                    Message: {$th->getMessage()}<br>
-                                    Path: {$th->getFile()}<br>
-                                    Line: {$th->getLine()}
-                                </p>";
-                }
+            if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                $this->message = "<p class='alert alert-danger text-center'>
+                                Message: {$th->getMessage()}<br>
+                                Path: {$th->getFile()}<br>
+                                Line: {$th->getLine()}
+                            </p>";
+            }
 
-                $this->render("/view/database_error.php", [
-                    'message' => $this->message
-                ]);
+            $this->render("/view/database_error.php", [
+                'message' => $this->message
+            ]);
         }
     }
 
+    /**
+     * Save the invoice to the database.
+     * 
+     * @return void
+     */
     public function saveInvoice(): void
     {
         global $id;
         global $saved;
+        global $total;
 
         // Prepare fields for the invoice
         $fields = [
-            'order_id'       => $id,
-            'invoice_number' => date('y') . "/{$id}",
-            'invoice_status' => 'paid',
-            'payment_method' => 'cash'
+            'order_id'          => $id,
+            'invoice_number'    => date('y') . "/{$id}",            
+            'total_amount'      => $total,
         ];
 
         // Attempt to save the invoice        

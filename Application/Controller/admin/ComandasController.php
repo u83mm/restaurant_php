@@ -79,8 +79,8 @@
                 
                 $this->render('/view/admin/comandas/index_view.php', [
                     'message' => $this->message,
-                    'fields' => $this->fields,
-                    'result' => $result
+                    'fields'  => $this->fields,
+                    'result'  => $result
                 ]);
 
             } catch (\Throwable $th) {
