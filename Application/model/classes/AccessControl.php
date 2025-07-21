@@ -3,13 +3,17 @@
 
     trait AccessControl
     {
-        public function testAccess(array $roles = []) : void {
-            if(!isset($_SESSION['role'])) header("Location: /");	                        
+        public function testAccess(array $roles = []) : bool {
+            if(!isset($_SESSION['role'])) {
+                header("Location: /");
+                return false;
+            }	                        
             else if(!in_array($_SESSION['role'], $roles)) {
                 $_SESSION['message'] = "<p class='alert alert-danger text-center'>You don't have priveleges to do that.</p>";
                 header("Location: /");
-                die;
+                return false;
             }
+            return true;
         }
     }    
 ?>

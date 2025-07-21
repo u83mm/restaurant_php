@@ -1,9 +1,9 @@
 <?php
     namespace Application\model\classes;
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");
+    //require_once($_SERVER['DOCUMENT_ROOT'] . "/../Application/aplication_fns.php");
 
-	Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
+	//Loader::init($_SERVER['DOCUMENT_ROOT'] . "/..");	
 
     class Language
     {

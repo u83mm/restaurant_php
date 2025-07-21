@@ -14,8 +14,7 @@
     {
         private Language $languageObject;
 
-        public function __construct(
-            private object $dbcon = DB_CON, 
+        public function __construct(            
             private array $language = [],
             private QueryMenu $queryMenu = new QueryMenu(),
             private DishRepository $dishRepository = new DishRepository()

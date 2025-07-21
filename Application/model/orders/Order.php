@@ -4,24 +4,40 @@
     class Order
     {
         public function __construct(
+            // Define the properties of the Order class with their types and default values
+            // Order header
             private int $id = 0,
             private int $table = 0,
             private int $people = 0,
+
+            // Order items
+            // Aperitif
+            private array $aperitif_id       = [],
             private array $aperitif          = [],
             private array $aperitif_qty      = [],
             private array $aperitif_finished = [],
+            // Firsts
+            private array $first_id          = [],
             private array $first             = [],
             private array $first_qty         = [],
             private array $first_finished    = [],
+            // Seconds
+            private array $second_id         = [],
             private array $second            = [],
             private array $second_qty        = [],
             private array $second_finished   = [],
+            // Desserts
+            private array $dessert_id        = [],
             private array $dessert           = [],
             private array $dessert_qty       = [],
             private array $dessert_finished  = [],
+            // Drinks
+            private array $drink_id          = [],
             private array $drink             = [],
             private array $drink_qty         = [],
             private array $drink_finished    = [],
+            // Coffees and liquors
+            private array $coffee_id         = [],
             private array $coffee            = [],
             private array $coffee_qty        = [],
             private array $coffee_finished   = [],
@@ -68,6 +84,17 @@
             return $this->people;
         }
 
+        public function setAperitifId(array $aperitif_id): self
+        {
+            $this->aperitif_id = $aperitif_id;
+            return $this;
+        }
+
+        public function getAperitifId(): array
+        {
+            return $this->aperitif_id;
+        }
+
         public function setAperitif(array $aperitif): self
         {
             $this->aperitif = $aperitif;
@@ -99,6 +126,17 @@
         public function getAperitifFinished(): array
         {
             return $this->aperitif_finished;
+        }
+
+        public function setFirstId(array $first_id): self
+        {
+            $this->first_id = $first_id;
+            return $this;
+        }
+
+        public function getFirstId(): array
+        {
+            return $this->first_id;
         }
 
         public function setFirst(array $first): self
@@ -134,6 +172,17 @@
             return $this->first_finished;
         }
 
+        public function setSecondId(array $second_id): self
+        {
+            $this->second_id = $second_id;
+            return $this;
+        }
+
+        public function getSecondId(): array
+        {
+            return $this->second_id;
+        }
+
         public function setSecond(array $second): self
         {
             $this->second = $second;
@@ -165,6 +214,17 @@
         public function getSecondQty(): array
         {
             return $this->second_qty;
+        }
+
+        public function setDessertId(array $dessert_id): self
+        {
+            $this->dessert_id = $dessert_id;
+            return $this;
+        }
+
+        public function getDessertId(): array
+        {
+            return $this->dessert_id;
         }
 
         public function setDessert(array $dessert): self
@@ -200,6 +260,17 @@
             return $this->dessert_finished;
         }
 
+        public function setDrinkId(array $drink_id): self
+        {
+            $this->drink_id = $drink_id;
+            return $this;
+        }
+
+        public function getDrinkId(): array
+        {
+            return $this->drink_id;
+        }
+
         public function setDrink(array $drink): self
         {
             $this->drink = $drink;
@@ -231,6 +302,17 @@
         public function getDrinkFinished(): array
         {
             return $this->drink_finished;
+        }
+
+        public function setCoffeeId(array $coffee_id): self
+        {
+            $this->coffee_id = $coffee_id;
+            return $this;
+        }
+
+        public function getCoffeeId(): array
+        {
+            return $this->coffee_id;
         }
 
         public function setCoffee(array $coffee): self

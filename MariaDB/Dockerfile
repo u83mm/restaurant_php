@@ -1,5 +1,10 @@
 FROM mariadb:latest
 
+ARG TIMEZONE="Europe/Madrid"
+
+# Set timezone
+RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
