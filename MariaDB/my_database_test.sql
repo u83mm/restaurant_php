@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 20, 2025 at 10:06 PM
+-- Generation Time: Jul 21, 2025 at 12:58 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Database: `my_database_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bussy_tables`
+--
+
+CREATE TABLE `bussy_tables` (
+  `table_id` tinyint(3) UNSIGNED NOT NULL,
+  `table_number` tinyint(3) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -925,6 +936,12 @@ INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_role`) VALUES
 --
 
 --
+-- Indexes for table `bussy_tables`
+--
+ALTER TABLE `bussy_tables`
+  ADD PRIMARY KEY (`table_id`);
+
+--
 -- Indexes for table `dinamic_data`
 --
 ALTER TABLE `dinamic_data`
@@ -1030,6 +1047,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bussy_tables`
+--
+ALTER TABLE `bussy_tables`
+  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dinner_hours`
