@@ -8,11 +8,10 @@ use Application\model\classes\Query;
 
 final class CategoryRepository extends Query
 {
-    public function __construct(
-        protected object $dbcon = DB_CON,        
+    public function __construct(                
     ) 
     {
-        
+        parent::__construct();
     }    
     
     public function saveCategory(object $entity): void

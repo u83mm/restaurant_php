@@ -5,9 +5,9 @@
 
     class QueryMenu extends Query
     {                
-        public function __construct(protected object $dbcon = DB_CON)
+        public function __construct()
         {
-            $this->languageObject = new Language();
+            parent::__construct();            
         }
 
         public function selectDishesOfDay(string $field):array

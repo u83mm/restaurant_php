@@ -123,9 +123,10 @@ final class CashBoxController extends Controller
         // Set the invoice status to 'finished' for the specified order ID        
         global $id;        
 
-        try {
+        try {            
             // Test if invoice is payed
             $invoice = $this->query->selectFieldsFromTableById(['invoice_status'], 'invoices', 'order_id', $id);
+            $order = $this->query->selectFieldsFromTableById(['table_number'], 'orders', 'id', $id);
             
             if($invoice['invoice_status'] !== 'paid') {
                 $_SESSION['message'] = "<p class='alert alert-danger text-center'>{$this->language['table_pending_collection']}</p>";
@@ -133,11 +134,16 @@ final class CashBoxController extends Controller
                 return;
             }
 
+            DB_CON->pdo->beginTransaction();
+
             if(!$this->query->updateRegistry('orders', ['finished' => 1, 'id' => $id], 'id')) {
                 $_SESSION['message'] = "<p class='alert alert-danger text-center'>{$this->language['error_finished_order']}</p>";
+                DB_CON->pdo->rollBack();
             }
             else {
                 $_SESSION['message'] = "<p class='alert alert-success text-center'>{$this->language['order_finished_successfully']}</p>";
+                $this->query->deleteRegistry('bussy_tables', 'table_number', $order['table_number']);
+                DB_CON->pdo->commit();
             }
             
             header("Location: /admin/comandas/index");

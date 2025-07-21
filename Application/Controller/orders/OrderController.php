@@ -187,13 +187,15 @@
             $_SESSION['people_qty']   = $_POST['people_qty']   >= 1 ? $_POST['people_qty']   : ucfirst($this->language[$_POST['people_qty']]);         
                                             
             try {
+                DB_CON->pdo->beginTransaction();
+                
                 if($_SESSION['table_number'] === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_table_number']), 1);
                 if($_SESSION['people_qty']   === ucfirst($this->language['select'])) throw new \Exception(ucfirst($this->language['alert_people_qty']), 1);
                 
                 
                 /** Test if the table is bussy */
                 $query = new Query();
-                $bussy_table = $query->selectOneBy('orders', 'table_number', $_SESSION['table_number']);
+                $bussy_table = $query->selectOneBy('bussy_tables', 'table_number', $_SESSION['table_number']);
                 if($bussy_table) throw new \Exception("Mesa ocupada", 1);
                 
 
@@ -227,11 +229,16 @@
                 
                 /** we save the order */                
                 $orderRepository->saveOrder($order);
+                $orderRepository->insertInto('bussy_tables', ['table_number' => $_SESSION['table_number']]);
+
+                DB_CON->pdo->commit();
+
                 $this->message = "<p class='alert alert-success text-center'>Order saved successfully</p>";
                 $this->resetOrder();
                 $comandasController->index($this->message);                                                            
                 
-            } catch (\Throwable $th) {                 
+            } catch (\Throwable $th) {
+                DB_CON->pdo->rollBack();                 
                 $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
 
                 if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
