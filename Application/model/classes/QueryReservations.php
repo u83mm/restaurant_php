@@ -15,8 +15,8 @@
             string $table, 
             string $field, 
             string $value,             
-            string $time = null, 
-            string $orderBy = null, 
+            ?string $time = null, 
+            ?string $orderBy = null, 
             ) : array 
         {
             $query = "SELECT * FROM $table WHERE $field = :val";
@@ -55,7 +55,7 @@
             }  
         }
 
-        public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField): array
+        public function selectFieldsFromTableOrderByField(string $table, array $fields, ?string $orderByField = null): array
         {
             $fields = implode(", ", $fields);
             $query = "SELECT $fields FROM $table 

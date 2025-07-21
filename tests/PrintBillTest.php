@@ -54,7 +54,7 @@ final class PrintBillTest extends TestCase
         $_SESSION['role'] = "ROLE_ADMIN";
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_SERVER['REQUEST_URI'] = '/admin/comandas/show';
-        $_SESSION['id'] = $_POST['id'] = 1; // Simulate a POST request with an ID
+        $_SESSION['id'] = $_POST['id'] = 2; // Simulate a POST request with an ID
         $_SESSION['language'] = 'spanish'; // Set the language to Spanish
 
         global $id;
@@ -98,27 +98,6 @@ final class PrintBillTest extends TestCase
         $this->assertStringContainsString('Restaurant', $pdfOutput);
         $this->assertStringContainsString('Factura', $pdfOutput);
         $this->assertEquals(423.50, $total); // Example order array
-        $this->assertTrue($saved, 'Invoice should be saved successfully');
-    }
-
-    public function testSaveInvoice(): void
-    {
-        # Setup the environment for the test
-        $_SESSION['user_name'] = "admin";
-        $_SESSION['role'] = "ROLE_ADMIN";
-        $_SESSION['language'] = 'spanish'; // Set the language to Spanish
-
-        global $id;
-        global $saved;
-
-        $this->app = new App();
-        $id = 1; // Simulate an order ID
-
-        // Call the saveInvoice method to save the invoice
-        $controller = new PrintBillController();
-        $controller->saveInvoice();
-
-        // Assert that the invoice was saved successfully
         $this->assertTrue($saved, 'Invoice should be saved successfully');
     }
 }

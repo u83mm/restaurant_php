@@ -203,6 +203,7 @@
 					</form>
 					<?php if ($_SESSION['role'] === "ROLE_ADMIN") include("delete_form.php");?>
 					<a class="btn btn-outline-success" target="_blank" href="/admin/printBill/print/<?php echo $order['id']; ?>"><?php echo ucwords($home->language['print_bill']); ?></a>
+					<a class="btn btn-outline-success" href="/admin/cashBox/index/<?php echo $order['id']; ?>"><?php echo ucwords($home->language['cash_box']); ?></a>
 				</div>
 			</div>
             <?php endforeach ?>							

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 16, 2025 at 04:19 PM
+-- Generation Time: Jul 20, 2025 at 10:06 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -416,7 +416,17 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (231, '', ''),
 (232, 'taxes', 'taxes'),
 (233, '', ''),
-(234, '', '');
+(234, '', ''),
+(235, 'cash_box', 'Cash Box'),
+(236, 'invoice_total', 'Invoice Total'),
+(237, 'cash_amount', 'Cash amount'),
+(238, 'change', 'Change'),
+(239, 'cookies_config_description', 'From here you can activate or deactivate the cookies we use on this website, except for technical cookies, which are essential.'),
+(240, 'to_finish', 'To finish'),
+(241, 'payment_method', 'Payment method'),
+(242, 'order_finished_successfully', 'Order finished successfully'),
+(243, 'error_finished_order', 'Error finishing order'),
+(244, 'table_pending_collection', 'Table pending collection');
 
 -- --------------------------------------------------------
 
@@ -430,17 +440,21 @@ CREATE TABLE `invoices` (
   `order_id` int(11) NOT NULL,
   `invoice_date` datetime NOT NULL DEFAULT current_timestamp(),
   `invoice_status` enum('pending','paid','cancelled','refunded') NOT NULL DEFAULT 'pending',
-  `payment_method` enum('cash','credit_card','debit_card','mobile_payment','other') DEFAULT NULL,
+  `payment_method_id` tinyint(1) UNSIGNED DEFAULT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `given_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `returned_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method`, `created_at`, `updated_at`) VALUES
-(1, '25/2', 2, '2025-07-16 10:15:50', 'paid', 'cash', '2025-07-16 10:15:50', '2025-07-16 10:15:50');
+INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method_id`, `total_amount`, `given_amount`, `returned_amount`, `created_at`, `updated_at`) VALUES
+(1, '25/2', 2, '2025-07-16 10:15:50', 'pending', NULL, 77.02, 0.00, 0.00, '2025-07-16 10:15:50', '2025-07-20 23:57:29'),
+(2, '25/1', 1, '2025-07-17 12:33:32', 'paid', 4, 42.53, 42.53, 0.00, '2025-07-17 12:33:32', '2025-07-21 00:03:36');
 
 -- --------------------------------------------------------
 
@@ -455,6 +469,13 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `limit_access`
+--
+
+INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
+(524, '172.16.202.1', 1753035208, 1, '2025-07-20 20:08:28');
 
 -- --------------------------------------------------------
 
@@ -507,16 +528,17 @@ CREATE TABLE `orders` (
   `coffees_id` text DEFAULT NULL,
   `coffees` text DEFAULT NULL,
   `coffees_qty` text DEFAULT NULL,
-  `coffees_finished` text DEFAULT '0'
+  `coffees_finished` text DEFAULT '0',
+  `finished` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
-(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', ''),
-(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1');
+INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`, `finished`) VALUES
+(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 1),
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0);
 
 -- --------------------------------------------------------
 
@@ -560,6 +582,28 @@ CREATE TABLE `orders_backup` (
 
 INSERT INTO `orders_backup` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`) VALUES
 (1, 1, 1, '', '', '', '', '2,1', 'ensalada mixta,macarrones a la boloñesa', '2,2', '0,', '6', 'bistec con patatas y verduras', '1', '0', '21', 'creps de la casa', '1', '0', '1', 'jarra de cerveza', '1', '0', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment_method`
+--
+
+CREATE TABLE `payment_method` (
+  `payment_method_id` tinyint(1) UNSIGNED NOT NULL,
+  `payment_method` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+--
+-- Dumping data for table `payment_method`
+--
+
+INSERT INTO `payment_method` (`payment_method_id`, `payment_method`) VALUES
+(1, 'cash'),
+(2, 'credit card'),
+(3, 'debit card'),
+(4, 'mobile payment'),
+(5, 'other');
 
 -- --------------------------------------------------------
 
@@ -893,7 +937,16 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (219, 'invoice_number', 'número de factura'),
 (220, 'alert_order_not_found', 'No se ha encontrado el pedido'),
 (221, 'before_taxes', 'Neto'),
-(222, 'taxes', 'i.v.a');
+(222, 'taxes', 'i.v.a'),
+(223, 'cash_box', 'Caja'),
+(224, 'invoice_total', 'Total de la factura'),
+(225, 'cash_amount', 'Efectivo'),
+(226, 'change', 'Cambio'),
+(227, 'to_finish', 'Terminar'),
+(228, 'payment_method', 'Método de pago'),
+(229, 'order_finished_successfully', 'Pedido finalizado'),
+(230, 'error_finished_order', 'Error al finalizar el pedido'),
+(231, 'table_pending_collection', 'Mesa pendiente de cobrar');
 
 -- --------------------------------------------------------
 
@@ -969,7 +1022,8 @@ ALTER TABLE `invoices`
   ADD KEY `invoice_number_2` (`invoice_number`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `invoice_date` (`invoice_date`),
-  ADD KEY `invoice_status` (`invoice_status`);
+  ADD KEY `invoice_status` (`invoice_status`),
+  ADD KEY `invoices_fk_payment_method` (`payment_method_id`);
 
 --
 -- Indexes for table `limit_access`
@@ -995,6 +1049,13 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `orders_backup`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment_method`
+--
+ALTER TABLE `payment_method`
+  ADD PRIMARY KEY (`payment_method_id`),
+  ADD UNIQUE KEY `method_name` (`payment_method`);
 
 --
 -- Indexes for table `reservations`
@@ -1049,19 +1110,19 @@ ALTER TABLE `dishes_menu`
 -- AUTO_INCREMENT for table `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=521;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=525;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1082,6 +1143,12 @@ ALTER TABLE `orders_backup`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `payment_method`
+--
+ALTER TABLE `payment_method`
+  MODIFY `payment_method_id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -1097,13 +1164,23 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_fk_payment_method` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`payment_method_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

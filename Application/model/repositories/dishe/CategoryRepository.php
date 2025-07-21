@@ -8,11 +8,10 @@ use Application\model\classes\Query;
 
 final class CategoryRepository extends Query
 {
-    public function __construct(
-        protected object $dbcon = DB_CON,        
+    public function __construct(                
     ) 
     {
-        
+        parent::__construct();
     }    
     
     public function saveCategory(object $entity): void
@@ -45,7 +44,7 @@ final class CategoryRepository extends Query
         }
     }
 
-    public function updateRegistry(string $table, array $fields, string $primary_key_name): void
+    public function updateRegistry(string $table, array $fields, string $primary_key_name): bool
     {
         $query = "UPDATE $table SET";
         $params = [];
@@ -64,12 +63,16 @@ final class CategoryRepository extends Query
             $stm->execute($params);       				
             $stm->closeCursor();
 
+            if($stm->rowCount() > 0) return true;
+
+            return false;
+
         } catch (\Throwable $th) {
             throw new \Exception("{$th->getMessage()}", 1);
         }            
     }
 
-    public function insertInto(string $table, array|object $fields): void
+    public function insertInto(string $table, array|object $fields): bool
         {
             /** Initialice variables */
             $query = $values = "";
@@ -98,6 +101,8 @@ final class CategoryRepository extends Query
                 }                   
                 $stm->execute();       				
                 $stm->closeCursor();
+
+                return true; // Return true if the insert was successful
                 
             } catch (\Throwable $th) {
                 $this->dbcon->pdo->rollBack();
