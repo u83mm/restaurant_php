@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 21, 2025 at 12:57 PM
+-- Generation Time: Jul 21, 2025 at 12:58 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `my_database`
+-- Database: `my_database_test`
 --
 
 -- --------------------------------------------------------
@@ -31,13 +31,6 @@ CREATE TABLE `bussy_tables` (
   `table_id` tinyint(3) UNSIGNED NOT NULL,
   `table_number` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
---
--- Dumping data for table `bussy_tables`
---
-
-INSERT INTO `bussy_tables` (`table_id`, `table_number`) VALUES
-(2, 3);
 
 -- --------------------------------------------------------
 
@@ -471,19 +464,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method_id`, `total_amount`, `given_amount`, `returned_amount`, `created_at`, `updated_at`) VALUES
-(1, '25/2', 2, '2025-07-16 10:15:50', 'pending', NULL, 77.02, 0.00, 0.00, '2025-07-16 10:15:50', '2025-07-20 23:57:29'),
-(2, '25/1', 1, '2025-07-17 12:33:32', 'paid', 4, 42.53, 42.53, 0.00, '2025-07-17 12:33:32', '2025-07-21 00:03:36'),
-(3, '25/3', 3, '2025-07-21 09:51:16', 'paid', 1, 9.08, 10.00, 0.92, '2025-07-21 09:51:16', '2025-07-21 09:52:06'),
-(4, '25/5', 5, '2025-07-21 10:23:03', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:23:03', '2025-07-21 10:24:23'),
-(5, '25/7', 7, '2025-07-21 10:31:45', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:31:45', '2025-07-21 10:31:56'),
-(6, '25/8', 8, '2025-07-21 10:34:26', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:34:26', '2025-07-21 10:34:43'),
-(7, '25/9', 9, '2025-07-21 10:37:29', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:37:29', '2025-07-21 10:37:47'),
-(8, '25/10', 10, '2025-07-21 10:46:12', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:46:12', '2025-07-21 10:46:22'),
-(9, '25/11', 11, '2025-07-21 10:51:50', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:51:50', '2025-07-21 10:51:57'),
-(10, '25/12', 12, '2025-07-21 10:57:11', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:57:11', '2025-07-21 10:57:21'),
-(11, '25/13', 13, '2025-07-21 10:58:58', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:58:58', '2025-07-21 10:59:07'),
-(12, '25/14', 14, '2025-07-21 11:05:49', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:05:49', '2025-07-21 11:05:57'),
-(13, '25/15', 15, '2025-07-21 11:09:37', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:09:37', '2025-07-21 11:09:47');
+(1, '25/2', 2, '2025-07-20 20:49:42', 'paid', 2, 77.02, 150.00, 50.00, '2025-07-20 20:49:42', '2025-07-20 20:50:25');
 
 -- --------------------------------------------------------
 
@@ -559,19 +540,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`, `finished`) VALUES
-(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 1),
-(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0),
-(3, 3, 1, '', '', '', '0', '2', 'ensalada mixta', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(5, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(7, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(8, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(9, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(10, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(11, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(12, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(13, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(14, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(15, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1);
+(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 0),
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0);
 
 -- --------------------------------------------------------
 
@@ -590,9 +560,9 @@ CREATE TABLE `payment_method` (
 
 INSERT INTO `payment_method` (`payment_method_id`, `payment_method`) VALUES
 (1, 'cash'),
-(2, 'credit card'),
-(3, 'debit card'),
-(4, 'mobile payment'),
+(2, 'credit_card'),
+(3, 'debit_card'),
+(4, 'mobile_payment'),
 (5, 'other');
 
 -- --------------------------------------------------------
@@ -1082,7 +1052,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
-  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dinner_hours`
@@ -1100,7 +1070,7 @@ ALTER TABLE `dishes_day`
 -- AUTO_INCREMENT for table `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `english_dict`
@@ -1112,13 +1082,13 @@ ALTER TABLE `english_dict`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=527;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1130,7 +1100,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_method`

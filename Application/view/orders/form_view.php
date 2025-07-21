@@ -44,6 +44,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="aperitifs_name[]" id="aperitifs_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="aperitifs_id[]" id="aperitifs_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -67,6 +68,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="firsts_name[]" id="firsts_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="firsts_id[]" id="firsts_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -90,6 +92,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="seconds_name[]" id="seconds_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="seconds_id[]" id="seconds_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -113,6 +116,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="drinks_name[]" id="seconds_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="drinks_id[]" id="drinks_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -136,6 +140,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="desserts_name[]" id="desserts_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="desserts_id[]" id="desserts_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">
@@ -159,6 +164,7 @@
                     <li>
                         <div class="col-9 d-inline-block">
                             <input type="hidden" name="coffees_name[]" id="coffees_name" value="<?php echo strtolower($item['name']); ?>">
+                            <input type="hidden" name="coffees_id[]" id="coffees_id" value="<?php echo $item['dishe_id']; ?>">
                             <?php echo ucfirst($item['name']); ?>
                         </div>
                         <div class="col-2 d-inline-block">

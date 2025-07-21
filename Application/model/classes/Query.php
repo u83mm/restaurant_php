@@ -124,7 +124,7 @@
          * @param object dbcon  is an object representing the database connection. It is used to
          * prepare and execute the SQL query.
          */
-        public function updateRegistry(string $table, array $fields, string $primary_key_name): void
+        public function updateRegistry(string $table, array $fields, string $primary_key_name): bool
         {
             $query = "UPDATE $table SET";
             $params = [];
@@ -139,13 +139,17 @@
             $params[":$primary_key_name"] = $fields[$primary_key_name];                        
                                                   
             try {
-                $stm = $this->dbcon->pdo->prepare($query);                        
+                $stm = $this->dbcon->pdo->prepare($query);                       
                 $stm->execute($params);       				
-                $stm->closeCursor();               
+                $stm->closeCursor();
+                
+                if($stm->rowCount() > 0) return true;
 
-            } catch (\Throwable $th) {
-                throw new \Exception("{$th->getMessage()}", 1);
-            }            
+                return false;
+
+            } catch (\Throwable $th) {                                
+                throw new \Exception("{$th->getMessage()}", 1);                
+            }                        
         }
       
         /**
@@ -185,7 +189,7 @@
                 $stm->closeCursor();               
 
             } catch (\Throwable $th) {
-                $this->dbcon->pdo->rollBack();
+                //$this->dbcon->pdo->rollBack();
                 throw new \Exception("{$th->getMessage()}", 1); 
             }            
         }
@@ -255,7 +259,7 @@
          * @param string table The table name
          * @param object dbcon The database connection object.
          */
-        public function insertInto(string $table, array|object $fields): void
+        public function insertInto(string $table, array|object $fields): bool
         {
             /** Initialice variables */
             $query = $values = "";
@@ -289,9 +293,12 @@
                 }                   
                 $stm->execute();       				
                 $stm->closeCursor();
+
+                if($stm->rowCount() > 0) return true;
+
+                return false;
                 
-            } catch (\Throwable $th) {
-                $this->dbcon->pdo->rollBack();
+            } catch (\Throwable $th) {                
                 throw new \Exception("{$th->getMessage()}", 1);             
             }
         }
@@ -330,10 +337,12 @@
          * @return array an array of rows fetched from the specified table, containing only the
          * specified fields.
          */
-        public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField): array
+        public function selectFieldsFromTableOrderByField(string $table, array $fields, ?string $orderByField = null): array
         {
             $fields = implode(", ", $fields);
-            $query = "SELECT $fields FROM $table ORDER BY $orderByField ASC";
+            $query = "SELECT $fields FROM $table";
+
+            if ($orderByField) $query .= " ORDER BY $orderByField ASC";
 
             try {
                 $stm = $this->dbcon->pdo->prepare($query);                                                   
