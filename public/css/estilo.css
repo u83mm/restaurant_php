@@ -659,6 +659,31 @@ textarea {
     background-position: center;
 }
 
+/* QR Code */
+.qr-section {
+	background-color: white;
+	padding: 2rem;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	display: inline-block;
+	margin-top: 1rem;
+}
+
+.qr-code {
+	width: 200px;
+	height: 200px;
+	margin: 0 auto;
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.qr-instructions {
+	margin-top: 1rem;
+	font-size: 0.9rem;
+	color: #7f8c8d;
+}
+
 /***************** Configuración para móviles **********************/
 @media (max-width:480px) {
 	.mainLogo {
