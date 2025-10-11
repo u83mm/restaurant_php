@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bussy_tables` (
   `table_id` tinyint(3) UNSIGNED NOT NULL,
   `table_number` tinyint(3) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bussy_tables`
@@ -582,7 +582,7 @@ INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperi
 CREATE TABLE `payment_method` (
   `payment_method_id` tinyint(1) UNSIGNED NOT NULL,
   `payment_method` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `payment_method`

@@ -71,7 +71,9 @@
 				<script src="/js/bootstrap.bundle.min.js"></script>
 				<script type="module" src="/js/eventos.js"></script>
 				<script src="/js/ajax.js"></script>	
-				<script src="/js/cookies_consent.js"></script>					
+				<script src="/js/cookies_consent.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+				<script src="/js/modules/generate_qr_code.js"></script>																					
 			</head>
 			<body class="ps-md-3 pe-md-3">
 				<header class="d-md-flex header">					
@@ -87,7 +89,13 @@
 						</form>										
 					</div>																				
 				</header>
-				<main class="container-fluid">									
+				<main class="container-fluid">
+					<div class="whatsapp-reservation-container">
+						<button id="whatsappReservationBtn" class="whatsapp-btn">
+							<i class="whatsapp-icon"></i>
+							Reserve via WhatsApp
+						</button>
+					</div>									
 <?php			
 		}
 
@@ -140,7 +148,8 @@
 				</main>	
 				<footer class="container-fluid d-flex justify-content-center align-items-center">
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
-				</footer>												
+				</footer>
+				<script src="/js/modules/whatsapp_feature.js"></script>								
 			</body>			
 		</html>
 <?php		

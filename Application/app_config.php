@@ -1,4 +1,7 @@
-<?php			
+<?php
+	session_start();
+	session_regenerate_id();
+		
 	/** Define el directorio raiz */
 	define("SITE_ROOT", $_SERVER['DOCUMENT_ROOT']);
 
@@ -18,8 +21,5 @@
 	//Application\model\classes\Loader::init(SITE_ROOT . "/../Application/Controller/admin");
 
 	/** Define the IVA */
-	define('IVA', 0.21);
-
-	session_start();
-	session_regenerate_id();
+	define('IVA', 0.21);	
 ?>
