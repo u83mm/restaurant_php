@@ -18,11 +18,13 @@
 			<img class="img-fluid mainLogo" src="images/restaurant_logo.png" alt="logo">
 		</div>
 								<!-- QR CODE SECTION -->
-		<div class="qr-section">
-			<canvas class="qr-code" id="qrcode"></canvas>
-			<p class="qr-instructions">Point your phone's camera at the QR code</p>			
-		</div>
-
+		<div id="qr-section">
+			<div class="qr-section">
+				<canvas class="qr-code" id="qrcode"></canvas>
+				<p class="qr-instructions">Point your phone's camera at the QR code</p>			
+			</div>
+		</div>								
+		
 		<div class="clear-fix">
 			<img class="float-start me-3" src="/images/home-img1.jpg" alt="home-img1">
 			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ipsam ipsa molestias maxime! Iusto ipsa iste inventore ut rem adipisci, nihil mollitia voluptas pariatur eius ratione ducimus assumenda corporis. Porro voluptas debitis animi aliquam ea, iusto officia sed quas dolorem voluptatem fugiat sunt minus ipsa eligendi repudiandae tenetur, fuga a?</p>

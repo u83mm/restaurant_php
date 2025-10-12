@@ -14,11 +14,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }, function(error) {
         if (error) console.error(error);
         console.log('QR code generated successfully!');
-    });
-    
-    // Optional: Add analytics for QR code scans
-    document.getElementById('qrcode').addEventListener('click', function() {
-        // Track QR code click in your analytics
-        console.log('QR code clicked - potential scan');
-    });
+    });        
 });

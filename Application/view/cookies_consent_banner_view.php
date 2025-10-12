@@ -1,6 +1,6 @@
 <!-- CONFIGURE COOKIES BANNER -->
 
-<section id="cookies_config_consent" class="cookies_config_consent">
+<div id="cookies_config_consent" class="cookies_config_consent">
     <div id="cookies_consent_banner" class="col-12 cookies_consent_banner">
         <p>
             <?php echo ucfirst($this->language['cookies_consent']); ?> <a id="cookies_policy" href="#"><?php echo ucfirst($this->language['cookies policy']); ?></a>.
@@ -11,7 +11,7 @@
             <button id="configure_cookies"><?php echo ucfirst($this->language['configure']); ?></button>
         </div> 
     </div>
-</section>
+</div>
 
 
 <!-- CONFIGURE COOKIES MODAL -->
