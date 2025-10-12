@@ -660,14 +660,24 @@ textarea {
 }
 
 /* QR Code */
-.qr-section {
+.qr-section {	
+	margin: 0 auto 3em;
 	background-color: white;
 	padding: 2rem;
 	border-radius: 10px;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 	display: inline-block;
-	margin-top: 1rem;
 }
+
+#qr-section {
+	display: flex;	
+	float: initial;
+	justify-content: center;	
+	align-content: center;
+	text-align: center;
+}
+
+
 
 .qr-code {
 	width: 200px;
