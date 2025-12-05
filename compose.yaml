@@ -29,6 +29,7 @@ services:
         ipv4_address: 172.16.202.3
 
   web:
+    command: ["apache2-foreground"]
     depends_on:
       - db
     build: .
@@ -42,7 +43,8 @@ services:
     environment:
       - XDEBUG_CONFIG=client_host=host.docker.internal mode=debug
       - PHP_IDE_CONFIG=serverName=d7d7a82faeb2
-    tty: true    
+    tty: true
+    stdin_open: true    
     volumes: 
       - "./:/var/www"
       - ./docker-php-ext-xdebug.ini:/usr/local/etc/php/php.ini      
