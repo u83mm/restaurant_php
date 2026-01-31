@@ -45,7 +45,8 @@
 		public function index(array $language = null): void
         {	
 			try {
-				$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);								
+				// test privileges								
+				$this->testAccess(['ROLE_USER', 'ROLE_ADMIN']);
 						
 				$validate = new Validate;
 				$query_object = new Query();			            			
