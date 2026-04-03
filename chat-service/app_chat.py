@@ -21,6 +21,8 @@ stemmer = SnowballStemmer('spanish')
 app = Flask(__name__)
 CORS(app)
 
+global model, words, classes
+
 # Cargar archivos entrenados
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
