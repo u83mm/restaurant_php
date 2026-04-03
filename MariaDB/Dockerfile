@@ -5,20 +5,6 @@ ARG TIMEZONE="Europe/Madrid"
 # Set timezone
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-
-# Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
-#RUN addgroup --gid ${GROUP_ID} mario
-#RUN adduser --disabled-password --gecos '' --uid ${USER_ID} --gid ${GROUP_ID} mario
-
-#USER 1000
-
-# Set working directory
-WORKDIR /var/lib/mysql
-
-COPY my_database.sql /var/lib/mysql
+COPY my_database.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 3306
-
-
