@@ -5,7 +5,7 @@
             "patterns": ["Hola", "Buenas", "Qué tal", "Hay alguien ahí?"],
             "responses": [
                 "¡Hola! ¿En qué puedo ayudarte hoy?", 
-                "¡Hola! Soy tu asistente de IA, ¿quénecesitas?",
+                "¡Hola! Soy tu asistente de IA, ¿qué necesitas?",
                 "¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?"
             ]
         },
