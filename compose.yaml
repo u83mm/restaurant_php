@@ -12,7 +12,7 @@ services:
       - "3306:3306"    
     volumes:       
       - db_vol:/var/lib/mysql
-      - "./log/db:/var/log"    
+      - "./log/db:/var/log/mysql"    
     networks:
       rest-network:
         ipv4_address: 172.16.202.2        
