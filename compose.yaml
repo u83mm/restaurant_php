@@ -70,6 +70,9 @@ services:
       - ./chat-service:/app
     environment:
       - PYTHONUNBUFFERED=1
+    networks:
+      rest-network:
+        ipv4_address: 172.16.202.7
 
 networks:
   rest-network:
