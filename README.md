@@ -36,7 +36,7 @@ docker compose up -d
 ```
 5.- Access to db container and install dependencies
 ```
-docker exec -it db bash
+docker exec -it php bash
 composer install
 ```
 6.- Access to phpMyAdmin.
