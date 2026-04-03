@@ -68,12 +68,14 @@
 				<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 				<link rel="stylesheet" type="text/css" href="/css/estilo.css">
 				<link rel="stylesheet" type="text/css" href="/css/backgrounds.css">
+				<link rel="stylesheet" type="text/css" href="/css/chat_boot_ia.css">
 				<script src="/js/bootstrap.bundle.min.js"></script>
-				<script type="module" src="/js/eventos.js"></script>
+				<script type="module" src="/js/eventos.js"></script>				
 				<script src="/js/ajax.js"></script>	
 				<script src="/js/cookies_consent.js"></script>
 				<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
-				<script src="/js/modules/generate_qr_code.js"></script>																					
+				<script src="/js/modules/generate_qr_code.js"></script>	
+				<script type="module" src="/js/chat_bot.js"></script>																				
 			</head>
 			<body class="ps-md-3 pe-md-3">
 				<header class="d-md-flex header">					
@@ -90,13 +92,37 @@
 					</div>																				
 				</header>
 				<main class="container-fluid">
+					<!-- Whatssap Reservations -->
 					<div class="whatsapp-reservation-container">
 						<button id="whatsappReservationBtn" class="whatsapp-btn">
 							<i class="whatsapp-icon"></i>
 							Reserve via WhatsApp
 						</button>
-					</div>									
-<?php			
+					</div>															
+
+					<!-- Chat IA -->
+					<article>
+						<div id="chat-widget-button">
+							<span>💬</span>
+						</div>
+
+						<div id="chat-window" class="hidden mainChatView">
+							<div class="chat-header">
+								<strong>Asistente Gourmet</strong>
+								<button>×</button>
+							</div>
+							<div id="chat-messages">
+								<div class="message bot">
+									¡Hola! Soy tu asistente IA. ¿En qué puedo ayudarte?
+								</div>
+							</div>
+							<div id="input-area" class="chat-input-area">
+								<input type="text" id="userMsg" placeholder="Escribe tu duda..." autocomplete="off">
+								<button>Enviar</button>
+							</div>
+						</div>
+					</article>					
+<?php				
 		}
 
 		/**
