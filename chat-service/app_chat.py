@@ -109,6 +109,101 @@ def chat():
 
 	return jsonify({"response": response, "tag": tag if results else "unknown"})
 
+def train_model_process():
+	"""Función interna que ejecuta el entrenamiento completo"""
+	print("Iniciando re-entrenamiento...")
+
+	# 1. Cargar datos de la DB (usamos la lógica que usamos en Jupyter)
+	conn = mysql.connector.connect(
+		host = "db",
+		user = "admin",
+		password = "admin",
+		database = "my_database",
+		charset = "utf8mb4",
+		collation = "utf8mb4_general_ci"
+	)
+
+	cursor = conn.cursor(dictionary=True)
+	cursor.execute("SELECT id, tag FROM intents_ia")
+	intents_db = cursor.fetchall()
+
+	documents = []
+	classes = []
+	words = []
+	ignore_letters = ['?', '!', '¿', '¡', '.', ',']
+
+	for intent in intents_db:
+		tag = intent['tag']
+		classes.append(tag)
+		cursor.execute("SELECT pattern_text FROM patterns_ia WHERE intent_id = %s", (intent['id'],))
+
+		for p in cursor.fetchall():
+			w = nltk.word_tokenize(p['pattern_text'])
+			words.extend(w)
+			documents.append((w, tag))
+
+	conn.close()
+
+	# Preprocesamiento
+	words = sorted(list(set([stemmer.stem(w.lower()) for w in words if w not in ignore_letters])))
+	classes = sorted(list(set(classes)))
+
+	# Guardar pkls (importante: sobreescribimos los actuales)
+	pickle.dump(words, open('words.pkl', 'wb'))
+	pickle.dump(classes, open('classes.pkl', 'wb'))
+
+	# Crear datos de entrenamiento (X e Y)
+	training = []
+	output_empty = [0]*len(classes)
+
+	for doc in documents:
+		bag = []
+		pattern_words = [stemmer.stem(word.lower()) for word in doc[0]]
+
+		for w in words:
+			bag.append(1) if w in pattern_words else bag.append(0)
+
+		output_row = list(output_empty)
+		output_row[classes.index(doc[1])] = 1
+		training.append([bag, output_row])
+
+	random.shuffle(training)
+	train_x = np.array([i[0] for i in training])
+	train_y = np.array([i[1] for i in training])
+
+	# Reentrenar el modelo (usamos la misma arquitectura)
+	from tensorflow.keras.models import Sequential
+	from tensorflow.keras.layers import Dense, Dropout
+	from tensorflow.keras.optimizers import SGD
+
+	new_model = Sequential([
+		Dense(128, input_shape=(len(train_x[0]),), activation='relu'),
+		Dropout(0.5),
+		Dense(64, activation='relu'),
+		Dropout(0.5),
+		Dense(len(train_y[0]), activation='softmax')
+	])
+
+	sgd = SGD(learning_rate=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+	new_model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+	new_model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=0)
+
+	# Guardar y recargar en memoria
+	new_model.save()
+
+	model = new_model
+	print("Entrenamiento finalizado con éxito. Modelo actualizado en memoria")
+
+@app.route('/train', methods=['POST'])
+
+def train():
+	# Usamos un hilo (thread) para que la web no se quede colgada esperando
+	thread = threading.Thread(target=train_model_process)
+	thread.start()
+
+	return jsonify({'message': 'Entrenamiento iniciado en segundo plano...'})
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
 
