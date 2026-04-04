@@ -3,3 +3,4 @@ flask-cors
 tensorflow
 nltk
 numpy
+mysql-connector-python
