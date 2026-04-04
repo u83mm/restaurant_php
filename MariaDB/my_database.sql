@@ -590,7 +590,7 @@ CREATE TABLE `limit_access` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip` (`ip`)
-) ENGINE=InnoDB AUTO_INCREMENT=528 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=530 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -599,6 +599,8 @@ CREATE TABLE `limit_access` (
 
 LOCK TABLES `limit_access` WRITE;
 /*!40000 ALTER TABLE `limit_access` DISABLE KEYS */;
+INSERT INTO `limit_access` VALUES
+(529,'172.16.202.1',1775291334,1,'2026-04-04 10:23:54');
 /*!40000 ALTER TABLE `limit_access` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -860,7 +862,7 @@ CREATE TABLE `responses_ia` (
   PRIMARY KEY (`id`),
   KEY `responses_fk_intents` (`intent_id`),
   CONSTRAINT `responses_fk_intents` FOREIGN KEY (`intent_id`) REFERENCES `intents_ia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -876,7 +878,8 @@ INSERT INTO `responses_ia` VALUES
 (4,2,'Pues todas nuestras carnes son estupendas! si te gusta la carne'),
 (5,3,'¡Hasta pronto!'),
 (6,3,'Que tengas un buen día.'),
-(7,3,'Esperamos volver a verte pronto!');
+(7,3,'Esperamos volver a verte pronto!'),
+(8,2,'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.');
 /*!40000 ALTER TABLE `responses_ia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1196,4 +1199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2026-04-03 21:54:04
+-- Dump completed on 2026-04-04 16:55:11
