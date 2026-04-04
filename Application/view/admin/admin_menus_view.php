@@ -72,12 +72,12 @@
                 <form action="/reservations/reservation/showSearchPanel" method="post"><button type="submit" class="btn btn-primary mb-5 d-inline-block" name="action" value="search_panel"><?php echo ucfirst($page->language['search']); ?></button></form>
             </div>
         </section>
-                                            <!-- NEW SECTION -->
+                                            <!-- AI CHAT BOT DASHBOARD -->
 
         <section class="col-12 col-md-6 col-lg-4 mb-4">
-            <h4 class="text-center">&nbsp;</h4>
+            <h4 class="text-center">AI MODEL DASHBOARD</h4>
             <div class="shadow rounded adminMenus">
-
+                <a href="/admin/dashboardAI/showAiDashboard">AI settings</a>
             </div>
         </section>                                                                    
     </div>
