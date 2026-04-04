@@ -74,4 +74,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
+
+    /** AI Dashboard Training Functionallity */
+    const retraining = document.getElementById('retraining')
+
+    if(retraining) {
+        retraining.querySelector('button').addEventListener('click', () => {
+            const btn = document.getElementById('btnTrain');
+            const status = document.getElementById('trainStatus');
+
+            btn.disabled = true;
+            status.innerText = "Entrenando, por favor espera...";
+
+            // Llamamos al servicio de PYTHON
+            fetch('http://localhost:5000/train', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    status.innerText = "¡Entrenamiento iniciado! Tardará unos segundos.";
+                    setTimeout(() => {
+                        status.innerText = "IA Actualizada";
+                        btn.disabled = false;
+                    }, 5000);
+                })
+                .catch(error => {
+                    status.innerText = "Error al conectar con el servicio de IA";
+                    btn.disabled = false;
+                });
+        });
+    }
 });

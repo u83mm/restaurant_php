@@ -11,8 +11,15 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
 ?>
 <section class="ai-dashboard">
     <h3>AI DASHBOARD</h3>
+    <div id="retraining">
+        <strong>¿Has añadido nuevas frases de entrenamiento?</strong><br>
+        <button id="btnTrain">
+            🚀 Re-entrenar Cerebro de la IA
+        </button>
+        <span id="trainStatus"></span>
+    </div>
     <div>
-        <h3> AI Knowledge Management</h3>
+        <h3>🧠 AI Knowledge Management</h3>
         <p>Add phrases to train or new responses.</p>
         
         <?php foreach ($intents as $intent) : ?>
