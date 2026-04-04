@@ -32,6 +32,24 @@ final class DashboardAIController extends Controller
             /** Check for user`s sessions */
             $this->testAccess(['ROLE_ADMIN']);
 
+            if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['intent_id'])) {
+                $intent_id = $_POST['intent_id'];
+
+                if(!empty($_POST['new_pattern'])) {
+                    $this->query->insertInto('patterns_ia', [
+                        'intent_id' => $intent_id,
+                        'pattern_text' => $_POST['new_pattern']                               
+                    ]);
+                }
+
+                if(!empty($_POST['new_response'])) {
+                    $this->query->insertInto('responses_ia', [
+                    'intent_id' => $intent_id,
+                    'response_text' => $_POST['new_response']
+                    ]);
+                }
+            }
+
             $this->render("/view/admin/ai_dashboard/main_view.php", [
                 'message'   =>  $this->message,
                 'intents'   =>  $this->query->selectAllOrderByField('intents_ia', 'id'),
