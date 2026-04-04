@@ -465,9 +465,11 @@
             }
         }
 
-        public function selectAllOrderByField(string $table, string $field): array     
+        public function selectAllOrderByField(string $table, ?string $field = null): array     
         {
-            $query = "SELECT * FROM $table ORDER BY $field ASC";                 
+            $query = "SELECT * FROM $table";
+            
+            if(isset($field)) $query .= " ORDER BY $field ASC";
 
             try {
                 $stm = $this->dbcon->pdo->prepare($query);                                             

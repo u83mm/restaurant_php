@@ -1,0 +1,58 @@
+<?php
+declare(strict_types=1);
+
+namespace Application\Controller\admin;
+
+use Application\Core\Controller;
+use Application\model\classes\Language;
+use Application\model\classes\Query;
+use Application\model\classes\Validate;
+
+final class DashboardAIController extends Controller
+{
+    /** Create array and object for diferent languages */
+    private array $language = [];
+    private Language $languageObject;
+
+    public function __construct(            
+        private string $message = "",
+        private array $fields = [],
+        private Query $query = new Query(),
+        private Validate $validate = new Validate()            
+    )
+    {                        
+        /** Configure page language */
+        $this->languageObject = new Language(); 
+        $this->language = $_SESSION['language'] == "spanish" ? $this->languageObject->spanish() : $this->languageObject->english(); 
+    }
+
+    public function showAiDashboard(): void
+    {
+        try {
+            /** Check for user`s sessions */
+            $this->testAccess(['ROLE_ADMIN']);
+
+            $this->render("/view/admin/ai_dashboard/main_view.php", [
+                'message'   =>  $this->message,
+                'intents'   =>  $this->query->selectAllOrderByField('intents_ia', 'id'),
+                'patterns'  =>  $this->query->selectAllOrderByField('patterns_ia', 'id'),
+                'responses' =>  $this->query->selectAllOrderByField('responses_ia', 'id')
+            ]);
+
+        } catch (\Throwable $th) {
+            $this->message = "<p class='alert alert-danger text-center'>{$th->getMessage()}</p>";
+
+            if(isset($_SESSION['role']) && $_SESSION['role'] === 'ROLE_ADMIN') {
+                $this->message = "<p class='alert alert-danger text-center'>
+                                Message: {$th->getMessage()}<br>
+                                Path: {$th->getFile()}<br>
+                                Line: {$th->getLine()}
+                            </p>";
+            }
+
+            $this->render("/view/database_error.php", [
+                'message' => $this->message
+            ]);	
+        }
+    }
+}
