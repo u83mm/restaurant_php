@@ -1,4 +1,4 @@
-import { toggleChat } from "./modules/chat_bot_fns.js";
+import { toggleChat, appendMessage } from "./modules/chat_bot_fns.js";
 
 "use_strict"
 
@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnChatWidget = document.getElementById("chat-widget-button");
     const chatWindow = document.getElementById("chat-window");
     const input = document.getElementById('userMsg');
-    const inputArea = document.getElementById('input-area');
-    const chatMessages = document.getElementById('chat-messages');
+    const inputArea = document.getElementById('input-area');    
 
     if(btnChatWidget) {
         btnChatWidget.addEventListener("click", () => {
@@ -61,18 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 appendMessage("Error conectando con el servidor", "bot");
             }
         }
-    }
-
-    function appendMessage(text, side) {
-        const div = document.createElement('div');
-        div.className = `message ${side}`;
-        div.textContent = text;
-        chatMessages.appendChild(div);
-        chatMessages.scrollTo({
-            top: chatMessages.scrollHeight,
-            behavior: 'smooth'
-        });
-    }
+    }    
 
     /** AI Dashboard Training Functionallity */
     const retraining = document.getElementById('retraining')
@@ -93,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         status.innerText = "IA Actualizada";
                         btn.disabled = false;
-                    }, 5000);
+                    }, 10000);
                 })
                 .catch(error => {
                     status.innerText = "Error al conectar con el servicio de IA";
