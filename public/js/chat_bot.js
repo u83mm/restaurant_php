@@ -47,10 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // 3. Send to PHP using AJAX
             try {
                 const response = await fetch("/chat/chat/index", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `msg=${encodeURIComponent(text)}`
-            });                              
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `msg=${encodeURIComponent(text)}`
+                });                              
 
                 const data = await response.json();
 
@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             top: chatMessages.scrollHeight,
             behavior: 'smooth'
         });
-
     }
 
     /** AI Dashboard Training Functionallity */

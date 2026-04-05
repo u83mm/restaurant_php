@@ -13,14 +13,13 @@ final class ChatController extends Controller
     {}
 
     public function index(): void
-    {
-        header('Content-Type: application/json');
-        
+    {                
         $chatIA = new ChatIA();        
 
         if(!empty($_POST['msg'])) {
             $res = $chatIA->sendMessage($_POST['msg']);
             
+            header('Content-Type: application/json');
             echo json_encode($res);
             exit();
         }
