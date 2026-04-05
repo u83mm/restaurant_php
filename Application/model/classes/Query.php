@@ -332,20 +332,27 @@
          * @param string table The name of the database table from which to select fields.
          * @param array fields An array of strings representing the names of the fields to be selected
          * from the table.
-         * @param object dbcon  is an object representing the database connection. 
-         * 
+         * @param string orderByField select the field to order the results.
+         * @param int limit set the number of rows.
          * @return array an array of rows fetched from the specified table, containing only the
          * specified fields.
          */
-        public function selectFieldsFromTableOrderByField(string $table, array $fields, ?string $orderByField = null): array
+        public function selectFieldsFromTableOrderByField(
+            string $table, 
+            array $fields = ['*'],
+            ?string $orderByField = null, 
+            ?int $limit = null): array
         {
             $fields = implode(", ", $fields);
             $query = "SELECT $fields FROM $table";
 
-            if ($orderByField) $query .= " ORDER BY $orderByField ASC";
+            if($orderByField) $query .= " ORDER BY $orderByField DESC";
+
+            if($limit) $query .= " LIMIT :limit";
 
             try {
-                $stm = $this->dbcon->pdo->prepare($query);                                                   
+                $stm = $this->dbcon->pdo->prepare($query);
+                if($limit) $stm->bindValue(":limit", $limit, PDO::PARAM_INT);
                 $stm->execute();       
                 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
                 $stm->closeCursor();

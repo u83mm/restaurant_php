@@ -5,8 +5,9 @@ namespace Application\Controller\admin;
 
 use Application\Core\Controller;
 use Application\model\classes\Language;
-use Application\model\classes\Query;
+use Application\model\classes\QueryLogsAIDashboard;
 use Application\model\classes\Validate;
+use DateTimeImmutable;
 
 final class DashboardAIController extends Controller
 {
@@ -17,7 +18,7 @@ final class DashboardAIController extends Controller
     public function __construct(            
         private string $message = "",
         private array $fields = [],
-        private Query $query = new Query(),
+        private QueryLogsAIDashboard $query = new QueryLogsAIDashboard(),
         private Validate $validate = new Validate()            
     )
     {                        
@@ -48,13 +49,26 @@ final class DashboardAIController extends Controller
                     'response_text' => $_POST['new_response']
                     ]);
                 }
+            }                                    
+            
+            // Formating AI dashboard logs date to show in format (d-m-Y h:m:s) in the view
+            $logs = $this->query->selectFieldsFromTableOrderByField( // We get AI dashboard logs from DB
+                        table: 'chat_logs', 
+                        orderByField: 'created_at', 
+                        limit: 20
+                    );
+                    
+            foreach ($logs as $key => $value) {
+                $date = new DateTimeImmutable($logs[$key]['created_at']);
+                $logs[$key]['created_at'] = $date->format('d-m-Y H:i:s');
             }
-
+            
             $this->render("/view/admin/ai_dashboard/main_view.php", [
                 'message'   =>  $this->message,
                 'intents'   =>  $this->query->selectAllOrderByField('intents_ia', 'id'),
                 'patterns'  =>  $this->query->selectAllOrderByField('patterns_ia', 'id'),
-                'responses' =>  $this->query->selectAllOrderByField('responses_ia', 'id')
+                'responses' =>  $this->query->selectAllOrderByField('responses_ia', 'id'),
+                'logs'      =>  $logs,
             ]);
 
         } catch (\Throwable $th) {
@@ -72,5 +86,25 @@ final class DashboardAIController extends Controller
                 'message' => $this->message
             ]);	
         }
+    }
+
+    /** Clear all the logs */
+    public function clearAllLogs(): void
+    {
+        /** Check for user`s sessions */
+        $this->testAccess(['ROLE_ADMIN']);
+
+        $this->query->truncateTable('chat_logs');
+        header("Location: /admin/dashboardAI/showAiDashboard");
+    }
+
+    /** Clear logs beyond 30 days */
+    public function clearLogs(): void
+    {
+        /** Check for user`s sessions */
+        $this->testAccess(['ROLE_ADMIN']);
+
+        $this->query->deleteRegistries('chat_logs');
+        header("Location: /admin/dashboardAI/showAiDashboard");        
     }
 }

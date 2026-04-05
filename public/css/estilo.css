@@ -745,7 +745,7 @@ textarea {
 	color: #555;
 }
 
-/*********************** RETRAINING STYLE *************************/
+/* Retraining Style */
 #retraining {
 	background: #e3f2fd;
 	padding: 15px;
@@ -762,6 +762,45 @@ textarea {
 
 #trainStatus {
 	margin-left: 10px;
+}
+
+/* TABLE FOR QUERYS REGISTRY */
+#query-registry {	
+	width:100%; 
+	border-collapse: collapse; 
+	background-color: white;
+	margin: 0;			
+}
+
+div:has(#query-registry) {
+	background: wheat;
+}
+
+div:has(#query-registry) h2 {
+	text-align: center;
+}
+
+#query-registry th {
+	background: #eee;
+}
+
+#query-registry tr {
+	background-color: initial;
+}
+
+.query-registry-buttons {
+	display: flex;	
+	justify-content: center;
+	padding: 1em;	
+}
+
+.query-registry-buttons form {
+	width: 30%;
+	text-align: center;
+}
+
+.query-registry-buttons form button {
+	border-radius: 0.5em;
 }
 
 /***************** Configuración para móviles **********************/
