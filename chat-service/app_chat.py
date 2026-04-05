@@ -115,7 +115,7 @@ def chat():
         response = "Lo siento, no entiendo qué me quieres decir."
     
     # Guardar log en DB
-    """ try:
+    try:
         conn = mysql.connector.connect(
             host = "db",
             user = "admin",
@@ -131,7 +131,7 @@ def chat():
         conn.commit()
         conn.close()
     except Exception as e:
-        print(f"Error guardando log: {e}") """
+        print(f"Error guardando log: {e}")
 
     return jsonify({"response": response, "tag": tag})
 
