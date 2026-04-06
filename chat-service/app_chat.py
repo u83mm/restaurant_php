@@ -100,7 +100,7 @@ def chat():
     res = model.predict(np.array([p]))[0]
 
     # Filtrar por umbral de confianza
-    ERROR_THRESHOLD = 0.72
+    ERROR_THRESHOLD = 0.98
     results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
     results.sort(key=lambda x: x[1], reverse=True)
 
