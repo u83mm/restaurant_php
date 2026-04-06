@@ -84,7 +84,7 @@ $page->do_html_nav($page->nav_links, $page->language['nav_link_administration'])
             <tbody>
                 <?php if(isset($logs)): ?>
                     <?php foreach($logs as $log): ?>
-                    <tr>
+                    <tr style="<?php echo $log['detected_tag'] == 'unknown' ? 'background: #ffebee;' : "";  ?>">
                         <td><?php echo $log['created_at']; ?></td>
                         <td><?php echo $log['user_message']; ?></td>
                         <td><?php echo $log['bot_response']; ?></td>
