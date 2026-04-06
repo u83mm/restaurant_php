@@ -26,6 +26,7 @@
     align-self: flex-start;
     background-color: #ffffff;
     border-bottom-left-radius: 2px;
+    text-align: left;
 }
 
 #input-area, .chat-input-area {
@@ -94,15 +95,28 @@
     display: none; 
 }
 
-.chat-header {
-    text-align: right;
+.chat-header {    
+    background: #075e54;
     padding: 0.5em;
+    color: wheat;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;	
+}
 
-	button {
-        border-radius: 0.5em;
-        padding: 0.2em;
-        width: 2.2em;
-    }
+.chat-header button {
+    border-radius: 0.5em;
+    padding: 0.2em;
+    width: 2.2em;
+    float: right;
+    border: 1px solid white;
+    background: #075e54;
+    color: wheat;
+}
+
+.chat-header button:hover {
+	background: white;
+	color: #075e54;
 }
 
 #chat-messages { 

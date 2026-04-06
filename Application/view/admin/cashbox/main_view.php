@@ -10,7 +10,7 @@ $page->do_html_header($page->title, $page->h1, $page->meta_name_description, $pa
 $page->do_html_nav($page->nav_links, $page->language['nav_link_administration']);
 ?>
 <section class="cash-box">
-    <h3><?php echo mb_strtoupper($page->language['cash_box']); ?></h3>
+    <h3>💰️ <?php echo mb_strtoupper($page->language['cash_box']); ?></h3>
     <?php if(isset($_SESSION['message'])) echo $_SESSION['message']; ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">       
         <input type="hidden" name="csrf_token" value="<?php if(isset($csrf_token)) echo $csrf_token->csrf_token(); ?>">

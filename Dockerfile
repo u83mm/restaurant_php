@@ -11,12 +11,9 @@ WORKDIR /var/www
 COPY / /var/www
 
 # Set timezone
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
-RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
-RUN "date"
-
-# Change permission to public directory
-# RUN chown www-data:www-data -R /var/www/public
+RUN echo "date.timezone=${TIMEZONE}" > /usr/local/etc/php/conf.d/timezone.ini
+# Verificación (útil durante el build)
+RUN php -r "echo 'PHP Timezone: ' . date_default_timezone_get() . PHP_EOL;"
 
 # Asigna grupo y usuario en contenedor para no tener que estar cambiando propietario a los archivos creados desde el contenedor
 RUN addgroup --gid ${GROUP_ID} pepe
