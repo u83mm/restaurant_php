@@ -19,8 +19,17 @@
 ###< symfony/phpunit-bridge ###
 
 ###> my files to ignore ###
-/log/
-/db_vol/
+/Application/log/*?.*
+/Application/db_vol/*?.*
+/Application/db_vol/aria_log*
+Application/db_vol/ib*
+Application/db_vol/mariadb_upgrade_info
+Application/db_vol/my_database/
+Application/db_vol/mysql/
+Application/db_vol/performance_schema/
+Application/db_vol/sys/
+Application/db_vol/undo*
+*.log
 /public/images/captcha/
 .phpunit.cache
 ###< my files to ignore ###
