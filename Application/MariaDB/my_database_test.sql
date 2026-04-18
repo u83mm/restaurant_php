@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 18, 2026 at 11:15 AM
+-- Generation Time: Jul 21, 2025 at 12:58 PM
 -- Server version: 11.5.2-MariaDB-ubu2404
 -- PHP Version: 8.2.23
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `my_database`
+-- Database: `my_database_test`
 --
 
 -- --------------------------------------------------------
@@ -30,62 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `bussy_tables` (
   `table_id` tinyint(3) UNSIGNED NOT NULL,
   `table_number` tinyint(3) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `bussy_tables`
---
-
-INSERT INTO `bussy_tables` (`table_id`, `table_number`) VALUES
-(2, 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chat_logs`
---
-
-CREATE TABLE `chat_logs` (
-  `id` int(11) NOT NULL,
-  `user_message` text NOT NULL,
-  `bot_response` text NOT NULL,
-  `detected_tag` varchar(50) DEFAULT NULL,
-  `confidence` float DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `chat_logs`
---
-
-INSERT INTO `chat_logs` (`id`, `user_message`, `bot_response`, `detected_tag`, `confidence`, `created_at`) VALUES
-(4, 'hola, tienes coche?', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.987449, '2026-04-05 09:38:53'),
-(5, 'tienes coche?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.599467, '2026-04-05 09:39:02'),
-(6, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999268, '2026-04-05 11:05:56'),
-(7, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.902897, '2026-04-05 11:06:10'),
-(8, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999268, '2026-04-05 11:31:55'),
-(9, 'qué platos me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.999524, '2026-04-05 11:32:30'),
-(10, 'tienes pescado?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.902897, '2026-04-05 11:54:00'),
-(11, 'qué pescado tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.685057, '2026-04-05 11:54:27'),
-(12, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-05 11:56:55'),
-(13, 'qué pescado tienes?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999146, '2026-04-05 11:57:04'),
-(14, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-06 17:55:13'),
-(15, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-06 18:28:12'),
-(16, 'qué vino me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-06 18:29:36'),
-(17, 'tienes vino?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 18:33:18'),
-(18, 'qué vinos tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.566672, '2026-04-06 18:35:22'),
-(19, 'tienes vinos?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 18:37:10'),
-(20, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-06 19:04:41'),
-(21, 'tienes vinos?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 19:04:45'),
-(22, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-06 19:08:12'),
-(23, 'tienes vinos?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-06 19:08:17'),
-(24, 'tienes vino?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-06 19:08:49'),
-(25, 'qué vino me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-06 19:09:05'),
-(26, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999921, '2026-04-06 19:12:27'),
-(27, 'qué pescado tienes?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999146, '2026-04-06 19:13:35'),
-(28, 'el pescado es fresco?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.913819, '2026-04-06 19:14:02'),
-(29, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-18 11:12:55'),
-(30, 'quisiera come algo', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.567144, '2026-04-18 11:13:03');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -497,27 +442,6 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `intents_ia`
---
-
-CREATE TABLE `intents_ia` (
-  `id` int(11) NOT NULL,
-  `tag` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
-
---
--- Dumping data for table `intents_ia`
---
-
-INSERT INTO `intents_ia` (`id`, `tag`) VALUES
-(3, 'despedida'),
-(4, 'pescados'),
-(2, 'platos'),
-(1, 'saludo');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `invoices`
 --
 
@@ -540,19 +464,7 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method_id`, `total_amount`, `given_amount`, `returned_amount`, `created_at`, `updated_at`) VALUES
-(1, '25/2', 2, '2025-07-16 10:15:50', 'paid', 1, 77.02, 100.00, 22.98, '2025-07-16 10:15:50', '2026-04-06 20:46:02'),
-(2, '25/1', 1, '2025-07-17 12:33:32', 'paid', 4, 42.53, 42.53, 0.00, '2025-07-17 12:33:32', '2025-07-21 00:03:36'),
-(3, '25/3', 3, '2025-07-21 09:51:16', 'paid', 1, 9.08, 10.00, 0.92, '2025-07-21 09:51:16', '2025-07-21 09:52:06'),
-(4, '25/5', 5, '2025-07-21 10:23:03', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:23:03', '2025-07-21 10:24:23'),
-(5, '25/7', 7, '2025-07-21 10:31:45', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:31:45', '2025-07-21 10:31:56'),
-(6, '25/8', 8, '2025-07-21 10:34:26', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:34:26', '2025-07-21 10:34:43'),
-(7, '25/9', 9, '2025-07-21 10:37:29', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:37:29', '2025-07-21 10:37:47'),
-(8, '25/10', 10, '2025-07-21 10:46:12', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:46:12', '2025-07-21 10:46:22'),
-(9, '25/11', 11, '2025-07-21 10:51:50', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:51:50', '2025-07-21 10:51:57'),
-(10, '25/12', 12, '2025-07-21 10:57:11', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:57:11', '2025-07-21 10:57:21'),
-(11, '25/13', 13, '2025-07-21 10:58:58', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:58:58', '2025-07-21 10:59:07'),
-(12, '25/14', 14, '2025-07-21 11:05:49', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:05:49', '2025-07-21 11:05:57'),
-(13, '25/15', 15, '2025-07-21 11:09:37', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:09:37', '2025-07-21 11:09:47');
+(1, '25/2', 2, '2025-07-20 20:49:42', 'paid', 2, 77.02, 150.00, 50.00, '2025-07-20 20:49:42', '2025-07-20 20:50:25');
 
 -- --------------------------------------------------------
 
@@ -567,13 +479,6 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `limit_access`
---
-
-INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(534, '172.16.202.1', 1776511101, 1, '2026-04-18 13:13:21');
 
 -- --------------------------------------------------------
 
@@ -635,48 +540,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`, `finished`) VALUES
-(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 1),
-(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0),
-(3, 3, 1, '', '', '', '0', '2', 'ensalada mixta', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(5, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(7, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(8, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(9, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(10, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(11, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(12, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(13, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(14, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(15, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `patterns_ia`
---
-
-CREATE TABLE `patterns_ia` (
-  `id` int(11) NOT NULL,
-  `intent_id` int(11) DEFAULT NULL,
-  `pattern_text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patterns_ia`
---
-
-INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
-(1, 1, 'Hola'),
-(2, 1, 'Buenas'),
-(3, 1, 'Qué tal'),
-(4, 1, 'Hay alguien ahí?'),
-(5, 2, 'Qué platos me recomiendas?'),
-(6, 3, 'Adiós'),
-(7, 3, 'Hasta luego'),
-(8, 3, 'Chao'),
-(9, 3, 'Nos vemos'),
-(10, 4, '¿Qué tienes de pescado?'),
-(11, 4, '¿Qué pescado tienes?');
+(1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 0),
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0);
 
 -- --------------------------------------------------------
 
@@ -687,7 +552,7 @@ INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
 CREATE TABLE `payment_method` (
   `payment_method_id` tinyint(1) UNSIGNED NOT NULL,
   `payment_method` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
 -- Dumping data for table `payment_method`
@@ -695,9 +560,9 @@ CREATE TABLE `payment_method` (
 
 INSERT INTO `payment_method` (`payment_method_id`, `payment_method`) VALUES
 (1, 'cash'),
-(2, 'credit card'),
-(3, 'debit card'),
-(4, 'mobile payment'),
+(2, 'credit_card'),
+(3, 'debit_card'),
+(4, 'mobile_payment'),
 (5, 'other');
 
 -- --------------------------------------------------------
@@ -782,33 +647,6 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`,
 (70, '2025-02-08', '14.00', 'Alberto', 'admisn@admin.com', 3, 'dddfdf adaddf'),
 (71, '2025-02-07', '12.30', 'Alberto', 'fpoulton0@trellian.com', 6, 'dadadadadd'),
 (72, '2025-02-08', '14.30', 'Alberto', 'admisn@admin.com', 2, 'ddsadd');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `responses_ia`
---
-
-CREATE TABLE `responses_ia` (
-  `id` int(11) NOT NULL,
-  `intent_id` int(11) DEFAULT NULL,
-  `response_text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `responses_ia`
---
-
-INSERT INTO `responses_ia` (`id`, `intent_id`, `response_text`) VALUES
-(1, 1, '¡Hola! ¿En qué puedo ayudarte hoy?'),
-(2, 1, '¡Hola! Soy tu asistente de IA, ¿qué necesitas?'),
-(3, 1, '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?'),
-(4, 2, 'Pues todas nuestras carnes son estupendas! si te gusta la carne'),
-(5, 3, '¡Hasta pronto!'),
-(6, 3, 'Que tengas un buen día.'),
-(7, 3, 'Esperamos volver a verte pronto!'),
-(8, 2, 'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.'),
-(9, 4, 'Actualmente te recomiendo el salmón.');
 
 -- --------------------------------------------------------
 
@@ -1104,12 +942,6 @@ ALTER TABLE `bussy_tables`
   ADD PRIMARY KEY (`table_id`);
 
 --
--- Indexes for table `chat_logs`
---
-ALTER TABLE `chat_logs`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `dinamic_data`
 --
 ALTER TABLE `dinamic_data`
@@ -1148,13 +980,6 @@ ALTER TABLE `english_dict`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `intents_ia`
---
-ALTER TABLE `intents_ia`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `tag` (`tag`);
-
---
 -- Indexes for table `invoices`
 --
 ALTER TABLE `invoices`
@@ -1186,13 +1011,6 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `patterns_ia`
---
-ALTER TABLE `patterns_ia`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `patterns_fk_intents` (`intent_id`);
-
---
 -- Indexes for table `payment_method`
 --
 ALTER TABLE `payment_method`
@@ -1204,13 +1022,6 @@ ALTER TABLE `payment_method`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `responses_ia`
---
-ALTER TABLE `responses_ia`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `responses_fk_intents` (`intent_id`);
 
 --
 -- Indexes for table `roles`
@@ -1241,13 +1052,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
-  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `chat_logs`
---
-ALTER TABLE `chat_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dinner_hours`
@@ -1265,7 +1070,7 @@ ALTER TABLE `dishes_day`
 -- AUTO_INCREMENT for table `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `english_dict`
@@ -1274,22 +1079,16 @@ ALTER TABLE `english_dict`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
 
 --
--- AUTO_INCREMENT for table `intents_ia`
---
-ALTER TABLE `intents_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=535;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `menu_day_price`
@@ -1301,13 +1100,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `patterns_ia`
---
-ALTER TABLE `patterns_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `payment_method`
@@ -1320,12 +1113,6 @@ ALTER TABLE `payment_method`
 --
 ALTER TABLE `reservations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
-
---
--- AUTO_INCREMENT for table `responses_ia`
---
-ALTER TABLE `responses_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -1355,18 +1142,6 @@ ALTER TABLE `user`
 ALTER TABLE `invoices`
   ADD CONSTRAINT `invoices_fk_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `invoices_fk_payment_method` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`payment_method_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `patterns_ia`
---
-ALTER TABLE `patterns_ia`
-  ADD CONSTRAINT `patterns_fk_intents` FOREIGN KEY (`intent_id`) REFERENCES `intents_ia` (`id`);
-
---
--- Constraints for table `responses_ia`
---
-ALTER TABLE `responses_ia`
-  ADD CONSTRAINT `responses_fk_intents` FOREIGN KEY (`intent_id`) REFERENCES `intents_ia` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
