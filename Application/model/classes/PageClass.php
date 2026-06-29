@@ -144,6 +144,7 @@
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>
 							</button>
+                            <button id="darkModeToggle" class="btn btn-sm me-2" title="<?php echo $this->language['dark_mode']; ?>">🌙</button>
 							<div class="collapse navbar-collapse" id="my_nav">
 								<ul class="nav navbar-nav justify-content-center w-100">
 								<?php foreach($links as $name => $url) : ?>								
@@ -176,6 +177,7 @@
 					<p>Copyright &copy; reserved <?php echo date("Y"); ?></p>
 				</footer>
 				<script src="/js/modules/whatsapp_feature.js"></script>								
+				<script src="/js/dark_mode.js"></script>
 			</body>			
 		</html>
 <?php		
