@@ -34,3 +34,4 @@ Application/db_vol/undo*
 .phpunit.cache
 ###< my files to ignore ###
 .codegpt
+.aider*

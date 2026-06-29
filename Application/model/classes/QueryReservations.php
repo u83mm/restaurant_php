@@ -55,7 +55,7 @@
             }  
         }
 
-        public function selectFieldsFromTableOrderByField(string $table, array $fields, ?string $orderByField = null): array
+        public function selectFieldsFromTableOrderByField(string $table, array $fields = ['*'], ?string $orderByField = null, ?int $limit = null): array
         {
             $fields = implode(", ", $fields);
             $query = "SELECT $fields FROM $table 
