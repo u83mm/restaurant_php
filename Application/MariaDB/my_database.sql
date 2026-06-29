@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Generation Time: Apr 18, 2026 at 12:40 PM
--- Server version: 11.5.2-MariaDB-ubu2404
--- PHP Version: 8.2.23
+-- Servidor: db
+-- Tiempo de generación: 29-06-2026 a las 17:31:40
+-- Versión del servidor: 12.2.2-MariaDB-ubu2404
+-- Versión de PHP: 8.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `my_database`
+-- Base de datos: `my_database`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bussy_tables`
+-- Estructura de tabla para la tabla `bussy_tables`
 --
 
 CREATE TABLE `bussy_tables` (
@@ -33,7 +33,7 @@ CREATE TABLE `bussy_tables` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bussy_tables`
+-- Volcado de datos para la tabla `bussy_tables`
 --
 
 INSERT INTO `bussy_tables` (`table_id`, `table_number`) VALUES
@@ -42,7 +42,7 @@ INSERT INTO `bussy_tables` (`table_id`, `table_number`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat_logs`
+-- Estructura de tabla para la tabla `chat_logs`
 --
 
 CREATE TABLE `chat_logs` (
@@ -55,42 +55,28 @@ CREATE TABLE `chat_logs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `chat_logs`
+-- Volcado de datos para la tabla `chat_logs`
 --
 
 INSERT INTO `chat_logs` (`id`, `user_message`, `bot_response`, `detected_tag`, `confidence`, `created_at`) VALUES
-(4, 'hola, tienes coche?', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.987449, '2026-04-05 09:38:53'),
-(5, 'tienes coche?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.599467, '2026-04-05 09:39:02'),
-(6, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999268, '2026-04-05 11:05:56'),
-(7, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.902897, '2026-04-05 11:06:10'),
-(8, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999268, '2026-04-05 11:31:55'),
-(9, 'qué platos me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.999524, '2026-04-05 11:32:30'),
-(10, 'tienes pescado?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.902897, '2026-04-05 11:54:00'),
-(11, 'qué pescado tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.685057, '2026-04-05 11:54:27'),
-(12, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-05 11:56:55'),
-(13, 'qué pescado tienes?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999146, '2026-04-05 11:57:04'),
-(14, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-06 17:55:13'),
-(15, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-06 18:28:12'),
-(16, 'qué vino me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-06 18:29:36'),
-(17, 'tienes vino?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 18:33:18'),
-(18, 'qué vinos tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.566672, '2026-04-06 18:35:22'),
-(19, 'tienes vinos?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 18:37:10'),
-(20, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-06 19:04:41'),
-(21, 'tienes vinos?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.970238, '2026-04-06 19:04:45'),
-(22, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-06 19:08:12'),
-(23, 'tienes vinos?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-06 19:08:17'),
-(24, 'tienes vino?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-06 19:08:49'),
-(25, 'qué vino me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-06 19:09:05'),
-(26, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999921, '2026-04-06 19:12:27'),
-(27, 'qué pescado tienes?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999146, '2026-04-06 19:13:35'),
-(28, 'el pescado es fresco?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.913819, '2026-04-06 19:14:02'),
 (29, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-18 11:12:55'),
-(30, 'quisiera come algo', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.567144, '2026-04-18 11:13:03');
+(30, 'quisiera come algo', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.567144, '2026-04-18 11:13:03'),
+(31, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999706, '2026-04-18 16:24:05'),
+(32, 'qué platos tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.935116, '2026-04-18 16:24:15'),
+(33, 'qué carne me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-18 16:24:26'),
+(34, 'qué me recomiendas comer?', 'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.', 'platos', 0.998708, '2026-04-18 16:24:40'),
+(35, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-18 16:41:43'),
+(36, 'qué me recomiendas comer?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-18 16:41:55'),
+(37, 'tienes pesado fresco?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-18 16:42:05'),
+(38, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999921, '2026-04-18 16:42:15'),
+(39, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-06-28 20:00:36'),
+(40, 'Me gustaría comer algo de pescado', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.95965, '2026-06-28 20:00:50'),
+(41, 'Me gustaría comer algo de pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999886, '2026-06-28 20:04:54');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dinamic_data`
+-- Estructura de tabla para la tabla `dinamic_data`
 --
 
 CREATE TABLE `dinamic_data` (
@@ -102,7 +88,7 @@ CREATE TABLE `dinamic_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dinamic_data`
+-- Volcado de datos para la tabla `dinamic_data`
 --
 
 INSERT INTO `dinamic_data` (`dishe_id`, `spanish_name`, `spanish_description`, `english_name`, `english_description`) VALUES
@@ -131,7 +117,7 @@ INSERT INTO `dinamic_data` (`dishe_id`, `spanish_name`, `spanish_description`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dinner_hours`
+-- Estructura de tabla para la tabla `dinner_hours`
 --
 
 CREATE TABLE `dinner_hours` (
@@ -140,7 +126,7 @@ CREATE TABLE `dinner_hours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dinner_hours`
+-- Volcado de datos para la tabla `dinner_hours`
 --
 
 INSERT INTO `dinner_hours` (`id`, `hour`) VALUES
@@ -155,7 +141,7 @@ INSERT INTO `dinner_hours` (`id`, `hour`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dishes`
+-- Estructura de tabla para la tabla `dishes`
 --
 
 CREATE TABLE `dishes` (
@@ -168,7 +154,7 @@ CREATE TABLE `dishes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dishes`
+-- Volcado de datos para la tabla `dishes`
 --
 
 INSERT INTO `dishes` (`dishe_id`, `category_id`, `menu_id`, `picture`, `price`, `available`) VALUES
@@ -197,7 +183,7 @@ INSERT INTO `dishes` (`dishe_id`, `category_id`, `menu_id`, `picture`, `price`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dishes_day`
+-- Estructura de tabla para la tabla `dishes_day`
 --
 
 CREATE TABLE `dishes_day` (
@@ -206,7 +192,7 @@ CREATE TABLE `dishes_day` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dishes_day`
+-- Volcado de datos para la tabla `dishes_day`
 --
 
 INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
@@ -218,7 +204,7 @@ INSERT INTO `dishes_day` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dishes_menu`
+-- Estructura de tabla para la tabla `dishes_menu`
 --
 
 CREATE TABLE `dishes_menu` (
@@ -229,7 +215,7 @@ CREATE TABLE `dishes_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dishes_menu`
+-- Volcado de datos para la tabla `dishes_menu`
 --
 
 INSERT INTO `dishes_menu` (`menu_id`, `spanish_menu_category`, `menu_emoji`, `english_menu_category`) VALUES
@@ -252,7 +238,7 @@ INSERT INTO `dishes_menu` (`menu_id`, `spanish_menu_category`, `menu_emoji`, `en
 -- --------------------------------------------------------
 
 --
--- Table structure for table `english_dict`
+-- Estructura de tabla para la tabla `english_dict`
 --
 
 CREATE TABLE `english_dict` (
@@ -262,7 +248,7 @@ CREATE TABLE `english_dict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `english_dict`
+-- Volcado de datos para la tabla `english_dict`
 --
 
 INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
@@ -492,12 +478,13 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 (241, 'payment_method', 'Payment method'),
 (242, 'order_finished_successfully', 'Order finished successfully'),
 (243, 'error_finished_order', 'Error finishing order'),
-(244, 'table_pending_collection', 'Table pending collection');
+(244, 'table_pending_collection', 'Table pending collection'),
+(245, 'dark_mode', 'Dark Mode 🌙');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `intents_ia`
+-- Estructura de tabla para la tabla `intents_ia`
 --
 
 CREATE TABLE `intents_ia` (
@@ -506,7 +493,7 @@ CREATE TABLE `intents_ia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 --
--- Dumping data for table `intents_ia`
+-- Volcado de datos para la tabla `intents_ia`
 --
 
 INSERT INTO `intents_ia` (`id`, `tag`) VALUES
@@ -518,7 +505,7 @@ INSERT INTO `intents_ia` (`id`, `tag`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoices`
+-- Estructura de tabla para la tabla `invoices`
 --
 
 CREATE TABLE `invoices` (
@@ -536,7 +523,7 @@ CREATE TABLE `invoices` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `invoices`
+-- Volcado de datos para la tabla `invoices`
 --
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_date`, `invoice_status`, `payment_method_id`, `total_amount`, `given_amount`, `returned_amount`, `created_at`, `updated_at`) VALUES
@@ -557,7 +544,7 @@ INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `limit_access`
+-- Estructura de tabla para la tabla `limit_access`
 --
 
 CREATE TABLE `limit_access` (
@@ -569,16 +556,16 @@ CREATE TABLE `limit_access` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `limit_access`
+-- Volcado de datos para la tabla `limit_access`
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(534, '172.16.202.1', 1776511101, 1, '2026-04-18 13:13:21');
+(537, '172.16.202.1', 1782751051, 1, '2026-06-29 18:32:31');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `menu_day_price`
+-- Estructura de tabla para la tabla `menu_day_price`
 --
 
 CREATE TABLE `menu_day_price` (
@@ -587,7 +574,7 @@ CREATE TABLE `menu_day_price` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `menu_day_price`
+-- Volcado de datos para la tabla `menu_day_price`
 --
 
 INSERT INTO `menu_day_price` (`id`, `price`) VALUES
@@ -596,7 +583,7 @@ INSERT INTO `menu_day_price` (`id`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Estructura de tabla para la tabla `orders`
 --
 
 CREATE TABLE `orders` (
@@ -631,7 +618,7 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- Volcado de datos para la tabla `orders`
 --
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`, `finished`) VALUES
@@ -652,7 +639,7 @@ INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patterns_ia`
+-- Estructura de tabla para la tabla `patterns_ia`
 --
 
 CREATE TABLE `patterns_ia` (
@@ -662,7 +649,7 @@ CREATE TABLE `patterns_ia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `patterns_ia`
+-- Volcado de datos para la tabla `patterns_ia`
 --
 
 INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
@@ -676,12 +663,13 @@ INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
 (8, 3, 'Chao'),
 (9, 3, 'Nos vemos'),
 (10, 4, '¿Qué tienes de pescado?'),
-(11, 4, '¿Qué pescado tienes?');
+(11, 4, '¿Qué pescado tienes?'),
+(12, 4, 'Algo de pescado');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_method`
+-- Estructura de tabla para la tabla `payment_method`
 --
 
 CREATE TABLE `payment_method` (
@@ -690,7 +678,7 @@ CREATE TABLE `payment_method` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `payment_method`
+-- Volcado de datos para la tabla `payment_method`
 --
 
 INSERT INTO `payment_method` (`payment_method_id`, `payment_method`) VALUES
@@ -703,7 +691,7 @@ INSERT INTO `payment_method` (`payment_method_id`, `payment_method`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservations`
+-- Estructura de tabla para la tabla `reservations`
 --
 
 CREATE TABLE `reservations` (
@@ -717,7 +705,7 @@ CREATE TABLE `reservations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `reservations`
+-- Volcado de datos para la tabla `reservations`
 --
 
 INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`, `comment`) VALUES
@@ -786,7 +774,7 @@ INSERT INTO `reservations` (`id`, `date`, `time`, `name`, `email`, `people_qty`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `responses_ia`
+-- Estructura de tabla para la tabla `responses_ia`
 --
 
 CREATE TABLE `responses_ia` (
@@ -796,7 +784,7 @@ CREATE TABLE `responses_ia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `responses_ia`
+-- Volcado de datos para la tabla `responses_ia`
 --
 
 INSERT INTO `responses_ia` (`id`, `intent_id`, `response_text`) VALUES
@@ -813,7 +801,7 @@ INSERT INTO `responses_ia` (`id`, `intent_id`, `response_text`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Estructura de tabla para la tabla `roles`
 --
 
 CREATE TABLE `roles` (
@@ -822,7 +810,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `roles`
+-- Volcado de datos para la tabla `roles`
 --
 
 INSERT INTO `roles` (`id_role`, `role`) VALUES
@@ -833,7 +821,7 @@ INSERT INTO `roles` (`id_role`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spanish_dict`
+-- Estructura de tabla para la tabla `spanish_dict`
 --
 
 CREATE TABLE `spanish_dict` (
@@ -843,7 +831,7 @@ CREATE TABLE `spanish_dict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `spanish_dict`
+-- Volcado de datos para la tabla `spanish_dict`
 --
 
 INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
@@ -1068,12 +1056,13 @@ INSERT INTO `spanish_dict` (`id`, `key_word`, `value`) VALUES
 (228, 'payment_method', 'Método de pago'),
 (229, 'order_finished_successfully', 'Pedido finalizado'),
 (230, 'error_finished_order', 'Error al finalizar el pedido'),
-(231, 'table_pending_collection', 'Mesa pendiente de cobrar');
+(231, 'table_pending_collection', 'Mesa pendiente de cobrar'),
+(232, 'dark_mode', 'Modo Oscuro 🌙');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Estructura de tabla para la tabla `user`
 --
 
 CREATE TABLE `user` (
@@ -1085,7 +1074,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `user`
+-- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_role`) VALUES
@@ -1094,35 +1083,35 @@ INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_role`) VALUES
 (3, 'luis', '$2y$10$30PDCa6OsP4RetegiCIbYORAxooMOZ11p.A5HNbwp5LZHDEttpHwq', 'luis@luis.com', 2);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `bussy_tables`
+-- Indices de la tabla `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
   ADD PRIMARY KEY (`table_id`);
 
 --
--- Indexes for table `chat_logs`
+-- Indices de la tabla `chat_logs`
 --
 ALTER TABLE `chat_logs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dinamic_data`
+-- Indices de la tabla `dinamic_data`
 --
 ALTER TABLE `dinamic_data`
   ADD PRIMARY KEY (`dishe_id`);
 
 --
--- Indexes for table `dinner_hours`
+-- Indices de la tabla `dinner_hours`
 --
 ALTER TABLE `dinner_hours`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dishes`
+-- Indices de la tabla `dishes`
 --
 ALTER TABLE `dishes`
   ADD PRIMARY KEY (`dishe_id`),
@@ -1130,32 +1119,32 @@ ALTER TABLE `dishes`
   ADD KEY `dishes_fk_day` (`category_id`);
 
 --
--- Indexes for table `dishes_day`
+-- Indices de la tabla `dishes_day`
 --
 ALTER TABLE `dishes_day`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `dishes_menu`
+-- Indices de la tabla `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
   ADD PRIMARY KEY (`menu_id`);
 
 --
--- Indexes for table `english_dict`
+-- Indices de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `intents_ia`
+-- Indices de la tabla `intents_ia`
 --
 ALTER TABLE `intents_ia`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tag` (`tag`);
 
 --
--- Indexes for table `invoices`
+-- Indices de la tabla `invoices`
 --
 ALTER TABLE `invoices`
   ADD PRIMARY KEY (`invoice_id`),
@@ -1167,65 +1156,65 @@ ALTER TABLE `invoices`
   ADD KEY `invoices_fk_payment_method` (`payment_method_id`);
 
 --
--- Indexes for table `limit_access`
+-- Indices de la tabla `limit_access`
 --
 ALTER TABLE `limit_access`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ip` (`ip`);
 
 --
--- Indexes for table `menu_day_price`
+-- Indices de la tabla `menu_day_price`
 --
 ALTER TABLE `menu_day_price`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orders`
+-- Indices de la tabla `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `patterns_ia`
+-- Indices de la tabla `patterns_ia`
 --
 ALTER TABLE `patterns_ia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `patterns_fk_intents` (`intent_id`);
 
 --
--- Indexes for table `payment_method`
+-- Indices de la tabla `payment_method`
 --
 ALTER TABLE `payment_method`
   ADD PRIMARY KEY (`payment_method_id`),
   ADD UNIQUE KEY `method_name` (`payment_method`);
 
 --
--- Indexes for table `reservations`
+-- Indices de la tabla `reservations`
 --
 ALTER TABLE `reservations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `responses_ia`
+-- Indices de la tabla `responses_ia`
 --
 ALTER TABLE `responses_ia`
   ADD PRIMARY KEY (`id`),
   ADD KEY `responses_fk_intents` (`intent_id`);
 
 --
--- Indexes for table `roles`
+-- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id_role`);
 
 --
--- Indexes for table `spanish_dict`
+-- Indices de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
@@ -1234,136 +1223,136 @@ ALTER TABLE `user`
   ADD KEY `fk_user_role` (`id_role`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `bussy_tables`
+-- AUTO_INCREMENT de la tabla `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
   MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `chat_logs`
+-- AUTO_INCREMENT de la tabla `chat_logs`
 --
 ALTER TABLE `chat_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
--- AUTO_INCREMENT for table `dinner_hours`
+-- AUTO_INCREMENT de la tabla `dinner_hours`
 --
 ALTER TABLE `dinner_hours`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `dishes_day`
+-- AUTO_INCREMENT de la tabla `dishes_day`
 --
 ALTER TABLE `dishes_day`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `dishes_menu`
+-- AUTO_INCREMENT de la tabla `dishes_menu`
 --
 ALTER TABLE `dishes_menu`
   MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `english_dict`
+-- AUTO_INCREMENT de la tabla `english_dict`
 --
 ALTER TABLE `english_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
--- AUTO_INCREMENT for table `intents_ia`
+-- AUTO_INCREMENT de la tabla `intents_ia`
 --
 ALTER TABLE `intents_ia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `invoices`
+-- AUTO_INCREMENT de la tabla `invoices`
 --
 ALTER TABLE `invoices`
   MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `limit_access`
+-- AUTO_INCREMENT de la tabla `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=535;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=538;
 
 --
--- AUTO_INCREMENT for table `menu_day_price`
+-- AUTO_INCREMENT de la tabla `menu_day_price`
 --
 ALTER TABLE `menu_day_price`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `patterns_ia`
+-- AUTO_INCREMENT de la tabla `patterns_ia`
 --
 ALTER TABLE `patterns_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `payment_method`
+-- AUTO_INCREMENT de la tabla `payment_method`
 --
 ALTER TABLE `payment_method`
   MODIFY `payment_method_id` tinyint(1) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `reservations`
+-- AUTO_INCREMENT de la tabla `reservations`
 --
 ALTER TABLE `reservations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
--- AUTO_INCREMENT for table `responses_ia`
+-- AUTO_INCREMENT de la tabla `responses_ia`
 --
 ALTER TABLE `responses_ia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `spanish_dict`
+-- AUTO_INCREMENT de la tabla `spanish_dict`
 --
 ALTER TABLE `spanish_dict`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `invoices`
+-- Filtros para la tabla `invoices`
 --
 ALTER TABLE `invoices`
   ADD CONSTRAINT `invoices_fk_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `invoices_fk_payment_method` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`payment_method_id`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `patterns_ia`
+-- Filtros para la tabla `patterns_ia`
 --
 ALTER TABLE `patterns_ia`
   ADD CONSTRAINT `patterns_fk_intents` FOREIGN KEY (`intent_id`) REFERENCES `intents_ia` (`id`);
 
 --
--- Constraints for table `responses_ia`
+-- Filtros para la tabla `responses_ia`
 --
 ALTER TABLE `responses_ia`
   ADD CONSTRAINT `responses_fk_intents` FOREIGN KEY (`intent_id`) REFERENCES `intents_ia` (`id`);
