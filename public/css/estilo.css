@@ -203,7 +203,7 @@ select {
 	-o-border-radius: 1em;
 	/*border: 1px solid black;*/
 	padding: 1em;
-	box-shadow: 0px 1.5em 1.5em gray;
+	box-shadow: 0em 0em 1.5em gray;
 }
 
 .menuDia img {
@@ -519,6 +519,10 @@ textarea {
 }
 
 /***************** End Password strength style ***************/
+
+#main-nav {
+	background-color: rgb(255, 250, 250);
+}
 
 #categories-form button {
 	vertical-align: top;
