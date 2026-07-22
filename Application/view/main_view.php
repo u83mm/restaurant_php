@@ -15,7 +15,7 @@
 		<div class="col mb-3 mainImg"></div>
 		<div class="col d-flex justify-content-center align-items-center mb-3">
 			<h2 class="m-0 me-2"><?php echo ucfirst($home->language['welcome']); ?></h2>
-			<img class="img-fluid mainLogo" src="images/restaurant_logo.png" alt="logo">
+			<img id="main-logo" class="img-fluid mainLogo" src="images/restaurant_logo.png" alt="logo">
 		</div>
 								<!-- QR CODE SECTION -->
 		<div id="qr-section">

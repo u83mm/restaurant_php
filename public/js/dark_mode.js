@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
+    const mainRestaurantLogo = document.getElementById('main-logo');
+
     if (!darkModeToggle) return;
     let cssLink = document.createElement('link');
 
@@ -9,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if(isDarkMode) {
         updateBodyClass(isDarkMode);
         toggleDarkModeCSS(isDarkMode);
-        updateButtonEmoji(isDarkMode); 
+        updateButtonEmoji(isDarkMode);
+        
+        if(mainRestaurantLogo) mainRestaurantLogo.src = '/images/restaurant_logo_dark.png'; // set main restaurant logo
     }
 
     darkModeToggle.addEventListener('click', () => {
@@ -18,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBodyClass(isDarkMode);
         toggleDarkModeCSS(isDarkMode);
         updateButtonEmoji(isDarkMode);
+
+        // Change main restaurant logo        
+        !isDarkMode ? mainRestaurantLogo.src = '/images/restaurant_logo.png' : mainRestaurantLogo.src = '/images/restaurant_logo_dark.png';
     });
 });
 

@@ -136,10 +136,10 @@
 		public function do_html_nav(?array $links=NULL, ?string $active_name=NULL): void
 		{
 ?>
-					<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+					<nav id="main-nav" class="navbar navbar-expand-lg navbar-light sticky-top">
 						<div class="container-fluid">
 							<div class="col-5 col-sm-1 col-md-2 col-lg-2 col-xl-1">
-								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>								
+								<a class="navbar-brand" href="/"><img src="/images/main_logo.png" class="img-fluid float-start mainLogo" alt="imagen_logo"></a>								
 							</div>							
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>
