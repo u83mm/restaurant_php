@@ -578,7 +578,7 @@ textarea {
 	border: none;
 	background-color: #007bff;
 	color: white;
-	text-decoration: none;;	
+	text-decoration: none;	
 }
 
 .button-success {
@@ -862,7 +862,7 @@ div:has(#query-registry) h2 {
 
 	.cash-box label {
 		width: 45%;
-	}	
+	}		
 
 	/********** IA DASHBOARD *******/
 	.ai-dashboard > h3:first-of-type {
