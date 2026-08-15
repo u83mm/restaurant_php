@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Generate QR code
     QRCode.toCanvas(document.getElementById('qrcode'), menuUrl, {
-        width: 180,
         margin: 1,
         color: {
             dark: '#000000',
