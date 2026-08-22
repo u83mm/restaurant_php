@@ -1,3 +1,11 @@
+## Restaurant Management System
+
+### Overview (Spanish)
+<p>Este es un sistema de gestión integral para restaurantes que permite administrar todas las operaciones clave del negocio, incluyendo la visualización del menú, toma de pedidos, reservas y gestión de productos. Está diseñado para facilitar la operación diaria desde una interfaz centralizada.</p>
+
+### Overview (English)
+<p>This is a comprehensive restaurant management system designed to handle various aspects of a dining establishment, including menu display, order taking, reservations, and product management. It facilitates daily operations from a centralized interface.</p>
+
 ### Project's views
 <p>Home view</p>
 <img src='demo_views/home.png' width='100%'><br><br>
