@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 29-06-2026 a las 17:31:40
+-- Tiempo de generación: 24-10-2026 a las 07:45:53
 -- Versión del servidor: 12.2.2-MariaDB-ubu2404
 -- Versión de PHP: 8.3.30
 
@@ -59,19 +59,21 @@ CREATE TABLE `chat_logs` (
 --
 
 INSERT INTO `chat_logs` (`id`, `user_message`, `bot_response`, `detected_tag`, `confidence`, `created_at`) VALUES
-(29, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-04-18 11:12:55'),
-(30, 'quisiera come algo', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.567144, '2026-04-18 11:13:03'),
-(31, 'hola', '¡Bienvenido a nuestro Restaurant, ¿qué te gustaría saber?', 'saludo', 0.999706, '2026-04-18 16:24:05'),
-(32, 'qué platos tienes?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.935116, '2026-04-18 16:24:15'),
-(33, 'qué carne me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-18 16:24:26'),
-(34, 'qué me recomiendas comer?', 'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.', 'platos', 0.998708, '2026-04-18 16:24:40'),
-(35, 'hola', '¡Hola! Soy tu asistente de IA, ¿qué necesitas?', 'saludo', 0.999706, '2026-04-18 16:41:43'),
-(36, 'qué me recomiendas comer?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.998708, '2026-04-18 16:41:55'),
-(37, 'tienes pesado fresco?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.970238, '2026-04-18 16:42:05'),
-(38, 'tienes pescado fresco?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999921, '2026-04-18 16:42:15'),
-(39, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.999706, '2026-06-28 20:00:36'),
-(40, 'Me gustaría comer algo de pescado', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.95965, '2026-06-28 20:00:50'),
-(41, 'Me gustaría comer algo de pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999886, '2026-06-28 20:04:54');
+(1, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999951, '2026-08-15 09:04:30'),
+(2, 'algo de pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999983, '2026-08-15 09:04:41'),
+(3, 'qué pesacado me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.997035, '2026-08-15 09:06:24'),
+(4, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999948, '2026-08-15 09:09:27'),
+(5, 'qué pescado me recomiendas?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.99992, '2026-08-15 09:09:38'),
+(6, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.908205, '2026-08-15 09:10:04'),
+(7, 'me recomiendas el pescado?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999958, '2026-08-15 09:10:59'),
+(8, 'quisiera comer', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999524, '2026-08-15 09:12:22'),
+(9, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.518357, '2026-08-15 09:12:32'),
+(10, 'que me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.518357, '2026-08-15 09:13:04'),
+(11, 'quisiera comer', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999524, '2026-08-15 09:14:10'),
+(12, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.934973, '2026-08-15 09:16:16'),
+(13, '¿Que me recomiendas?', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999437, '2026-08-15 09:18:07'),
+(14, 'carne', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.603074, '2026-08-15 09:18:17'),
+(15, 'pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.99994, '2026-08-15 09:18:21');
 
 -- --------------------------------------------------------
 
@@ -490,7 +492,7 @@ INSERT INTO `english_dict` (`id`, `key_word`, `value`) VALUES
 CREATE TABLE `intents_ia` (
   `id` int(11) NOT NULL,
   `tag` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `intents_ia`
@@ -500,6 +502,7 @@ INSERT INTO `intents_ia` (`id`, `tag`) VALUES
 (3, 'despedida'),
 (4, 'pescados'),
 (2, 'platos'),
+(5, 'que_comer'),
 (1, 'saludo');
 
 -- --------------------------------------------------------
@@ -560,7 +563,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(537, '172.16.202.1', 1782751051, 1, '2026-06-29 18:32:31');
+(539, '172.16.202.1', 1792698422, 1, '2026-10-22 21:42:02');
 
 -- --------------------------------------------------------
 
@@ -664,7 +667,11 @@ INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
 (9, 3, 'Nos vemos'),
 (10, 4, '¿Qué tienes de pescado?'),
 (11, 4, '¿Qué pescado tienes?'),
-(12, 4, 'Algo de pescado');
+(12, 4, 'Algo de pescado'),
+(13, 5, 'quisiera comer algo'),
+(14, 5, 'nos gustaría comer algo'),
+(15, 4, 'Qué pescado me recomiendas?'),
+(16, 5, '¿Qué me recomiendas?');
 
 -- --------------------------------------------------------
 
@@ -796,7 +803,8 @@ INSERT INTO `responses_ia` (`id`, `intent_id`, `response_text`) VALUES
 (6, 3, 'Que tengas un buen día.'),
 (7, 3, 'Esperamos volver a verte pronto!'),
 (8, 2, 'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.'),
-(9, 4, 'Actualmente te recomiendo el salmón.');
+(9, 4, 'Actualmente te recomiendo el salmón.'),
+(10, 5, '¿Qué te apetece, pescado, carne, pasta?');
 
 -- --------------------------------------------------------
 
@@ -1236,7 +1244,7 @@ ALTER TABLE `bussy_tables`
 -- AUTO_INCREMENT de la tabla `chat_logs`
 --
 ALTER TABLE `chat_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `dinner_hours`
@@ -1266,7 +1274,7 @@ ALTER TABLE `english_dict`
 -- AUTO_INCREMENT de la tabla `intents_ia`
 --
 ALTER TABLE `intents_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `invoices`
@@ -1278,7 +1286,7 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT de la tabla `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=538;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=540;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -1296,7 +1304,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `patterns_ia`
 --
 ALTER TABLE `patterns_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `payment_method`
@@ -1314,7 +1322,7 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT de la tabla `responses_ia`
 --
 ALTER TABLE `responses_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
