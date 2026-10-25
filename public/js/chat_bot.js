@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
             appendMessage(text, 'user');
             input.value = "";
 
-            // 2. Test current URL
-            if(window.location.href === "http://localhost/index/showCaptcha") {
+            // 2. Test current path/route
+            const requiredPath = "/index/showCaptcha";
+
+            if(window.location.pathname === requiredPath) {
                 appendMessage("Debes introducir el Captcha primero antes de poder continuar. ", 'bot');
                 return;
             }            
