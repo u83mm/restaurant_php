@@ -35,3 +35,5 @@ Application/db_vol/undo*
 ###< my files to ignore ###
 .codegpt
 .aider*
+
+/.env
