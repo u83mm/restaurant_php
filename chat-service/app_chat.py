@@ -33,20 +33,28 @@ except Exception as e:
     print("Aviso: No se encontraron archivos de modelo. Esperando entrenamiento...")
     model = None
     words = []
-    classes = []    
+    classes = []
+
+def get_db_connection():
+    """Abre una conexión a MariaDB usando variables de entorno."""
+    return mysql.connector.connect(
+        host=os.environ["DB_HOST"],
+        port=int(os.environ["DB_PORT"]),
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        database=os.environ["DB_NAME"],
+        charset="utf8mb4",
+        collation="utf8mb4_general_ci",
+        connection_timeout=5,
+    )   
 
 def get_db_response(tag):
     """Consulta una respuesta aleatoria en MariaDB basada en el tag predicho"""
-    try:
-        conn = mysql.connector.connect(
-            host = "db",
-            user = "admin",
-            password = "admin",
-            database = "my_database",
-            charset = "utf8mb4",
-            collation = "utf8mb4_general_ci"
-        )
+    conn = None
+    cursor = None
 
+    try:
+        conn = get_db_connection()
         cursor = conn.cursor()
 
         # Consulta SQL con JOIN para obtener respuestas or etiqueta
@@ -59,8 +67,7 @@ def get_db_response(tag):
 
         cursor.execute(query, (tag,))
         results = cursor.fetchall()
-        conn.close()
-
+        
         if(results):
             return random.choice(results)[0]
         
@@ -68,6 +75,14 @@ def get_db_response(tag):
     except Exception as e:
         print(f"Error de DB: {e}")
         return "Ups, tuve un problema al consultar mi base de datos."
+
+    finally:
+        try:
+            if cursor is not None:
+                cursor.close()
+        finally:
+            if conn is not None:
+                conn.close()
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
@@ -115,23 +130,26 @@ def chat():
         response = "Lo siento, no entiendo qué me quieres decir."
     
     # Guardar log en DB
-    try:
-        conn = mysql.connector.connect(
-            host = "db",
-            user = "admin",
-            password = "admin",
-            database= "my_database",
-            charset = "utf8mb4",
-            collation = "utf8mb4_general_ci"
-        )
+    conn = None
+    cursor = None
 
+    try:
+        conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         query = "INSERT INTO chat_logs (user_message, bot_response, detected_tag, confidence) VALUES(%s, %s, %s, %s)"
         cursor.execute(query, (message, response, tag, confidence))
         conn.commit()
-        conn.close()
+        
     except Exception as e:
         print(f"Error guardando log: {e}")
+
+    finally:
+        try:
+            if cursor is not None:
+                cursor.close()
+        finally:
+            if conn is not None:
+                conn.close()
 
     return jsonify({"response": response, "tag": tag})
 
@@ -141,36 +159,40 @@ def train_model_process():
 
     global model, words, classes
 
-    # 1. Cargar datos de la DB (usamos la lógica que utilizamos en Jupyter)
-    conn = mysql.connector.connect(
-        host = "db",
-        user = "admin",
-        password = "admin",
-        database= "my_database",
-        charset = "utf8mb4",
-        collation = "utf8mb4_general_ci"
-    )
-
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, tag FROM intents_ia")
-    intents_db = cursor.fetchall()
-
+    # 1. Cargar datos de la DB (usamos la lógica que utilizamos en Jupyter)     
     documents = []
     classes = []
     words = []
     ignore_letters = ['?', '!', '¿', '¡', '.', ',']
 
-    for intent in intents_db:
-        tag = intent['tag']
-        classes.append(tag)
-        cursor.execute("SELECT pattern_text FROM patterns_ia WHERE intent_id = %s", (intent['id'],))
+    conn = None
+    cursor = None
 
-        for p in cursor.fetchall():
-            w = nltk.word_tokenize(p['pattern_text'])
-            words.extend(w)
-            documents.append((w, tag))
-    
-    conn.close()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM intents_ia")
+        intents_db = cursor.fetchall()
+
+        for intent in intents_db:
+                tag = intent['tag']
+                classes.append(tag)
+
+                cursor.execute("SELECT pattern_text FROM patterns_ia WHERE intent_id = %s", (intent['id'],))
+        
+                for p in cursor.fetchall():
+                    w = nltk.word_tokenize(p['pattern_text'])
+                    words.extend(w)
+                    documents.append((w, tag))
+
+    finally:
+        try:
+            if cursor is not None:
+                cursor.close()
+        finally:
+            if conn is not None:
+                conn.close()                
 
     # Preprocesamiento
     words = sorted(list(set([stemmer.stem(w.lower()) for w in words if w not in ignore_letters])))

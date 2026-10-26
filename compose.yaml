@@ -66,6 +66,8 @@ services:
   chat-service:
     build: ./chat-service
     container_name: chat-service
+    env_file:
+      - .env
     volumes:
       - ./chat-service:/app
     environment:
