@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 24-10-2026 a las 07:45:53
+-- Tiempo de generación: 26-10-2026 a las 17:35:31
 -- Versión del servidor: 12.2.2-MariaDB-ubu2404
 -- Versión de PHP: 8.3.30
 
@@ -59,21 +59,8 @@ CREATE TABLE `chat_logs` (
 --
 
 INSERT INTO `chat_logs` (`id`, `user_message`, `bot_response`, `detected_tag`, `confidence`, `created_at`) VALUES
-(1, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999951, '2026-08-15 09:04:30'),
-(2, 'algo de pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999983, '2026-08-15 09:04:41'),
-(3, 'qué pesacado me recomiendas?', 'Pues todas nuestras carnes son estupendas! si te gusta la carne', 'platos', 0.997035, '2026-08-15 09:06:24'),
-(4, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999948, '2026-08-15 09:09:27'),
-(5, 'qué pescado me recomiendas?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.99992, '2026-08-15 09:09:38'),
-(6, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.908205, '2026-08-15 09:10:04'),
-(7, 'me recomiendas el pescado?', 'Actualmente te recomiendo el salmón.', 'pescados', 0.999958, '2026-08-15 09:10:59'),
-(8, 'quisiera comer', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999524, '2026-08-15 09:12:22'),
-(9, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.518357, '2026-08-15 09:12:32'),
-(10, 'que me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.518357, '2026-08-15 09:13:04'),
-(11, 'quisiera comer', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999524, '2026-08-15 09:14:10'),
-(12, 'qué me recomiendas?', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.934973, '2026-08-15 09:16:16'),
-(13, '¿Que me recomiendas?', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999437, '2026-08-15 09:18:07'),
-(14, 'carne', 'Lo siento, no entiendo qué me quieres decir.', 'unknown', 0.603074, '2026-08-15 09:18:17'),
-(15, 'pescado', 'Actualmente te recomiendo el salmón.', 'pescados', 0.99994, '2026-08-15 09:18:21');
+(1, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999983, '2026-10-26 17:24:13'),
+(2, 'algo de pasta', 'Puedes probar nuestros macarrones a la boloñesa.', 'pasta', 0.99979, '2026-10-26 17:24:17');
 
 -- --------------------------------------------------------
 
@@ -500,6 +487,7 @@ CREATE TABLE `intents_ia` (
 
 INSERT INTO `intents_ia` (`id`, `tag`) VALUES
 (3, 'despedida'),
+(6, 'pasta'),
 (4, 'pescados'),
 (2, 'platos'),
 (5, 'que_comer'),
@@ -563,7 +551,7 @@ CREATE TABLE `limit_access` (
 --
 
 INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(539, '172.16.202.1', 1792698422, 1, '2026-10-22 21:42:02');
+(541, '172.16.202.1', 1793035053, 1, '2026-10-26 18:12:33');
 
 -- --------------------------------------------------------
 
@@ -671,7 +659,8 @@ INSERT INTO `patterns_ia` (`id`, `intent_id`, `pattern_text`) VALUES
 (13, 5, 'quisiera comer algo'),
 (14, 5, 'nos gustaría comer algo'),
 (15, 4, 'Qué pescado me recomiendas?'),
-(16, 5, '¿Qué me recomiendas?');
+(16, 5, '¿Qué me recomiendas?'),
+(17, 6, 'algo de pasta');
 
 -- --------------------------------------------------------
 
@@ -804,7 +793,8 @@ INSERT INTO `responses_ia` (`id`, `intent_id`, `response_text`) VALUES
 (7, 3, 'Esperamos volver a verte pronto!'),
 (8, 2, 'Nuestros pescados son traídos cada día de la lonja, por lo que son muy frescos.'),
 (9, 4, 'Actualmente te recomiendo el salmón.'),
-(10, 5, '¿Qué te apetece, pescado, carne, pasta?');
+(10, 5, '¿Qué te apetece, pescado, carne, pasta?'),
+(11, 6, 'Puedes probar nuestros macarrones a la boloñesa.');
 
 -- --------------------------------------------------------
 
@@ -1244,7 +1234,7 @@ ALTER TABLE `bussy_tables`
 -- AUTO_INCREMENT de la tabla `chat_logs`
 --
 ALTER TABLE `chat_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `dinner_hours`
@@ -1274,7 +1264,7 @@ ALTER TABLE `english_dict`
 -- AUTO_INCREMENT de la tabla `intents_ia`
 --
 ALTER TABLE `intents_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `invoices`
@@ -1286,7 +1276,7 @@ ALTER TABLE `invoices`
 -- AUTO_INCREMENT de la tabla `limit_access`
 --
 ALTER TABLE `limit_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=540;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=542;
 
 --
 -- AUTO_INCREMENT de la tabla `menu_day_price`
@@ -1304,7 +1294,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT de la tabla `patterns_ia`
 --
 ALTER TABLE `patterns_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `payment_method`
@@ -1322,7 +1312,7 @@ ALTER TABLE `reservations`
 -- AUTO_INCREMENT de la tabla `responses_ia`
 --
 ALTER TABLE `responses_ia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
