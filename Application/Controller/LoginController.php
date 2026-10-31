@@ -89,15 +89,26 @@
 												)
 											) {																									
 												// Test password
-												if(password_verify($this->fields['password'], $result['password'])) {												
-													$_SESSION['id_user'] = $result['id'];						
-													$_SESSION['user_name'] = $result['user_name'];
-													$_SESSION['role'] = $result['role'];																								
+												if(password_verify($this->fields['password'], $result['password'])) {
+													// Regenerate session ID to prevent session fixation
+													if(!session_regenerate_id(true)) {
+														throw new \RuntimeException('Unable to regenerate session ID.');
+													}
+
+													// Generate a new CSRF token after authentication
+													$validate->regenerate_csrf_token();
 
 													// Delete the restriction time
-													if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);										
-																					
-													header("Location: /");							
+													if(isset($this->limited_access_data['id'])) $query_object->deleteRegistry("limit_access", 'id', $this->limited_access_data['id']);
+
+													// Store authenticated user information
+													$_SESSION['id_user'] = $result['id'];						
+													$_SESSION['user_name'] = $result['user_name'];
+													$_SESSION['role'] = $result['role'];										
+
+													// Redirect after successful authentication
+													header("Location: /");
+													exit();	
 												}
 												else {
 													$this->message = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_login']) . "</p>";															
