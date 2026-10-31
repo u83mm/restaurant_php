@@ -72,16 +72,26 @@
         }
 
         /**
-         * Generate and store a CSRF token in the session
+         * Generate and store a CSRF token in the session if one doesn't already exist
+         *
+         * @return string The existing or newly generated CSRF token
+         */
+        public function csrf_token(): string
+        {
+            if(!isset($_SESSION['csrf_token'])) return $this->regenerate_csrf_token();
+            return $_SESSION['csrf_token'];
+        }
+
+        /**
+         * Generate and store a new CSRF token in the session
          *
          * @return string The generated CSRF token
          */
-        public function csrf_token(): string
+        public function regenerate_csrf_token(): string
         {
             $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
             return $_SESSION['csrf_token'];
         }
-
         
         /**
          * Validate the CSRF token from the session and form submission
