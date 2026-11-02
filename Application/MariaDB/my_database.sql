@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 26-10-2026 a las 17:35:31
+-- Tiempo de generación: 02-11-2026 a las 20:49:41
 -- Versión del servidor: 12.2.2-MariaDB-ubu2404
 -- Versión de PHP: 8.3.30
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bussy_tables` (
-  `table_id` tinyint(3) UNSIGNED NOT NULL,
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `table_number` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -36,8 +36,8 @@ CREATE TABLE `bussy_tables` (
 -- Volcado de datos para la tabla `bussy_tables`
 --
 
-INSERT INTO `bussy_tables` (`table_id`, `table_number`) VALUES
-(2, 3);
+INSERT INTO `bussy_tables` (`id`, `table_number`) VALUES
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,10 @@ CREATE TABLE `chat_logs` (
 
 INSERT INTO `chat_logs` (`id`, `user_message`, `bot_response`, `detected_tag`, `confidence`, `created_at`) VALUES
 (1, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999983, '2026-10-26 17:24:13'),
-(2, 'algo de pasta', 'Puedes probar nuestros macarrones a la boloñesa.', 'pasta', 0.99979, '2026-10-26 17:24:17');
+(2, 'algo de pasta', 'Puedes probar nuestros macarrones a la boloñesa.', 'pasta', 0.99979, '2026-10-26 17:24:17'),
+(3, 'hola', '¡Hola! ¿En qué puedo ayudarte hoy?', 'saludo', 0.99956, '2026-10-31 09:26:53'),
+(4, 'quisiera comer algo', '¿Qué te apetece, pescado, carne, pasta?', 'que_comer', 0.999997, '2026-10-31 09:27:00'),
+(5, 'algo de pasta', 'Puedes probar nuestros macarrones a la boloñesa.', 'pasta', 0.999916, '2026-10-31 09:27:06');
 
 -- --------------------------------------------------------
 
@@ -530,7 +533,9 @@ INSERT INTO `invoices` (`invoice_id`, `invoice_number`, `order_id`, `invoice_dat
 (10, '25/12', 12, '2025-07-21 10:57:11', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:57:11', '2025-07-21 10:57:21'),
 (11, '25/13', 13, '2025-07-21 10:58:58', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 10:58:58', '2025-07-21 10:59:07'),
 (12, '25/14', 14, '2025-07-21 11:05:49', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:05:49', '2025-07-21 11:05:57'),
-(13, '25/15', 15, '2025-07-21 11:09:37', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:09:37', '2025-07-21 11:09:47');
+(13, '25/15', 15, '2025-07-21 11:09:37', 'paid', 1, 16.34, 20.00, 3.66, '2025-07-21 11:09:37', '2025-07-21 11:09:47'),
+(14, '26/23', 23, '2026-11-02 20:50:51', 'paid', 1, 7.87, 10.00, 2.13, '2026-11-02 20:50:51', '2026-11-02 20:52:14'),
+(15, '26/26', 26, '2026-11-02 21:44:46', 'paid', 2, 36.91, 36.91, 0.00, '2026-11-02 21:44:46', '2026-11-02 21:47:35');
 
 -- --------------------------------------------------------
 
@@ -545,13 +550,6 @@ CREATE TABLE `limit_access` (
   `failed_tries` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `limit_access`
---
-
-INSERT INTO `limit_access` (`id`, `ip`, `restriction_time`, `failed_tries`, `created_at`) VALUES
-(541, '172.16.202.1', 1793035053, 1, '2026-10-26 18:12:33');
 
 -- --------------------------------------------------------
 
@@ -614,7 +612,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperitifs`, `aperitifs_qty`, `aperitifs_finished`, `firsts_id`, `firsts`, `firsts_qty`, `firsts_finished`, `seconds_id`, `seconds`, `seconds_qty`, `seconds_finished`, `desserts_id`, `desserts`, `desserts_qty`, `desserts_finished`, `drinks_id`, `drinks`, `drinks_qty`, `drinks_finished`, `coffees_id`, `coffees`, `coffees_qty`, `coffees_finished`, `finished`) VALUES
 (1, 1, 1, '', '', '', '', '2', 'ensalada mixta', '1', '0', '6', 'bistec con patatas y verduras', '1', '0', '10', 'catalan cream', '1', '', '5', 'large beer', '1', '', '20', 'small white coffee', '1', '', 1),
-(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 0),
+(2, 3, 2, '12,13', 'olivas rellenas,patatas chips', '1,1', '1,1', '1,2', 'macarrones a la boloñesa,ensalada mixta', '1,1', '1,1', '6', 'bistec con patatas y verduras', '2', '1', '21', 'creps de la casa', '2', '1', '18', 'agua mineral 1.5l', '1', '1', '19,20', 'café solo,café cortado', '1,1', '1,1', 1),
 (3, 3, 1, '', '', '', '0', '2', 'ensalada mixta', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
 (5, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
 (7, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
@@ -625,7 +623,10 @@ INSERT INTO `orders` (`id`, `table_number`, `people_qty`, `aperitifs_id`, `aperi
 (12, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
 (13, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
 (14, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
-(15, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1);
+(15, 1, 1, '', '', '', '0', '1', 'macarrones a la boloñesa', '1', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1),
+(23, 2, 2, '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '5', 'jarra de cerveza', '2', '0', '', '', '', '0', 1),
+(25, 3, 2, '', '', '', '', '', 'ensalada mixta,bistec con patatas y verduras', '1,2', '0,', '', '', '', '', '21', 'creps de la casa', '2', '0', '', '', '', '', '19,20', 'café solo,café cortado', '2,1', '0,', 0),
+(26, 2, 2, '', '', '', '0', '2,4', 'ensalada mixta,paella valenciana', '1,2', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', '', '', '', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -1088,7 +1089,7 @@ INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_role`) VALUES
 -- Indices de la tabla `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
-  ADD PRIMARY KEY (`table_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `chat_logs`
@@ -1228,13 +1229,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `bussy_tables`
 --
 ALTER TABLE `bussy_tables`
-  MODIFY `table_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `chat_logs`
 --
 ALTER TABLE `chat_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `dinner_hours`
@@ -1270,7 +1271,7 @@ ALTER TABLE `intents_ia`
 -- AUTO_INCREMENT de la tabla `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `invoice_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `limit_access`
@@ -1288,7 +1289,7 @@ ALTER TABLE `menu_day_price`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `patterns_ia`
