@@ -70,7 +70,7 @@
         public function index(): void    
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
+            if(!$this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER'])) exit();
 
             $_SESSION['action'] = "index";                                                       
 
@@ -104,7 +104,7 @@
         public function show(): void
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);            
+            if(!$this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER'])) exit();
             
             $_SESSION['action'] = "show";
             $_SESSION['id'] = isset($_POST['id']) ? $_POST['id'] : $_SESSION['id'];                
@@ -213,7 +213,7 @@
         public function add(): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
+            if(!$this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER'])) exit();            
                         
             /** Configure order options */
             if(
@@ -316,10 +316,10 @@
         /**
          * This function updates an order in the database based on the values submitted through a form.
          */
-        public function update(array $array = null): void
+        public function update(?array $array = null): void
         {  
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);                        
+            if(!$this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER'])) exit();
             
             $order = new Order();
 
@@ -429,12 +429,15 @@
         public function delete(): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN']);
+            if(!$this->testAccess(['ROLE_ADMIN'])) exit();
             
             $id = isset($_POST['id']) ? $_POST['id'] : "";            
             
             try {
                 if($id) {
+                    $table_number = $this->query->selectFieldsFromTableById(["table_number"], "orders", "id", $id);
+                    $table_bussy = $this->query->selectFieldsFromTableById(['id'], 'bussy_tables', 'table_number', (string)$table_number['table_number']);
+                    $this->query->deleteRegistry("bussy_tables", "id", $table_bussy['id']);
                     $this->orderRepository->deleteRegistry("orders", "id", $id);
                     $this->message = "<p class='alert alert-success text-center'>Order deleted!</p>";                    
                 } 
@@ -460,7 +463,7 @@
         public function addToOrder(array $variables = []): void
         {
             /** Check for user`s sessions */
-            $this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER']);
+            if(!$this->testAccess(['ROLE_ADMIN', 'ROLE_WAITER'])) exit();
                         
             $order = new Order();            
         
@@ -474,13 +477,17 @@
             $table_number = isset($_POST['table_number']) ? $_POST['table_number'] : null;
             
             if(intval($table_number) !== $result['table_number'] && $result) {
-                // Test if table number already exist
-                if($this->query->testIfTableIsBussy($_POST['table_number'])) {
+                // Test if table number already exist                
+                if($this->query->selectFieldsFromTableById(['table_number'], 'bussy_tables', 'table_number', $table_number)) {
                     $_SESSION['message'] = "<p class='alert alert-danger text-center'>" . ucfirst($this->language['alert_table_busy']) . "</p>";
                     $this->add();
                 }
 
+                // Get the bussy table in the bussy_tables table
+                $bussy_table = $this->query->selectOneBy('bussy_tables', 'table_number', (string)$result['table_number']);
+
                 $this->query->updateRow('orders', ['table_number' => $_POST['table_number']], $id);
+                $this->query->updateRow('bussy_tables', ['table_number' => $_POST['table_number']], $bussy_table['id']);
             }
 
             if(intval($_POST['people_qty']) !== $result['people_qty']) {
