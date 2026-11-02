@@ -377,7 +377,7 @@
         * @return array An array containing the selected fields from the specified table where the
         * provided ID matches the given value.
         */
-        public function selectFieldsFromTableById(array $fields, string $table, string $fieldId, string $value): array
+        public function selectFieldsFromTableById(array $fields, string $table, string $fieldId, string $value): array|bool
         {
             $fields = implode(", ", $fields);
             $query = "SELECT $fields FROM $table WHERE $fieldId = :value";
@@ -538,9 +538,7 @@
                 
             } catch (\Throwable $th) {
                 throw new \Exception("{$th->getMessage()}", 1);
-            }
-
-            return false;
+            }            
         }
     }    
 ?>

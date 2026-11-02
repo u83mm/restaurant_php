@@ -14,7 +14,7 @@ interface QueryInterface {
     public function selectAllOrderByField(string $table, string $field): array;
     public function selectAllOrderByFieldWhereFieldIsNotNull(string $table, string $field): array;
     public function selectCount(string $table): mixed;
-    public function selectFieldsFromTableById(array $fields, string $table, string $fieldId, string $value): array;
+    public function selectFieldsFromTableById(array $fields, string $table, string $fieldId, string $value): array|bool;
     public function selectFieldsFromTableOrderByField(string $table, array $fields, string $orderByField);
     public function selectOneBy(string $table, string $field, string $value): array|bool|object;
     public function selectOneByFieldNameInnerjoinOnfield(string $table1, string $table2, string $foreignKeyField, string $fieldName, string $field): array|bool;
